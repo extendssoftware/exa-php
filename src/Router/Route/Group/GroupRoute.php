@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Route\Group;
 
-use _PHPStan_76800bfb5\Nette\Neon\Exception;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Group\Exception\AssembleAbstractGroupRoute;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
