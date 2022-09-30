@@ -45,7 +45,7 @@ class StaticFactoryResolver implements ResolverInterface
     public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $factory = $this->factories[$key];
-        if (!is_subclass_of($factory, StaticFactoryInterface::class, true)) {
+        if (!is_subclass_of($factory, StaticFactoryInterface::class)) {
             throw new InvalidStaticFactory($factory);
         }
 

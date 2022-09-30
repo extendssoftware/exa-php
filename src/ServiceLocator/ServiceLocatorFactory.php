@@ -15,7 +15,7 @@ class ServiceLocatorFactory implements ServiceLocatorFactoryInterface
     {
         $serviceLocator = new ServiceLocator($config);
         foreach ($config[ServiceLocatorInterface::class] ?? [] as $fqcn => $services) {
-            if (!is_string($fqcn) || !is_subclass_of($fqcn, ResolverInterface::class, true)) {
+            if (!is_string($fqcn) || !is_subclass_of($fqcn, ResolverInterface::class)) {
                 throw new UnknownResolverType($fqcn);
             }
 

@@ -51,7 +51,7 @@ class FactoryResolver implements ResolverInterface
         $factory = $this->factories[$key];
 
         if (is_string($factory)) {
-            if (!is_subclass_of($factory, ServiceFactoryInterface::class, true)) {
+            if (!is_subclass_of($factory, ServiceFactoryInterface::class)) {
                 throw new InvalidFactoryType($factory);
             }
 
