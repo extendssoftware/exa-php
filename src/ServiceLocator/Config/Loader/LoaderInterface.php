@@ -1,0 +1,15 @@
+<?php
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader;
+
+interface LoaderInterface
+{
+    /**
+     * Load multiple configs and return them all in one indexed array.
+     *
+     * @return mixed[]
+     * @throws LoaderException
+     */
+    public function load(): array;
+}

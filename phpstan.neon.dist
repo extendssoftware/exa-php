@@ -1,0 +1,5 @@
+parameters:
+    level: 8
+    phpVersion: 70400
+    excludePaths:
+        - src/Hateoas/Builder/Builder.php

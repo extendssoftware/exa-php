@@ -1,0 +1,62 @@
+<?php
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Application\Framework\ServiceLocator\Loader;
+
+use ExtendsSoftware\ExaPHP\Application\ApplicationInterface;
+use ExtendsSoftware\ExaPHP\Application\Framework\Http\Middleware\InternalServerErrorMiddleware;
+use ExtendsSoftware\ExaPHP\Application\Framework\Http\Middleware\NotImplementedMiddleware;
+use ExtendsSoftware\ExaPHP\Application\Framework\Http\Middleware\RendererMiddleware;
+use ExtendsSoftware\ExaPHP\Application\Framework\ServiceLocator\Factory\ApplicationFactory;
+use ExtendsSoftware\ExaPHP\Application\Http\Renderer\Renderer;
+use ExtendsSoftware\ExaPHP\Application\Http\Renderer\RendererInterface;
+use ExtendsSoftware\ExaPHP\Hateoas\Framework\Http\Middleware\Hateoas\HateoasMiddleware;
+use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
+use ExtendsSoftware\ExaPHP\Logger\Framework\Http\Middleware\Logger\LoggerMiddleware;
+use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\Http\Middleware\ProblemDetailsMiddleware;
+use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
+use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router\RouterMiddleware;
+use ExtendsSoftware\ExaPHP\Security\Framework\Http\Middleware\AuthenticationMiddleware;
+use ExtendsSoftware\ExaPHP\Security\Framework\Http\Middleware\AuthorizationMiddleware;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
+use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+
+class ApplicationConfigLoader implements LoaderInterface
+{
+    /**
+     * @inheritDoc
+     */
+    public function load(): array
+    {
+        return [
+            ServiceLocatorInterface::class => [
+                FactoryResolver::class => [
+                    ApplicationInterface::class => ApplicationFactory::class,
+                ],
+                InvokableResolver::class => [
+                    NotImplementedMiddleware::class => NotImplementedMiddleware::class,
+                    InternalServerErrorMiddleware::class => InternalServerErrorMiddleware::class,
+                    RendererInterface::class => Renderer::class,
+                ],
+                ReflectionResolver::class => [
+                    RendererMiddleware::class => RendererMiddleware::class,
+                ],
+            ],
+            MiddlewareChainInterface::class => [
+                RendererMiddleware::class => 1000,
+                ProblemDetailsMiddleware::class => 900,
+                InternalServerErrorMiddleware::class => 800,
+                LoggerMiddleware::class => 700,
+                HateoasMiddleware::class => 600,
+                RouterMiddleware::class => 500,
+                AuthenticationMiddleware::class => 400,
+                AuthorizationMiddleware::class => 300,
+                ControllerMiddleware::class => 200,
+                NotImplementedMiddleware::class => 100,
+            ],
+        ];
+    }
+}
