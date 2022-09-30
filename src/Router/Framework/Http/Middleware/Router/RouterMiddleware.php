@@ -18,7 +18,6 @@ use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\QueryParameterMissing;
-use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
@@ -73,9 +72,7 @@ class RouterMiddleware implements MiddlewareInterface
             );
         }
 
-        if ($match instanceof RouteMatchInterface) {
-            $request = $request->andAttribute('routeMatch', $match);
-        }
+        $request = $request->andAttribute('routeMatch', $match);
 
         return $chain->proceed($request);
     }

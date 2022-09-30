@@ -20,9 +20,7 @@ class ServiceLocatorFactory implements ServiceLocatorFactoryInterface
             }
 
             $resolver = $fqcn::factory($services);
-            if ($resolver instanceof ResolverInterface) {
-                $serviceLocator->addResolver($resolver, $fqcn);
-            }
+            $serviceLocator->addResolver($resolver, $fqcn);
         }
 
         return $serviceLocator;
