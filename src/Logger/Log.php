@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Logger;
 
 use DateTime;
-use Exception;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 
