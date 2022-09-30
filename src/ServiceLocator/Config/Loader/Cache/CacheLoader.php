@@ -31,7 +31,6 @@ class CacheLoader implements LoaderInterface
     {
         $filename = $this->getFilename();
         if (is_file($filename)) {
-            /** @noinspection PhpIncludeInspection */
             return require $filename;
         }
 
