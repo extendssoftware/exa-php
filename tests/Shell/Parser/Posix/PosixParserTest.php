@@ -112,7 +112,7 @@ class PosixParserTest extends TestCase
      * Short option flag.
      *
      * Test that short options ('-f', '-b' and '-b') will be parsed as flags and will contain true value. If a flag
-     * exists more then once, it still must be true.
+     * exists more than once, it still must be true.
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parse()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parseArguments()
@@ -328,7 +328,7 @@ class PosixParserTest extends TestCase
     /**
      * Long option with combined argument.
      *
-     * Test that long option ('--name=John Doe') will be be parsed.
+     * Test that long option ('--name=John Doe') will be parsed.
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parse()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parseArguments()
@@ -630,9 +630,9 @@ class PosixParserTest extends TestCase
     }
 
     /**
-     * Non strict mode.
+     * Non-strict mode.
      *
-     * Test that parsing in non strict mode will only return options ('-f' and '--quite') and operand ('John Doe') from
+     * Test that parsing in non-strict mode will only return options ('-f' and '--quite') and operand ('John Doe') from
      * definition. Other options ('-xf', '-ab' and '--help') and operand ('Jane Doe') must remain.
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parse()
@@ -642,11 +642,9 @@ class PosixParserTest extends TestCase
      */
     public function testNonStrictMode(): void
     {
-        /**
-         * @var OptionNotFound  $optionNotFound
-         * @var OperandNotFound $operandNotFound
-         */
+        /** @var OptionNotFound  $optionNotFound */
         $optionNotFound = $this->createMock(OptionNotFound::class);
+        /** @var OperandNotFound $operandNotFound */
         $operandNotFound = $this->createMock(OperandNotFound::class);
 
         $definition = $this->createMock(DefinitionInterface::class);

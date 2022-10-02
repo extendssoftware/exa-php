@@ -17,11 +17,13 @@ class Renderer implements RendererInterface
                 $value = implode(', ', $value);
             }
 
-            header(sprintf(
-                '%s: %s',
-                $header,
-                $value
-            ));
+            header(
+                sprintf(
+                    '%s: %s',
+                    $header,
+                    $value
+                )
+            );
         }
 
         http_response_code($response->getStatusCode());

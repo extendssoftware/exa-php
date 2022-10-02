@@ -10,51 +10,19 @@ use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 class Log implements LogInterface
 {
     /**
-     * Actual message.
-     *
-     * @var string
-     */
-    private string $message;
-
-    /**
-     * Log priority.
-     *
-     * @var PriorityInterface
-     */
-    private $priority;
-
-    /**
-     * Datetime when log happened.
-     *
-     * @var DateTime
-     */
-    private DateTime $datetime;
-
-    /**
-     * Extra meta data.
-     *
-     * @var mixed[]
-     */
-    private array $metaData;
-
-    /**
      * Create new log.
      *
      * @param string                 $message
      * @param PriorityInterface|null $priority
      * @param DateTime|null          $datetime
-     * @param mixed[]|null           $metaData
+     * @param mixed[]                $metaData
      */
     public function __construct(
-        string $message,
-        PriorityInterface $priority = null,
-        DateTime $datetime = null,
-        array $metaData = null
+        private string                      $message,
+        private readonly ?PriorityInterface $priority = null,
+        private readonly ?DateTime          $datetime = null,
+        private ?array                      $metaData = []
     ) {
-        $this->message = $message;
-        $this->priority = $priority ?? new CriticalPriority();
-        $this->datetime = $datetime ?? new DateTime();
-        $this->metaData = $metaData ?? [];
     }
 
     /**
@@ -70,7 +38,7 @@ class Log implements LogInterface
      */
     public function getPriority(): PriorityInterface
     {
-        return $this->priority;
+        return $this->priority ?? new CriticalPriority();
     }
 
     /**
@@ -78,7 +46,7 @@ class Log implements LogInterface
      */
     public function getDateTime(): DateTime
     {
-        return $this->datetime;
+        return $this->datetime ?? new DateTime();
     }
 
     /**
@@ -86,7 +54,7 @@ class Log implements LogInterface
      */
     public function getMetaData(): array
     {
-        return $this->metaData;
+        return $this->metaData ?? [];
     }
 
     /**
@@ -114,7 +82,7 @@ class Log implements LogInterface
     /**
      * @inheritDoc
      */
-    public function andMetaData(string $key, $value): LogInterface
+    public function andMetaData(string $key, mixed $value): LogInterface
     {
         $log = clone $this;
         $log->metaData[$key] = $value;

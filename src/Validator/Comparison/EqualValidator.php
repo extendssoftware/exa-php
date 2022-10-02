@@ -7,6 +7,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class EqualValidator extends AbstractValidator
 {
@@ -18,27 +19,22 @@ class EqualValidator extends AbstractValidator
     public const NOT_EQUAL = 'notEqual';
 
     /**
-     * Value to compare to.
-     *
-     * @var mixed
-     */
-    private $subject;
-
-    /**
-     * AbstractComparisonValidator constructor.
+     * EqualValidator constructor.
      *
      * @param mixed $subject
      */
-    public function __construct($subject)
+    public function __construct(private readonly mixed $subject)
     {
-        $this->subject = $subject;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new EqualValidator(
             /** @phpstan-ignore-next-line */
             $extra['subject']

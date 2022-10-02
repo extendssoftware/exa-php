@@ -13,36 +13,23 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class HostRoute implements RouteInterface, StaticFactoryInterface
 {
     /**
-     * Host to match.
-     *
-     * @var string
-     */
-    private string $host;
-
-    /**
-     * Default parameters to return.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
      * Create a method route.
      *
-     * @param string       $host
-     * @param mixed[]|null $parameters
+     * @param string  $host
+     * @param mixed[] $parameters
      */
-    public function __construct(string $host, array $parameters = null)
+    public function __construct(private readonly string $host, private readonly array $parameters = [])
     {
-        $this->host = $host;
-        $this->parameters = $parameters ?? [];
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string $key,
+        ServiceLocatorInterface $serviceLocator,
+        array  $extra = null
+    ): RouteInterface {
         /** @phpstan-ignore-next-line */
         return new HostRoute($extra['host'], $extra['parameters'] ?? []);
     }

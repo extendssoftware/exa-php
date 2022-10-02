@@ -7,6 +7,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class GreaterOrEqualValidator extends AbstractValidator
 {
@@ -18,27 +19,22 @@ class GreaterOrEqualValidator extends AbstractValidator
     public const NOT_GREATER_OR_EQUAL = 'notGreaterOrEqual';
 
     /**
-     * Value to compare to.
-     *
-     * @var mixed
-     */
-    private $subject;
-
-    /**
-     * AbstractComparisonValidator constructor.
+     * GreaterOrEqualValidator constructor.
      *
      * @param mixed $subject
      */
-    public function __construct($subject)
+    public function __construct(private readonly mixed $subject)
     {
-        $this->subject = $subject;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new GreaterOrEqualValidator(
             /** @phpstan-ignore-next-line */
             $extra['subject']

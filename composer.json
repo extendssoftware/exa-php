@@ -12,7 +12,7 @@
     }
   ],
   "require": {
-    "php": "^7.4",
+    "php": "^8.1",
     "ext-json": "*",
     "ext-pdo": "*",
     "phpstan/phpstan": "^1.8",
@@ -42,6 +42,6 @@
     "phpunit": "phpunit",
     "phpcs": "phpcs",
     "phpcbf": "phpcbf",
-    "phpstan": "phpstan analyse src"
+    "phpstan": "phpstan analyse"
   }
 }

@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Router\Route\Method;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
@@ -17,7 +17,7 @@ class MethodRouteTest extends TestCase
     /**
      * Match.
      *
-     * Test that POST method will be matched and a instance of RouteMatchInterface will be returned.
+     * Test that POST method will be matched and an instance of RouteMatchInterface will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Method\MethodRoute::__construct()
@@ -67,7 +67,7 @@ class MethodRouteTest extends TestCase
     /**
      * Match without parameters.
      *
-     * Test that POST method will be matched and a instance of RouteMatchInterface will be returned.
+     * Test that POST method will be matched and an instance of RouteMatchInterface will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Method\MethodRoute::factory()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Method\MethodRoute::__construct()
@@ -162,8 +162,8 @@ class MethodRouteTest extends TestCase
         /**
          * @var RequestInterface $request
          */
-        $method = new MethodRoute('POST', null, [
-            $validator
+        $method = new MethodRoute('POST', validators: [
+            $validator,
         ]);
         $method->match($request, 5);
     }

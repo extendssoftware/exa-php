@@ -17,7 +17,10 @@ class GroupRouteExpected extends LogicException implements RouterException
     public function __construct(RouteInterface $route)
     {
         parent::__construct(
-            sprintf('A group route was expected, but an instance of "%s" was returned.', get_class($route))
+            sprintf(
+                'A group route was expected, but an instance of "%s" was returned.',
+                get_class($route)
+            )
         );
     }
 }

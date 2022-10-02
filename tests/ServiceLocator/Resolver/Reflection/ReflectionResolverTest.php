@@ -12,7 +12,7 @@ class ReflectionResolverTest extends TestCase
     /**
      * Register.
      *
-     * Test that a invokable can be registered.
+     * Test that an invokable can be registered.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::addReflection()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::getService()

@@ -79,7 +79,7 @@ class AbstractValidatorTest extends TestCase
     /**
      * Invalid result.
      *
-     * Test that a invalid result will be returned.
+     * Test that an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\AbstractValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\AbstractValidator::getInvalidResult()

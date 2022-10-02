@@ -16,20 +16,12 @@ use Throwable;
 class Descriptor implements DescriptorInterface
 {
     /**
-     * Output to send description to.
-     *
-     * @var OutputInterface
-     */
-    private OutputInterface $output;
-
-    /**
      * Create a new descriptor.
      *
      * @param OutputInterface $output
      */
-    public function __construct(OutputInterface $output)
+    public function __construct(private readonly OutputInterface $output)
     {
-        $this->output = $output;
     }
 
     /**
@@ -37,10 +29,10 @@ class Descriptor implements DescriptorInterface
      * @throws FormatterException When foreground color is not supported.
      */
     public function shell(
-        AboutInterface $about,
+        AboutInterface      $about,
         DefinitionInterface $definition,
-        array $commands,
-        bool $short = null
+        array               $commands,
+        bool                $short = null
     ): DescriptorInterface {
         if ($short) {
             $this->output

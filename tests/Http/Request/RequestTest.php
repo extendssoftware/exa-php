@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
-use ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput;
 use ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -16,9 +15,9 @@ class RequestTest extends TestCase
     /**
      * Default $_SERVER global.
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $defaultServer;
+    protected static array $defaultServer;
 
     /**
      * Save default $_SERVER global.
@@ -211,7 +210,7 @@ class RequestTest extends TestCase
     /**
      * Invalid body.
      *
-     * Test that invalid body can not be parsed and a exception will be thrown.
+     * Test that invalid body can not be parsed and an exception will be thrown.
      *
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::fromEnvironment()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody::__construct()

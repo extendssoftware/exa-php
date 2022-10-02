@@ -149,7 +149,7 @@ class RoutesTest extends TestCase
             ->addRoute($route2, 'route2');
 
         try {
-            $this->routes->match($request);
+                $this->routes->match($request);
         } catch (MethodNotAllowed $exception) {
             $this->assertSame(['POST', 'PUT', 'DELETE'], $exception->getAllowedMethods());
         }

@@ -6,26 +6,18 @@ namespace ExtendsSoftware\ExaPHP\Identity;
 class Identity implements IdentityInterface
 {
     /**
-     * Identity identifier.
-     *
-     * @var mixed
-     */
-    private $identifier;
-
-    /**
      * Identity constructor.
      *
      * @param mixed $identifier
      */
-    public function __construct($identifier)
+    public function __construct(private readonly mixed $identifier)
     {
-        $this->identifier = $identifier;
     }
 
     /**
      * @inheritDoc
      */
-    public function getIdentifier()
+    public function getIdentifier(): mixed
     {
         return $this->identifier;
     }

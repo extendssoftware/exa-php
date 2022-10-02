@@ -7,5 +7,4 @@
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
     <file>src</file>
-    <file>tests</file>
 </ruleset>

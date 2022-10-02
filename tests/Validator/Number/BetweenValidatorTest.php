@@ -11,7 +11,7 @@ class BetweenValidatorTest extends TestCase
     /**
      * Valid inclusive values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function validInclusiveDataProvider(): array
     {
@@ -29,7 +29,7 @@ class BetweenValidatorTest extends TestCase
     /**
      * Invalid inclusive values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function invalidInclusiveDataProvider(): array
     {
@@ -44,7 +44,7 @@ class BetweenValidatorTest extends TestCase
     /**
      * Invalid exclusive values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function invalidExclusiveDataProvider(): array
     {
@@ -67,7 +67,7 @@ class BetweenValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
      * @dataProvider validInclusiveDataProvider
      */
-    public function testValid($number): void
+    public function testValid(float|int $number): void
     {
         $validator = new BetweenValidator(1, 10);
 
@@ -85,7 +85,7 @@ class BetweenValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
      * @dataProvider invalidInclusiveDataProvider
      */
-    public function testInvalid($number): void
+    public function testInvalid(float|int $number): void
     {
         $validator = new BetweenValidator(1, 10);
 
@@ -103,7 +103,7 @@ class BetweenValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
      * @dataProvider invalidExclusiveDataProvider
      */
-    public function testExclusive($number): void
+    public function testExclusive(float|int $number): void
     {
         $validator = new BetweenValidator(1, 10, false);
 

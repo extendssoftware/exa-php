@@ -13,6 +13,11 @@ class FormatNotSupported extends RuntimeException
      */
     public function __construct(FormatInterface $format)
     {
-        parent::__construct(sprintf('Format "%s" is not supported.', $format->getName()));
+        parent::__construct(
+            sprintf(
+                'Format "%s" is not supported.',
+                $format->getName()
+            )
+        );
     }
 }

@@ -49,7 +49,7 @@ class CoordinatesValidatorTest extends TestCase
     /**
      * Invalid coordinates object provider.
      *
-     * @return array
+     * @return array<array<object>>
      */
     public function invalidCoordinatesObjectProvider(): array
     {
@@ -85,7 +85,7 @@ class CoordinatesValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\CoordinatesValidator::validate()
      * @dataProvider invalidCoordinatesObjectProvider
      */
-    public function testInvalidCoordinatesObject($coordinates): void
+    public function testInvalidCoordinatesObject(mixed $coordinates): void
     {
         $validator = new CoordinatesValidator();
         $result = $validator->validate($coordinates);

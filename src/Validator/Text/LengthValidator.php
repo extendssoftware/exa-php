@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class LengthValidator extends AbstractValidator
 {
@@ -26,36 +27,23 @@ class LengthValidator extends AbstractValidator
     public const TOO_LONG = 'tooLong';
 
     /**
-     * Minimal length.
-     *
-     * @var int|null
-     */
-    private ?int $min;
-
-    /**
-     * Maximum length.
-     *
-     * @var int|null
-     */
-    private ?int $max;
-
-    /**
      * LengthValidator constructor.
      *
      * @param int|null $min
      * @param int|null $max
      */
-    public function __construct(int $min = null, int $max = null)
+    public function __construct(private readonly ?int $min = null, private readonly ?int $max = null)
     {
-        $this->min = $min;
-        $this->max = $max;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new LengthValidator(
             $extra['min'] ?? null,
             $extra['max'] ?? null

@@ -10,22 +10,13 @@ use RuntimeException;
 class InvalidRequestBody extends RuntimeException implements MethodRouteException
 {
     /**
-     * Validation result.
-     *
-     * @var ResultInterface
-     */
-    private ResultInterface $result;
-
-    /**
      * RequestBodyInvalid constructor.
      *
      * @param ResultInterface $result
      */
-    public function __construct(ResultInterface $result)
+    public function __construct(private readonly ResultInterface $result)
     {
         parent::__construct('Request body is invalid.');
-
-        $this->result = $result;
     }
 
     /**

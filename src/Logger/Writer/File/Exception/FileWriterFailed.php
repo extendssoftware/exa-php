@@ -16,6 +16,12 @@ class FileWriterFailed extends Exception implements FileWriterException
      */
     public function __construct(string $message, string $filename)
     {
-        parent::__construct(sprintf('Failed to write message "%s" to file "%s".', $message, $filename));
+        parent::__construct(
+            sprintf(
+                'Failed to write message "%s" to file "%s".',
+                $message,
+                $filename
+            )
+        );
     }
 }

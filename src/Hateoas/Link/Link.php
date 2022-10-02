@@ -11,61 +11,21 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 class Link implements LinkInterface
 {
     /**
-     * Request.
-     *
-     * @var RequestInterface
-     */
-    private RequestInterface $request;
-
-    /**
-     * If link is embeddable.
-     *
-     * @var bool
-     */
-    private bool $embeddable;
-
-    /**
-     * Role.
-     *
-     * @var RoleInterface|null
-     */
-    private ?RoleInterface $role;
-
-    /**
-     * Permission.
-     *
-     * @var PermissionInterface|null
-     */
-    private ?PermissionInterface $permission;
-
-    /**
-     * Policy.
-     *
-     * @var PolicyInterface|null
-     */
-    private ?PolicyInterface $policy;
-
-    /**
      * Link constructor.
      *
      * @param RequestInterface         $request
-     * @param bool|null                $embeddable
+     * @param bool                     $embeddable
      * @param RoleInterface|null       $role
      * @param PermissionInterface|null $permission
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        RequestInterface $request,
-        bool $embeddable = null,
-        RoleInterface $role = null,
-        PermissionInterface $permission = null,
-        PolicyInterface $policy = null
+        private readonly RequestInterface     $request,
+        private readonly bool                 $embeddable = false,
+        private readonly ?RoleInterface       $role = null,
+        private readonly ?PermissionInterface $permission = null,
+        private readonly ?PolicyInterface     $policy = null
     ) {
-        $this->request = $request;
-        $this->embeddable = $embeddable ?? false;
-        $this->role = $role;
-        $this->permission = $permission;
-        $this->policy = $policy;
     }
 
     /**

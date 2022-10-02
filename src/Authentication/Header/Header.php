@@ -6,29 +6,13 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Header;
 class Header implements HeaderInterface
 {
     /**
-     * Scheme.
-     *
-     * @var string
-     */
-    private string $scheme;
-
-    /**
-     * Credentials.
-     *
-     * @var string
-     */
-    private string $credentials;
-
-    /**
      * Header constructor.
      *
      * @param string $scheme
      * @param string $credentials
      */
-    public function __construct(string $scheme, string $credentials)
+    public function __construct(private readonly string $scheme, private readonly string $credentials)
     {
-        $this->scheme = $scheme;
-        $this->credentials = $credentials;
     }
 
     /**

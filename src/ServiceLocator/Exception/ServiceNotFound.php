@@ -15,9 +15,11 @@ class ServiceNotFound extends Exception implements ServiceLocatorException
      */
     public function __construct(string $key)
     {
-        parent::__construct(sprintf(
-            'No service found for key "%s".',
-            $key
-        ));
+        parent::__construct(
+            sprintf(
+                'No service found for key "%s".',
+                $key
+            )
+        );
     }
 }

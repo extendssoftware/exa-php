@@ -10,6 +10,7 @@ use ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LongitudeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class CoordinatesValidator extends AbstractValidator
 {
@@ -42,8 +43,11 @@ class CoordinatesValidator extends AbstractValidator
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new CoordinatesValidator(
             $extra['latitude'] ?? null,
             $extra['longitude'] ?? null

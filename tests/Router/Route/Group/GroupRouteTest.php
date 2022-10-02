@@ -70,9 +70,9 @@ class GroupRouteTest extends TestCase
     }
 
     /**
-     * Non abstract route.
+     * Non-abstract route.
      *
-     * Test that group route will match non abstract route for request and return RouteMatchInterface.
+     * Test that group route will match non-abstract route for request and return RouteMatchInterface.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Group\GroupRoute::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Group\GroupRoute::match()

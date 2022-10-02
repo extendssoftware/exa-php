@@ -36,8 +36,11 @@ class CriticalPriority implements PriorityInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): PriorityInterface {
         return new CriticalPriority();
     }
 }

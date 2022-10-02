@@ -9,22 +9,18 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderException;
 class AttributeNotFound extends Exception implements BuilderException
 {
     /**
-     * Attribute property.
-     *
-     * @var string
-     */
-    private string $property;
-
-    /**
      * AttributeNotFound constructor.
      *
      * @param string $property
      */
-    public function __construct(string $property)
+    public function __construct(private readonly string $property)
     {
-        $this->property = $property;
-
-        parent::__construct(sprintf('Attribute with property "%s" does not exists.', $property));
+        parent::__construct(
+            sprintf(
+                'Attribute with property "%s" does not exists.',
+                $property
+            )
+        );
     }
 
     /**

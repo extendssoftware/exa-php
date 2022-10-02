@@ -13,7 +13,7 @@ class ObjectValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that stdClass is an valid object.
+     * Test that stdClass is a valid object.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator::validate()
      */

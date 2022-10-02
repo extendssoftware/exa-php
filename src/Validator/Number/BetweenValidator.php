@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class BetweenValidator extends AbstractValidator
 {
@@ -40,45 +41,27 @@ class BetweenValidator extends AbstractValidator
     public const TOO_HIGH_INCLUSIVE = 'tooHighInclusive';
 
     /**
-     * Minimal number.
-     *
-     * @var int|null
-     */
-    private ?int $min;
-
-    /**
-     * Maximum number.
-     *
-     * @var int|null
-     */
-    private ?int $max;
-
-    /**
-     * If min and max are inclusive.
-     *
-     * @var bool
-     */
-    private bool $inclusive;
-
-    /**
      * SizeValidator constructor.
      *
      * @param int|null  $min
      * @param int|null  $max
      * @param bool|null $inclusive
      */
-    public function __construct(int $min = null, int $max = null, bool $inclusive = null)
-    {
-        $this->min = $min;
-        $this->max = $max;
-        $this->inclusive = $inclusive ?? true;
+    public function __construct(
+        private readonly ?int  $min = null,
+        private readonly ?int  $max = null,
+        private readonly ?bool $inclusive = null
+    ) {
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new BetweenValidator(
             $extra['min'] ?? null,
             $extra['max'] ?? null,
@@ -97,8 +80,9 @@ class BetweenValidator extends AbstractValidator
             return $result;
         }
 
+        $inclusive = $this->inclusive ?? true;
         if (is_int($this->min)) {
-            if ($this->inclusive) {
+            if ($inclusive) {
                 if ($value < $this->min) {
                     return $this->getInvalidResult(self::TOO_LOW_INCLUSIVE, [
                         'min' => $this->min,
@@ -114,7 +98,7 @@ class BetweenValidator extends AbstractValidator
         }
 
         if (is_int($this->max)) {
-            if ($this->inclusive) {
+            if ($inclusive) {
                 if ($value > $this->max) {
                     return $this->getInvalidResult(self::TOO_HIGH_INCLUSIVE, [
                         'max' => $this->max,

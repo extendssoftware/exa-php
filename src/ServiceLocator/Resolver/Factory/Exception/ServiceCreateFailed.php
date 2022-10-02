@@ -17,9 +17,12 @@ class ServiceCreateFailed extends Exception implements FactoryResolverException
      */
     public function __construct(string $key, Throwable $exception)
     {
-        parent::__construct(sprintf(
-            'Failed to create service for key "%s". See previous exception for more details.',
-            $key
-        ), 0, $exception);
+        parent::__construct(
+            sprintf(
+                'Failed to create service for key "%s". See previous exception for more details.',
+                $key
+            ),
+            previous: $exception
+        );
     }
 }

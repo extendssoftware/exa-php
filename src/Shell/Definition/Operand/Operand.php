@@ -6,20 +6,12 @@ namespace ExtendsSoftware\ExaPHP\Shell\Definition\Operand;
 class Operand implements OperandInterface
 {
     /**
-     * Operand name.
-     *
-     * @var string
-     */
-    private string $name;
-
-    /**
      * Create new OperandInterface with name.
      *
      * @param string $name
      */
-    public function __construct(string $name)
+    public function __construct(private readonly string $name)
     {
-        $this->name = $name;
     }
 
     /**

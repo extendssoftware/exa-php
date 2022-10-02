@@ -143,7 +143,7 @@ class ConsoleApplicationTest extends TestCase
     }
 
     /**
-     * Task task not found.
+     * Task not found.
      *
      * Test that an exception will be thrown when task can not be found by service locator.
      *

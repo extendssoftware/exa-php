@@ -15,61 +15,32 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class FileWriter extends AbstractWriter
 {
     /**
-     * Location to write file to.
-     *
-     * @var string
-     */
-    private string $location;
-
-    /**
-     * File format for date function.
-     *
-     * @var string
-     */
-    private string $fileFormat;
-
-    /**
-     * Log message format.
-     *
-     * @var string
-     */
-    private string $logFormat;
-
-    /**
-     * End of line character.
-     *
-     * @var string
-     */
-    private string $newLine;
-
-    /**
      * FileWriter constructor.
      *
-     * @param string      $location
-     * @param string|null $fileFormat
-     * @param string|null $logFormat
-     * @param string|null $newLine
+     * @param string $location
+     * @param string $fileFormat
+     * @param string $logFormat
+     * @param string $newLine
      */
     public function __construct(
-        string $location,
-        string $fileFormat = null,
-        string $logFormat = null,
-        string $newLine = null
+        private readonly string $location,
+        private readonly string $fileFormat = 'Y-m-d',
+        private readonly string $logFormat = '{datetime} {keyword} ({value}): {message} {metaData}',
+        private readonly string $newLine = PHP_EOL
     ) {
-        $this->location = $location;
-        $this->fileFormat = $fileFormat ?? 'Y-m-d';
-        $this->logFormat = $logFormat ?? '{datetime} {keyword} ({value}): {message} {metaData}';
-        $this->newLine = $newLine ?? PHP_EOL;
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): WriterInterface {
         $writer = new FileWriter(
-            /** @phpstan-ignore-next-line */
+        /** @phpstan-ignore-next-line */
             $extra['location'],
             $extra['file_format'] ?? null,
             $extra['log_format'] ?? null,

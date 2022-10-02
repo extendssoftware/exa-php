@@ -13,7 +13,7 @@ interface SuggesterInterface
      * @param string           $phrase
      * @param CommandInterface ...$commands
      *
-     * @return CommandInterface|null
+     * @return ?CommandInterface
      */
     public function suggest(string $phrase, CommandInterface ...$commands): ?CommandInterface;
 }

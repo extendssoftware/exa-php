@@ -18,8 +18,7 @@ class ControllerExecutionFailed extends Exception implements ExecutorException
     {
         parent::__construct(
             'Failed to execute request to controller. See previous exception for more details.',
-            0,
-            $exception
+            previous: $exception
         );
     }
 }

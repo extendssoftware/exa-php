@@ -15,6 +15,11 @@ class RouteNotFound extends InvalidArgumentException implements RouterException
      */
     public function __construct(string $name)
     {
-        parent::__construct(sprintf('Route for name "%s" can not be found.', $name));
+        parent::__construct(
+            sprintf(
+                'Route for name "%s" can not be found.',
+                $name
+            )
+        );
     }
 }

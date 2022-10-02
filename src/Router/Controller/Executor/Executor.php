@@ -17,20 +17,12 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class Executor implements ExecutorInterface
 {
     /**
-     * Service locator.
-     *
-     * @var ServiceLocatorInterface
-     */
-    private ServiceLocatorInterface $serviceLocator;
-
-    /**
      * Executor constructor.
      *
      * @param ServiceLocatorInterface $serviceLocator
      */
-    public function __construct(ServiceLocatorInterface $serviceLocator)
+    public function __construct(private readonly ServiceLocatorInterface $serviceLocator)
     {
-        $this->serviceLocator = $serviceLocator;
     }
 
     /**

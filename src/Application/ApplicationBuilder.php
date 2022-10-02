@@ -141,7 +141,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
     {
         try {
             $config = $this->getConfig();
-        } catch (ApplicationBuilderException | LoaderException | MergerException $exception) {
+        } catch (ApplicationBuilderException|LoaderException|MergerException $exception) {
             throw new FailedToLoadCache($exception);
         }
 
@@ -345,9 +345,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
             }
 
             if ($module instanceof ConfigProviderInterface) {
-                foreach ($module
-                             ->getConfig()
-                             ->load() as $loaded) {
+                foreach ($module->getConfig()->load() as $loaded) {
                     $merged = $this->merger->merge(
                         $merged,
                         $loaded

@@ -9,25 +9,18 @@ use LogicException;
 class QueryParameterMissing extends LogicException implements RouteException
 {
     /**
-     * Query parameter.
-     *
-     * @var string
-     */
-    private string $parameter;
-
-    /**
      * RequiredParameterMissing constructor.
      *
      * @param string $parameter
      */
-    public function __construct(string $parameter)
+    public function __construct(private readonly string $parameter)
     {
-        parent::__construct(sprintf(
-            'Query string parameter "%s" value is required.',
-            $parameter
-        ));
-
-        $this->parameter = $parameter;
+        parent::__construct(
+            sprintf(
+                'Query string parameter "%s" value is required.',
+                $parameter
+            )
+        );
     }
 
     /**

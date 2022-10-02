@@ -22,12 +22,13 @@ class InternalServerErrorMiddleware implements MiddlewareInterface
         try {
             return $chain->proceed($request);
         } catch (Throwable $throwable) {
+            $reference = null;
             if ($throwable instanceof ReferencedExceptionInterface) {
                 $reference = $throwable->getReference();
             }
 
             return (new Response())->withBody(
-                new InternalServerErrorProblemDetails($request, $reference ?? null)
+                new InternalServerErrorProblemDetails($request, $reference)
             );
         }
     }

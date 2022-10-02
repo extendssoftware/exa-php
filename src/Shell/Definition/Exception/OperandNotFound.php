@@ -15,9 +15,11 @@ class OperandNotFound extends Exception implements DefinitionException
      */
     public function __construct(int $position)
     {
-        parent::__construct(sprintf(
-            'No operand found for position "%s".',
-            $position
-        ));
+        parent::__construct(
+            sprintf(
+                'No operand found for position "%s".',
+                $position
+            )
+        );
     }
 }

@@ -8,38 +8,17 @@ use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 class Property
 {
     /**
-     * Property name.
-     *
-     * @var string
-     */
-    private string $name;
-
-    /**
-     * Property validator.
-     *
-     * @var ValidatorInterface
-     */
-    private ValidatorInterface $validator;
-
-    /**
-     * If property is optional.
-     *
-     * @var bool
-     */
-    private bool $optional;
-
-    /**
      * Property constructor.
      *
      * @param string             $name
      * @param ValidatorInterface $validator
      * @param bool|null          $optional
      */
-    public function __construct(string $name, ValidatorInterface $validator, bool $optional = null)
-    {
-        $this->name = $name;
-        $this->validator = $validator;
-        $this->optional = $optional ?? false;
+    public function __construct(
+        private readonly string             $name,
+        private readonly ValidatorInterface $validator,
+        private readonly ?bool              $optional = null
+    ) {
     }
 
     /**
@@ -69,6 +48,6 @@ class Property
      */
     public function isOptional(): bool
     {
-        return $this->optional;
+        return $this->optional ?? false;
     }
 }

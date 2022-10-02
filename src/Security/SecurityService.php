@@ -16,27 +16,6 @@ use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 class SecurityService implements SecurityServiceInterface
 {
     /**
-     * Authenticator
-     *
-     * @var AuthenticatorInterface
-     */
-    private AuthenticatorInterface $authenticator;
-
-    /**
-     * Authorizer.
-     *
-     * @var AuthorizerInterface
-     */
-    private AuthorizerInterface $authorizer;
-
-    /**
-     * Identity storage.
-     *
-     * @var StorageInterface
-     */
-    private StorageInterface $storage;
-
-    /**
      * SecurityService constructor.
      *
      * @param AuthenticatorInterface $authenticator
@@ -44,13 +23,10 @@ class SecurityService implements SecurityServiceInterface
      * @param StorageInterface       $storage
      */
     public function __construct(
-        AuthenticatorInterface $authenticator,
-        AuthorizerInterface $authorizer,
-        StorageInterface $storage
+        private readonly AuthenticatorInterface $authenticator,
+        private readonly AuthorizerInterface    $authorizer,
+        private readonly StorageInterface       $storage
     ) {
-        $this->authenticator = $authenticator;
-        $this->authorizer = $authorizer;
-        $this->storage = $storage;
     }
 
     /**

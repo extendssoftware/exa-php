@@ -156,7 +156,7 @@ class RouterTest extends TestCase
     /**
      * Too much query parameters.
      *
-     * Test that more then the allowed query string parameters will return in an exception.
+     * Test that more than the allowed query string parameters will return in an exception.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Routes::matchRoutes()
@@ -238,8 +238,7 @@ class RouterTest extends TestCase
             ->willReturn($this->createMock(RequestInterface::class));
 
         /**
-         * @var RouteInterface   $route
-         * @var RequestInterface $request
+         * @var RouteInterface $route
          */
         $router = new Router();
         $request = $router

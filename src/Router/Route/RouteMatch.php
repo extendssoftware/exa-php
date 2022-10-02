@@ -6,29 +6,13 @@ namespace ExtendsSoftware\ExaPHP\Router\Route;
 class RouteMatch implements RouteMatchInterface
 {
     /**
-     * Matched parameters.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * Request URI path offset.
-     *
-     * @var int
-     */
-    private int $pathOffset;
-
-    /**
      * Create a route match.
      *
      * @param mixed[] $parameters
      * @param int     $pathOffset
      */
-    public function __construct(array $parameters, int $pathOffset)
+    public function __construct(private array $parameters, private int $pathOffset)
     {
-        $this->parameters = $parameters;
-        $this->pathOffset = $pathOffset;
     }
 
     /**

@@ -13,7 +13,7 @@ class Response implements ResponseInterface, StaticFactoryInterface
      *
      * @var mixed
      */
-    private $body;
+    private mixed $body = null;
 
     /**
      * Response headers.
@@ -53,7 +53,7 @@ class Response implements ResponseInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getBody()
+    public function getBody(): mixed
     {
         return $this->body;
     }
@@ -69,7 +69,7 @@ class Response implements ResponseInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getHeader(string $name, $default = null)
+    public function getHeader(string $name, mixed $default = null): mixed
     {
         return $this->headers[$name] ?? $default;
     }

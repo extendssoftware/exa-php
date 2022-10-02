@@ -11,7 +11,7 @@ class LongitudeValidatorTest extends TestCase
     /**
      * Valid longitude coordinate values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function validLongitudeValuesProvider(): array
     {
@@ -33,7 +33,7 @@ class LongitudeValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LongitudeValidator::validate()
      * @dataProvider validLongitudeValuesProvider
      */
-    public function testValid($longitude): void
+    public function testValid(mixed $longitude): void
     {
         $validator = new LongitudeValidator();
         $result = $validator->validate($longitude);
@@ -44,7 +44,7 @@ class LongitudeValidatorTest extends TestCase
     /**
      * Valid longitude coordinate values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function invalidLongitudeValuesProvider(): array
     {
@@ -66,7 +66,7 @@ class LongitudeValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LongitudeValidator::getTemplates()
      * @dataProvider invalidLongitudeValuesProvider
      */
-    public function testInvalid($longitude): void
+    public function testInvalid(mixed $longitude): void
     {
         $validator = new LongitudeValidator();
         $result = $validator->validate($longitude);

@@ -31,8 +31,9 @@ class ContainerResult implements ResultInterface
 
     /**
      * @inheritDoc
+     * @return mixed[]
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $results = array_filter($this->results, static function (ResultInterface $result) {
             return !$result->isValid();

@@ -10,34 +10,19 @@ use InvalidArgumentException;
 class InvalidQueryString extends InvalidArgumentException implements QueryRouteException
 {
     /**
-     * Query string parameter.
-     *
-     * @var string
-     */
-    private string $parameter;
-
-    /**
-     * Validation result.
-     *
-     * @var ResultInterface
-     */
-    private ResultInterface $result;
-
-    /**
      * InvalidParameterValue constructor.
      *
      * @param string          $parameter
      * @param ResultInterface $result
      */
-    public function __construct(string $parameter, ResultInterface $result)
+    public function __construct(private readonly string $parameter, private readonly ResultInterface $result)
     {
-        parent::__construct(sprintf(
-            'Query string parameter "%s" failed to validate.',
-            $parameter
-        ));
-
-        $this->parameter = $parameter;
-        $this->result = $result;
+        parent::__construct(
+            sprintf(
+                'Query string parameter "%s" failed to validate.',
+                $parameter
+            )
+        );
     }
 
     /**

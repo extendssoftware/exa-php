@@ -9,22 +9,18 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderException;
 class LinkNotEmbeddable extends Exception implements BuilderException
 {
     /**
-     * Link rel.
-     *
-     * @var string
-     */
-    private string $rel;
-
-    /**
      * LinkNotEmbeddable constructor.
      *
-     * @param string $property
+     * @param string $rel
      */
-    public function __construct(string $property)
+    public function __construct(private readonly string $rel)
     {
-        $this->rel = $property;
-
-        parent::__construct(sprintf('Link with rel "%s" is not embeddable.', $property));
+        parent::__construct(
+            sprintf(
+                'Link with rel "%s" is not embeddable.',
+                $rel
+            )
+        );
     }
 
     /**

@@ -15,20 +15,12 @@ use ExtendsSoftware\ExaPHP\Security\SecurityServiceInterface;
 class AuthorizationMiddleware implements MiddlewareInterface
 {
     /**
-     * Security service.
-     *
-     * @var SecurityServiceInterface
-     */
-    private SecurityServiceInterface $securityService;
-
-    /**
      * RoutePermissionMiddleware constructor.
      *
      * @param SecurityServiceInterface $securityService
      */
-    public function __construct(SecurityServiceInterface $securityService)
+    public function __construct(private readonly SecurityServiceInterface $securityService)
     {
-        $this->securityService = $securityService;
     }
 
     /**

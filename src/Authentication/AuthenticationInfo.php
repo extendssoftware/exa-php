@@ -8,20 +8,12 @@ use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 class AuthenticationInfo implements AuthenticationInfoInterface
 {
     /**
-     * Identity.
-     *
-     * @var IdentityInterface
-     */
-    private IdentityInterface $identity;
-
-    /**
      * AuthenticationInfo constructor.
      *
      * @param IdentityInterface $identity
      */
-    public function __construct(IdentityInterface $identity)
+    public function __construct(private readonly IdentityInterface $identity)
     {
-        $this->identity = $identity;
     }
 
     /**

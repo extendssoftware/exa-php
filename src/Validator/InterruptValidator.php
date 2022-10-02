@@ -8,29 +8,15 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 class InterruptValidator implements ValidatorInterface
 {
     /**
-     * The validator to assert.
-     *
-     * @var ValidatorInterface
-     */
-    private ValidatorInterface $validator;
-
-    /**
-     * Whether validation must be stopped.
-     *
-     * @var bool
-     */
-    private bool $interrupt;
-
-    /**
      * Set validator and interrupt flag.
      *
      * @param ValidatorInterface $validator
-     * @param bool|null          $interrupt
+     * @param bool               $interrupt
      */
-    public function __construct(ValidatorInterface $validator, bool $interrupt = null)
-    {
-        $this->validator = $validator;
-        $this->interrupt = $interrupt ?? false;
+    public function __construct(
+        private readonly ValidatorInterface $validator,
+        private readonly ?bool              $interrupt = null
+    ) {
     }
 
     /**
@@ -48,6 +34,6 @@ class InterruptValidator implements ValidatorInterface
      */
     public function mustInterrupt(): bool
     {
-        return $this->interrupt;
+        return $this->interrupt ?? false;
     }
 }

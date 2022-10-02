@@ -9,20 +9,12 @@ use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 class SimilarTextSuggester implements SuggesterInterface
 {
     /**
-     * Lowest percentage to match.
-     *
-     * @var int
-     */
-    private int $percentage;
-
-    /**
      * Create new suggester.
      *
-     * @param int|null $percentage
+     * @param int $percentage
      */
-    public function __construct(int $percentage = null)
+    public function __construct(private readonly int $percentage = 60)
     {
-        $this->percentage = $percentage ?: 60;
     }
 
     /**

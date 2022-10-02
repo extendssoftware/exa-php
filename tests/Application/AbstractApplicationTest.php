@@ -34,12 +34,12 @@ class AbstractApplicationTest extends TestCase
             /**
              * @var bool
              */
-            protected $startup = false;
+            protected bool $startup = false;
 
             /**
              * @var bool
              */
-            protected $shutdown = false;
+            protected bool $shutdown = false;
 
             /**
              * @inheritDoc
@@ -99,9 +99,6 @@ class AbstractApplicationTest extends TestCase
      */
     public function testBootstrap(): void
     {
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
         $this->application->bootstrap();
 
         $this->assertTrue($this->module->isStartup());

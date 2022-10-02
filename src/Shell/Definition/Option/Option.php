@@ -8,48 +8,6 @@ use ExtendsSoftware\ExaPHP\Shell\Definition\Option\Exception\NoShortAndLongName;
 class Option implements OptionInterface
 {
     /**
-     * Option name.
-     *
-     * @var string
-     */
-    private string $name;
-
-    /**
-     * Option description.
-     *
-     * @var string
-     */
-    private string $description;
-
-    /**
-     * Short name.
-     *
-     * @var string|null
-     */
-    private ?string $short;
-
-    /**
-     * Long name.
-     *
-     * @var string|null
-     */
-    private ?string $long;
-
-    /**
-     * If an argument is allowed.
-     *
-     * @var bool
-     */
-    private bool $isFlag;
-
-    /**
-     * If multiple arguments are allowed.
-     *
-     * @var bool
-     */
-    private bool $isMultiple;
-
-    /**
      * Create new option.
      *
      * @param string      $name
@@ -62,23 +20,16 @@ class Option implements OptionInterface
      * @throws NoShortAndLongName When both short and long name are not given.
      */
     public function __construct(
-        string $name,
-        string $description,
-        string $short = null,
-        string $long = null,
-        bool $isFlag = null,
-        bool $isMultiple = null
+        private readonly string  $name,
+        private readonly string  $description,
+        private readonly ?string $short = null,
+        private readonly ?string $long = null,
+        private readonly ?bool   $isFlag = null,
+        private readonly ?bool   $isMultiple = null
     ) {
         if ($short === null && $long === null) {
             throw new NoShortAndLongName($name);
         }
-
-        $this->name = $name;
-        $this->description = $description;
-        $this->short = $short;
-        $this->long = $long;
-        $this->isFlag = $isFlag ?? true;
-        $this->isMultiple = $isMultiple ?? false;
     }
 
     /**
@@ -118,7 +69,7 @@ class Option implements OptionInterface
      */
     public function isFlag(): bool
     {
-        return $this->isFlag;
+        return $this->isFlag ?? true;
     }
 
     /**
@@ -126,6 +77,6 @@ class Option implements OptionInterface
      */
     public function isMultiple(): bool
     {
-        return $this->isMultiple;
+        return $this->isMultiple ?? false;
     }
 }

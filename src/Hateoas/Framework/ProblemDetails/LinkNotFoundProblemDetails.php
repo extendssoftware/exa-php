@@ -20,7 +20,10 @@ class LinkNotFoundProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/hateoas/link-not-found',
             'Link not found',
-            sprintf('Link with rel "%s" can not be found.', $exception->getRel()),
+            sprintf(
+                'Link with rel "%s" can not be found.',
+                $exception->getRel()
+            ),
             404,
             $request->getUri()->toRelative(),
             [

@@ -13,6 +13,11 @@ class ColorNotSupported extends RuntimeException
      */
     public function __construct(ColorInterface $color)
     {
-        parent::__construct(sprintf('Color "%s" is not supported.', $color->getName()));
+        parent::__construct(
+            sprintf(
+                'Color "%s" is not supported.',
+                $color->getName()
+            )
+        );
     }
 }

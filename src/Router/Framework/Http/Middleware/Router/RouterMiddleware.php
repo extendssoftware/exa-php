@@ -24,20 +24,12 @@ use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 class RouterMiddleware implements MiddlewareInterface
 {
     /**
-     * Router to route request.
-     *
-     * @var RouterInterface
-     */
-    private RouterInterface $router;
-
-    /**
      * Create a new router middleware.
      *
      * @param RouterInterface $router
      */
-    public function __construct(RouterInterface $router)
+    public function __construct(private readonly RouterInterface $router)
     {
-        $this->router = $router;
     }
 
     /**
@@ -54,7 +46,7 @@ class RouterMiddleware implements MiddlewareInterface
                 ->withBody(
                     new MethodNotAllowedProblemDetails($request, $exception)
                 );
-        } catch (NotFound $exception) {
+        } catch (NotFound) {
             return (new Response())->withBody(
                 new NotFoundProblemDetails($request)
             );
@@ -72,8 +64,8 @@ class RouterMiddleware implements MiddlewareInterface
             );
         }
 
-        $request = $request->andAttribute('routeMatch', $match);
-
-        return $chain->proceed($request);
+        return $chain->proceed(
+            $request->andAttribute('routeMatch', $match)
+        );
     }
 }

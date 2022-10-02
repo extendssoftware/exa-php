@@ -8,29 +8,13 @@ use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 class ShellResult implements ShellResultInterface
 {
     /**
-     * Matched command.
-     *
-     * @var CommandInterface
-     */
-    private CommandInterface $command;
-
-    /**
-     * Parsed data for command.
-     *
-     * @var mixed[]
-     */
-    private array $data;
-
-    /**
      * Create new shell result.
      *
      * @param CommandInterface $command
      * @param mixed[]          $data
      */
-    public function __construct(CommandInterface $command, array $data)
+    public function __construct(private readonly CommandInterface $command, private readonly array $data)
     {
-        $this->command = $command;
-        $this->data = $data;
     }
 
     /**

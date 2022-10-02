@@ -17,5 +17,5 @@ interface ValidatorInterface
      *
      * @return ResultInterface
      */
-    public function validate($value, $context = null): ResultInterface;
+    public function validate(mixed $value, mixed $context = null): ResultInterface;
 }

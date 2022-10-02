@@ -16,38 +16,25 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     use Routes;
 
     /**
-     * If this can be matched.
-     *
-     * @var bool
-     */
-    private bool $abstract;
-
-    /**
-     * Route to match.
-     *
-     * @var RouteInterface
-     */
-    private RouteInterface $innerRoute;
-
-    /**
      * Create a group route.
      *
      * @param RouteInterface $route
      * @param bool           $abstract
      */
-    public function __construct(RouteInterface $route, bool $abstract = null)
+    public function __construct(private readonly RouteInterface $route, private readonly bool $abstract = true)
     {
-        $this->innerRoute = $route;
-        $this->abstract = $abstract ?? true;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string $key,
+        ServiceLocatorInterface $serviceLocator,
+        array  $extra = null
+    ): RouteInterface {
         /** @phpstan-ignore-next-line */
-        return new GroupRoute($extra['route'], $extra['abstract'] ?? null);
+        return new GroupRoute($extra['route'], $extra['abstract'] ?? true);
     }
 
     /**
@@ -55,7 +42,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
-        $outer = $this->innerRoute->match($request, $pathOffset);
+        $outer = $this->route->match($request, $pathOffset);
         if (!$outer instanceof RouteMatchInterface) {
             return null;
         }
@@ -77,7 +64,7 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
      */
     public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface
     {
-        $request = $this->innerRoute->assemble($request, $path, $parameters);
+        $request = $this->route->assemble($request, $path, $parameters);
         if (empty($path)) {
             if ($this->abstract) {
                 throw new AssembleAbstractGroupRoute();

@@ -12,7 +12,7 @@ class InvokableResolverTest extends TestCase
     /**
      * Register.
      *
-     * Test that a invokable can be registered.
+     * Test that an invokable can be registered.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver::addInvokable()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver::getService()
@@ -49,9 +49,9 @@ class InvokableResolverTest extends TestCase
     }
 
     /**
-     * Non existing class.
+     * Non-existing class.
      *
-     * Test that a non existing class can no be registered.
+     * Test that a non-existing class can not be registered.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver::addInvokable()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver::getService()

@@ -23,8 +23,7 @@ class TaskExecuteFailed extends InvalidArgumentException implements ConsoleExcep
                 'Failed to execute task for command "%s", see previous exception for more details.',
                 $command->getName()
             ),
-            0,
-            $exception
+            previous: $exception
         );
     }
 }

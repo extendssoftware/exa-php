@@ -17,11 +17,13 @@ class MissingArgument extends Exception implements ParserException
      */
     public function __construct(OptionInterface $option, bool $long = null)
     {
-        parent::__construct(sprintf(
-            '%s option "%s%s" requires an argument, non given.',
-            $long ? 'Long' : 'Short',
-            $long ? '--' : '-',
-            $long ? $option->getLong() : $option->getShort()
-        ));
+        parent::__construct(
+            sprintf(
+                '%s option "%s%s" requires an argument, non given.',
+                $long ? 'Long' : 'Short',
+                $long ? '--' : '-',
+                $long ? $option->getLong() : $option->getShort()
+            )
+        );
     }
 }

@@ -13,7 +13,7 @@ class BacktraceDecoratorTest extends TestCase
     /**
      * Decorate.
      *
-     * Test that log meta data will be decorated with (at least) a file name from the debug backtrace and that a new
+     * Test that log metadata will be decorated with (at least) a file name from the debug backtrace and that a new
      * instance will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Decorator\Backtrace\BacktraceDecorator::__construct()

@@ -12,7 +12,7 @@ class NumberValidatorTest extends TestCase
     /**
      * Valid number values.
      *
-     * @return array
+     * @return array<array<float>>
      */
     public function validNumberValues(): array
     {
@@ -33,7 +33,7 @@ class NumberValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Type\NumberValidator::validate()
      * @dataProvider validNumberValues
      */
-    public function testValid($number): void
+    public function testValid(mixed $number): void
     {
         $validator = new NumberValidator();
         $result = $validator->validate($number);
@@ -44,7 +44,7 @@ class NumberValidatorTest extends TestCase
     /**
      * Invalid number values.
      *
-     * @return array
+     * @return array<array<string|array<void>>>
      */
     public function invalidNumberValues(): array
     {
@@ -67,7 +67,7 @@ class NumberValidatorTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Type\NumberValidator::getTemplates()
      * @dataProvider invalidNumberValues
      */
-    public function testInvalid($number): void
+    public function testInvalid(mixed $number): void
     {
         $validator = new NumberValidator();
         $result = $validator->validate($number);

@@ -12,32 +12,15 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class HttpApplication extends AbstractApplication
 {
     /**
-     * Middleware chain.
-     *
-     * @var MiddlewareChainInterface
-     */
-    private $chain;
-
-    /**
-     * Request.
-     *
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
      * @inheritDoc
      */
     public function __construct(
-        MiddlewareChainInterface $chain,
-        RequestInterface $request,
-        ServiceLocatorInterface $serviceLocator,
-        array $modules
+        private readonly MiddlewareChainInterface $chain,
+        private readonly RequestInterface         $request,
+        ServiceLocatorInterface                   $serviceLocator,
+        array                                     $modules
     ) {
         parent::__construct($serviceLocator, $modules);
-
-        $this->chain = $chain;
-        $this->request = $request;
     }
 
     /**

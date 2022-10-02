@@ -56,7 +56,7 @@ class FactoryResolverTest extends TestCase
     /**
      * Register.
      *
-     * Test that a invalid factory fqcn can not be registered.
+     * Test that an invalid factory fqcn can not be registered.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver::addFactory()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver::getService()

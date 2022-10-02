@@ -15,7 +15,7 @@ interface RouteInterface
      * @param RequestInterface $request
      * @param int              $pathOffset
      *
-     * @return RouteMatchInterface
+     * @return ?RouteMatchInterface
      * @throws RouteException
      */
     public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface;

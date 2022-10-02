@@ -13,11 +13,13 @@ class InvalidStaticFactory extends RuntimeException implements StaticFactoryReso
      *
      * @param string $factory
      */
-    public function __construct($factory)
+    public function __construct(string $factory)
     {
-        parent::__construct(sprintf(
-            'Factory must be a subclass of StaticFactoryInterface, got "%s".',
-            $factory
-        ));
+        parent::__construct(
+            sprintf(
+                'Factory must be a subclass of StaticFactoryInterface, got "%s".',
+                $factory
+            )
+        );
     }
 }

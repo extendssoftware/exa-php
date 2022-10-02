@@ -12,7 +12,7 @@ class NumericValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that integer value '9' is an valid integer.
+     * Test that integer value '9' is a valid integer.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator::validate()
      */

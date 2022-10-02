@@ -12,7 +12,7 @@ class NotEmptyValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that value is not a empty string.
+     * Test that value is not an empty string.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::validate()
      */
@@ -26,7 +26,7 @@ class NotEmptyValidatorTest extends TestCase
     /**
      * Invalid.
      *
-     * Test that value is a empty string.
+     * Test that value is an empty string.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::getTemplates()

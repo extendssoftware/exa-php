@@ -31,10 +31,7 @@ class SimilarTextSuggesterTest extends TestCase
             ->willReturn('do.task');
 
         $suggester = new SimilarTextSuggester();
-        $suggestion = $suggester->suggest('d_task', ...[
-            $command1,
-            $command2,
-        ]);
+        $suggestion = $suggester->suggest('d_task', $command1, $command2);
 
         $this->assertSame($command2, $suggestion);
     }
@@ -61,10 +58,7 @@ class SimilarTextSuggesterTest extends TestCase
             ->method('getName');
 
         $suggester = new SimilarTextSuggester();
-        $suggestion = $suggester->suggest('some.task', ...[
-            $command1,
-            $command2,
-        ]);
+        $suggestion = $suggester->suggest('some.task', $command1, $command2);
 
         $this->assertSame($command1, $suggestion);
     }
@@ -92,10 +86,7 @@ class SimilarTextSuggesterTest extends TestCase
             ->willReturn('do.task');
 
         $suggester = new SimilarTextSuggester();
-        $suggestion = $suggester->suggest('foo.bar', ...[
-            $command1,
-            $command2,
-        ]);
+        $suggestion = $suggester->suggest('foo.bar', $command1, $command2);
 
         $this->assertNull($suggestion);
     }

@@ -142,7 +142,7 @@ class BuilderTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getProjectedAttributes()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
      */
-    public function testAttributeNotFound()
+    public function testAttributeNotFound(): void
     {
         $this->expectException(AttributeNotFound::class);
 
@@ -181,7 +181,7 @@ class BuilderTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getExpandedResources()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
      */
-    public function testLinkNotFound()
+    public function testLinkNotFound(): void
     {
         $this->expectException(LinkNotFound::class);
 
@@ -220,7 +220,7 @@ class BuilderTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getExpandedResources()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
      */
-    public function testLinkNotEmbeddable()
+    public function testLinkNotEmbeddable(): void
     {
         $this->expectException(LinkNotEmbeddable::class);
 

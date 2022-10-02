@@ -15,9 +15,11 @@ class TemplateNotFound extends Exception implements ValidatorException
      */
     public function __construct(string $key)
     {
-        parent::__construct(sprintf(
-            'No invalid result template found for key "%s".',
-            $key
-        ));
+        parent::__construct(
+            sprintf(
+                'No invalid result template found for key "%s".',
+                $key
+            )
+        );
     }
 }

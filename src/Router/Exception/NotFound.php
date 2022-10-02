@@ -10,22 +10,13 @@ use LogicException;
 class NotFound extends LogicException implements RouterException
 {
     /**
-     * Request.
-     *
-     * @var RequestInterface
-     */
-    private RequestInterface $request;
-
-    /**
      * NotFound constructor.
      *
      * @param RequestInterface $request
      */
-    public function __construct(RequestInterface $request)
+    public function __construct(private readonly RequestInterface $request)
     {
         parent::__construct('Request could not be matched by a route.');
-
-        $this->request = $request;
     }
 
     /**

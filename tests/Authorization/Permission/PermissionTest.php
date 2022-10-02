@@ -11,7 +11,7 @@ class PermissionTest extends TestCase
     /**
      * Dummy permission class.
      *
-     * @var Permission
+     * @var PermissionInterface
      */
     private $permission;
 

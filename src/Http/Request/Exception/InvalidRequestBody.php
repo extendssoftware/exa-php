@@ -15,6 +15,11 @@ class InvalidRequestBody extends Exception implements RequestException
      */
     public function __construct(string $error)
     {
-        parent::__construct(sprintf('Invalid JSON for request body, got parse error "%s".', $error));
+        parent::__construct(
+            sprintf(
+                'Invalid JSON for request body, got parse error "%s".',
+                $error
+            )
+        );
     }
 }

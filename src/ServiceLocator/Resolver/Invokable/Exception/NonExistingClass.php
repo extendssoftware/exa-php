@@ -15,9 +15,11 @@ class NonExistingClass extends Exception implements InvokableResolverException
      */
     public function __construct(string $class)
     {
-        parent::__construct(sprintf(
-            'Invokable "%s" must be a existing class.',
-            $class
-        ));
+        parent::__construct(
+            sprintf(
+                'Invokable "%s" must be a existing class.',
+                $class
+            )
+        );
     }
 }

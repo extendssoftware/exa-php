@@ -13,7 +13,7 @@ class HttpApplicationTest extends TestCase
     /**
      * Run.
      *
-     * Test that middleware chain will be proceed with request.
+     * Test that middleware chain will proceed with request.
      *
      * @covers \ExtendsSoftware\ExaPHP\Application\Http\HttpApplication::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Application\Http\HttpApplication::run()

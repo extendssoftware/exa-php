@@ -49,7 +49,7 @@ interface UriInterface
     /**
      * Get password from URI.
      *
-     * @return string
+     * @return string|null
      */
     public function getPass(): ?string;
 
@@ -63,7 +63,7 @@ interface UriInterface
     /**
      * Get port from URI.
      *
-     * @return int
+     * @return int|null
      */
     public function getPort(): ?int;
 
@@ -84,14 +84,14 @@ interface UriInterface
     /**
      * Get user from URI.
      *
-     * @return string
+     * @return string|null
      */
     public function getUser(): ?string;
 
     /**
      * Get scheme from URI.
      *
-     * @return string
+     * @return string|null
      */
     public function getUserInfo(): ?string;
 

@@ -13,36 +13,24 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class SchemeRoute implements RouteInterface, StaticFactoryInterface
 {
     /**
-     * Parameters to return when route is matched.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * Scheme to match.
-     *
-     * @var string
-     */
-    private string $scheme;
-
-    /**
      * Create a new scheme route.
      *
-     * @param string       $scheme
-     * @param mixed[]|null $parameters
+     * @param string  $scheme
+     * @param mixed[] $parameters
      */
-    public function __construct(string $scheme, array $parameters = null)
+    public function __construct(private string $scheme, private readonly array $parameters = [])
     {
         $this->scheme = strtoupper(trim($scheme));
-        $this->parameters = $parameters ?? [];
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): RouteInterface {
         /** @phpstan-ignore-next-line */
         return new SchemeRoute($extra['scheme'], $extra['parameters'] ?? []);
     }

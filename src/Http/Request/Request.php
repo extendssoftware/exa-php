@@ -24,7 +24,7 @@ class Request implements RequestInterface, StaticFactoryInterface
      *
      * @var mixed
      */
-    private $body;
+    private mixed $body;
 
     /**
      * Request headers.
@@ -90,7 +90,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getAttribute(string $key, $default = null)
+    public function getAttribute(string $key, mixed $default = null): mixed
     {
         return $this->attributes[$key] ?? $default;
     }
@@ -98,7 +98,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getBody()
+    public function getBody(): mixed
     {
         return $this->body;
     }
@@ -114,7 +114,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getHeader(string $name, $default = null)
+    public function getHeader(string $name, mixed $default = null): mixed
     {
         return $this->headers[$name] ?? $default;
     }
@@ -220,14 +220,14 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * Construct from environment variables.
      *
-     * @param mixed[]  $environment
-     * @param mixed    $stream
+     * @param mixed[] $environment
+     * @param mixed   $stream
      *
      * @return RequestInterface
      * @throws InvalidRequestBody
      * @throws TypeError When stream not of type resource.
      */
-    public static function fromEnvironment(array $environment, $stream): RequestInterface
+    public static function fromEnvironment(array $environment, mixed $stream): RequestInterface
     {
         if (!is_resource($stream)) {
             throw new TypeError(sprintf(
@@ -238,7 +238,7 @@ class Request implements RequestInterface, StaticFactoryInterface
 
         $headers = [];
         foreach ($environment as $name => $value) {
-            if (strpos($name, 'HTTP_') === 0) {
+            if (str_starts_with($name, 'HTTP_')) {
                 $name = substr($name, 5);
                 $name = str_replace('_', ' ', $name);
                 $name = strtolower($name);

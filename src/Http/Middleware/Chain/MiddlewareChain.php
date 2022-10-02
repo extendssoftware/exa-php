@@ -12,20 +12,12 @@ use SplPriorityQueue;
 class MiddlewareChain implements MiddlewareChainInterface
 {
     /**
-     * Middleware queue.
-     *
-     * @var SplPriorityQueue<int, MiddlewareInterface>
-     */
-    private SplPriorityQueue $queue;
-
-    /**
      * Set priority queue.
      *
-     * @param SplPriorityQueue<int, MiddlewareInterface>|null $queue
+     * @param SplPriorityQueue<int, MiddlewareInterface> $queue
      */
-    public function __construct(SplPriorityQueue $queue = null)
+    public function __construct(private SplPriorityQueue $queue = new SplPriorityQueue())
     {
-        $this->queue = $queue ?: new SplPriorityQueue();
     }
 
     /**

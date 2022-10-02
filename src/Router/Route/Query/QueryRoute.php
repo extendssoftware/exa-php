@@ -12,40 +12,26 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class QueryRoute implements RouteInterface, StaticFactoryInterface
 {
     /**
-     * Validators for matching the query parameters.
-     *
-     * @var ValidatorInterface[]
+     * @param mixed[] $validators
+     * @param mixed[] $parameters
      */
-    private array $validators;
-
-    /**
-     * Default parameters to return when route is matched.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * @param mixed[]      $validators
-     * @param mixed[]|null $parameters
-     */
-    public function __construct(array $validators, array $parameters = null)
+    public function __construct(private readonly array $validators, private readonly array $parameters = [])
     {
-        $this->validators = $validators;
-        $this->parameters = $parameters ?? [];
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): RouteInterface {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $parameter => $validator) {
             if (is_string($validator)) {

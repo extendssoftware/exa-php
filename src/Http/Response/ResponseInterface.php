@@ -22,7 +22,7 @@ interface ResponseInterface
      *
      * @return mixed
      */
-    public function getBody();
+    public function getBody(): mixed;
 
     /**
      * Return headers.
@@ -41,7 +41,7 @@ interface ResponseInterface
      *
      * @return mixed
      */
-    public function getHeader(string $name, $default = null);
+    public function getHeader(string $name, mixed $default = null): mixed;
 
     /**
      * Return status code.
@@ -57,7 +57,7 @@ interface ResponseInterface
      *
      * @return ResponseInterface
      */
-    public function withBody($body): ResponseInterface;
+    public function withBody(mixed $body): ResponseInterface;
 
     /**
      * Set header with name for value.

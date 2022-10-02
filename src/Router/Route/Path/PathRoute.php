@@ -11,31 +11,9 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class PathRoute implements RouteInterface, StaticFactoryInterface
 {
-    /**
-     * Validators for matching the URI variables.
-     *
-     * @var ValidatorInterface[]
-     */
-    private array $validators;
-
-    /**
-     * Default parameters to return when route is matched.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * Path to match.
-     *
-     * @var string
-     */
-    private string $path;
-
     /**
      * Create new path route.
      *
@@ -48,23 +26,26 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
      *
      * For example: /foo/:bar/:baz/qux
      *
-     * @param string       $path
-     * @param mixed[]|null $validators
-     * @param mixed[]|null $parameters
+     * @param string  $path
+     * @param mixed[] $validators
+     * @param mixed[] $parameters
      */
-    public function __construct(string $path, array $validators = null, array $parameters = null)
-    {
-        $this->path = $path;
-        $this->validators = $validators ?? [];
-        $this->parameters = $parameters ?? [];
+    public function __construct(
+        private readonly string $path,
+        private readonly array  $validators = [],
+        private readonly array  $parameters = []
+    ) {
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): RouteInterface {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $parameter => $validator) {
             if (is_string($validator)) {

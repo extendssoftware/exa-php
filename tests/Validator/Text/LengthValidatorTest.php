@@ -28,7 +28,7 @@ class LengthValidatorTest extends TestCase
     /**
      * Too short.
      *
-     * Test that string is too short and a invalid result will be returned.
+     * Test that string is too short and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()
@@ -45,7 +45,7 @@ class LengthValidatorTest extends TestCase
     /**
      * Too long.
      *
-     * Test that string is too long and a invalid result will be returned.
+     * Test that string is too long and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()

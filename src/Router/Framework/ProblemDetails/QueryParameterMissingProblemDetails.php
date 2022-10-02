@@ -20,7 +20,10 @@ class QueryParameterMissingProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/router/query-parameter-missing',
             'Query parameter missing',
-            sprintf('Query parameter "%s" is missing.', $exception->getParameter()),
+            sprintf(
+                'Query parameter "%s" is missing.',
+                $exception->getParameter()
+            ),
             400,
             $request->getUri()->toRelative(),
             [

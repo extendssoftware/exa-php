@@ -16,6 +16,11 @@ class TaskParameterMissing extends InvalidArgumentException implements ConsoleEx
      */
     public function __construct(CommandInterface $command)
     {
-        parent::__construct(sprintf('Task parameter not defined for command "%s".', $command->getName()));
+        parent::__construct(
+            sprintf(
+                'Task parameter not defined for command "%s".',
+                $command->getName()
+            )
+        );
     }
 }

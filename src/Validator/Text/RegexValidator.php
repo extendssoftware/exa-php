@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class RegexValidator extends AbstractValidator
 {
@@ -19,27 +20,22 @@ class RegexValidator extends AbstractValidator
     public const NOT_VALID = 'notValid';
 
     /**
-     * Regular expression to validate.
-     *
-     * @var string
-     */
-    private string $pattern;
-
-    /**
      * Create new regular expression Validator for pattern.
      *
      * @param string $pattern
      */
-    public function __construct(string $pattern)
+    public function __construct(private readonly string $pattern)
     {
-        $this->pattern = $pattern;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new RegexValidator(
             /** @phpstan-ignore-next-line */
             $extra['pattern']

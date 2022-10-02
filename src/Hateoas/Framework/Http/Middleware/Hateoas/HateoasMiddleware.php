@@ -25,41 +25,6 @@ use ExtendsSoftware\ExaPHP\Security\SecurityServiceInterface;
 class HateoasMiddleware implements MiddlewareInterface
 {
     /**
-     * Authorizer.
-     *
-     * @var AuthorizerInterface
-     */
-    private AuthorizerInterface $authorizer;
-
-    /**
-     * Resource expander.
-     *
-     * @var ExpanderInterface
-     */
-    private ExpanderInterface $expander;
-
-    /**
-     * Serializer.
-     *
-     * @var SerializerInterface
-     */
-    private SerializerInterface $serializer;
-
-    /**
-     * Security service.
-     *
-     * @var SecurityServiceInterface
-     */
-    private SecurityServiceInterface $securityService;
-
-    /**
-     * Router.
-     *
-     * @var RouterInterface
-     */
-    private RouterInterface $router;
-
-    /**
      * HateoasMiddleware constructor.
      *
      * @param AuthorizerInterface      $authorizer
@@ -69,17 +34,12 @@ class HateoasMiddleware implements MiddlewareInterface
      * @param RouterInterface          $router
      */
     public function __construct(
-        AuthorizerInterface      $authorizer,
-        ExpanderInterface        $expander,
-        SerializerInterface      $serializer,
-        SecurityServiceInterface $securityService,
-        RouterInterface          $router
+        private readonly AuthorizerInterface      $authorizer,
+        private readonly ExpanderInterface        $expander,
+        private readonly SerializerInterface      $serializer,
+        private readonly SecurityServiceInterface $securityService,
+        private readonly RouterInterface          $router
     ) {
-        $this->authorizer = $authorizer;
-        $this->expander = $expander;
-        $this->serializer = $serializer;
-        $this->securityService = $securityService;
-        $this->router = $router;
     }
 
     /**

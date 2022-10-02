@@ -18,37 +18,24 @@ use PDOException;
 class PdoWriter extends AbstractWriter
 {
     /**
-     * PDO connection.
-     *
-     * @var PDO
-     */
-    private PDO $pdo;
-
-    /**
-     * Database table.
-     *
-     * @var string
-     */
-    private string $table;
-
-    /**
      * PdoWriter constructor.
      *
-     * @param PDO         $pdo
-     * @param string|null $table
+     * @param PDO    $pdo
+     * @param string $table
      */
-    public function __construct(PDO $pdo, string $table = null)
+    public function __construct(private readonly PDO $pdo, private readonly string $table = 'log')
     {
-        $this->pdo = $pdo;
-        $this->table = $table ?? 'log';
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): WriterInterface {
         $pdo = $serviceLocator->getService(PDO::class);
 
         /**

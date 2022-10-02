@@ -15,9 +15,11 @@ class MissingOperand extends Exception implements ParserException
      */
     public function __construct(string $name)
     {
-        parent::__construct(sprintf(
-            'Operand "%s" is required.',
-            $name
-        ));
+        parent::__construct(
+            sprintf(
+                'Operand "%s" is required.',
+                $name
+            )
+        );
     }
 }

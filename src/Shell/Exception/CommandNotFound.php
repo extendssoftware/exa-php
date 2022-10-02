@@ -15,9 +15,11 @@ class CommandNotFound extends Exception implements ShellException
      */
     public function __construct(string $name)
     {
-        parent::__construct(sprintf(
-            'Command "%s" not found.',
-            $name
-        ));
+        parent::__construct(
+            sprintf(
+                'Command "%s" not found.',
+                $name
+            )
+        );
     }
 }

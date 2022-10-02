@@ -10,29 +10,13 @@ use ExtendsSoftware\ExaPHP\Console\Prompt\PromptInterface;
 class QuestionPrompt implements PromptInterface
 {
     /**
-     * Question to get answer for.
-     *
-     * @var string
-     */
-    private string $question;
-
-    /**
-     * If an answer is required.
-     *
-     * @var bool
-     */
-    private bool $required;
-
-    /**
      * Create new question prompt.
      *
-     * @param string    $question
-     * @param bool|null $required
+     * @param string $question
+     * @param bool   $required
      */
-    public function __construct(string $question, bool $required = null)
+    public function __construct(private readonly string $question, private readonly bool $required = true)
     {
-        $this->question = $question;
-        $this->required = $required ?? true;
     }
 
     /**

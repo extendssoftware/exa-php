@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\QueryParameterMissing;
 use PHPUnit\Framework\TestCase;
 
@@ -37,8 +36,8 @@ class QueryParameterMissingProblemDetailsTest extends TestCase
             ->willReturn('author');
 
         /**
-         * @var RequestInterface $request
-         * @var MethodNotAllowed $exception
+         * @var RequestInterface      $request
+         * @var QueryParameterMissing $exception
          */
         $problemDetails = new QueryParameterMissingProblemDetails($request, $exception);
 

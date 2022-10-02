@@ -29,13 +29,6 @@ class Permission implements PermissionInterface
     private string $separator = ',';
 
     /**
-     * Permission notation.
-     *
-     * @var string
-     */
-    private string $notation;
-
-    /**
      * Case sensitive regular expression to verify notation.
      *
      * @var string
@@ -49,13 +42,11 @@ class Permission implements PermissionInterface
      *
      * @throws InvalidPermissionNotation
      */
-    public function __construct(string $notation)
+    public function __construct(private readonly string $notation)
     {
         if (!preg_match($this->pattern, $notation)) {
             throw new InvalidPermissionNotation($notation);
         }
-
-        $this->notation = $notation;
     }
 
     /**

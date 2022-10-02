@@ -19,8 +19,7 @@ class ControllerNotFound extends Exception implements ExecutorException
     {
         parent::__construct(
             sprintf('Controller for key "%s" can not be retrieved from service locator.', $key),
-            0,
-            $exception
+            previous: $exception
         );
     }
 }

@@ -11,7 +11,6 @@ use ExtendsSoftware\ExaPHP\Shell\Definition\DefinitionInterface;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Operand\OperandInterface;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\OptionInterface;
 use PHPUnit\Framework\TestCase;
-use Throwable;
 
 class DescriptorTest extends TestCase
 {
@@ -580,7 +579,6 @@ class DescriptorTest extends TestCase
 
         /**
          * @var OutputInterface $output
-         * @var Throwable       $exception
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->exception(new Exception('Random exception message!'));
@@ -606,8 +604,7 @@ class DescriptorTest extends TestCase
             ->willReturnSelf();
 
         /**
-         * @var OutputInterface     $output
-         * @var DefinitionInterface $definition
+         * @var OutputInterface $output
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->setVerbosity(3);

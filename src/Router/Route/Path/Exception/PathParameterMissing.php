@@ -15,6 +15,11 @@ class PathParameterMissing extends InvalidArgumentException implements RouteExce
      */
     public function __construct(string $parameter)
     {
-        parent::__construct(sprintf('Failed to assemble route, path parameter "%s" is missing.', $parameter));
+        parent::__construct(
+            sprintf(
+                'Failed to assemble route, path parameter "%s" is missing.',
+                $parameter
+            )
+        );
     }
 }

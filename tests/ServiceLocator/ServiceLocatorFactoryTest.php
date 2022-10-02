@@ -33,7 +33,7 @@ class ServiceLocatorFactoryTest extends TestCase
     /**
      * Unknown resolver.
      *
-     * Test that a unknown resolver can not be found.
+     * Test that an unknown resolver can not be found.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorFactory::create()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Exception\UnknownResolverType::__construct()

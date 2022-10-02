@@ -49,7 +49,6 @@ class FactoryResolver implements ResolverInterface
     public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $factory = $this->factories[$key];
-
         if (is_string($factory)) {
             if (!is_subclass_of($factory, ServiceFactoryInterface::class)) {
                 throw new InvalidFactoryType($factory);

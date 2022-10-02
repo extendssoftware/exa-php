@@ -8,7 +8,6 @@ use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
-use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 
 class JsonSerializerTest extends TestCase
@@ -71,7 +70,6 @@ class JsonSerializerTest extends TestCase
 
         /**
          * @var ResourceInterface $resource
-         * @var IdentityInterface $identity
          */
         $serializer = new JsonSerializer();
 
@@ -151,7 +149,6 @@ class JsonSerializerTest extends TestCase
 
         /**
          * @var ResourceInterface $resource
-         * @var IdentityInterface $identity
          */
         $serializer = new JsonSerializer();
         $this->assertSame(

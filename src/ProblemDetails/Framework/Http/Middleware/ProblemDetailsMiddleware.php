@@ -13,20 +13,12 @@ use ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\SerializerInterface;
 class ProblemDetailsMiddleware implements MiddlewareInterface
 {
     /**
-     * Problem serializer.
-     *
-     * @var SerializerInterface
-     */
-    private SerializerInterface $serializer;
-
-    /**
      * ProblemMiddleware constructor.
      *
      * @param SerializerInterface $serializer
      */
-    public function __construct(SerializerInterface $serializer)
+    public function __construct(private readonly SerializerInterface $serializer)
     {
-        $this->serializer = $serializer;
     }
 
     /**

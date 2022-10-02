@@ -15,6 +15,11 @@ class InvalidPermissionNotation extends InvalidArgumentException implements Perm
      */
     public function __construct(string $permission)
     {
-        parent::__construct(sprintf('Invalid permission notation detected, got "%s".', $permission));
+        parent::__construct(
+            sprintf(
+                'Invalid permission notation detected, got "%s".',
+                $permission
+            )
+        );
     }
 }

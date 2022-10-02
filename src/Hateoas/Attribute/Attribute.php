@@ -10,34 +10,6 @@ use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 class Attribute implements AttributeInterface
 {
     /**
-     * Value.
-     *
-     * @var mixed
-     */
-    private $value;
-
-    /**
-     * Role.
-     *
-     * @var RoleInterface|null
-     */
-    private ?RoleInterface $role;
-
-    /**
-     * Permission.
-     *
-     * @var PermissionInterface|null
-     */
-    private ?PermissionInterface $permission;
-
-    /**
-     * Policy.
-     *
-     * @var PolicyInterface|null
-     */
-    private ?PolicyInterface $policy;
-
-    /**
      * Attribute constructor.
      *
      * @param mixed                    $value
@@ -46,21 +18,17 @@ class Attribute implements AttributeInterface
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        $value,
-        RoleInterface $role = null,
-        PermissionInterface $permission = null,
-        PolicyInterface $policy = null
+        private readonly mixed                $value,
+        private readonly ?RoleInterface       $role = null,
+        private readonly ?PermissionInterface $permission = null,
+        private readonly ?PolicyInterface     $policy = null
     ) {
-        $this->value = $value;
-        $this->role = $role;
-        $this->permission = $permission;
-        $this->policy = $policy;
     }
 
     /**
      * @inheritDoc
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }

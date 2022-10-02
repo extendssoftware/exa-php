@@ -12,38 +12,17 @@ use ExtendsSoftware\ExaPHP\Console\Prompt\PromptInterface;
 class MultipleChoicePrompt implements PromptInterface
 {
     /**
-     * Question to get option for.
-     *
-     * @var string
-     */
-    private string $question;
-
-    /**
-     * Valid options to answer for question.
-     *
-     * @var mixed[]
-     */
-    private array $options;
-
-    /**
-     * If an answer is required.
-     *
-     * @var bool
-     */
-    private bool $required;
-
-    /**
      * Create new multiple choice prompt.
      *
-     * @param string    $question
-     * @param mixed[]   $options
-     * @param bool|null $required
+     * @param string  $question
+     * @param mixed[] $options
+     * @param bool    $required
      */
-    public function __construct(string $question, array $options, bool $required = null)
-    {
-        $this->question = $question;
-        $this->options = $options;
-        $this->required = $required ?? true;
+    public function __construct(
+        private readonly string $question,
+        private readonly array  $options,
+        private readonly bool   $required = true
+    ) {
     }
 
     /**
@@ -56,7 +35,10 @@ class MultipleChoicePrompt implements PromptInterface
             $output
                 ->text($this->question . ' ')
                 ->text(
-                    sprintf('[%s]', implode(',', $this->options)),
+                    sprintf(
+                        '[%s]',
+                        implode(',', $this->options)
+                    ),
                     $output
                         ->getFormatter()
                         ->setForeground(new Yellow())

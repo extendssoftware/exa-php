@@ -9,38 +9,17 @@ use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 class Resource implements ResourceInterface
 {
     /**
-     * Links.
-     *
-     * @var LinkInterface[]|LinkInterface[][]
-     */
-    private array $links;
-
-    /**
-     * Attributes.
-     *
-     * @var AttributeInterface[]
-     */
-    private array $attributes;
-
-    /**
-     * Embedded resources.
-     *
-     * @var ResourceInterface[]|ResourceInterface[][]
-     */
-    private array $resources;
-
-    /**
      * Resource constructor.
      *
-     * @param LinkInterface[]|LinkInterface[][]              $links
-     * @param AttributeInterface[]                           $attributes
-     * @param ResourceInterface[]|ResourceInterface[][]|null $resources
+     * @param LinkInterface[]|LinkInterface[][]         $links
+     * @param AttributeInterface[]                      $attributes
+     * @param ResourceInterface[]|ResourceInterface[][] $resources
      */
-    public function __construct(array $links, array $attributes, array $resources = null)
-    {
-        $this->links = $links;
-        $this->attributes = $attributes;
-        $this->resources = $resources ?? [];
+    public function __construct(
+        private readonly array $links,
+        private readonly array $attributes,
+        private readonly array $resources = []
+    ) {
     }
 
     /**

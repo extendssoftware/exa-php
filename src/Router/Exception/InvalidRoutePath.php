@@ -15,6 +15,11 @@ class InvalidRoutePath extends InvalidArgumentException implements RouterExcepti
      */
     public function __construct(string $path)
     {
-        parent::__construct(sprintf('Invalid router assemble path, got "%s".', $path));
+        parent::__construct(
+            sprintf(
+                'Invalid router assemble path, got "%s".',
+                $path
+            )
+        );
     }
 }

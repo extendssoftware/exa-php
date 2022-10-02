@@ -14,20 +14,12 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 class ControllerMiddleware implements MiddlewareInterface
 {
     /**
-     * Controller executor.
-     *
-     * @var ExecutorInterface
-     */
-    private ExecutorInterface $executor;
-
-    /**
      * ControllerMiddleware constructor.
      *
      * @param ExecutorInterface $executor
      */
-    public function __construct(ExecutorInterface $executor)
+    public function __construct(private readonly ExecutorInterface $executor)
     {
-        $this->executor = $executor;
     }
 
     /**

@@ -11,20 +11,12 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class BacktraceDecorator implements DecoratorInterface, StaticFactoryInterface
 {
     /**
-     * Debug backtrace limit.
-     *
-     * @var int
-     */
-    private int $limit;
-
-    /**
      * Create backtrace decorator.
      *
-     * @param int|null $limit
+     * @param int $limit
      */
-    public function __construct(int $limit = null)
+    public function __construct(private readonly int $limit = 6)
     {
-        $this->limit = $limit ?? 6;
     }
 
     /**

@@ -15,9 +15,11 @@ class UnknownResolverType extends Exception implements ServiceLocatorException
      */
     public function __construct(string $resolver)
     {
-        parent::__construct(sprintf(
-            'Resolver must be instance or subclass of ResolverInterface, got "%s".',
-            $resolver
-        ));
+        parent::__construct(
+            sprintf(
+                'Resolver must be instance or subclass of ResolverInterface, got "%s".',
+                $resolver
+            )
+        );
     }
 }

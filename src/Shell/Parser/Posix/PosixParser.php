@@ -51,8 +51,8 @@ class PosixParser implements ParserInterface
      */
     private function parseArguments(
         DefinitionInterface $definition,
-        array $arguments,
-        bool $strict
+        array               $arguments,
+        bool                $strict
     ): ParseResultInterface {
         $operandPosition = 0;
         $terminated = false;
@@ -72,7 +72,7 @@ class PosixParser implements ParserInterface
                 }
             } elseif ($argument === '--') {
                 $terminated = true;
-            } elseif (strpos($argument, '--') === 0) {
+            } elseif (str_starts_with($argument, '--')) {
                 $long = substr($argument, 2);
                 $long = explode('=', $long, 2);
                 $hasArgument = isset($long[1]);
@@ -103,7 +103,7 @@ class PosixParser implements ParserInterface
                 } else {
                     $remaining[] = $argument;
                 }
-            } elseif (strpos($argument, '-') === 0) {
+            } elseif (str_starts_with($argument, '-')) {
                 $short = substr($argument, 1);
 
                 $parts = str_split($short);
@@ -119,7 +119,7 @@ class PosixParser implements ParserInterface
                             }
                         } elseif (count($parts) > ($index + 1)) {
                             $value = implode(array_slice($parts, $index + 1));
-                            if (strpos($value, '=') === 0) {
+                            if (str_starts_with($value, '=')) {
                                 $value = substr($value, 1);
                             }
 
@@ -189,9 +189,9 @@ class PosixParser implements ParserInterface
      */
     private function getOption(
         DefinitionInterface $definition,
-        string $name,
-        bool $long,
-        bool $strict
+        string              $name,
+        bool                $long,
+        bool                $strict
     ): ?OptionInterface {
         try {
             return $definition->getOption($name, $long);

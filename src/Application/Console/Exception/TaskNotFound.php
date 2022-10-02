@@ -23,8 +23,7 @@ class TaskNotFound extends InvalidArgumentException implements ConsoleException
                 'Task for command "%s" can not be found, see previous exception for more details.',
                 $command->getName()
             ),
-            0,
-            $exception
+            previous: $exception
         );
     }
 }

@@ -27,6 +27,7 @@ class Logger implements LoggerInterface
             $writer
                 ->getWriter()
                 ->write($log);
+
             if ($writer->mustInterrupt()) {
                 break;
             }

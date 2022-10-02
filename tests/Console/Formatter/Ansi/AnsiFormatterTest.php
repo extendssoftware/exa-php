@@ -197,7 +197,7 @@ class AnsiFormatterTest extends TestCase
     /**
      * Unknown color.
      *
-     * Test that an exception will be thrown when a unknown color is given.
+     * Test that an exception will be thrown when an unknown color is given.
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter::resetBuilder()
@@ -228,7 +228,7 @@ class AnsiFormatterTest extends TestCase
     /**
      * Unknown format.
      *
-     * Test that an exception will be thrown when a unknown format is given.
+     * Test that an exception will be thrown when an unknown format is given.
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter::resetBuilder()

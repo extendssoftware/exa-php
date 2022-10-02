@@ -8,20 +8,12 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 class CacheLoader implements LoaderInterface
 {
     /**
-     * Cache file location
-     *
-     * @var string
-     */
-    private string $filename;
-
-    /**
      * CacheLoader constructor.
      *
      * @param string $filename
      */
-    public function __construct(string $filename)
+    public function __construct(private readonly string $filename)
     {
-        $this->filename = $filename;
     }
 
     /**
@@ -48,7 +40,7 @@ class CacheLoader implements LoaderInterface
     {
         file_put_contents(
             $this->getFilename(),
-            '<?php' . ' return ' . var_export($config, true) . ';'
+            sprintf('<?php return %s;', var_export($config, true))
         );
 
         return $this;

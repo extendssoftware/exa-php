@@ -30,27 +30,16 @@ class PropertiesValidator extends AbstractValidator
     public const PROPERTY_MISSING = 'propertyMissing';
 
     /**
-     * Properties to validate.
-     *
-     * @var Property[]
-     */
-    private array $properties = [];
-
-    /**
-     * If only defined properties are allowed.
-     *
-     * @var bool
-     */
-    private bool $strict;
-
-    /**
      * ObjectPropertiesValidator constructor.
      *
      * @param mixed[]|null $properties
      * @param bool|null    $strict
      */
-    public function __construct(array $properties = null, bool $strict = null)
+    public function __construct(private ?array $properties = null, private ?bool $strict = null)
     {
+        $this->properties ??= [];
+        $this->strict ??= true;
+
         foreach ($properties ?? [] as $property => $validator) {
             if (is_array($validator)) {
                 [$validator, $optional] = $validator;
@@ -58,16 +47,17 @@ class PropertiesValidator extends AbstractValidator
 
             $this->addProperty($property, $validator, $optional ?? null);
         }
-
-        $this->strict = $strict ?? true;
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         $properties = new PropertiesValidator(
             null,
             $extra['strict'] ?? null
@@ -99,6 +89,7 @@ class PropertiesValidator extends AbstractValidator
         }
 
         $container = new ContainerResult();
+        /** @phpstan-ignore-next-line */
         foreach ($this->properties as $property) {
             $name = $property->getName();
             if (!property_exists($value, $name)) {
@@ -172,9 +163,10 @@ class PropertiesValidator extends AbstractValidator
      * @return void
      * @throws TemplateNotFound
      */
-    private function checkStrictness(ContainerResult $container, $object): void
+    private function checkStrictness(ContainerResult $container, mixed $object): void
     {
         foreach ($object as $property => $value) {
+            /** @phpstan-ignore-next-line */
             if (!array_key_exists($property, $this->properties)) {
                 $container->addResult(
                     $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [

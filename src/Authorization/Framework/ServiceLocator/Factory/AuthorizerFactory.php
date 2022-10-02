@@ -16,8 +16,11 @@ class AuthorizerFactory implements ServiceFactoryInterface
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public function createService(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): AuthorizerInterface {
         $config = $serviceLocator->getConfig();
         $config = $config[AuthorizerInterface::class] ?? [];
 

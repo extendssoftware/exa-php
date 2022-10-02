@@ -11,37 +11,19 @@ use TypeError;
 class PosixOutput implements OutputInterface
 {
     /**
-     * Resource to write to.
-     *
-     * @var resource
-     */
-    private $stream;
-
-    /**
-     * Text formatter.
-     *
-     * @var FormatterInterface
-     */
-    private $formatter;
-
-    /**
-     * Output verbosity.
-     *
-     * @var int
-     */
-    private int $verbosity;
-
-    /**
      * PosixOutput constructor.
      *
-     * @param FormatterInterface|null $formatter
-     * @param int|null                $verbosity
-     * @param mixed                   $stream
+     * @param FormatterInterface $formatter
+     * @param int                $verbosity
+     * @param mixed              $stream
      *
      * @throws TypeError When stream not of type resource.
      */
-    public function __construct(FormatterInterface $formatter = null, int $verbosity = null, $stream = null)
-    {
+    public function __construct(
+        private readonly FormatterInterface $formatter = new AnsiFormatter(),
+        private int                         $verbosity = 1,
+        private mixed                       $stream = null
+    ) {
         $stream = $stream ?: fopen('php://output', 'w');
         if (!is_resource($stream)) {
             throw new TypeError(sprintf(
@@ -51,8 +33,6 @@ class PosixOutput implements OutputInterface
         }
 
         $this->stream = $stream;
-        $this->formatter = $formatter ?? new AnsiFormatter();
-        $this->verbosity = $verbosity ?? 1;
     }
 
     /**
@@ -86,7 +66,7 @@ class PosixOutput implements OutputInterface
      */
     public function newLine(int $verbosity = null): OutputInterface
     {
-        return $this->text("\n\r", null, $verbosity);
+        return $this->text("\n\r", verbosity: $verbosity);
     }
 
     /**

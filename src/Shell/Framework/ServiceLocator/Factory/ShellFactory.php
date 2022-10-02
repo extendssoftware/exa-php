@@ -15,8 +15,11 @@ class ShellFactory implements ServiceFactoryInterface
      * @inheritDoc
      * @throws DefinitionException
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public function createService(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ShellInterface {
         $config = $serviceLocator->getConfig();
         $config = $config[ShellInterface::class] ?? [];
 

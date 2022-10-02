@@ -18,39 +18,11 @@ use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 class Shell implements ShellInterface
 {
     /**
-     * Shell and command descriptor.
-     *
-     * @var DescriptorInterface
-     */
-    private DescriptorInterface $descriptor;
-
-    /**
-     * Command suggester.
-     *
-     * @var SuggesterInterface
-     */
-    private SuggesterInterface $suggester;
-
-    /**
-     * Parser to use for arguments.
-     *
-     * @var ParserInterface
-     */
-    private ParserInterface $parser;
-
-    /**
-     * Shell about information.
-     *
-     * @var AboutInterface
-     */
-    private AboutInterface $about;
-
-    /**
      * Shell definition for global options.
      *
      * @var DefinitionInterface
      */
-    private $definition;
+    private DefinitionInterface $definition;
 
     /**
      * Commands to iterate.
@@ -68,18 +40,13 @@ class Shell implements ShellInterface
      * @param AboutInterface      $about
      */
     public function __construct(
-        DescriptorInterface $descriptor,
-        SuggesterInterface $suggester,
-        ParserInterface $parser,
-        AboutInterface $about
+        private readonly DescriptorInterface $descriptor,
+        private readonly SuggesterInterface  $suggester,
+        private readonly ParserInterface     $parser,
+        private readonly AboutInterface      $about
     ) {
-        $this->descriptor = $descriptor;
-        $this->suggester = $suggester;
-        $this->parser = $parser;
-        $this->about = $about;
-
         $this->definition = (new Definition())
-            ->addOption(new Option('verbose', 'Be more verbose.', 'v', 'verbose', true, true))
+            ->addOption(new Option('verbose', 'Be more verbose.', 'v', 'verbose', isMultiple: true))
             ->addOption(new Option('help', 'Show help about shell or command.', 'h', 'help'));
     }
 
@@ -90,7 +57,7 @@ class Shell implements ShellInterface
     {
         try {
             $defaults = $this->parser->parse($this->definition, $arguments, false);
-        } catch (ParserException | DefinitionException $exception) {
+        } catch (ParserException|DefinitionException $exception) {
             $this->descriptor
                 ->exception($exception)
                 ->shell($this->about, $this->definition, $this->commands, true);
@@ -140,7 +107,7 @@ class Shell implements ShellInterface
                 $command,
                 $result->getParsed()
             );
-        } catch (ParserException | DefinitionException $exception) {
+        } catch (ParserException|DefinitionException $exception) {
             $this->descriptor
                 ->exception($exception)
                 ->command($this->about, $command, true);

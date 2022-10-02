@@ -125,7 +125,6 @@ class SecurityServiceTest extends TestCase
          * @var AuthenticatorInterface $authenticator
          * @var AuthorizerInterface $authorizer
          * @var StorageInterface $storage
-         * @var HeaderInterface $header
          * @var  PolicyInterface $policy
          */
         $service = new SecurityService($authenticator, $authorizer, $storage);
@@ -160,7 +159,6 @@ class SecurityServiceTest extends TestCase
          * @var AuthenticatorInterface $authenticator
          * @var AuthorizerInterface $authorizer
          * @var StorageInterface $storage
-         * @var HeaderInterface $header
          * @var  PolicyInterface $policy
          */
         $service = new SecurityService($authenticator, $authorizer, $storage);

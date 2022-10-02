@@ -64,7 +64,7 @@ class RendererTest extends TestCase
     /**
      * Render.
      *
-     * Test that no body will be send.
+     * Test that an empty body will not be sent.
      *
      * @covers \ExtendsSoftware\ExaPHP\Application\Http\Renderer\Renderer::render()
      * @runInSeparateProcess

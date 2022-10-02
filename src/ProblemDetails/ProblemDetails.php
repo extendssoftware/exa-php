@@ -6,48 +6,6 @@ namespace ExtendsSoftware\ExaPHP\ProblemDetails;
 class ProblemDetails implements ProblemDetailsInterface
 {
     /**
-     * Type.
-     *
-     * @var string
-     */
-    private string $type;
-
-    /**
-     * Title.
-     *
-     * @var string
-     */
-    private string $title;
-
-    /**
-     * Detail.
-     *
-     * @var string
-     */
-    private string $detail;
-
-    /**
-     * HTTP status code.
-     *
-     * @var int
-     */
-    private int $status;
-
-    /**
-     * Instance.
-     *
-     * @var string|null
-     */
-    private ?string $instance;
-
-    /**
-     * Additional members.
-     *
-     * @var mixed[]|null
-     */
-    private ?array $additional;
-
-    /**
      * Problem constructor.
      *
      * @param string       $type
@@ -58,19 +16,13 @@ class ProblemDetails implements ProblemDetailsInterface
      * @param mixed[]|null $additional
      */
     public function __construct(
-        string $type,
-        string $title,
-        string $detail,
-        int $status,
-        string $instance = null,
-        array $additional = null
+        private readonly string  $type,
+        private readonly string  $title,
+        private readonly string  $detail,
+        private readonly int     $status,
+        private readonly ?string $instance = null,
+        private readonly ?array  $additional = null
     ) {
-        $this->type = $type;
-        $this->title = $title;
-        $this->detail = $detail;
-        $this->status = $status;
-        $this->instance = $instance;
-        $this->additional = $additional;
     }
 
     /**

@@ -17,11 +17,13 @@ class ArgumentNotAllowed extends Exception implements ParserException
      */
     public function __construct(OptionInterface $option, bool $long = null)
     {
-        parent::__construct(sprintf(
-            '%s option argument is not allowed for flag "%s%s".',
-            $long ? 'Long' : 'Short',
-            $long ? '--' : '-',
-            $long ? $option->getLong() : $option->getShort()
-        ));
+        parent::__construct(
+            sprintf(
+                '%s option argument is not allowed for flag "%s%s".',
+                $long ? 'Long' : 'Short',
+                $long ? '--' : '-',
+                $long ? $option->getLong() : $option->getShort()
+            )
+        );
     }
 }

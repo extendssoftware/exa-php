@@ -31,7 +31,7 @@ class LogTest extends TestCase
     /**
      * With methods.
      *
-     * Test that methods will change the message, meta data and return a new instance.
+     * Test that methods will change the message, metadata and return a new instance.
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Log::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Log::withMessage()
@@ -41,7 +41,7 @@ class LogTest extends TestCase
      */
     public function testWithMethods(): void
     {
-        $log = new Log('Error!', null, null, [
+        $log = new Log('Error!', metaData: [
             'foo' => 'bar',
         ]);
         $instance = $log
@@ -59,7 +59,7 @@ class LogTest extends TestCase
     /**
      * And methods.
      *
-     * Test that methods will change the message, meta data and return a new instance.
+     * Test that methods will change the message, metadata and return a new instance.
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Log::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Log::andMetaData()
@@ -67,7 +67,7 @@ class LogTest extends TestCase
      */
     public function testAndMethods(): void
     {
-        $log = new Log('Error!', null, null, [
+        $log = new Log('Error!', metaData: [
             'foo' => 'bar',
         ]);
         $instance = $log->andMetaData('bar', 'baz');

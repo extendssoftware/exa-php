@@ -16,6 +16,7 @@ class InternalServerErrorProblemDetails extends ProblemDetails
      */
     public function __construct(RequestInterface $request, string $reference = null)
     {
+        $additional = null;
         if (is_string($reference)) {
             $additional = [
                 'reference' => $reference,
@@ -28,7 +29,7 @@ class InternalServerErrorProblemDetails extends ProblemDetails
             'An unknown error occurred.',
             500,
             $request->getUri()->toRelative(),
-            $additional ?? null
+            $additional
         );
     }
 }

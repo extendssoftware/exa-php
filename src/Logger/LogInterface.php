@@ -62,5 +62,5 @@ interface LogInterface
      *
      * @return LogInterface
      */
-    public function andMetaData(string $key, $value): LogInterface;
+    public function andMetaData(string $key, mixed $value): LogInterface;
 }

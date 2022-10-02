@@ -15,13 +15,6 @@ use ExtendsSoftware\ExaPHP\Security\SecurityServiceInterface;
 class AuthenticationMiddleware implements MiddlewareInterface
 {
     /**
-     * Security service.
-     *
-     * @var SecurityServiceInterface
-     */
-    private SecurityServiceInterface $securityService;
-
-    /**
      * Pattern to detect scheme and credentials.
      *
      * @var string
@@ -33,9 +26,8 @@ class AuthenticationMiddleware implements MiddlewareInterface
      *
      * @param SecurityServiceInterface $securityService
      */
-    public function __construct(SecurityServiceInterface $securityService)
+    public function __construct(private readonly SecurityServiceInterface $securityService)
     {
-        $this->securityService = $securityService;
     }
 
     /**

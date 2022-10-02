@@ -278,7 +278,7 @@ class QueryRouteTest extends TestCase
     /**
      * Validator without default.
      *
-     * Test that a missing query parameter, without default value, will thrown an exception.
+     * Test that a missing query parameter, without default value, will be thrown an exception.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Query\QueryRoute::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Query\QueryRoute::match()

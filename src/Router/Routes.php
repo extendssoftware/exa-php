@@ -28,9 +28,9 @@ trait Routes
      * @param RouteInterface $route
      * @param string         $name
      *
-     * @return $this
+     * @return static
      */
-    public function addRoute(RouteInterface $route, string $name): self
+    public function addRoute(RouteInterface $route, string $name): static
     {
         $this->routes[$name] = $route;
 

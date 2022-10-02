@@ -17,21 +17,15 @@ use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 class PriorityFilter implements FilterInterface, StaticFactoryInterface
 {
     /**
-     * Comparison operator.
-     *
-     * @var ValidatorInterface
-     */
-    private $validator;
-
-    /**
      * Create new priority filter.
      *
      * @param PriorityInterface|null  $priority
      * @param ValidatorInterface|null $validator
      */
-    public function __construct(PriorityInterface $priority = null, ValidatorInterface $validator = null)
-    {
-        $this->validator = $validator ?: new GreaterThanValidator(($priority ?: new CriticalPriority())->getValue());
+    public function __construct(
+        private readonly ?PriorityInterface  $priority = null,
+        private readonly ?ValidatorInterface $validator = null
+    ) {
     }
 
     /**
@@ -40,6 +34,7 @@ class PriorityFilter implements FilterInterface, StaticFactoryInterface
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
+        $priority = null;
         if (isset($extra['priority'])) {
             /** @var PriorityInterface $priority */
             $priority = $serviceLocator->getService(
@@ -48,6 +43,7 @@ class PriorityFilter implements FilterInterface, StaticFactoryInterface
             );
         }
 
+        $validator = null;
         if (isset($extra['validator'])) {
             /** @var ValidatorInterface $validator */
             $validator = $serviceLocator->getService(
@@ -56,10 +52,7 @@ class PriorityFilter implements FilterInterface, StaticFactoryInterface
             );
         }
 
-        return new PriorityFilter(
-            $priority ?? null,
-            $validator ?? null
-        );
+        return new PriorityFilter($priority, $validator);
     }
 
     /**
@@ -68,7 +61,10 @@ class PriorityFilter implements FilterInterface, StaticFactoryInterface
      */
     public function filter(LogInterface $log): bool
     {
-        return $this->validator
+        $priority = $this->priority ?? new CriticalPriority();
+        $validator = $this->validator ?? new GreaterThanValidator($priority->getValue());
+
+        return $validator
             ->validate(
                 $log
                     ->getPriority()

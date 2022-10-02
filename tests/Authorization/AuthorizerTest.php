@@ -158,7 +158,6 @@ class AuthorizerTest extends TestCase
         $identity = $this->createMock(IdentityInterface::class);
 
         /**
-         * @var RealmInterface    $realm
          * @var IdentityInterface $identity
          * @var RoleInterface     $role
          */

@@ -33,12 +33,12 @@ class ApplicationBuilderTest extends TestCase
             /**
              * @var LoaderInterface|null
              */
-            protected $loader;
+            protected ?LoaderInterface $loader;
 
             /**
              * @var bool
              */
-            protected $conditioned = false;
+            protected bool $conditioned = false;
 
             /**
              * @inheritDoc
@@ -128,8 +128,7 @@ class ApplicationBuilderTest extends TestCase
         $this->module->setLoader($loader);
 
         /**
-         * @var LoaderInterface                $loader
-         * @var ServiceLocatorFactoryInterface $factory
+         * @var LoaderInterface $loader
          */
         $builder = new ApplicationBuilder();
         $application = $builder
@@ -153,7 +152,7 @@ class ApplicationBuilderTest extends TestCase
             ->setCacheFilename('application.cache')
             ->setCacheEnabled(true)
             ->addModule($this->module)
-            ->addModule((clone $this->module)->setConditioned())
+                ->addModule((clone $this->module)->setConditioned())
             ->build();
 
         $this->assertIsObject($application);
@@ -186,7 +185,7 @@ class ApplicationBuilderTest extends TestCase
     {
         $root = vfsStream::setup('root', null, [
             'config' => [
-                'application.cache.php' => "<?php return ['foo' => 'bar'];"
+                'application.cache.php' => "<?php return ['foo' => 'bar'];",
             ],
         ]);
 

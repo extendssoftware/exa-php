@@ -12,7 +12,6 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class MethodRoute implements RouteInterface, StaticFactoryInterface
 {
@@ -30,46 +29,28 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     public const METHOD_CONNECT = 'CONNECT';
 
     /**
-     * Methods to match.
-     *
-     * @var string
-     */
-    private string $method;
-
-    /**
-     * Default parameters to return.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * Validators for matching the request body.
-     *
-     * @var ValidatorInterface[]
-     */
-    private array $validators;
-
-    /**
      * Create a method route.
      *
-     * @param string       $method
-     * @param mixed[]|null $parameters
-     * @param mixed[]|null $validators
+     * @param string  $method
+     * @param mixed[] $parameters
+     * @param mixed[] $validators
      */
-    public function __construct(string $method, array $parameters = null, array $validators = null)
-    {
-        $this->method = $method;
-        $this->parameters = $parameters ?? [];
-        $this->validators = $validators ?? [];
+    public function __construct(
+        private readonly string $method,
+        private readonly array  $parameters = [],
+        private readonly array  $validators = []
+    ) {
     }
 
     /**
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): RouteInterface {
         $validators = [];
         foreach ($extra['validators'] ?? [] as $validator) {
             if (is_string($validator)) {
@@ -82,7 +63,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
         }
 
         /** @phpstan-ignore-next-line */
-        return new MethodRoute($extra['method'], $extra['parameters'] ?? null, $validators);
+        return new MethodRoute($extra['method'], $extra['parameters'] ?? [], $validators);
     }
 
     /**

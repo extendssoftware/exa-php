@@ -16,6 +16,6 @@ class FailedToLoadCache extends RuntimeException implements ApplicationBuilderEx
      */
     public function __construct(Throwable $previous)
     {
-        parent::__construct('Failed to load config. See previous exception for more details.', 0, $previous);
+        parent::__construct('Failed to load config. See previous exception for more details.', previous: $previous);
     }
 }

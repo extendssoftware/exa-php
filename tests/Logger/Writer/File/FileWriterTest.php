@@ -101,6 +101,7 @@ class FileWriterTest extends TestCase
 
         $this->assertIsObject($result);
         $this->assertTrue($root->hasChild($filename));
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertSame(
             '2017-10-13T14:50:28+00:00 CRIT (2): Exceptional error! {"foo":"bar"}' . PHP_EOL,
             $root->getChild($filename)->getContent()
@@ -196,6 +197,7 @@ class FileWriterTest extends TestCase
 
         $this->assertIsObject($result);
         $this->assertTrue($root->hasChild($filename));
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertSame(
             'CRIT (2): Exceptional error! {"foo":"bar"}, 2017-10-13T14:50:28+00:00' . "\n\r",
             $root->getChild($filename)->getContent()
@@ -243,6 +245,7 @@ class FileWriterTest extends TestCase
             ->write($log);
 
         $this->assertIsObject($result);
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertFalse($root->getChild('log')->hasChildren());
     }
 

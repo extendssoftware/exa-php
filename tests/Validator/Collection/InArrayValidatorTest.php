@@ -32,7 +32,7 @@ class InArrayValidatorTest extends TestCase
     /**
      * Not in array.
      *
-     * Test that value not exist in array and a invalid result will be returned.
+     * Test that value not exist in array and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\InArrayValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\InArrayValidator::validate()

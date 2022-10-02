@@ -16,20 +16,12 @@ use Throwable;
 class LoggerMiddleware implements MiddlewareInterface
 {
     /**
-     * Logger.
-     *
-     * @var LoggerInterface
-     */
-    private LoggerInterface $logger;
-
-    /**
      * LoggerMiddleware constructor.
      *
      * @param LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
+    public function __construct(private readonly LoggerInterface $logger)
     {
-        $this->logger = $logger;
     }
 
     /**

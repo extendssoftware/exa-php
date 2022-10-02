@@ -7,6 +7,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class InArrayValidator extends AbstractValidator
 {
@@ -18,27 +19,22 @@ class InArrayValidator extends AbstractValidator
     public const NOT_IN_ARRAY = 'notInArray';
 
     /**
-     * Valid values.
-     *
-     * @var mixed[]
-     */
-    private array $values;
-
-    /**
      * InArrayValidator constructor.
      *
      * @param mixed[] $values
      */
-    public function __construct(array $values)
+    public function __construct(private readonly array $values)
     {
-        $this->values = $values;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new InArrayValidator(
             $extra['values'] ?? []
         );

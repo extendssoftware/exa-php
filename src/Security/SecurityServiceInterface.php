@@ -23,7 +23,7 @@ interface SecurityServiceInterface
     /**
      * Get identity.
      *
-     * @return IdentityInterface
+     * @return IdentityInterface|null
      */
     public function getIdentity(): ?IdentityInterface;
 

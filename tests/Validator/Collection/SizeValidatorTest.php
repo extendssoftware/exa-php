@@ -36,7 +36,7 @@ class SizeValidatorTest extends TestCase
     /**
      * Too few.
      *
-     * Test that collection has too few items and a invalid result will be returned.
+     * Test that collection has too few items and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::validate()
@@ -57,7 +57,7 @@ class SizeValidatorTest extends TestCase
     /**
      * Too many.
      *
-     * Test that collection has too many items and a invalid result will be returned.
+     * Test that collection has too many items and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::validate()

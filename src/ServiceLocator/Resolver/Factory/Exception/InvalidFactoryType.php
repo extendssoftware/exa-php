@@ -15,9 +15,11 @@ class InvalidFactoryType extends Exception implements FactoryResolverException
      */
     public function __construct(string $type)
     {
-        parent::__construct(sprintf(
-            'Factory must be a subclass of ServiceFactoryInterface, got "%s".',
-            $type
-        ));
+        parent::__construct(
+            sprintf(
+                'Factory must be a subclass of ServiceFactoryInterface, got "%s".',
+                $type
+            )
+        );
     }
 }

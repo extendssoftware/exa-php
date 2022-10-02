@@ -16,8 +16,11 @@ class AuthenticatorFactory implements ServiceFactoryInterface
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public function createService(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): AuthenticatorInterface {
         $config = $serviceLocator->getConfig();
         $config = $config[AuthenticatorInterface::class] ?? [];
 

@@ -10,9 +10,9 @@ class UriTest extends TestCase
     /**
      * Default $_SERVER global.
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected static $defaultServer;
+    protected static array $defaultServer;
 
     /**
      * Save default $_SERVER global.
@@ -254,7 +254,7 @@ class UriTest extends TestCase
     /**
      * No query string.
      *
-     * Test that a empty query string will be used when non is set, like in the Development Server.
+     * Test that an empty query string will be used when non is set, like in the Development Server.
      *
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri::fromEnvironment()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri::toAbsolute()

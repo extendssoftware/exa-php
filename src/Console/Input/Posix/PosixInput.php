@@ -18,7 +18,7 @@ class PosixInput implements InputInterface
     /**
      * PosixInput constructor.
      *
-     * @param mixed $stream
+     * @param resource|null $stream
      *
      * @throws TypeError When stream not of type resource.
      */
@@ -55,7 +55,7 @@ class PosixInput implements InputInterface
     {
         $character = fgetc($this->stream);
         if (is_string($character)) {
-            if (is_string($allowed) && strpos($allowed, $character) === false) {
+            if (is_string($allowed) && !str_contains($allowed, $character)) {
                 $character = '';
             }
 

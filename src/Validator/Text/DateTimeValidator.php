@@ -9,6 +9,7 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class DateTimeValidator extends AbstractValidator
 {
@@ -20,27 +21,22 @@ class DateTimeValidator extends AbstractValidator
     public const NOT_DATE_TIME = 'notDateTime';
 
     /**
-     * Date time format.
-     *
-     * @var string
-     */
-    private string $format;
-
-    /**
      * DateTimeValidator constructor.
      *
      * @param string|null $format
      */
-    public function __construct(string $format = null)
+    public function __construct(private readonly ?string $format = null)
     {
-        $this->format = $format ?? DATE_ATOM;
     }
 
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public static function factory(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         return new DateTimeValidator(
             $extra['format'] ?? null
         );
@@ -57,14 +53,15 @@ class DateTimeValidator extends AbstractValidator
             return $result;
         }
 
-        $dateTime = DateTime::createFromFormat($this->format, $value);
-        if ($dateTime && $dateTime->format($this->format) === $value) {
+        $format = $this->format ?? DATE_ATOM;
+        $dateTime = DateTime::createFromFormat($format, $value);
+        if ($dateTime && $dateTime->format($format) === $value) {
             return $this->getValidResult();
         }
 
         return $this->getInvalidResult(self::NOT_DATE_TIME, [
             'value' => $value,
-            'format' => $this->format,
+            'format' => $format,
         ]);
     }
 

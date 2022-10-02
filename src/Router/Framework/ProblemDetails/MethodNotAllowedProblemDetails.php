@@ -20,7 +20,10 @@ class MethodNotAllowedProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/router/method-not-allowed',
             'Method not allowed',
-            sprintf('Method "%s" is not allowed.', $exception->getMethod()),
+            sprintf(
+                'Method "%s" is not allowed.',
+                $exception->getMethod()
+            ),
             405,
             $request->getUri()->toRelative(),
             [

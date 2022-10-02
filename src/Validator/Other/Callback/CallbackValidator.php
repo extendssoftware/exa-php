@@ -3,26 +3,19 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other\Callback;
 
+use Closure;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class CallbackValidator implements ValidatorInterface
 {
     /**
-     * Callback to use for validation.
-     *
-     * @var callable
-     */
-    private $callback;
-
-    /**
      * CallbackValidator constructor.
      *
-     * @param callable $callback
+     * @param Closure $callback
      */
-    public function __construct(callable $callback)
+    public function __construct(private readonly Closure $callback)
     {
-        $this->callback = $callback;
     }
 
     /**

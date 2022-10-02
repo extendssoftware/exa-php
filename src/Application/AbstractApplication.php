@@ -11,29 +11,15 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 abstract class AbstractApplication implements ApplicationInterface
 {
     /**
-     * Application modules.
-     *
-     * @var ModuleInterface[]
-     */
-    private array $modules;
-
-    /**
-     * Service locator.
-     *
-     * @var ServiceLocatorInterface
-     */
-    private ServiceLocatorInterface $serviceLocator;
-
-    /**
      * AbstractApplication constructor.
      *
      * @param ServiceLocatorInterface $serviceLocator
      * @param ModuleInterface[]       $modules
      */
-    public function __construct(ServiceLocatorInterface $serviceLocator, array $modules)
-    {
-        $this->modules = $modules;
-        $this->serviceLocator = $serviceLocator;
+    public function __construct(
+        private readonly ServiceLocatorInterface $serviceLocator,
+        private readonly array                   $modules
+    ) {
     }
 
     /**
@@ -41,9 +27,11 @@ abstract class AbstractApplication implements ApplicationInterface
      */
     public function bootstrap(): void
     {
+        $serviceLocator = $this->getServiceLocator();
+
         foreach ($this->modules as $module) {
             if ($module instanceof StartupProviderInterface) {
-                $module->onStartup($this->getServiceLocator());
+                $module->onStartup($serviceLocator);
             }
         }
 
@@ -51,7 +39,7 @@ abstract class AbstractApplication implements ApplicationInterface
 
         foreach ($this->modules as $module) {
             if ($module instanceof ShutdownProviderInterface) {
-                $module->onShutdown($this->getServiceLocator());
+                $module->onShutdown($serviceLocator);
             }
         }
     }

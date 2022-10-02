@@ -15,7 +15,7 @@ interface RequestInterface
      *
      * @return RequestInterface
      */
-    public function andAttribute(string $name, $value): RequestInterface;
+    public function andAttribute(string $name, mixed $value): RequestInterface;
 
     /**
      * Add header with name for value.
@@ -27,7 +27,7 @@ interface RequestInterface
      *
      * @return RequestInterface
      */
-    public function andHeader(string $name, $value): RequestInterface;
+    public function andHeader(string $name, mixed $value): RequestInterface;
 
     /**
      * Return custom attributes.
@@ -46,14 +46,14 @@ interface RequestInterface
      *
      * @return mixed
      */
-    public function getAttribute(string $key, $default = null);
+    public function getAttribute(string $key, mixed $default = null): mixed;
 
     /**
      * Return body.
      *
      * @return mixed
      */
-    public function getBody();
+    public function getBody(): mixed;
 
     /**
      * Return headers.
@@ -72,7 +72,7 @@ interface RequestInterface
      *
      * @return mixed
      */
-    public function getHeader(string $name, $default = null);
+    public function getHeader(string $name, mixed $default = null): mixed;
 
     /**
      * Return method.
@@ -104,7 +104,7 @@ interface RequestInterface
      *
      * @return RequestInterface
      */
-    public function withBody($body): RequestInterface;
+    public function withBody(mixed $body): RequestInterface;
 
     /**
      * Set header with name for value.

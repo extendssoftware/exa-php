@@ -9,31 +9,19 @@ use LogicException;
 class MethodNotAllowed extends LogicException implements MethodRouteException
 {
     /**
-     * Not allowed method.
-     *
-     * @var string
-     */
-    private string $method;
-
-    /**
-     * Allowed HTTP methods.
-     *
-     * @var string[]
-     */
-    private array $allowedMethods;
-
-    /**
      * MethodNotAllowed constructor.
      *
      * @param string   $method
      * @param string[] $allowedMethods
      */
-    public function __construct(string $method, array $allowedMethods)
+    public function __construct(private readonly string $method, private array $allowedMethods)
     {
-        parent::__construct(sprintf('Method "%s" is not allowed.', $method));
-
-        $this->method = $method;
-        $this->allowedMethods = $allowedMethods;
+        parent::__construct(
+            sprintf(
+                'Method "%s" is not allowed.',
+                $method
+            )
+        );
     }
 
     /**

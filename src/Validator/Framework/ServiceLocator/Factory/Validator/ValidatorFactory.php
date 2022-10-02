@@ -15,8 +15,11 @@ class ValidatorFactory implements ServiceFactoryInterface
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
+    public function createService(
+        string                  $key,
+        ServiceLocatorInterface $serviceLocator,
+        array                   $extra = null
+    ): ValidatorInterface {
         $container = new ContainerValidator();
         foreach ($extra['validators'] ?? [] as $config) {
             $validator = $serviceLocator->getService($config['name'], $config['options'] ?? []);

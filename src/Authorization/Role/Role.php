@@ -6,20 +6,12 @@ namespace ExtendsSoftware\ExaPHP\Authorization\Role;
 class Role implements RoleInterface
 {
     /**
-     * Role name.
-     *
-     * @var string
-     */
-    private string $name;
-
-    /**
      * Role constructor.
      *
      * @param string $name
      */
-    public function __construct(string $name)
+    public function __construct(private readonly string $name)
     {
-        $this->name = $name;
     }
 
     /**

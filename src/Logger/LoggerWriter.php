@@ -8,29 +8,13 @@ use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 class LoggerWriter
 {
     /**
-     * The writer to log.
-     *
-     * @var WriterInterface
-     */
-    private WriterInterface $writer;
-
-    /**
-     * Whether logger must be stopped.
-     *
-     * @var bool
-     */
-    private bool $interrupt;
-
-    /**
-     * Create new logger writer.s
+     * Create new logger writer.
      *
      * @param WriterInterface $writer
      * @param bool            $interrupt
      */
-    public function __construct(WriterInterface $writer, bool $interrupt)
+    public function __construct(private readonly WriterInterface $writer, private readonly bool $interrupt)
     {
-        $this->writer = $writer;
-        $this->interrupt = $interrupt;
     }
 
     /**

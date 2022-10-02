@@ -15,9 +15,11 @@ class NoShortAndLongName extends Exception implements OptionException
      */
     public function __construct(string $name)
     {
-        parent::__construct(sprintf(
-            'Option "%s" requires at least a short or long name, both not given.',
-            $name
-        ));
+        parent::__construct(
+            sprintf(
+                'Option "%s" requires at least a short or long name, both not given.',
+                $name
+            )
+        );
     }
 }
