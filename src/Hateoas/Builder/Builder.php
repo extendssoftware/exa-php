@@ -84,6 +84,7 @@ class Builder implements BuilderInterface
         if ($singular ?? true) {
             $this->links[$relation] = $link;
         } else {
+            /** @phpstan-ignore-next-line */
             $this->links[$relation][] = $link;
         }
 
@@ -108,6 +109,7 @@ class Builder implements BuilderInterface
         if ($singular ?? true) {
             $this->resources[$relation] = $resource;
         } else {
+            /** @phpstan-ignore-next-line */
             $this->resources[$relation][] = $resource;
         }
 
@@ -178,6 +180,7 @@ class Builder implements BuilderInterface
         $resource = new Resource(
             $links,
             $this->getProjectedAttributes(
+                /** @phpstan-ignore-next-line */
                 $this->getAuthorizedAttributes($this->attributes),
                 array_filter($this->toProject, 'is_string')
             ),
@@ -318,6 +321,7 @@ class Builder implements BuilderInterface
             }
         }
 
+        /** @phpstan-ignore-next-line */
         return $build;
     }
 
@@ -341,10 +345,12 @@ class Builder implements BuilderInterface
             }
 
             $link = $links[$relation];
+            /** @phpstan-ignore-next-line */
             if (!$link->isEmbeddable()) {
                 throw new LinkNotEmbeddable($relation);
             }
 
+            /** @phpstan-ignore-next-line */
             $expanded[$relation] = $this->expander->expand($links[$relation]);
         }
 

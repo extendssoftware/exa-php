@@ -3,5 +3,3 @@ parameters:
     phpVersion: 80100
     paths:
         - src
-    excludePaths:
-        - src/Hateoas/Builder/Builder.php
