@@ -62,12 +62,7 @@ class SecurityService implements SecurityServiceInterface
      */
     public function getIdentity(): ?IdentityInterface
     {
-        $identity = $this->storage->getIdentity();
-        if ($identity instanceof IdentityInterface) {
-            return $identity;
-        }
-
-        return null;
+        return $this->storage->getIdentity();
     }
 
     /**
