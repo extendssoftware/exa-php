@@ -26,9 +26,9 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
      * @inheritDoc
      */
     public static function factory(
-        string $key,
+        string                  $key,
         ServiceLocatorInterface $serviceLocator,
-        array  $extra = null
+        array                   $extra = null
     ): RouteInterface {
         /** @phpstan-ignore-next-line */
         return new HostRoute($extra['host'], $extra['parameters'] ?? []);
@@ -37,12 +37,12 @@ class HostRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface
     {
         if ($this->host === $request
                 ->getUri()
                 ->getHost()) {
-            return new RouteMatch($this->parameters, $pathOffset);
+            return new RouteMatch($this->parameters, $pathOffset, $name);
         }
 
         return null;

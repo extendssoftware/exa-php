@@ -65,7 +65,7 @@ class QueryRouteTest extends TestCase
         ], [
             'offset' => '0',
         ]);
-        $match = $path->match($request, 4);
+        $match = $path->match($request, 4, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(4, $match->getPathOffset());
@@ -125,7 +125,7 @@ class QueryRouteTest extends TestCase
         ]);
 
         try {
-            $path->match($request, 4);
+            $path->match($request, 4, 'index');
         } catch (InvalidQueryString $exception) {
             $this->assertSame(
                 'Query string parameter "limit" failed to validate.',
@@ -323,7 +323,7 @@ class QueryRouteTest extends TestCase
         ]);
 
         try {
-            $path->match($request, 4);
+            $path->match($request, 4, 'index');
         } catch (QueryParameterMissing $exception) {
             $this->assertSame('offset', $exception->getParameter());
         }

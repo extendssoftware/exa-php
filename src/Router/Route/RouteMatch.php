@@ -9,10 +9,19 @@ class RouteMatch implements RouteMatchInterface
      * Create a route match.
      *
      * @param mixed[] $parameters
-     * @param int     $pathOffset
+     * @param int     $offset
+     * @param string  $name
      */
-    public function __construct(private array $parameters, private int $pathOffset)
+    public function __construct(private array $parameters, private int $offset, private string $name)
     {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -20,7 +29,7 @@ class RouteMatch implements RouteMatchInterface
      */
     public function getPathOffset(): int
     {
-        return $this->pathOffset;
+        return $this->offset;
     }
 
     /**
@@ -37,8 +46,9 @@ class RouteMatch implements RouteMatchInterface
     public function merge(RouteMatchInterface $routeMatch): RouteMatchInterface
     {
         $merged = clone $this;
+        $merged->name .= '/' . $routeMatch->getName();
         $merged->parameters = array_replace_recursive($this->parameters, $routeMatch->getParameters());
-        $merged->pathOffset = $routeMatch->getPathOffset();
+        $merged->offset = $routeMatch->getPathOffset();
 
         return $merged;
     }

@@ -69,7 +69,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface
     {
         $method = $request->getMethod();
         if (strtoupper($method) === $this->method) {
@@ -80,7 +80,7 @@ class MethodRoute implements RouteInterface, StaticFactoryInterface
                 }
             }
 
-            return new RouteMatch($this->parameters, $pathOffset);
+            return new RouteMatch($this->parameters, $pathOffset, $name);
         }
 
         throw new MethodNotAllowed($method, [$this->method]);

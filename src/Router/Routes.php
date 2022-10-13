@@ -51,9 +51,9 @@ trait Routes
     private function matchRoutes(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
     {
         $notAllowed = null;
-        foreach ($this->routes as $route) {
+        foreach ($this->routes as $name => $route) {
             try {
-                $match = $route->match($request, $pathOffset);
+                $match = $route->match($request, $pathOffset, $name);
                 if ($match instanceof RouteMatchInterface) {
                     return $match;
                 }

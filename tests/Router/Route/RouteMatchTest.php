@@ -10,18 +10,20 @@ class RouteMatchTest extends TestCase
     /**
      * Get methods.
      *
-     * Test that get methods will return correct values.s
+     * Test that get methods will return correct values.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getParameters()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getPathOffset()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getName()
      */
     public function testGetMethods(): void
     {
-        $match = new RouteMatch(['foo' => 'bar'], 15);
+        $match = new RouteMatch(['foo' => 'bar'], 15, 'index');
 
         $this->assertSame(['foo' => 'bar'], $match->getParameters());
         $this->assertSame(15, $match->getPathOffset());
+        $this->assertSame('index', $match->getName());
     }
 
     /**
@@ -38,10 +40,10 @@ class RouteMatchTest extends TestCase
     {
         $match1 = new RouteMatch([
             'foo' => 'bar',
-        ], 10);
+        ], 10, 'index');
         $match2 = new RouteMatch([
             'baz' => 'qux',
-        ], 15);
+        ], 15, 'index');
         $match3 = $match1->merge($match2);
 
         $this->assertSame([
@@ -49,5 +51,6 @@ class RouteMatchTest extends TestCase
             'baz' => 'qux',
         ], $match3->getParameters());
         $this->assertSame(15, $match3->getPathOffset());
+        $this->assertSame('index/index', $match3->getName());
     }
 }

@@ -49,7 +49,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface
     {
         $query = $request
             ->getUri()
@@ -71,7 +71,7 @@ class QueryRoute implements RouteInterface, StaticFactoryInterface
             }
         }
 
-        return new RouteMatch(array_replace($this->parameters, $matched), $pathOffset);
+        return new RouteMatch(array_replace($this->parameters, $matched), $pathOffset, $name);
     }
 
     /**

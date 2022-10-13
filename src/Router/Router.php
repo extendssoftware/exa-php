@@ -40,13 +40,13 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function assemble(string $path, array $parameters = null): RequestInterface
+    public function assemble(string $name, array $parameters = null): RequestInterface
     {
-        if (preg_match($this->pattern, $path) === 0) {
-            throw new InvalidRoutePath($path);
+        if (preg_match($this->pattern, $name) === 0) {
+            throw new InvalidRoutePath($name);
         }
 
-        $routes = explode('/', $path);
+        $routes = explode('/', $name);
         $route = $this->getRoute(array_shift($routes), !empty($routes));
 
         return $route->assemble(new Request(), $routes, $parameters ?? []);

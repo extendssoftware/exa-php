@@ -64,7 +64,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface
     {
         $path = preg_replace_callback(
             '~:([a-z][a-z0-9_]+)~i',
@@ -99,7 +99,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
                 }
             }
 
-            return new RouteMatch(array_replace_recursive($this->parameters, $parameters), end($matches)[1]);
+            return new RouteMatch(array_replace_recursive($this->parameters, $parameters), end($matches)[1], $name);
         }
 
         return null;

@@ -64,7 +64,7 @@ class GroupRouteTest extends TestCase
         $group = new GroupRoute($route1);
         $matched = $group
             ->addRoute($route2, 'route2')
-            ->match($request, 5);
+            ->match($request, 5, 'index');
 
         $this->assertInstanceOf(RouteMatchInterface::class, $matched);
     }
@@ -97,7 +97,7 @@ class GroupRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $group = new GroupRoute($route, false);
-        $matched = $group->match($request, 0);
+        $matched = $group->match($request, 0, 'index');
 
         $this->assertSame($match, $matched);
     }
@@ -130,7 +130,7 @@ class GroupRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $group = new GroupRoute($route);
-        $matched = $group->match($request, 0);
+        $matched = $group->match($request, 0, 'index');
 
         $this->assertNull($matched);
     }
@@ -161,7 +161,7 @@ class GroupRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $group = new GroupRoute($route);
-        $matched = $group->match($request, 0);
+        $matched = $group->match($request, 0, 'index');
 
         $this->assertNull($matched);
     }

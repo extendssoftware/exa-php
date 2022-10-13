@@ -6,6 +6,13 @@ namespace ExtendsSoftware\ExaPHP\Router\Route;
 interface RouteMatchInterface
 {
     /**
+     * Get route name.
+     *
+     * @return string Consecutive route names separated with a forward slash.
+     */
+    public function getName(): string;
+
+    /**
      * Get merged parameters from route.
      *
      * @return mixed[]

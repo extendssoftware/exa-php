@@ -58,7 +58,7 @@ class PathRouteTest extends TestCase
         ], [
             'foo' => 'bar',
         ]);
-        $match = $path->match($request, 4);
+        $match = $path->match($request, 4, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(13, $match->getPathOffset());
@@ -95,7 +95,7 @@ class PathRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $path = new PathRoute('/bar');
-        $match = $path->match($request, 4);
+        $match = $path->match($request, 4, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(8, $match->getPathOffset());
@@ -135,7 +135,7 @@ class PathRouteTest extends TestCase
         $path = new PathRoute('/bar/:id', [
             'id' => $validator,
         ]);
-        $match = $path->match($request, 0);
+        $match = $path->match($request, 0, 'index');
 
         $this->assertNull($match);
     }
@@ -247,7 +247,7 @@ class PathRouteTest extends TestCase
         $path = new PathRoute('/:id/bar', [
             'id' => $validator,
         ]);
-        $match = $path->match($request, 0);
+        $match = $path->match($request, 0, 'index');
 
         $this->assertNull($match);
     }

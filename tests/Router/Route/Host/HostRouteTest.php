@@ -39,7 +39,7 @@ class HostRouteTest extends TestCase
         $host = new HostRoute('www.example.com', [
             'foo' => 'bar',
         ]);
-        $match = $host->match($request, 5);
+        $match = $host->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -74,7 +74,7 @@ class HostRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $host = new HostRoute('www.example.com');
-        $match = $host->match($request, 5);
+        $match = $host->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -107,7 +107,7 @@ class HostRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $host = new HostRoute('www.example.net');
-        $match = $host->match($request, 5);
+        $match = $host->match($request, 5, 'index');
 
         $this->assertNull($match);
     }

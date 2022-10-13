@@ -55,7 +55,7 @@ class MethodRouteTest extends TestCase
         $method = new MethodRoute('POST', [
             'foo' => 'bar',
         ], [$validator, $validator]);
-        $match = $method->match($request, 5);
+        $match = $method->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -85,7 +85,7 @@ class MethodRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $method = new MethodRoute('POST');
-        $match = $method->match($request, 5);
+        $match = $method->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -117,7 +117,7 @@ class MethodRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $method = new MethodRoute('POST');
-        $method->match($request, 5);
+        $method->match($request, 5, 'index');
     }
 
     /**
@@ -165,7 +165,7 @@ class MethodRouteTest extends TestCase
         $method = new MethodRoute('POST', validators: [
             $validator,
         ]);
-        $method->match($request, 5);
+        $method->match($request, 5, 'index');
     }
 
     /**

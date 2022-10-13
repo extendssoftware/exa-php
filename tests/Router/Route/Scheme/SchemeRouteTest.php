@@ -40,7 +40,7 @@ class SchemeRouteTest extends TestCase
         $scheme = new SchemeRoute('https', [
             'foo' => 'bar',
         ]);
-        $match = $scheme->match($request, 5);
+        $match = $scheme->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -76,7 +76,7 @@ class SchemeRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $scheme = new SchemeRoute('https');
-        $match = $scheme->match($request, 5);
+        $match = $scheme->match($request, 5, 'index');
 
         $this->assertIsObject($match);
         $this->assertSame(5, $match->getPathOffset());
@@ -110,7 +110,7 @@ class SchemeRouteTest extends TestCase
          * @var RequestInterface $request
          */
         $scheme = new SchemeRoute('https');
-        $match = $scheme->match($request, 5);
+        $match = $scheme->match($request, 5, 'index');
 
         $this->assertNull($match);
     }

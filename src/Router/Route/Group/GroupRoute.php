@@ -40,9 +40,9 @@ class GroupRoute implements RouteInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function match(RequestInterface $request, int $pathOffset): ?RouteMatchInterface
+    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface
     {
-        $outer = $this->route->match($request, $pathOffset);
+        $outer = $this->route->match($request, $pathOffset, $name);
         if (!$outer instanceof RouteMatchInterface) {
             return null;
         }
