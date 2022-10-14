@@ -30,12 +30,6 @@ class AuthorizationMiddlewareTest extends TestCase
             ->with('foo:bar:baz')
             ->willReturn(true);
 
-        $security
-            ->expects($this->once())
-            ->method('hasRole')
-            ->with('administrator')
-            ->willReturn(true);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
             ->expects($this->once())
@@ -43,9 +37,6 @@ class AuthorizationMiddlewareTest extends TestCase
             ->willReturn([
                 'permissions' => [
                     'foo:bar:baz',
-                ],
-                'roles' => [
-                    'administrator',
                 ],
             ]);
 
@@ -91,12 +82,6 @@ class AuthorizationMiddlewareTest extends TestCase
             ->with('foo:bar:baz')
             ->willReturn(false);
 
-        $security
-            ->expects($this->once())
-            ->method('hasRole')
-            ->with('administrator')
-            ->willReturn(false);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
             ->expects($this->once())
@@ -104,9 +89,6 @@ class AuthorizationMiddlewareTest extends TestCase
             ->willReturn([
                 'permissions' => [
                     'foo:bar:baz',
-                ],
-                'roles' => [
-                    'administrator',
                 ],
             ]);
 

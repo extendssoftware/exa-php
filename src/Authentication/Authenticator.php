@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication;
 
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 class Authenticator implements AuthenticatorInterface
 {
@@ -18,13 +19,13 @@ class Authenticator implements AuthenticatorInterface
     /**
      * @inheritDoc
      */
-    public function authenticate(HeaderInterface $header): ?AuthenticationInfoInterface
+    public function authenticate(HeaderInterface $header): ?IdentityInterface
     {
         foreach ($this->realms as $realm) {
             if ($realm->canAuthenticate($header)) {
-                $info = $realm->getAuthenticationInfo($header);
-                if ($info instanceof AuthenticationInfoInterface) {
-                    return $info;
+                $identity = $realm->authenticate($header);
+                if ($identity instanceof IdentityInterface) {
+                    return $identity;
                 }
             }
         }

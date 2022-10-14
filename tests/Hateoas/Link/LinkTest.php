@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Link;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -25,23 +24,19 @@ class LinkTest extends TestCase
     {
         $request = $this->createMock(RequestInterface::class);
 
-        $role = $this->createMock(RoleInterface::class);
-
         $permission = $this->createMock(PermissionInterface::class);
 
         $policy = $this->createMock(PolicyInterface::class);
 
         /**
-         * @var RequestInterface $request
-         * @var RoleInterface $role
+         * @var RequestInterface    $request
          * @var PermissionInterface $permission
-         * @var PolicyInterface $policy
+         * @var PolicyInterface     $policy
          */
-        $link = new Link($request, true, $role, $permission, $policy);
+        $link = new Link($request, true, $permission, $policy);
 
         $this->assertTrue($link->isEmbeddable());
         $this->assertSame($request, $link->getRequest());
-        $this->assertSame($role, $link->getRole());
         $this->assertSame($permission, $link->getPermission());
         $this->assertSame($policy, $link->getPolicy());
     }

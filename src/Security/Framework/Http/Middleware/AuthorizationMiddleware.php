@@ -32,22 +32,15 @@ class AuthorizationMiddleware implements MiddlewareInterface
         if ($match instanceof RouteMatchInterface) {
             $parameters = $match->getParameters();
 
-            if (isset($parameters['permissions']) || isset($parameters['roles'])) {
-                $authorized = false;
-
-                foreach ($parameters['permissions'] ?? [] as $permission) {
+            if (isset($parameters['permissions'])) {
+                $permitted = false;
+                foreach ($parameters['permissions'] as $permission) {
                     if ($this->securityService->isPermitted($permission)) {
-                        $authorized = true;
+                        $permitted = true;
                     }
                 }
 
-                foreach ($parameters['roles'] ?? [] as $role) {
-                    if ($this->securityService->hasRole($role)) {
-                        $authorized = true;
-                    }
-                }
-
-                if (!$authorized) {
+                if (!$permitted) {
                     return (new Response())->withBody(
                         new ForbiddenProblemDetails($request)
                     );

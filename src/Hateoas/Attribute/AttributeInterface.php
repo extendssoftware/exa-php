@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Attribute;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 
 interface AttributeInterface
 {
@@ -15,13 +14,6 @@ interface AttributeInterface
      * @return mixed
      */
     public function getValue(): mixed;
-
-    /**
-     * Get role.
-     *
-     * @return RoleInterface|null
-     */
-    public function getRole(): ?RoleInterface;
 
     /**
      * Get permission.

@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Attribute;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use PHPUnit\Framework\TestCase;
 
 class AttributeTest extends TestCase
@@ -22,21 +21,17 @@ class AttributeTest extends TestCase
      */
     public function testGetters(): void
     {
-        $role = $this->createMock(RoleInterface::class);
-
         $permission = $this->createMock(PermissionInterface::class);
 
         $policy = $this->createMock(PolicyInterface::class);
 
         /**
-         * @var RoleInterface $role
          * @var PermissionInterface $permission
-         * @var PolicyInterface $policy
+         * @var PolicyInterface     $policy
          */
-        $attribute = new Attribute(1, $role, $permission, $policy);
+        $attribute = new Attribute(1, $permission, $policy);
 
         $this->assertSame(1, $attribute->getValue());
-        $this->assertSame($role, $attribute->getRole());
         $this->assertSame($permission, $attribute->getPermission());
         $this->assertSame($policy, $attribute->getPolicy());
     }

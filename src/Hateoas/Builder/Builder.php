@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Builder;
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Attribute\AttributeInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\AttributeNotFound;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotEmbeddable;
@@ -180,7 +179,7 @@ class Builder implements BuilderInterface
         $resource = new Resource(
             $links,
             $this->getProjectedAttributes(
-                /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore-next-line */
                 $this->getAuthorizedAttributes($this->attributes),
                 array_filter($this->toProject, 'is_string')
             ),
@@ -211,7 +210,7 @@ class Builder implements BuilderInterface
             if (is_array($link)) {
                 $authorized[$rel] = $this->getAuthorizedLinks($link);
             } else {
-                if ($this->isAuthorized($link->getRole(), $link->getPermission(), $link->getPolicy())) {
+                if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
                     $authorized[$rel] = $link;
                 }
             }
@@ -223,24 +222,19 @@ class Builder implements BuilderInterface
     /**
      * Check if authorized.
      *
-     * @param RoleInterface|null       $role
      * @param PermissionInterface|null $permission
      * @param PolicyInterface|null     $policy
      *
      * @return bool
      */
-    private function isAuthorized(
-        RoleInterface $role = null,
-        PermissionInterface $permission = null,
-        PolicyInterface $policy = null
-    ): bool {
+    private function isAuthorized(PermissionInterface $permission = null, PolicyInterface $policy = null): bool
+    {
         $authorized = true;
-        if ($role || $permission || $policy) {
+        if ($permission || $policy) {
             $authorized = false;
 
             if ($this->authorizer && $this->identity) {
-                if (($role && $this->authorizer->hasRole($this->identity, $role)) ||
-                    ($permission && $this->authorizer->isPermitted($this->identity, $permission)) ||
+                if (($permission && $this->authorizer->isPermitted($this->identity, $permission)) ||
                     ($policy && $this->authorizer->isAllowed($this->identity, $policy))
                 ) {
                     $authorized = true;
@@ -285,7 +279,7 @@ class Builder implements BuilderInterface
     {
         $authorized = [];
         foreach ($attributes as $property => $attribute) {
-            if ($this->isAuthorized($attribute->getRole(), $attribute->getPermission(), $attribute->getPolicy())) {
+            if ($this->isAuthorized($attribute->getPermission(), $attribute->getPolicy())) {
                 $authorized[$property] = $attribute;
             }
         }

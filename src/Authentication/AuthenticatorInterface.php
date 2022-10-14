@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Authentication;
 
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
+use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 interface AuthenticatorInterface
 {
@@ -14,7 +15,7 @@ interface AuthenticatorInterface
      *
      * @param HeaderInterface $header
      *
-     * @return AuthenticationInfoInterface|null
+     * @return IdentityInterface|null
      */
-    public function authenticate(HeaderInterface $header): ?AuthenticationInfoInterface;
+    public function authenticate(HeaderInterface $header): ?IdentityInterface;
 }

@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Link;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 
 interface LinkInterface
@@ -23,13 +22,6 @@ interface LinkInterface
      * @return bool
      */
     public function isEmbeddable(): bool;
-
-    /**
-     * Get role.
-     *
-     * @return RoleInterface|null
-     */
-    public function getRole(): ?RoleInterface;
 
     /**
      * Get permission.

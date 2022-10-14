@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authentication\Realm;
 
-use ExtendsSoftware\ExaPHP\Authentication\AuthenticationInfoInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
+use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 interface RealmInterface
 {
@@ -24,7 +24,7 @@ interface RealmInterface
      *
      * @param HeaderInterface $header
      *
-     * @return AuthenticationInfoInterface|null
+     * @return IdentityInterface|null
      */
-    public function getAuthenticationInfo(HeaderInterface $header): ?AuthenticationInfoInterface;
+    public function authenticate(HeaderInterface $header): ?IdentityInterface;
 }

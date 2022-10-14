@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Security;
 
-use ExtendsSoftware\ExaPHP\Authentication\AuthenticationInfoInterface;
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 
 class SecurityServiceTest extends TestCase
@@ -31,41 +28,21 @@ class SecurityServiceTest extends TestCase
 
         $identity = $this->createMock(IdentityInterface::class);
 
-        $info = $this->createMock(AuthenticationInfoInterface::class);
-        $info
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $authenticator = $this->createMock(AuthenticatorInterface::class);
         $authenticator
             ->expects($this->exactly(2))
             ->method('authenticate')
             ->with($header)
-            ->willReturnOnConsecutiveCalls($info, null);
+            ->willReturnOnConsecutiveCalls($identity, null);
 
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
-        $identity = $this->createMock(IdentityInterface::class);
-
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('setIdentity')
-            ->with($this->isInstanceOf(IdentityInterface::class));
-
-        $storage
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         /**
          * @var AuthenticatorInterface $authenticator
-         * @var AuthorizerInterface $authorizer
-         * @var StorageInterface $storage
-         * @var HeaderInterface $header
+         * @var AuthorizerInterface    $authorizer
+         * @var HeaderInterface        $header
          */
-        $service = new SecurityService($authenticator, $authorizer, $storage);
+        $service = new SecurityService($authenticator, $authorizer);
 
         $this->assertTrue($service->authenticate($header));
         $this->assertIsObject($service->getIdentity());
@@ -90,12 +67,6 @@ class SecurityServiceTest extends TestCase
 
         $policy = $this->createMock(PolicyInterface::class);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->exactly(3))
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $authorizer = $this->createMock(AuthorizerInterface::class);
         $authorizer
             ->expects($this->once())
@@ -108,29 +79,18 @@ class SecurityServiceTest extends TestCase
 
         $authorizer
             ->expects($this->once())
-            ->method('hasRole')
-            ->with(
-                $identity,
-                $this->isInstanceOf(RoleInterface::class)
-            )
-            ->willReturn(true);
-
-        $authorizer
-            ->expects($this->once())
             ->method('isAllowed')
             ->with($identity, $policy)
             ->willReturn(true);
 
         /**
          * @var AuthenticatorInterface $authenticator
-         * @var AuthorizerInterface $authorizer
-         * @var StorageInterface $storage
-         * @var  PolicyInterface $policy
+         * @var AuthorizerInterface    $authorizer
+         * @var PolicyInterface        $policy
          */
-        $service = new SecurityService($authenticator, $authorizer, $storage);
+        $service = new SecurityService($authenticator, $authorizer, $identity);
 
         $this->assertTrue($service->isPermitted('foo:bar:baz'));
-        $this->assertTrue($service->hasRole('administrator'));
         $this->assertTrue($service->isAllowed($policy));
     }
 
@@ -151,21 +111,17 @@ class SecurityServiceTest extends TestCase
 
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
-        $storage = $this->createMock(StorageInterface::class);
-
         $policy = $this->createMock(PolicyInterface::class);
 
         /**
          * @var AuthenticatorInterface $authenticator
-         * @var AuthorizerInterface $authorizer
-         * @var StorageInterface $storage
-         * @var  PolicyInterface $policy
+         * @var AuthorizerInterface    $authorizer
+         * @var PolicyInterface        $policy
          */
-        $service = new SecurityService($authenticator, $authorizer, $storage);
+        $service = new SecurityService($authenticator, $authorizer);
 
         $this->assertNull($service->getIdentity());
         $this->assertFalse($service->isPermitted('foo:bar:baz'));
-        $this->assertFalse($service->hasRole('administrator'));
         $this->assertFalse($service->isAllowed($policy));
     }
 }

@@ -14,7 +14,6 @@ use ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Loader\Authori
 use ExtendsSoftware\ExaPHP\Console\Framework\ServiceLocator\Loader\ConsoleConfigLoader;
 use ExtendsSoftware\ExaPHP\Hateoas\Framework\ServiceLocator\Loader\HateoasConfigLoader;
 use ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Loader\HttpConfigLoader;
-use ExtendsSoftware\ExaPHP\Identity\Framework\ServiceLocator\Loader\IdentityConfigLoader;
 use ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Loader\LoggerConfigLoader;
 use ExtendsSoftware\ExaPHP\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Merger\MergerInterface;
@@ -116,7 +115,6 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         ConsoleConfigLoader::class,
         HateoasConfigLoader::class,
         HttpConfigLoader::class,
-        IdentityConfigLoader::class,
         LoggerConfigLoader::class,
         ProblemDetailsConfigLoader::class,
         RouterConfigLoader::class,

@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Authorization;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 class Authorizer implements AuthorizerInterface
@@ -23,25 +22,12 @@ class Authorizer implements AuthorizerInterface
      */
     public function isPermitted(IdentityInterface $identity, PermissionInterface $permission): bool
     {
-        $info = $this->getAuthorizationInfo($identity);
-        foreach ($info->getPermissions() as $ownPermission) {
-            if ($ownPermission->implies($permission)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function hasRole(IdentityInterface $identity, RoleInterface $role): bool
-    {
-        $info = $this->getAuthorizationInfo($identity);
-        foreach ($info->getRoles() as $ownRole) {
-            if ($ownRole->isEqual($role)) {
-                return true;
+        foreach ($this->realms as $realm) {
+            $permissions = $realm->getPermissions($identity);
+            foreach ($permissions ?? [] as $inner) {
+                if ($inner->implies($permission)) {
+                    return true;
+                }
             }
         }
 
@@ -68,26 +54,5 @@ class Authorizer implements AuthorizerInterface
         $this->realms[] = $realm;
 
         return $this;
-    }
-
-    /**
-     * Get authorization information for identity.
-     *
-     * When no authorization information can be found, an empty instance will be returned.
-     *
-     * @param IdentityInterface $identity
-     *
-     * @return AuthorizationInfoInterface
-     */
-    private function getAuthorizationInfo(IdentityInterface $identity): AuthorizationInfoInterface
-    {
-        foreach ($this->realms as $realm) {
-            $info = $realm->getAuthorizationInfo($identity);
-            if ($info instanceof AuthorizationInfoInterface) {
-                return $info;
-            }
-        }
-
-        return new AuthorizationInfo();
     }
 }

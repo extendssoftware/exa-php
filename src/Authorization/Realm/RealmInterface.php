@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authorization\Realm;
 
-use ExtendsSoftware\ExaPHP\Authorization\AuthorizationInfoInterface;
+use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 interface RealmInterface
@@ -13,7 +13,7 @@ interface RealmInterface
      *
      * @param IdentityInterface $identity
      *
-     * @return AuthorizationInfoInterface|null
+     * @return PermissionInterface[]|null
      */
-    public function getAuthorizationInfo(IdentityInterface $identity): ?AuthorizationInfoInterface;
+    public function getPermissions(IdentityInterface $identity): ?array;
 }

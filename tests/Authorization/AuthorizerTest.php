@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Authorization;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -30,22 +29,16 @@ class AuthorizerTest extends TestCase
             ->with($permission)
             ->willReturnOnConsecutiveCalls(true, false);
 
-        $info = $this->createMock(AuthorizationInfoInterface::class);
-        $info
-            ->expects($this->exactly(2))
-            ->method('getPermissions')
-            ->willReturn([
-                $permission,
-            ]);
-
         $identity = $this->createMock(IdentityInterface::class);
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
             ->expects($this->exactly(2))
-            ->method('getAuthorizationInfo')
+            ->method('getPermissions')
             ->with($identity)
-            ->willReturn($info);
+            ->willReturn([
+                $permission,
+            ]);
 
         /**
          * @var RealmInterface      $realm
@@ -53,65 +46,15 @@ class AuthorizerTest extends TestCase
          * @var PermissionInterface $permission
          */
         $authorizer = new Authorizer();
-        $permitted = $authorizer
-            ->addRealm($realm)
-            ->isPermitted($identity, $permission);
+        $authorizer->addRealm($realm);
+
+        $permitted = $authorizer->isPermitted($identity, $permission);
 
         $this->assertTrue($permitted);
 
-        $permitted = $authorizer
-            ->addRealm($realm)
-            ->isPermitted($identity, $permission);
+        $permitted = $authorizer->isPermitted($identity, $permission);
 
         $this->assertFalse($permitted);
-    }
-
-    /**
-     * Has role.
-     *
-     * Test that identity has role.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::addRealm()
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getAuthorizationInfo()
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::hasRole()
-     */
-    public function testHasRole(): void
-    {
-        $role = $this->createMock(RoleInterface::class);
-        $role
-            ->expects($this->once())
-            ->method('isEqual')
-            ->with($role)
-            ->willReturn(true);
-
-        $info = $this->createMock(AuthorizationInfoInterface::class);
-        $info
-            ->expects($this->once())
-            ->method('getRoles')
-            ->willReturn([
-                $role,
-            ]);
-
-        $identity = $this->createMock(IdentityInterface::class);
-
-        $realm = $this->createMock(RealmInterface::class);
-        $realm
-            ->expects($this->once())
-            ->method('getAuthorizationInfo')
-            ->with($identity)
-            ->willReturn($info);
-
-        /**
-         * @var RealmInterface    $realm
-         * @var IdentityInterface $identity
-         * @var RoleInterface     $role
-         */
-        $authorizer = new Authorizer();
-        $hasRole = $authorizer
-            ->addRealm($realm)
-            ->hasRole($identity, $role);
-
-        $this->assertTrue($hasRole);
     }
 
     /**
@@ -140,29 +83,5 @@ class AuthorizerTest extends TestCase
         $isAllowed = $authorizer->isAllowed($identity, $policy);
 
         $this->assertTrue($isAllowed);
-    }
-
-    /**
-     * No authorization info.
-     *
-     * Test that an empty authorization info instance will be used when none available.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::addRealm()
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getAuthorizationInfo()
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::hasRole()
-     */
-    public function testNoAuthorizationInfo(): void
-    {
-        $role = $this->createMock(RoleInterface::class);
-
-        $identity = $this->createMock(IdentityInterface::class);
-
-        /**
-         * @var IdentityInterface $identity
-         * @var RoleInterface     $role
-         */
-        $authorizer = new Authorizer();
-
-        $this->assertFalse($authorizer->hasRole($identity, $role));
     }
 }

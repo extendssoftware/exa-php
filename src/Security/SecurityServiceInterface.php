@@ -37,15 +37,6 @@ interface SecurityServiceInterface
     public function isPermitted(string $permission): bool;
 
     /**
-     * If identity has role.
-     *
-     * @param string $role
-     *
-     * @return bool
-     */
-    public function hasRole(string $role): bool;
-
-    /**
      * If policy is allowed by policy.
      *
      * @param PolicyInterface $policy

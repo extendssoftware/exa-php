@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Authorization;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\RoleInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 interface AuthorizerInterface
@@ -19,16 +18,6 @@ interface AuthorizerInterface
      * @return bool
      */
     public function isPermitted(IdentityInterface $identity, PermissionInterface $permission): bool;
-
-    /**
-     * If identity has role.
-     *
-     * @param IdentityInterface $identity
-     * @param RoleInterface     $role
-     *
-     * @return bool
-     */
-    public function hasRole(IdentityInterface $identity, RoleInterface $role): bool;
 
     /**
      * If identity is allowed by policy.

@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication;
 
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +23,7 @@ class AuthenticatorTest extends TestCase
     {
         $header = $this->createMock(HeaderInterface::class);
 
-        $info = $this->createMock(AuthenticationInfoInterface::class);
+        $identity = $this->createMock(IdentityInterface::class);
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
@@ -33,9 +34,9 @@ class AuthenticatorTest extends TestCase
 
         $realm
             ->expects($this->once())
-            ->method('getAuthenticationInfo')
+            ->method('authenticate')
             ->with($header)
-            ->willReturn($info);
+            ->willReturn($identity);
 
         /**
          * @var RealmInterface $realm
@@ -46,7 +47,7 @@ class AuthenticatorTest extends TestCase
             ->addRealm($realm)
             ->authenticate($header);
 
-        $this->assertSame($info, $authenticated);
+        $this->assertSame($identity, $authenticated);
     }
 
     /**
@@ -61,7 +62,7 @@ class AuthenticatorTest extends TestCase
     {
         $header = $this->createMock(HeaderInterface::class);
 
-        $info = $this->createMock(AuthenticationInfoInterface::class);
+        $identity = $this->createMock(IdentityInterface::class);
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
@@ -72,11 +73,11 @@ class AuthenticatorTest extends TestCase
 
         $realm
             ->expects($this->exactly(2))
-            ->method('getAuthenticationInfo')
+            ->method('authenticate')
             ->with($header)
             ->willReturnOnConsecutiveCalls(
                 null,
-                $info
+                $identity
             );
 
         /**
@@ -89,7 +90,7 @@ class AuthenticatorTest extends TestCase
             ->addRealm($realm)
             ->authenticate($header);
 
-        $this->assertSame($info, $authenticated);
+        $this->assertSame($identity, $authenticated);
     }
 
     /**
@@ -116,7 +117,7 @@ class AuthenticatorTest extends TestCase
 
         $realm
             ->expects($this->once())
-            ->method('getAuthenticationInfo')
+            ->method('authenticate')
             ->with($header)
             ->willThrowException(new InvalidArgumentException());
 

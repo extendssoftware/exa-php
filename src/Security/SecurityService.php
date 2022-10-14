@@ -3,15 +3,12 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Security;
 
-use ExtendsSoftware\ExaPHP\Authentication\AuthenticationInfoInterface;
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\Permission;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Authorization\Role\Role;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 
 class SecurityService implements SecurityServiceInterface
 {
@@ -20,12 +17,12 @@ class SecurityService implements SecurityServiceInterface
      *
      * @param AuthenticatorInterface $authenticator
      * @param AuthorizerInterface    $authorizer
-     * @param StorageInterface       $storage
+     * @param IdentityInterface|null $identity
      */
     public function __construct(
         private readonly AuthenticatorInterface $authenticator,
         private readonly AuthorizerInterface    $authorizer,
-        private readonly StorageInterface       $storage
+        private ?IdentityInterface              $identity = null
     ) {
     }
 
@@ -34,9 +31,9 @@ class SecurityService implements SecurityServiceInterface
      */
     public function authenticate(HeaderInterface $header): bool
     {
-        $info = $this->authenticator->authenticate($header);
-        if ($info instanceof AuthenticationInfoInterface) {
-            $this->storage->setIdentity($info->getIdentity());
+        $identity = $this->authenticator->authenticate($header);
+        if ($identity instanceof IdentityInterface) {
+            $this->identity = $identity;
 
             return true;
         }
@@ -49,9 +46,8 @@ class SecurityService implements SecurityServiceInterface
      */
     public function isPermitted(string $permission): bool
     {
-        $identity = $this->getIdentity();
-        if ($identity instanceof IdentityInterface) {
-            return $this->authorizer->isPermitted($identity, new Permission($permission));
+        if ($this->identity instanceof IdentityInterface) {
+            return $this->authorizer->isPermitted($this->identity, new Permission($permission));
         }
 
         return false;
@@ -62,20 +58,7 @@ class SecurityService implements SecurityServiceInterface
      */
     public function getIdentity(): ?IdentityInterface
     {
-        return $this->storage->getIdentity();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function hasRole(string $role): bool
-    {
-        $identity = $this->getIdentity();
-        if ($identity instanceof IdentityInterface) {
-            return $this->authorizer->hasRole($identity, new Role($role));
-        }
-
-        return false;
+        return $this->identity;
     }
 
     /**
@@ -83,9 +66,8 @@ class SecurityService implements SecurityServiceInterface
      */
     public function isAllowed(PolicyInterface $policy): bool
     {
-        $identity = $this->getIdentity();
-        if ($identity instanceof IdentityInterface) {
-            return $this->authorizer->isAllowed($identity, $policy);
+        if ($this->identity instanceof IdentityInterface) {
+            return $this->authorizer->isAllowed($this->identity, $policy);
         }
 
         return false;
