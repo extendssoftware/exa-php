@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 class ReflectionA
 {
     /**
-     * ClassA constructor.
+     * ReflectionA constructor.
      *
      * @param ReflectionB             $b
      * @param ServiceLocatorInterface $serviceLocator

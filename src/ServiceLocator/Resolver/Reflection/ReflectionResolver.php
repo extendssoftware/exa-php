@@ -9,6 +9,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
+use ReflectionNamedType;
 
 class ReflectionResolver implements ResolverInterface
 {
@@ -52,16 +53,16 @@ class ReflectionResolver implements ResolverInterface
         $values = [];
         if ($constructor instanceof ReflectionMethod) {
             foreach ($constructor->getParameters() as $parameter) {
-                $reflection = $parameter->getClass();
-                if (!$reflection instanceof ReflectionClass) {
+                $type = $parameter->getType();
+                if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
                     throw new InvalidParameter($parameter);
                 }
 
-                $name = $reflection->getName();
+                $name = $type->getName();
                 if ($name === ServiceLocatorInterface::class) {
                     $values[] = $serviceLocator;
                 } else {
-                    $values[] = $serviceLocator->getService($reflection->getName());
+                    $values[] = $serviceLocator->getService($name);
                 }
             }
         }

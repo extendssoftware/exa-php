@@ -18,10 +18,8 @@ class InvalidParameter extends Exception implements ReflectionResolverException
     {
         parent::__construct(
             sprintf(
-                'Reflection parameter "%s" must be a class, got type "%s".',
+                'Reflection parameter "%s" must a named type argument and must be a class.',
                 $parameter->getName(),
-                /** @phpstan-ignore-next-line */
-                $parameter->getType()?->getName()
             )
         );
     }

@@ -62,7 +62,7 @@ class ReflectionResolverTest extends TestCase
     public function testCanNotCreateClassWithNonObjectParameter(): void
     {
         $this->expectException(InvalidParameter::class);
-        $this->expectExceptionMessage('Reflection parameter "name" must be a class, got type "string".');
+        $this->expectExceptionMessage('Reflection parameter "name" must a named type argument and must be a class.');
 
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
 

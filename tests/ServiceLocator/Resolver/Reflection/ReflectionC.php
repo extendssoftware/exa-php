@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection;
 class ReflectionC
 {
     /**
-     * ClassC constructor.
+     * ReflectionC constructor.
      *
      * @param string $name
      */
