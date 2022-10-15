@@ -20,7 +20,7 @@ class Authorizer implements AuthorizerInterface
     /**
      * @inheritDoc
      */
-    public function isPermitted(IdentityInterface $identity, PermissionInterface $permission): bool
+    public function isPermitted(PermissionInterface $permission, IdentityInterface $identity = null): bool
     {
         foreach ($this->realms as $realm) {
             $permissions = $realm->getPermissions($identity);
@@ -37,9 +37,9 @@ class Authorizer implements AuthorizerInterface
     /**
      * @inheritDoc
      */
-    public function isAllowed(IdentityInterface $identity, PolicyInterface $policy): bool
+    public function isAllowed(PolicyInterface $policy, IdentityInterface $identity = null): bool
     {
-        return $policy->isAllowed($identity, $this);
+        return $policy->isAllowed($this, $identity);
     }
 
     /**

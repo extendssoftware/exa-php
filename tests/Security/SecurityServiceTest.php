@@ -56,7 +56,6 @@ class SecurityServiceTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::isPermitted()
-     * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::hasRole()
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::isAllowed()
      */
     public function testAuthorizerMethods(): void
@@ -72,15 +71,15 @@ class SecurityServiceTest extends TestCase
             ->expects($this->once())
             ->method('isPermitted')
             ->with(
-                $identity,
-                $this->isInstanceOf(PermissionInterface::class)
+                $this->isInstanceOf(PermissionInterface::class),
+                $identity
             )
             ->willReturn(true);
 
         $authorizer
             ->expects($this->once())
             ->method('isAllowed')
-            ->with($identity, $policy)
+            ->with($policy, $identity)
             ->willReturn(true);
 
         /**
@@ -102,7 +101,6 @@ class SecurityServiceTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::getIdentity()
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::isPermitted()
-     * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::hasRole()
      * @covers \ExtendsSoftware\ExaPHP\Security\SecurityService::isAllowed()
      */
     public function testIdentityNotFound(): void

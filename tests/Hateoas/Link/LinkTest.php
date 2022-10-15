@@ -16,7 +16,6 @@ class LinkTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getRequest()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::isEmbeddable()
-     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getRole()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getPermission()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getPolicy()
      */

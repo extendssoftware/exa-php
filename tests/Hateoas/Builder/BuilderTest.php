@@ -47,7 +47,7 @@ class BuilderTest extends TestCase
         $authorizer
             ->expects($this->any())
             ->method('isPermitted')
-            ->with($identity, $permission)
+            ->with($permission, $identity)
             ->willReturn(true);
 
         $builder = $this->createMock(BuilderInterface::class);

@@ -17,7 +17,6 @@ class AuthorizerTest extends TestCase
      * Test that permission is permitted for identity.
      *
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::addRealm()
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getAuthorizationInfo()
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::isPermitted()
      */
     public function testIsPermitted(): void
@@ -48,11 +47,11 @@ class AuthorizerTest extends TestCase
         $authorizer = new Authorizer();
         $authorizer->addRealm($realm);
 
-        $permitted = $authorizer->isPermitted($identity, $permission);
+        $permitted = $authorizer->isPermitted($permission,$identity);
 
         $this->assertTrue($permitted);
 
-        $permitted = $authorizer->isPermitted($identity, $permission);
+        $permitted = $authorizer->isPermitted($permission, $identity);
 
         $this->assertFalse($permitted);
     }
@@ -72,7 +71,7 @@ class AuthorizerTest extends TestCase
         $policy
             ->expects($this->once())
             ->method('isAllowed')
-            ->with($identity, $this->isInstanceOf(AuthorizerInterface::class))
+            ->with($this->isInstanceOf(AuthorizerInterface::class), $identity)
             ->willReturn(true);
 
         /**
@@ -80,7 +79,7 @@ class AuthorizerTest extends TestCase
          * @var PolicyInterface   $policy
          */
         $authorizer = new Authorizer();
-        $isAllowed = $authorizer->isAllowed($identity, $policy);
+        $isAllowed = $authorizer->isAllowed($policy, $identity);
 
         $this->assertTrue($isAllowed);
     }

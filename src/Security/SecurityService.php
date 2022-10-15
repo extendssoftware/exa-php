@@ -46,11 +46,7 @@ class SecurityService implements SecurityServiceInterface
      */
     public function isPermitted(string $permission): bool
     {
-        if ($this->identity instanceof IdentityInterface) {
-            return $this->authorizer->isPermitted($this->identity, new Permission($permission));
-        }
-
-        return false;
+        return $this->authorizer->isPermitted(new Permission($permission), $this->identity);
     }
 
     /**
@@ -66,10 +62,6 @@ class SecurityService implements SecurityServiceInterface
      */
     public function isAllowed(PolicyInterface $policy): bool
     {
-        if ($this->identity instanceof IdentityInterface) {
-            return $this->authorizer->isAllowed($this->identity, $policy);
-        }
-
-        return false;
+        return $this->authorizer->isAllowed($policy, $this->identity);
     }
 }

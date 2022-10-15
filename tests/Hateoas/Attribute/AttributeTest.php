@@ -15,7 +15,6 @@ class AttributeTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Attribute\Attribute::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Attribute\Attribute::getValue()
-     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Attribute\Attribute::getRole()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Attribute\Attribute::getPermission()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Attribute\Attribute::getPolicy()
      */

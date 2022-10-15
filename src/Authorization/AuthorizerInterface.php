@@ -12,20 +12,20 @@ interface AuthorizerInterface
     /**
      * If identity is permitted for permission.
      *
-     * @param IdentityInterface   $identity
-     * @param PermissionInterface $permission
+     * @param PermissionInterface    $permission
+     * @param IdentityInterface|null $identity
      *
      * @return bool
      */
-    public function isPermitted(IdentityInterface $identity, PermissionInterface $permission): bool;
+    public function isPermitted(PermissionInterface $permission, IdentityInterface $identity = null): bool;
 
     /**
      * If identity is allowed by policy.
      *
-     * @param IdentityInterface $identity
-     * @param PolicyInterface   $policy
+     * @param PolicyInterface        $policy
+     * @param IdentityInterface|null $identity
      *
      * @return bool
      */
-    public function isAllowed(IdentityInterface $identity, PolicyInterface $policy): bool;
+    public function isAllowed(PolicyInterface $policy, IdentityInterface $identity = null): bool;
 }

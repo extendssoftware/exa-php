@@ -11,9 +11,9 @@ interface RealmInterface
     /**
      * Get authorization information for identity.
      *
-     * @param IdentityInterface $identity
+     * @param IdentityInterface|null $identity
      *
      * @return PermissionInterface[]|null
      */
-    public function getPermissions(IdentityInterface $identity): ?array;
+    public function getPermissions(IdentityInterface $identity = null): ?array;
 }
