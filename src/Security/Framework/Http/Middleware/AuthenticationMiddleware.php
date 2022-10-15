@@ -36,7 +36,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         $authorization = $request->getHeader('Authorization');
-        if ($authorization) {
+        if ($authorization !== null) {
             if (!is_string($authorization) || !preg_match($this->pattern, $authorization, $matches)
                 || !$this->securityService->authenticate(new Header($matches['scheme'], $matches['credentials']))) {
                 return (new Response())->withBody(
