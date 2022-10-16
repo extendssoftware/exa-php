@@ -15,7 +15,7 @@ use ExtendsSoftware\ExaPHP\Security\SecurityServiceInterface;
 class AuthorizationMiddleware implements MiddlewareInterface
 {
     /**
-     * RoutePermissionMiddleware constructor.
+     * AuthorizationMiddleware constructor.
      *
      * @param SecurityServiceInterface $securityService
      */
@@ -37,6 +37,8 @@ class AuthorizationMiddleware implements MiddlewareInterface
                 foreach ($parameters['permissions'] as $permission) {
                     if ($this->securityService->isPermitted($permission)) {
                         $permitted = true;
+
+                        break;
                     }
                 }
 
