@@ -22,7 +22,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
     private string $pattern = '/^(?P<scheme>[^\s]+)\s(?P<credentials>[^\s]+)$/';
 
     /**
-     * AuthorizationHeaderMiddleware constructor.
+     * AuthenticationHeaderMiddleware constructor.
      *
      * @param SecurityServiceInterface $securityService
      */
@@ -37,8 +37,10 @@ class AuthenticationMiddleware implements MiddlewareInterface
     {
         $authorization = $request->getHeader('Authorization');
         if ($authorization !== null) {
-            if (!is_string($authorization) || !preg_match($this->pattern, $authorization, $matches)
-                || !$this->securityService->authenticate(new Header($matches['scheme'], $matches['credentials']))) {
+            if (!is_string($authorization) ||
+                !preg_match($this->pattern, $authorization, $matches) ||
+                !$this->securityService->authenticate(new Header($matches['scheme'], $matches['credentials']))
+            ) {
                 return (new Response())->withBody(
                     new UnauthorizedProblemDetails($request)
                 );
