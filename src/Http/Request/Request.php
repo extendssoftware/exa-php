@@ -34,6 +34,13 @@ class Request implements RequestInterface, StaticFactoryInterface
     private array $headers = [];
 
     /**
+     * Request server parameters.
+     *
+     * @var mixed[]
+     */
+    private array $parameters = [];
+
+    /**
      * Request method.
      *
      * @var string
@@ -122,6 +129,22 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
+    public function getServerParameters(): array
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getServerParameter(string $name, mixed $default = null): mixed
+    {
+        return $this->parameters[$name] ?? $default;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getMethod(): string
     {
         return $this->method;
@@ -186,6 +209,17 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
+    public function withServerParameters(array $parameters): RequestInterface
+    {
+        $clone = clone $this;
+        $clone->parameters = $parameters;
+
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function withMethod(string $method): RequestInterface
     {
         $clone = clone $this;
@@ -237,15 +271,17 @@ class Request implements RequestInterface, StaticFactoryInterface
         }
 
         $headers = [];
+        $parameters = [];
         foreach ($environment as $name => $value) {
-            if (str_starts_with($name, 'HTTP_')) {
-                $name = substr($name, 5);
-                $name = str_replace('_', ' ', $name);
-                $name = strtolower($name);
-                $name = ucwords($name);
-                $name = str_replace(' ', '-', $name);
+            $name = str_replace('_', ' ', $name);
+            $name = strtolower($name);
+            $name = ucwords($name);
+            $name = str_replace(' ', '-', $name);
 
-                $headers[$name] = $value;
+            if (str_starts_with($name, 'Http-')) {
+                $headers[substr($name, 5)] = $value;
+            } else {
+                $parameters[$name] = $value;
             }
         }
 
@@ -263,6 +299,7 @@ class Request implements RequestInterface, StaticFactoryInterface
             ->withMethod($environment['REQUEST_METHOD'])
             ->withBody($body ?? null)
             ->withHeaders($headers)
+            ->withServerParameters($parameters)
             ->withUri(Uri::fromEnvironment($environment));
     }
 }

@@ -48,6 +48,7 @@ class RequestTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getAttributes()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getBody()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getHeaders()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getServerParameters()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getMethod()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getUri()
      */
@@ -76,6 +77,12 @@ class RequestTest extends TestCase
             'Host' => 'www.example.com',
             'Content-Type' => 'application/json',
         ], $request->getHeaders());
+        $this->assertSame([
+            'Server-Port' => 80,
+            'Request-Method' => 'POST',
+            'Query-String' => 'baz=qux',
+            'Request-Uri' => '/foo/bar',
+        ], $request->getServerParameters());
         $this->assertSame('POST', $request->getMethod());
         $this->assertIsObject($request->getUri());
     }
@@ -88,6 +95,7 @@ class RequestTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withAttributes()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withBody()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withHeaders()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withServerParameters()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withMethod()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withUri()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getAttributes()
@@ -95,6 +103,8 @@ class RequestTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getBody()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getHeaders()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getHeader()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getServerParameters()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getServerParameter()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getMethod()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getUri()
      */
@@ -109,19 +119,23 @@ class RequestTest extends TestCase
             ->withAttributes(['foo' => 'bar'])
             ->withBody(['baz' => 'qux'])
             ->withHeaders(['qux' => 'quux'])
+            ->withServerParameters(['bar' => 'qux'])
             ->withMethod('POST')
             ->withUri($uri);
 
         $this->assertSame(['foo' => 'bar'], $request->getAttributes());
         $this->assertSame(['baz' => 'qux'], $request->getBody());
         $this->assertSame(['qux' => 'quux'], $request->getHeaders());
+        $this->assertSame(['bar' => 'qux'], $request->getServerParameters());
         $this->assertSame('POST', $request->getMethod());
         $this->assertSame($uri, $request->getUri());
         $this->assertSame('quux', $request->getHeader('qux'));
+        $this->assertSame('qux', $request->getServerParameter('bar'));
         $this->assertSame('bar', $request->getAttribute('foo'));
 
         // Default return values.
         $this->assertSame('qux', $request->getHeader('bar', 'qux'));
+        $this->assertSame('quux', $request->getServerParameter('baz', 'quux'));
         $this->assertSame('quux', $request->getAttribute('bar', 'quux'));
     }
 

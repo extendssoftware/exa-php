@@ -63,6 +63,13 @@ interface RequestInterface
     public function getHeaders(): array;
 
     /**
+     * Return server parameters.
+     *
+     * @return mixed[]
+     */
+    public function getServerParameters(): array;
+
+    /**
      * Get header value for name.
      *
      * Default value default will be returned when header with name does not exist.
@@ -73,6 +80,18 @@ interface RequestInterface
      * @return mixed
      */
     public function getHeader(string $name, mixed $default = null): mixed;
+
+    /**
+     * Get server parameter value for name.
+     *
+     * Default value default will be returned when server parameter with name does not exist.
+     *
+     * @param string $name
+     * @param mixed  $default
+     *
+     * @return mixed
+     */
+    public function getServerParameter(string $name, mixed $default = null): mixed;
 
     /**
      * Return method.
@@ -126,6 +145,15 @@ interface RequestInterface
      * @return RequestInterface
      */
     public function withHeaders(array $headers): RequestInterface;
+
+    /**
+     * Return new instance with server parameters.
+     *
+     * @param mixed[] $parameters
+     *
+     * @return RequestInterface
+     */
+    public function withServerParameters(array $parameters): RequestInterface;
 
     /**
      * Return new instance with method.
