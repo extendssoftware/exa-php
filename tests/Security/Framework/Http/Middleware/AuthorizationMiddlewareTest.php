@@ -25,10 +25,16 @@ class AuthorizationMiddlewareTest extends TestCase
     {
         $security = $this->createMock(SecurityServiceInterface::class);
         $security
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('isPermitted')
-            ->with('foo:bar:baz')
-            ->willReturn(true);
+            ->withConsecutive(
+                ['foo:bar:baz'],
+                ['foo:baz:qux'],
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                true,
+            );
 
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
@@ -37,6 +43,7 @@ class AuthorizationMiddlewareTest extends TestCase
             ->with('permissions')
             ->willReturn([
                 'foo:bar:baz',
+                'foo:baz:qux',
             ]);
 
         $request = $this->createMock(RequestInterface::class);
@@ -76,10 +83,16 @@ class AuthorizationMiddlewareTest extends TestCase
     {
         $security = $this->createMock(SecurityServiceInterface::class);
         $security
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('isPermitted')
-            ->with('foo:bar:baz')
-            ->willReturn(false);
+            ->withConsecutive(
+                ['foo:bar:baz'],
+                ['foo:baz:qux'],
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                false,
+            );
 
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
@@ -88,6 +101,7 @@ class AuthorizationMiddlewareTest extends TestCase
             ->with('permissions')
             ->willReturn([
                 'foo:bar:baz',
+                'foo:baz:qux',
             ]);
 
         $request = $this->createMock(RequestInterface::class);
