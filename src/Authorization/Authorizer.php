@@ -24,9 +24,11 @@ class Authorizer implements AuthorizerInterface
     {
         foreach ($this->realms as $realm) {
             $permissions = $realm->getPermissions($identity);
-            foreach ($permissions ?? [] as $inner) {
-                if ($inner->implies($permission)) {
-                    return true;
+            if (is_array($permissions)) {
+                foreach ($permissions as $inner) {
+                    if ($inner->implies($permission)) {
+                        return true;
+                    }
                 }
             }
         }
