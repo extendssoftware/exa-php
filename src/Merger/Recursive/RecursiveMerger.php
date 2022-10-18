@@ -22,11 +22,11 @@ class RecursiveMerger implements MergerInterface
     {
         foreach ($right as $key => $value) {
             if (is_array($value) && isset($left[$key]) && is_array($left[$key])) {
-                if (array_values($value) !== $value) {
-                    $left[$key] = $this->merge($left[$key], $value);
-                } else {
+                if (array_is_list($value)) {
                     $left[$key] = array_merge($left[$key], $value);
                     $left[$key] = array_unique($left[$key], SORT_REGULAR);
+                } else {
+                    $left[$key] = $this->merge($left[$key], $value);
                 }
             } else {
                 $left[$key] = $value;
