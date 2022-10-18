@@ -27,10 +27,9 @@ class ControllerMiddlewareTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'controller' => 'foo',
-            ]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn('foo');
 
         $request = $this->createMock(RequestInterface::class);
         $request
@@ -109,8 +108,9 @@ class ControllerMiddlewareTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn(null);
 
         $request = $this->createMock(RequestInterface::class);
         $request

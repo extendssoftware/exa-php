@@ -30,11 +30,10 @@ class AuthorizationMiddleware implements MiddlewareInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
-            $parameters = $match->getParameters();
-
-            if (isset($parameters['permissions'])) {
+            $permissions = $match->getParameter('permissions');
+            if (is_array($permissions)) {
                 $permitted = false;
-                foreach ($parameters['permissions'] as $permission) {
+                foreach ($permissions as $permission) {
                     if ($this->securityService->isPermitted($permission)) {
                         $permitted = true;
 

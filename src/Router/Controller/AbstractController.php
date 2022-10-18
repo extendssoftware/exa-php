@@ -43,12 +43,12 @@ abstract class AbstractController implements ControllerInterface
         $this->request = $request;
         $this->routeMatch = $routeMatch;
 
-        $parameters = $routeMatch->getParameters();
-        if (!array_key_exists('action', $parameters)) {
+        $action = $routeMatch->getParameter('action');
+        if ($action === null) {
             throw new ActionNotFound();
         }
 
-        $action = str_replace(['_', '-', '.',], ' ', strtolower($parameters['action']));
+        $action = str_replace(['_', '-', '.',], ' ', strtolower($action));
         $action = lcfirst(str_replace(' ', '', ucwords($action)));
         $method = new ReflectionMethod($this, $action . $this->postfix);
 

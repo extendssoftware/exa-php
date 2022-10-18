@@ -30,8 +30,7 @@ class ControllerMiddleware implements MiddlewareInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
-            $parameters = $match->getParameters();
-            if (isset($parameters['controller'])) {
+            if ($match->getParameter('controller') !== null) {
                 return $this->executor->execute($request, $match);
             }
         }

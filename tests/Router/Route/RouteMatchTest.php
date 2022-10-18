@@ -14,6 +14,7 @@ class RouteMatchTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getParameters()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getParameter()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getPathOffset()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\RouteMatch::getName()
      */
@@ -22,6 +23,8 @@ class RouteMatchTest extends TestCase
         $match = new RouteMatch(['foo' => 'bar'], 15, 'index');
 
         $this->assertSame(['foo' => 'bar'], $match->getParameters());
+        $this->assertSame('bar', $match->getParameter('foo'));
+        $this->assertSame('qux', $match->getParameter('bar', 'qux'));
         $this->assertSame(15, $match->getPathOffset());
         $this->assertSame('index', $match->getName());
     }

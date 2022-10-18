@@ -30,12 +30,11 @@ class Executor implements ExecutorInterface
      */
     public function execute(RequestInterface $request, RouteMatchInterface $routeMatch): ResponseInterface
     {
-        $parameters = $routeMatch->getParameters();
-        if (!isset($parameters['controller'])) {
+        $key = $routeMatch->getParameter('controller');
+        if ($key === null) {
             throw new ControllerParameterMissing();
         }
 
-        $key = $parameters['controller'];
         try {
             /** @var ControllerInterface $controller */
             $controller = $this->serviceLocator->getService($key);

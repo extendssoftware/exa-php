@@ -65,11 +65,18 @@ class AbstractControllerTest extends TestCase
 
         $match = $this->createMock(RouteMatchInterface::class);
         $match
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([
                 'action' => 'foo.fancy-action',
                 'someId' => 33,
             ]);
+
+        $match
+            ->expects($this->once())
+            ->method('getParameter')
+            ->with('action')
+            ->willReturn('foo.fancy-action');
 
         /**
          * @var RequestInterface    $request
@@ -134,10 +141,10 @@ class AbstractControllerTest extends TestCase
 
         $match = $this->createMock(RouteMatchInterface::class);
         $match
-            ->method('getParameters')
-            ->willReturn([
-                'action' => 'fooFancyAction',
-            ]);
+            ->expects($this->once())
+            ->method('getParameter')
+            ->with('action')
+            ->willReturn('fooFancyAction');
 
         /**
          * @var RequestInterface    $request

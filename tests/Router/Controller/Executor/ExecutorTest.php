@@ -34,10 +34,9 @@ class ExecutorTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'controller' => 'Foo',
-            ]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn('Foo');
 
         $controller = $this->createMock(ControllerInterface::class);
         $controller
@@ -83,8 +82,9 @@ class ExecutorTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn(null);
 
         /**
          * @var ServiceLocatorInterface $serviceLocator
@@ -121,10 +121,9 @@ class ExecutorTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'controller' => 'Foo',
-            ]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn('Foo');
 
         /**
          * @var ServiceLocatorInterface $serviceLocator
@@ -156,10 +155,9 @@ class ExecutorTest extends TestCase
         $match = $this->createMock(RouteMatchInterface::class);
         $match
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'controller' => 'Foo',
-            ]);
+            ->method('getParameter')
+            ->with('controller')
+            ->willReturn('Foo');
 
         $controller = $this->createMock(ControllerInterface::class);
         $controller
