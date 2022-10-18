@@ -54,4 +54,12 @@ class Command implements CommandInterface
     {
         return $this->parameters ?? [];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getParameter(string $key, mixed $default = null): mixed
+    {
+        return $this->parameters[$key] ?? $default;
+    }
 }

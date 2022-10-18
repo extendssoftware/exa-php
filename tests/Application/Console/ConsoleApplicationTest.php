@@ -37,10 +37,9 @@ class ConsoleApplicationTest extends TestCase
         $command = $this->createMock(CommandInterface::class);
         $command
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'task' => stdClass::class,
-            ]);
+            ->method('getParameter')
+            ->with('task')
+            ->willReturn(stdClass::class);
 
         $result = $this->createMock(ShellResultInterface::class);
         $result
@@ -109,8 +108,9 @@ class ConsoleApplicationTest extends TestCase
         $command = $this->createMock(CommandInterface::class);
         $command
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([]);
+            ->method('getParameter')
+            ->with('task')
+            ->willReturn(null);
 
         $command
             ->expects($this->once())
@@ -166,10 +166,9 @@ class ConsoleApplicationTest extends TestCase
         $command = $this->createMock(CommandInterface::class);
         $command
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'task' => stdClass::class,
-            ]);
+            ->method('getParameter')
+            ->with('task')
+            ->willReturn(stdClass::class);
 
         $command
             ->expects($this->once())
@@ -231,10 +230,9 @@ class ConsoleApplicationTest extends TestCase
         $command = $this->createMock(CommandInterface::class);
         $command
             ->expects($this->once())
-            ->method('getParameters')
-            ->willReturn([
-                'task' => stdClass::class,
-            ]);
+            ->method('getParameter')
+            ->with('task')
+            ->willReturn(stdClass::class);
 
         $command
             ->method('getName')

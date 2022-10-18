@@ -42,22 +42,22 @@ class ConsoleApplication extends AbstractApplication
         $result = $this->shell->process(array_slice($GLOBALS['argv'], 1));
         if ($result instanceof ShellResultInterface) {
             $command = $result->getCommand();
-            $parameters = $command->getParameters();
-            if (!isset($parameters['task'])) {
+            $task = $command->getParameter('task');
+            if ($task === null) {
                 throw new TaskParameterMissing($command);
             }
 
             try {
-                /** @var TaskInterface $task */
-                $task = $this
+                $instance = $this
                     ->getServiceLocator()
-                    ->getService($parameters['task']);
+                    ->getService($task);
             } catch (ServiceLocatorException $exception) {
                 throw new TaskNotFound($command, $exception);
             }
 
             try {
-                $task->execute($result->getData());
+                /** @var TaskInterface $instance */
+                $instance->execute($result->getData());
             } catch (TaskException $exception) {
                 throw new TaskExecuteFailed($command, $exception);
             }

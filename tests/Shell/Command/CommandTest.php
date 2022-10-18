@@ -18,6 +18,7 @@ class CommandTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Shell\Command\Command::getDescription()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Command\Command::getDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Command\Command::getParameters()
+     * @covers \ExtendsSoftware\ExaPHP\Shell\Command\Command::getParameter()
      */
     public function testGetParameters(): void
     {
@@ -32,5 +33,7 @@ class CommandTest extends TestCase
         $this->assertSame('Some fancy task!', $command->getDescription());
         $this->assertSame($definition, $command->getDefinition());
         $this->assertSame(['foo' => 'bar'], $command->getParameters());
+        $this->assertSame('bar', $command->getParameter('foo'));
+        $this->assertSame('qux', $command->getParameter('bar', 'qux'));
     }
 }
