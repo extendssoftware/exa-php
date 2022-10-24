@@ -19,26 +19,26 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
-use ExtendsSoftware\ExaPHP\Security\SecurityServiceInterface;
 
 class HateoasMiddleware implements MiddlewareInterface
 {
     /**
      * HateoasMiddleware constructor.
      *
-     * @param AuthorizerInterface      $authorizer
-     * @param ExpanderInterface        $expander
-     * @param SerializerInterface      $serializer
-     * @param SecurityServiceInterface $securityService
-     * @param RouterInterface          $router
+     * @param AuthorizerInterface $authorizer
+     * @param ExpanderInterface   $expander
+     * @param SerializerInterface $serializer
+     * @param StorageInterface    $storage
+     * @param RouterInterface     $router
      */
     public function __construct(
-        private readonly AuthorizerInterface      $authorizer,
-        private readonly ExpanderInterface        $expander,
-        private readonly SerializerInterface      $serializer,
-        private readonly SecurityServiceInterface $securityService,
-        private readonly RouterInterface          $router
+        private readonly AuthorizerInterface $authorizer,
+        private readonly ExpanderInterface   $expander,
+        private readonly SerializerInterface $serializer,
+        private readonly StorageInterface    $storage,
+        private readonly RouterInterface     $router
     ) {
     }
 
@@ -72,7 +72,7 @@ class HateoasMiddleware implements MiddlewareInterface
                         $builder
                             ->setExpander($this->expander)
                             ->setAuthorizer($this->authorizer)
-                            ->setIdentity($this->securityService->getIdentity())
+                            ->setIdentity($this->storage->getIdentity())
                             ->setToExpand($expand)
                             ->setToProject($project)
                             ->build()

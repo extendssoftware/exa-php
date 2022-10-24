@@ -10,14 +10,14 @@ use ExtendsSoftware\ExaPHP\Application\Framework\Http\Middleware\RendererMiddlew
 use ExtendsSoftware\ExaPHP\Application\Framework\ServiceLocator\Factory\ApplicationFactory;
 use ExtendsSoftware\ExaPHP\Application\Http\Renderer\Renderer;
 use ExtendsSoftware\ExaPHP\Application\Http\Renderer\RendererInterface;
+use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware;
+use ExtendsSoftware\ExaPHP\Authorization\Framework\Http\Middleware\AuthorizationMiddleware;
 use ExtendsSoftware\ExaPHP\Hateoas\Framework\Http\Middleware\Hateoas\HateoasMiddleware;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Logger\Framework\Http\Middleware\Logger\LoggerMiddleware;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\Http\Middleware\ProblemDetailsMiddleware;
 use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
 use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router\RouterMiddleware;
-use ExtendsSoftware\ExaPHP\Security\Framework\Http\Middleware\AuthenticationMiddleware;
-use ExtendsSoftware\ExaPHP\Security\Framework\Http\Middleware\AuthorizationMiddleware;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver;

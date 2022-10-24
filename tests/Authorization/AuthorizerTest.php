@@ -47,7 +47,7 @@ class AuthorizerTest extends TestCase
         $authorizer = new Authorizer();
         $authorizer->addRealm($realm);
 
-        $permitted = $authorizer->isPermitted($permission,$identity);
+        $permitted = $authorizer->isPermitted($permission, $identity);
 
         $this->assertTrue($permitted);
 
