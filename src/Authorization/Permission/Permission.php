@@ -19,7 +19,7 @@ class Permission implements PermissionInterface
      *
      * @var string
      */
-    private string $divider = ':';
+    private string $divider = '/';
 
     /**
      * Character to divide parts in a section.
@@ -33,7 +33,7 @@ class Permission implements PermissionInterface
      *
      * @var string
      */
-    private string $pattern = '/^(\*|\w+(,\w+)*)(:(\*|\w+(,\w+)*))*$/';
+    private string $pattern = '~^(\*|\w+(,\w+)*)(/(\*|\w+(,\w+)*))*$~';
 
     /**
      * Permission constructor.
@@ -47,6 +47,14 @@ class Permission implements PermissionInterface
         if (!preg_match($this->pattern, $notation)) {
             throw new InvalidPermissionNotation($notation);
         }
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getNotation(): string
+    {
+        return $this->notation;
     }
 
     /**

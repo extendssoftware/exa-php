@@ -9,26 +9,18 @@ use PHPUnit\Framework\TestCase;
 class PermissionTest extends TestCase
 {
     /**
-     * Dummy permission class.
+     * Get notation.
      *
-     * @var PermissionInterface
+     * Test that notation will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Permission\Permission::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Permission\Permission::getNotation()
      */
-    private $permission;
-
-    /**
-     * @return void
-     */
-    protected function setUp(): void
+    public function testGetGetNotation(): void
     {
-        $this->permission = new class implements PermissionInterface {
-            /**
-             * @inheritDoc
-             */
-            public function implies(PermissionInterface $permission): bool
-            {
-                return true;
-            }
-        };
+        $permission = new Permission('foo/bar/baz');
+
+        $this->assertSame('foo/bar/baz', $permission->getNotation());
     }
 
     /**
@@ -43,21 +35,21 @@ class PermissionTest extends TestCase
     public function testImpliesExactMatches(): void
     {
         // Exact matches.
-        $this->assertTrue((new Permission('foo:bar:baz'))->implies(new Permission('foo:bar:baz')));
-        $this->assertTrue((new Permission('foo:bar'))->implies(new Permission('foo:bar')));
-        $this->assertTrue((new Permission('foo:*'))->implies(new Permission('foo')));
+        $this->assertTrue((new Permission('foo/bar/baz'))->implies(new Permission('foo/bar/baz')));
+        $this->assertTrue((new Permission('foo/bar'))->implies(new Permission('foo/bar')));
+        $this->assertTrue((new Permission('foo/*'))->implies(new Permission('foo')));
         $this->assertTrue((new Permission('foo'))->implies(new Permission('foo')));
 
         // Stronger matches.
-        $this->assertTrue((new Permission('foo:bar:*'))->implies(new Permission('foo:bar:baz')));
-        $this->assertTrue((new Permission('foo:bar'))->implies(new Permission('foo:bar:baz')));
-        $this->assertTrue((new Permission('foo:*'))->implies(new Permission('foo:bar:baz')));
-        $this->assertTrue((new Permission('foo'))->implies(new Permission('foo:bar:baz')));
+        $this->assertTrue((new Permission('foo/bar/*'))->implies(new Permission('foo/bar/baz')));
+        $this->assertTrue((new Permission('foo/bar'))->implies(new Permission('foo/bar/baz')));
+        $this->assertTrue((new Permission('foo/*'))->implies(new Permission('foo/bar/baz')));
+        $this->assertTrue((new Permission('foo'))->implies(new Permission('foo/bar/baz')));
 
         // Weaker matches.
-        $this->assertFalse((new Permission('foo:bar:baz'))->implies(new Permission('foo:bar:*')));
-        $this->assertFalse((new Permission('foo:bar:baz'))->implies(new Permission('foo:bar')));
-        $this->assertFalse((new Permission('foo:baz'))->implies(new Permission('foo:bar')));
+        $this->assertFalse((new Permission('foo/bar/baz'))->implies(new Permission('foo/bar/*')));
+        $this->assertFalse((new Permission('foo/bar/baz'))->implies(new Permission('foo/bar')));
+        $this->assertFalse((new Permission('foo/baz'))->implies(new Permission('foo/bar')));
     }
 
     /**
@@ -71,9 +63,9 @@ class PermissionTest extends TestCase
     public function testInvalidPermission(): void
     {
         $this->expectException(InvalidPermissionNotation::class);
-        $this->expectExceptionMessage('Invalid permission notation detected, got "foo,:bar".');
+        $this->expectExceptionMessage('Invalid permission notation detected, got "foo,/bar".');
 
-        new Permission('foo,:bar');
+        new Permission('foo,/bar');
     }
 
     /**
@@ -86,6 +78,25 @@ class PermissionTest extends TestCase
      */
     public function testNotSameInstance(): void
     {
-        $this->assertFalse((new Permission('*'))->implies($this->permission));
+        $other = new class implements PermissionInterface {
+            /**
+             * @inheritDoc
+             */
+            public function getNotation(): string
+            {
+                return 'foo/bar/baz';
+            }
+
+
+            /**
+             * @inheritDoc
+             */
+            public function implies(PermissionInterface $permission): bool
+            {
+                return true;
+            }
+        };
+
+        $this->assertFalse((new Permission('*'))->implies($other));
     }
 }
