@@ -34,7 +34,11 @@ class AuthorizationMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('isPermitted')
             ->with(
-                $this->isInstanceOf(PermissionInterface::class),
+                $this->callback(function (PermissionInterface $permission): bool {
+                    $this->assertSame('foo/bar/baz', $permission->getNotation());
+
+                    return true;
+                }),
                 $identity
             )
             ->willReturn(true);
@@ -49,10 +53,13 @@ class AuthorizationMiddlewareTest extends TestCase
         $routeMatch
             ->expects($this->once())
             ->method('getParameter')
-            ->with('permissions')
-            ->willReturn([
-                'foo:bar:baz',
-            ]);
+            ->with('authorization')
+            ->willReturn(true);
+
+        $routeMatch
+            ->expects($this->once())
+            ->method('getName')
+            ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);
         $request
@@ -60,15 +67,6 @@ class AuthorizationMiddlewareTest extends TestCase
             ->method('getAttribute')
             ->with('routeMatch')
             ->willReturn($routeMatch);
-
-        $request
-            ->expects($this->once())
-            ->method('andAttribute')
-            ->with(
-                'permission',
-                $this->isInstanceOf(PermissionInterface::class)
-            )
-            ->willReturnSelf();
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -107,7 +105,11 @@ class AuthorizationMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('isPermitted')
             ->with(
-                $this->isInstanceOf(PermissionInterface::class),
+                $this->callback(function (PermissionInterface $permission): bool {
+                    $this->assertSame('foo/bar/baz', $permission->getNotation());
+
+                    return true;
+                }),
                 $identity
             )
             ->willReturn(false);
@@ -122,10 +124,13 @@ class AuthorizationMiddlewareTest extends TestCase
         $routeMatch
             ->expects($this->once())
             ->method('getParameter')
-            ->with('permissions')
-            ->willReturn([
-                'foo:bar:baz',
-            ]);
+            ->with('authorization')
+            ->willReturn(true);
+
+        $routeMatch
+            ->expects($this->once())
+            ->method('getName')
+            ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);
         $request
