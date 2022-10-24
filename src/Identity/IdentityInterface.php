@@ -11,4 +11,11 @@ interface IdentityInterface
      * @return mixed
      */
     public function getIdentifier(): mixed;
+
+    /**
+     * If identity is authenticated.
+     *
+     * @return bool
+     */
+    public function isAuthenticated(): bool;
 }

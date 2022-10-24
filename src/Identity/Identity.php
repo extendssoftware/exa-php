@@ -9,8 +9,9 @@ class Identity implements IdentityInterface
      * Identity constructor.
      *
      * @param mixed $identifier
+     * @param bool  $isAuthenticated
      */
-    public function __construct(private readonly mixed $identifier)
+    public function __construct(private readonly mixed $identifier, private readonly bool $isAuthenticated)
     {
     }
 
@@ -20,5 +21,13 @@ class Identity implements IdentityInterface
     public function getIdentifier(): mixed
     {
         return $this->identifier;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isAuthenticated(): bool
+    {
+        return $this->isAuthenticated;
     }
 }
