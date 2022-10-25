@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\Application\Framework\ServiceLocator\Factory\Applicat
 use ExtendsSoftware\ExaPHP\Application\Http\Renderer\Renderer;
 use ExtendsSoftware\ExaPHP\Application\Http\Renderer\RendererInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware;
+use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IpAddressIdentityMiddleware;
 use ExtendsSoftware\ExaPHP\Authorization\Framework\Http\Middleware\AuthorizationMiddleware;
 use ExtendsSoftware\ExaPHP\Hateoas\Framework\Http\Middleware\Hateoas\HateoasMiddleware;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
@@ -52,12 +53,13 @@ class ApplicationConfigLoaderTest extends TestCase
                 ],
             ],
             MiddlewareChainInterface::class => [
-                RendererMiddleware::class => 1000,
-                ProblemDetailsMiddleware::class => 900,
-                InternalServerErrorMiddleware::class => 800,
-                LoggerMiddleware::class => 700,
-                HateoasMiddleware::class => 600,
-                RouterMiddleware::class => 500,
+                RendererMiddleware::class => 1100,
+                ProblemDetailsMiddleware::class => 1000,
+                InternalServerErrorMiddleware::class => 900,
+                LoggerMiddleware::class => 800,
+                HateoasMiddleware::class => 700,
+                RouterMiddleware::class => 600,
+                IpAddressIdentityMiddleware::class => 500,
                 AuthenticationMiddleware::class => 400,
                 AuthorizationMiddleware::class => 300,
                 ControllerMiddleware::class => 200,

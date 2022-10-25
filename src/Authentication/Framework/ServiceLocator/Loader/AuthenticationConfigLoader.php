@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Loader;
 
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware;
+use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IpAddressIdentityMiddleware;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Factory\AuthenticatorFactory;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
@@ -25,6 +26,7 @@ class AuthenticationConfigLoader implements LoaderInterface
                 ],
                 ReflectionResolver::class => [
                     AuthenticationMiddleware::class => AuthenticationMiddleware::class,
+                    IpAddressIdentityMiddleware::class => IpAddressIdentityMiddleware::class,
                 ],
             ],
             AuthenticatorInterface::class => [
