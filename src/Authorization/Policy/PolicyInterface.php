@@ -11,10 +11,10 @@ interface PolicyInterface
     /**
      * If identity is allowed by policy.
      *
-     * @param AuthorizerInterface    $authorizer
-     * @param IdentityInterface|null $identity
+     * @param AuthorizerInterface $authorizer
+     * @param IdentityInterface   $identity
      *
      * @return bool
      */
-    public function isAllowed(AuthorizerInterface $authorizer, IdentityInterface $identity = null): bool;
+    public function isAllowed(AuthorizerInterface $authorizer, IdentityInterface $identity): bool;
 }

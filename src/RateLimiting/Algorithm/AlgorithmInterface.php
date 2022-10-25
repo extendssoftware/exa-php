@@ -12,10 +12,10 @@ interface AlgorithmInterface
     /**
      * Consume rule for identity.
      *
-     * @param RuleInterface          $rule
-     * @param IdentityInterface|null $identity
+     * @param RuleInterface     $rule
+     * @param IdentityInterface $identity
      *
      * @return QuotaInterface|null
      */
-    public function consume(RuleInterface $rule, IdentityInterface $identity = null): ?QuotaInterface;
+    public function consume(RuleInterface $rule, IdentityInterface $identity): ?QuotaInterface;
 }

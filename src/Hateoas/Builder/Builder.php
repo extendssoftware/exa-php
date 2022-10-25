@@ -233,7 +233,7 @@ class Builder implements BuilderInterface
         if ($permission || $policy) {
             $authorized = false;
 
-            if ($this->authorizer) {
+            if ($this->authorizer && $this->identity) {
                 if (($permission && $this->authorizer->isPermitted($permission, $this->identity)) ||
                     ($policy && $this->authorizer->isAllowed($policy, $this->identity))
                 ) {

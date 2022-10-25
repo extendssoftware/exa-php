@@ -11,9 +11,9 @@ interface RealmInterface
     /**
      * Get rate limiting rules for identity.
      *
-     * @param IdentityInterface|null $identity
+     * @param IdentityInterface $identity
      *
      * @return RuleInterface[]|null Null when realm has no rules for identity.
      */
-    public function getRules(IdentityInterface $identity = null): ?array;
+    public function getRules(IdentityInterface $identity): ?array;
 }

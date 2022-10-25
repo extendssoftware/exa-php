@@ -28,7 +28,7 @@ class RateLimiter implements RateLimiterInterface
     /**
      * @inheritDoc
      */
-    public function consume(PermissionInterface $permission, IdentityInterface $identity = null): ?QuotaInterface
+    public function consume(PermissionInterface $permission, IdentityInterface $identity): ?QuotaInterface
     {
         foreach ($this->realms as $realm) {
             $rules = $realm->getRules($identity);
