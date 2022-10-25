@@ -38,7 +38,8 @@ class AuthorizationMiddleware implements MiddlewareInterface
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
             $permission = new Permission($match->getName());
-            if (!$this->authorizer->isPermitted($permission, $this->storage->getIdentity())) {
+            $identity = $this->storage->getIdentity();
+            if (!$this->authorizer->isPermitted($permission, $identity)) {
                 return (new Response())->withBody(
                     new ForbiddenProblemDetails($request)
                 );
