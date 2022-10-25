@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Factory;
 use ExtendsSoftware\ExaPHP\RateLimiting\Algorithm\AlgorithmInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -24,12 +25,13 @@ class RateLimiterFactoryTest extends TestCase
 
         $algorithm = $this->createMock(AlgorithmInterface::class);
 
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
+        $config = $this->createMock(ConfigInterface::class);
+        $config
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn([
-                RateLimiterInterface::class => [
+            ->method('get')
+            ->with(RateLimiterInterface::class)
+            ->willReturn(
+                [
                     'realms' => [
                         [
                             'name' => RealmInterface::class,
@@ -46,8 +48,14 @@ class RateLimiterFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                ],
-            ]);
+                ]
+            );
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($config);
 
         $serviceLocator
             ->expects($this->exactly(2))

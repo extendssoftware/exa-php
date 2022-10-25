@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Merger\Recursive;
+namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\Recursive;
 
-use ExtendsSoftware\ExaPHP\Merger\MergerInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\MergerInterface;
 
 class RecursiveMerger implements MergerInterface
 {

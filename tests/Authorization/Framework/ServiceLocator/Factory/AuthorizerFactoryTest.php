@@ -3,8 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Factory;
 
-use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
+use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -21,12 +22,13 @@ class AuthorizerFactoryTest extends TestCase
     {
         $realm = $this->createMock(RealmInterface::class);
 
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
+        $config = $this->createMock(ConfigInterface::class);
+        $config
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn([
-                AuthorizerInterface::class => [
+            ->method('get')
+            ->with(AuthorizerInterface::class)
+            ->willReturn(
+                [
                     'realms' => [
                         [
                             'name' => RealmInterface::class,
@@ -35,8 +37,14 @@ class AuthorizerFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                ],
-            ]);
+                ]
+            );
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($config);
 
         $serviceLocator
             ->expects($this->once())

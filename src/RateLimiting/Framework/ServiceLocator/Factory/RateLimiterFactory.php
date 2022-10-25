@@ -22,9 +22,7 @@ class RateLimiterFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): RateLimiterInterface {
-        $config = $serviceLocator->getConfig();
-        $config = $config[RateLimiterInterface::class] ?? [];
-
+        $config = $serviceLocator->getConfig()->get(RateLimiterInterface::class, []);
         $rateLimiter = new RateLimiter();
         foreach ($config['realms'] ?? [] as $realmConfig) {
             $realm = $serviceLocator->getService($realmConfig['name'], $realmConfig['options'] ?? []);

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Merger\Recursive;
+namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\Recursive;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -13,7 +13,7 @@ class RecursiveMergerTest extends TestCase
      *
      * Test that two configs ($left and $right) can be merged and merged config ($merged) will be returned.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Merger\Recursive\RecursiveMerger::merge()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\Recursive\RecursiveMerger::merge()
      */
     public function testMerge(): void
     {

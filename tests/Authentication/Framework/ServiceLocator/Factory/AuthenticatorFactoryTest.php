@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Factory
 
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -21,12 +22,13 @@ class AuthenticatorFactoryTest extends TestCase
     {
         $realm = $this->createMock(RealmInterface::class);
 
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
+        $config = $this->createMock(ConfigInterface::class);
+        $config
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn([
-                AuthenticatorInterface::class => [
+            ->method('get')
+            ->with(AuthenticatorInterface::class)
+            ->willReturn(
+                [
                     'realms' => [
                         [
                             'name' => RealmInterface::class,
@@ -35,8 +37,14 @@ class AuthenticatorFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                ],
-            ]);
+                ]
+            );
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($config);
 
         $serviceLocator
             ->expects($this->once())

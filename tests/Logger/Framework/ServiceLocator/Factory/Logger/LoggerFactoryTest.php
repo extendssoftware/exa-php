@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Factory\Logger;
 
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -19,12 +20,13 @@ class LoggerFactoryTest extends TestCase
      */
     public function testCreateService(): void
     {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
+        $config = $this->createMock(ConfigInterface::class);
+        $config
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn([
-                LoggerInterface::class => [
+            ->method('get')
+            ->with(LoggerInterface::class)
+            ->willReturn(
+                [
                     'writers' => [
                         [
                             'name' => WriterInterface::class,
@@ -33,8 +35,14 @@ class LoggerFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                ],
-            ]);
+                ]
+            );
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getConfig')
+            ->willReturn($config);
 
         $serviceLocator
             ->expects($this->once())

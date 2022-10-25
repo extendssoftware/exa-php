@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
+
 interface ServiceLocatorInterface
 {
     /**
@@ -22,9 +24,9 @@ interface ServiceLocatorInterface
     /**
      * Get global config.
      *
-     * @return mixed[]
+     * @return ConfigInterface
      */
-    public function getConfig(): array;
+    public function getConfig(): ConfigInterface;
 
     /**
      * If console is the current environment.

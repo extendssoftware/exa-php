@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Factory;
 
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -19,15 +20,22 @@ class MiddlewareChainFactoryTest extends TestCase
      */
     public function testCreateService(): void
     {
+        $config = $this->createMock(ConfigInterface::class);
+        $config
+            ->expects($this->once())
+            ->method('get')
+            ->with(MiddlewareChainInterface::class)
+            ->willReturn(
+                [
+                    MiddlewareInterface::class => 20,
+                ]
+            );
+
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
             ->expects($this->once())
             ->method('getConfig')
-            ->willReturn([
-                MiddlewareChainInterface::class => [
-                    MiddlewareInterface::class => 20,
-                ],
-            ]);
+            ->willReturn($config);
 
         $serviceLocator
             ->expects($this->once())

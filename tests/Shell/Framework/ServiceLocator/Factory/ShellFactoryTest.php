@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Factory;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\Shell\ShellInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -18,11 +19,13 @@ class ShellFactoryTest extends TestCase
      */
     public function testCreateService(): void
     {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->method('getConfig')
-            ->willReturn([
-                ShellInterface::class => [
+        $config = $this->createMock(ConfigInterface::class);
+        $config
+            ->expects($this->once())
+            ->method('get')
+            ->with(ShellInterface::class)
+            ->willReturn(
+                [
                     'name' => 'Fancy shell name.',
                     'program' => 'run',
                     'version' => '1.3',
@@ -60,8 +63,13 @@ class ShellFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                ],
-            ]);
+                ]
+            );
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->method('getConfig')
+            ->willReturn($config);
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

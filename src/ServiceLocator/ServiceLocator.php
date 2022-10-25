@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 
@@ -25,9 +26,9 @@ class ServiceLocator implements ServiceLocatorInterface
     /**
      * ServiceLocator constructor.
      *
-     * @param mixed[] $config
+     * @param ConfigInterface $config
      */
-    public function __construct(private readonly array $config)
+    public function __construct(private readonly ConfigInterface $config)
     {
     }
 
@@ -61,7 +62,7 @@ class ServiceLocator implements ServiceLocatorInterface
     /**
      * @inheritDoc
      */
-    public function getConfig(): array
+    public function getConfig(): ConfigInterface
     {
         return $this->config;
     }

@@ -21,9 +21,7 @@ class AuthenticatorFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): AuthenticatorInterface {
-        $config = $serviceLocator->getConfig();
-        $config = $config[AuthenticatorInterface::class] ?? [];
-
+        $config = $serviceLocator->getConfig()->get(AuthenticatorInterface::class, []);
         $authenticator = new Authenticator();
         foreach ($config['realms'] ?? [] as $config) {
             $realm = $serviceLocator->getService($config['name'], $config['options'] ?? []);
