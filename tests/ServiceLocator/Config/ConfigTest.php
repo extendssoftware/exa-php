@@ -37,5 +37,8 @@ class ConfigTest extends TestCase
         $this->assertNull($config->get('bar'));
         $this->assertNull($config->get('foo.bar'));
         $this->assertNull($config->get('quux.2'));
+        $this->assertNull($config->get('quux.'));
+        $this->assertNull($config->get('.quux'));
+        $this->assertNull($config->get(''));
     }
 }
