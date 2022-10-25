@@ -183,8 +183,6 @@ class RateLimitingMiddlewareTest extends TestCase
             ->with('routeMatch')
             ->willReturn($routeMatch);
 
-        $response = $this->createMock(ResponseInterface::class);
-
         $chain = $this->createMock(MiddlewareChainInterface::class);
         $chain
             ->expects($this->never())
