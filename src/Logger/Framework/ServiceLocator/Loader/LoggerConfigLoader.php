@@ -17,7 +17,6 @@ use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Notice\NoticePriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Warning\WarningPriority;
 use ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter;
-use ExtendsSoftware\ExaPHP\Logger\Writer\Pdo\PdoWriter;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
@@ -50,7 +49,6 @@ class LoggerConfigLoader implements LoaderInterface
                     NoticePriority::class => NoticePriority::class,
                     WarningPriority::class => WarningPriority::class,
                     FileWriter::class => FileWriter::class,
-                    PdoWriter::class => PdoWriter::class,
                 ],
                 ReflectionResolver::class => [
                     LoggerMiddleware::class => LoggerMiddleware::class,
