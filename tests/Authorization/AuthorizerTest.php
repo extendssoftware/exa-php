@@ -83,4 +83,26 @@ class AuthorizerTest extends TestCase
 
         $this->assertTrue($isAllowed);
     }
+
+    /**
+     * Not allowed by default.
+     *
+     * Test that permission is not allowed by default.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::isAllowed()
+     */
+    public function testNotAllowedByDefault(): void
+    {
+        $permission = $this->createMock(PermissionInterface::class);
+
+        $identity = $this->createMock(IdentityInterface::class);
+
+        /**
+         * @var IdentityInterface $identity
+         * @var PolicyInterface   $policy
+         */
+        $authorizer = new Authorizer();
+
+        $this->assertSame(false, $authorizer->isPermitted($permission, $identity));
+    }
 }
