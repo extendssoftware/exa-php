@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
 use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 
@@ -30,6 +31,7 @@ class AuthorizationMiddleware implements MiddlewareInterface
 
     /**
      * @inheritDoc
+     * @throws IdentityNotSet
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
