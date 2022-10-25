@@ -19,7 +19,7 @@ class RateLimiter implements RateLimiterInterface
     private array $realms = [];
 
     /**
-     * ...
+     * Algorithms to consume from.
      *
      * @var AlgorithmInterface[]
      */

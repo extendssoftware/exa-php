@@ -6,19 +6,25 @@ namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Loader;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Factory\RateLimiterFactory;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use PHPUnit\Framework\TestCase;
 
-class RateLimitingConfigLoader implements LoaderInterface
+class RateLimitingConfigLoaderTest extends TestCase
 {
     /**
-     * @inheritDoc
+     * Load.
+     *
+     * Test that loader returns correct array.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Loader\RateLimitingConfigLoader::load()
      */
-    public function load(): array
+    public function testLoad(): void
     {
-        return [
+        $loader = new RateLimitingConfigLoader();
+
+        $this->assertSame([
             ServiceLocatorInterface::class => [
                 FactoryResolver::class => [
                     RateLimiterInterface::class => RateLimiterFactory::class,
@@ -31,6 +37,6 @@ class RateLimitingConfigLoader implements LoaderInterface
                 'algorithms' => [],
                 'realms' => [],
             ],
-        ];
+        ], $loader->load());
     }
 }

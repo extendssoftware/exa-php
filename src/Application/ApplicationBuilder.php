@@ -19,6 +19,7 @@ use ExtendsSoftware\ExaPHP\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Merger\MergerInterface;
 use ExtendsSoftware\ExaPHP\Merger\Recursive\RecursiveMerger;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\ServiceLocator\Loader\ProblemDetailsConfigLoader;
+use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Loader\RateLimitingConfigLoader;
 use ExtendsSoftware\ExaPHP\Router\Framework\ServiceLocator\Loader\RouterConfigLoader;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File\FileLoader;
@@ -116,6 +117,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         HttpConfigLoader::class,
         LoggerConfigLoader::class,
         ProblemDetailsConfigLoader::class,
+        RateLimitingConfigLoader::class,
         RouterConfigLoader::class,
         ShellConfigLoader::class,
         ValidatorConfigLoader::class,
