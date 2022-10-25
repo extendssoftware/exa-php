@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Identity\Storage\InMemory;
 
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
 use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 
 class InMemoryStorage implements StorageInterface
@@ -18,8 +19,12 @@ class InMemoryStorage implements StorageInterface
     /**
      * @inheritDoc
      */
-    public function getIdentity(): ?IdentityInterface
+    public function getIdentity(): IdentityInterface
     {
+        if ($this->identity === null) {
+            throw new IdentityNotSet();
+        }
+
         return $this->identity;
     }
 

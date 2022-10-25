@@ -4,15 +4,17 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Identity\Storage;
 
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
 
 interface StorageInterface
 {
     /**
      * Get identity from storage.
      *
-     * @return IdentityInterface|null
+     * @return IdentityInterface
+     * @throws IdentityNotSet When identity is not set.
      */
-    public function getIdentity(): ?IdentityInterface;
+    public function getIdentity(): IdentityInterface;
 
     /**
      * Set identity to storage.
