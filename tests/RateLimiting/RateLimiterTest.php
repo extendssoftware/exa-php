@@ -63,10 +63,8 @@ class RateLimiterTest extends TestCase
          * @var IdentityInterface   $identity
          * @var PermissionInterface $permission
          */
-        $rateLimiter = new RateLimiter();
-        $rateLimiter
-            ->addAlgorithm($algorithm)
-            ->addRealm($realm);
+        $rateLimiter = new RateLimiter($algorithm);
+        $rateLimiter->addRealm($realm);
 
         $this->assertSame($quota, $rateLimiter->consume($permission, $identity));
     }
@@ -117,10 +115,8 @@ class RateLimiterTest extends TestCase
          * @var IdentityInterface   $identity
          * @var PermissionInterface $permission
          */
-        $rateLimiter = new RateLimiter();
-        $rateLimiter
-            ->addAlgorithm($algorithm)
-            ->addRealm($realm);
+        $rateLimiter = new RateLimiter($algorithm);
+        $rateLimiter->addRealm($realm);
 
         $this->assertNull($rateLimiter->consume($permission, $identity));
     }

@@ -34,7 +34,7 @@ class RateLimitingConfigLoaderTest extends TestCase
                 ],
             ],
             RateLimiterInterface::class => [
-                'algorithms' => [],
+                'algorithm' => null,
                 'realms' => [],
             ],
         ], $loader->load());

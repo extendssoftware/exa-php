@@ -40,12 +40,10 @@ class RateLimiterFactoryTest extends TestCase
                             ],
                         ],
                     ],
-                    'algorithms' => [
-                        [
-                            'name' => AlgorithmInterface::class,
-                            'options' => [
-                                'qux' => 'quux',
-                            ],
+                    'algorithm' => [
+                        'name' => AlgorithmInterface::class,
+                        'options' => [
+                            'qux' => 'quux',
                         ],
                     ],
                 ]
@@ -61,12 +59,12 @@ class RateLimiterFactoryTest extends TestCase
             ->expects($this->exactly(2))
             ->method('getService')
             ->withConsecutive(
-                [RealmInterface::class, ['foo' => 'bar']],
-                [AlgorithmInterface::class, ['qux' => 'quux']]
+                [AlgorithmInterface::class, ['qux' => 'quux']],
+                [RealmInterface::class, ['foo' => 'bar']]
             )
             ->willReturnOnConsecutiveCalls(
-                $realm,
-                $algorithm
+                $algorithm,
+                $realm
             );
 
         /**

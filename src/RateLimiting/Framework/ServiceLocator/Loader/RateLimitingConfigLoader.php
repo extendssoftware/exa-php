@@ -28,7 +28,7 @@ class RateLimitingConfigLoader implements LoaderInterface
                 ],
             ],
             RateLimiterInterface::class => [
-                'algorithms' => [],
+                'algorithm' => null,
                 'realms' => [],
             ],
         ];

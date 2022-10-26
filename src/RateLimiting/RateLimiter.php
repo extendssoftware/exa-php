@@ -19,11 +19,13 @@ class RateLimiter implements RateLimiterInterface
     private array $realms = [];
 
     /**
-     * Algorithms to consume from.
+     * RateLimiter constructor.
      *
-     * @var AlgorithmInterface[]
+     * @param AlgorithmInterface|null $algorithm
      */
-    private array $algorithm = [];
+    public function __construct(private readonly ?AlgorithmInterface $algorithm = null)
+    {
+    }
 
     /**
      * @inheritDoc
@@ -32,14 +34,12 @@ class RateLimiter implements RateLimiterInterface
     {
         foreach ($this->realms as $realm) {
             $rules = $realm->getRules($identity);
-            if (is_array($rules)) {
-                foreach ($this->algorithm as $algorithm) {
-                    foreach ($rules as $rule) {
-                        if ($rule->getPermission()->implies($permission)) {
-                            $quota = $algorithm->consume($rule, $identity);
-                            if ($quota) {
-                                return $quota;
-                            }
+            if (is_array($rules) && $this->algorithm) {
+                foreach ($rules as $rule) {
+                    if ($rule->getPermission()->implies($permission)) {
+                        $quota = $this->algorithm->consume($rule, $identity);
+                        if ($quota) {
+                            return $quota;
                         }
                     }
                 }
@@ -47,20 +47,6 @@ class RateLimiter implements RateLimiterInterface
         }
 
         return null;
-    }
-
-    /**
-     * Add algorithm to rate limiter.
-     *
-     * @param AlgorithmInterface $algorithm
-     *
-     * @return static
-     */
-    public function addAlgorithm(AlgorithmInterface $algorithm): static
-    {
-        $this->algorithm[] = $algorithm;
-
-        return $this;
     }
 
     /**
