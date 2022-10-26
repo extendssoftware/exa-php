@@ -33,6 +33,7 @@ use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\CoordinatesValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\NullableValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\EmailAddressValidator;
+use ExtendsSoftware\ExaPHP\Validator\Text\IpAddressValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\RegexValidator;
@@ -95,6 +96,7 @@ class ValidatorConfigLoader implements LoaderInterface
                     // Text
                     DateTimeValidator::class => DateTimeValidator::class,
                     EmailAddressValidator::class => EmailAddressValidator::class,
+                    IpAddressValidator::class => IpAddressValidator::class,
                     LengthValidator::class => LengthValidator::class,
                     NotEmptyValidator::class => NotEmptyValidator::class,
                     RegexValidator::class => RegexValidator::class,
