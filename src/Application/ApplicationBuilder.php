@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\Application\Module\Provider\ConditionProviderInterfac
 use ExtendsSoftware\ExaPHP\Application\Module\Provider\ConfigProviderInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Loader\AuthenticationConfigLoader;
 use ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Loader\AuthorizationConfigLoader;
+use ExtendsSoftware\ExaPHP\Cache\Framework\ServiceLocator\Loader\CacheConfigLoader;
 use ExtendsSoftware\ExaPHP\Console\Framework\ServiceLocator\Loader\ConsoleConfigLoader;
 use ExtendsSoftware\ExaPHP\Hateoas\Framework\ServiceLocator\Loader\HateoasConfigLoader;
 use ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Loader\HttpConfigLoader;
@@ -112,6 +113,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         ApplicationConfigLoader::class,
         AuthenticationConfigLoader::class,
         AuthorizationConfigLoader::class,
+        CacheConfigLoader::class,
         ConsoleConfigLoader::class,
         HateoasConfigLoader::class,
         HttpConfigLoader::class,
