@@ -8,7 +8,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 
 class IpAddressIdentityMiddlewareTest extends TestCase
@@ -23,24 +22,23 @@ class IpAddressIdentityMiddlewareTest extends TestCase
      */
     public function testProcess(): void
     {
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('setIdentity')
-            ->with($this->callback(function (IdentityInterface $identity): bool {
-                $this->assertSame('127.0.0.1', $identity->getIdentifier());
-                $this->assertSame(false, $identity->isAuthenticated());
-
-                return true;
-            }))
-            ->willReturnSelf();
-
         $request = $this->createMock(RequestInterface::class);
         $request
             ->expects($this->once())
             ->method('getServerParameter')
             ->with('Remote-Addr')
             ->willReturn('127.0.0.1');
+
+        $request
+            ->expects($this->once())
+            ->method('andAttribute')
+            ->with('identity', $this->callback(function (IdentityInterface $identity): bool {
+                $this->assertSame('127.0.0.1', $identity->getIdentifier());
+                $this->assertSame(false, $identity->isAuthenticated());
+
+                return true;
+            }))
+            ->willReturnSelf();
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -52,11 +50,10 @@ class IpAddressIdentityMiddlewareTest extends TestCase
             ->willReturn($response);
 
         /**
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new IpAddressIdentityMiddleware($storage);
+        $middleware = new IpAddressIdentityMiddleware();
 
         $this->assertSame($response, $middleware->process($request, $chain));
     }

@@ -11,7 +11,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -43,12 +42,6 @@ class AuthorizationMiddlewareTest extends TestCase
             )
             ->willReturn(true);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
 
         $routeMatch
@@ -58,10 +51,13 @@ class AuthorizationMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->with('routeMatch')
-            ->willReturn($routeMatch);
+            ->withConsecutive(
+                ['routeMatch'],
+                ['identity']
+            )
+            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -74,11 +70,10 @@ class AuthorizationMiddlewareTest extends TestCase
 
         /**
          * @var AuthorizerInterface      $authorizer
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new AuthorizationMiddleware($authorizer, $storage);
+        $middleware = new AuthorizationMiddleware($authorizer);
 
         $this->assertSame($response, $middleware->process($request, $chain));
     }
@@ -109,12 +104,6 @@ class AuthorizationMiddlewareTest extends TestCase
             )
             ->willReturn(false);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
 
         $routeMatch
@@ -124,20 +113,22 @@ class AuthorizationMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->with('routeMatch')
-            ->willReturn($routeMatch);
+            ->withConsecutive(
+                ['routeMatch'],
+                ['identity']
+            )
+            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
 
         /**
          * @var AuthorizerInterface      $authorizer
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new AuthorizationMiddleware($authorizer, $storage);
+        $middleware = new AuthorizationMiddleware($authorizer);
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(ForbiddenProblemDetails::class, $response->getBody());

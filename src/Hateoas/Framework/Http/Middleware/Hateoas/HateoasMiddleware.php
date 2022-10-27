@@ -19,8 +19,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
 class HateoasMiddleware implements MiddlewareInterface
@@ -31,21 +29,18 @@ class HateoasMiddleware implements MiddlewareInterface
      * @param AuthorizerInterface $authorizer
      * @param ExpanderInterface   $expander
      * @param SerializerInterface $serializer
-     * @param StorageInterface    $storage
      * @param RouterInterface     $router
      */
     public function __construct(
         private readonly AuthorizerInterface $authorizer,
         private readonly ExpanderInterface   $expander,
         private readonly SerializerInterface $serializer,
-        private readonly StorageInterface    $storage,
         private readonly RouterInterface     $router
     ) {
     }
 
     /**
      * @inheritDoc
-     * @throws IdentityNotSet
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
@@ -74,7 +69,7 @@ class HateoasMiddleware implements MiddlewareInterface
                         $builder
                             ->setExpander($this->expander)
                             ->setAuthorizer($this->authorizer)
-                            ->setIdentity($this->storage->getIdentity())
+                            ->setIdentity($request->getAttribute('identity'))
                             ->setToExpand($expand)
                             ->setToProject($project)
                             ->build()

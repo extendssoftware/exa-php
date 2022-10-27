@@ -12,7 +12,6 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
@@ -27,12 +26,9 @@ class AuthenticationMiddleware implements MiddlewareInterface
      * AuthenticationHeaderMiddleware constructor.
      *
      * @param AuthenticatorInterface $authenticator
-     * @param StorageInterface       $storage
      */
-    public function __construct(
-        private readonly AuthenticatorInterface $authenticator,
-        private readonly StorageInterface       $storage
-    ) {
+    public function __construct(private readonly AuthenticatorInterface $authenticator)
+    {
     }
 
     /**
@@ -55,7 +51,7 @@ class AuthenticationMiddleware implements MiddlewareInterface
                 );
             }
 
-            $this->storage->setIdentity($identity);
+            $request = $request->andAttribute('identity', $identity);
         }
 
         return $chain->proceed($request);

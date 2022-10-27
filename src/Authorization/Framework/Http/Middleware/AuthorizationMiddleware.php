@@ -11,8 +11,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
 
 class AuthorizationMiddleware implements MiddlewareInterface
@@ -21,24 +19,20 @@ class AuthorizationMiddleware implements MiddlewareInterface
      * AuthorizationMiddleware constructor.
      *
      * @param AuthorizerInterface $authorizer
-     * @param StorageInterface    $storage
      */
-    public function __construct(
-        private readonly AuthorizerInterface $authorizer,
-        private readonly StorageInterface    $storage
-    ) {
+    public function __construct(private readonly AuthorizerInterface $authorizer)
+    {
     }
 
     /**
      * @inheritDoc
-     * @throws IdentityNotSet
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
             $permission = new Permission($match->getName());
-            $identity = $this->storage->getIdentity();
+            $identity = $request->getAttribute('identity');
             if (!$this->authorizer->isPermitted($permission, $identity)) {
                 return (new Response())->withBody(
                     new ForbiddenProblemDetails($request)

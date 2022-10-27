@@ -9,8 +9,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\Exception\IdentityNotSet;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ProblemDetails\TooManyRequestsProblemDetails;
 use ExtendsSoftware\ExaPHP\RateLimiting\Quota\QuotaInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
@@ -22,24 +20,20 @@ class RateLimitingMiddleware implements MiddlewareInterface
      * RateLimitingMiddleware constructor.
      *
      * @param RateLimiterInterface $rateLimiter
-     * @param StorageInterface     $storage
      */
-    public function __construct(
-        private readonly RateLimiterInterface $rateLimiter,
-        private readonly StorageInterface     $storage
-    ) {
+    public function __construct(private readonly RateLimiterInterface $rateLimiter)
+    {
     }
 
     /**
      * @inheritDoc
-     * @throws IdentityNotSet
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
             $permission = new Permission($match->getName());
-            $identity = $this->storage->getIdentity();
+            $identity = $request->getAttribute('identity');
             $quota = $this->rateLimiter->consume($permission, $identity);
             if ($quota?->isConsumed() === false) {
                 $response = (new Response())->withBody(

@@ -8,25 +8,16 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\Identity;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 
 class IpAddressIdentityMiddleware implements MiddlewareInterface
 {
-    /**
-     * AnonymousIdentityMiddleware constructor.
-     *
-     * @param StorageInterface $storage
-     */
-    public function __construct(private readonly StorageInterface $storage)
-    {
-    }
-
     /**
      * @inheritDoc
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
-        $this->storage->setIdentity(
+        $request = $request->andAttribute(
+            'identity',
             new Identity(
                 $request->getServerParameter('Remote-Addr'),
                 false

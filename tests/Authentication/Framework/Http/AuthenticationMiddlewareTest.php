@@ -11,7 +11,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use PHPUnit\Framework\TestCase;
 
 class AuthenticationMiddlewareTest extends TestCase
@@ -40,19 +39,18 @@ class AuthenticationMiddlewareTest extends TestCase
             }))
             ->willReturn($identity);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('setIdentity')
-            ->with($identity)
-            ->willReturnSelf();
-
         $request = $this->createMock(RequestInterface::class);
         $request
             ->expects($this->once())
             ->method('getHeader')
             ->with('Authorization')
             ->willReturn('Bearer ed6ed1ec-769b-4f35-b74a-d4d4205f1d88');
+
+        $request
+            ->expects($this->once())
+            ->method('andAttribute')
+            ->with('identity', $identity)
+            ->willReturnSelf();
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -65,11 +63,10 @@ class AuthenticationMiddlewareTest extends TestCase
 
         /**
          * @var AuthenticatorInterface   $authenticator
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new AuthenticationMiddleware($authenticator, $storage);
+        $middleware = new AuthenticationMiddleware($authenticator);
 
         $this->assertSame($response, $middleware->process($request, $chain));
     }
@@ -86,8 +83,6 @@ class AuthenticationMiddlewareTest extends TestCase
     {
         $authenticator = $this->createMock(AuthenticatorInterface::class);
 
-        $storage = $this->createMock(StorageInterface::class);
-
         $request = $this->createMock(RequestInterface::class);
         $request
             ->expects($this->once())
@@ -99,11 +94,10 @@ class AuthenticationMiddlewareTest extends TestCase
 
         /**
          * @var AuthenticatorInterface   $authenticator
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new AuthenticationMiddleware($authenticator, $storage);
+        $middleware = new AuthenticationMiddleware($authenticator);
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(UnauthorizedProblemDetails::class, $response->getBody());
@@ -131,8 +125,6 @@ class AuthenticationMiddlewareTest extends TestCase
             }))
             ->willReturn(null);
 
-        $storage = $this->createMock(StorageInterface::class);
-
         $request = $this->createMock(RequestInterface::class);
         $request
             ->expects($this->once())
@@ -144,11 +136,10 @@ class AuthenticationMiddlewareTest extends TestCase
 
         /**
          * @var AuthenticatorInterface   $authenticator
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new AuthenticationMiddleware($authenticator, $storage);
+        $middleware = new AuthenticationMiddleware($authenticator);
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(UnauthorizedProblemDetails::class, $response->getBody());

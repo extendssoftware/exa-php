@@ -8,7 +8,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Identity\Storage\StorageInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ProblemDetails\TooManyRequestsProblemDetails;
 use ExtendsSoftware\ExaPHP\RateLimiting\Quota\QuotaInterface;
@@ -66,12 +65,6 @@ class RateLimitingMiddlewareTest extends TestCase
             )
             ->willReturn($quota);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
 
         $routeMatch
@@ -81,10 +74,13 @@ class RateLimitingMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->with('routeMatch')
-            ->willReturn($routeMatch);
+            ->withConsecutive(
+                ['routeMatch'],
+                ['identity']
+            )
+            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
 
         $response = $this->createMock(ResponseInterface::class);
         $response
@@ -106,11 +102,10 @@ class RateLimitingMiddlewareTest extends TestCase
 
         /**
          * @var RateLimiterInterface     $rateLimiter
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new RateLimitingMiddleware($rateLimiter, $storage);
+        $middleware = new RateLimitingMiddleware($rateLimiter);
 
         $this->assertSame($response, $middleware->process($request, $chain));
     }
@@ -163,12 +158,6 @@ class RateLimitingMiddlewareTest extends TestCase
             )
             ->willReturn($quota);
 
-        $storage = $this->createMock(StorageInterface::class);
-        $storage
-            ->expects($this->once())
-            ->method('getIdentity')
-            ->willReturn($identity);
-
         $routeMatch = $this->createMock(RouteMatchInterface::class);
 
         $routeMatch
@@ -178,10 +167,13 @@ class RateLimitingMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
         $request
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->with('routeMatch')
-            ->willReturn($routeMatch);
+            ->withConsecutive(
+                ['routeMatch'],
+                ['identity']
+            )
+            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
         $chain
@@ -190,11 +182,10 @@ class RateLimitingMiddlewareTest extends TestCase
 
         /**
          * @var RateLimiterInterface     $rateLimiter
-         * @var StorageInterface         $storage
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new RateLimitingMiddleware($rateLimiter, $storage);
+        $middleware = new RateLimitingMiddleware($rateLimiter);
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
