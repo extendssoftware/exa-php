@@ -5,7 +5,6 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware;
 
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
-use ExtendsSoftware\ExaPHP\Authentication\Realm\Exception\AuthenticationFailed;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
@@ -29,12 +28,12 @@ class AuthenticationMiddleware implements MiddlewareInterface
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
-        try {
-            $identity = $this->authenticator->authenticate($request);
-            if ($identity instanceof IdentityInterface) {
-                $request = $request->andAttribute('identity', $identity);
-            }
-        } catch (AuthenticationFailed) {
+        $identity = $this->authenticator->authenticate($request);
+        if ($identity instanceof IdentityInterface) {
+            $request = $request->andAttribute('identity', $identity);
+        }
+
+        if ($identity === false) {
             return (new Response())->withBody(
                 new UnauthorizedProblemDetails($request)
             );

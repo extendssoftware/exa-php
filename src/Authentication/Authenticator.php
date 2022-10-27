@@ -19,7 +19,7 @@ class Authenticator implements AuthenticatorInterface
     /**
      * @inheritDoc
      */
-    public function authenticate(RequestInterface $request): IdentityInterface|null
+    public function authenticate(RequestInterface $request): IdentityInterface|false|null
     {
         foreach ($this->realms as $realm) {
             if ($realm->canAuthenticate($request)) {

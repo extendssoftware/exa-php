@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\Http;
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
-use ExtendsSoftware\ExaPHP\Authentication\Realm\Exception\AuthenticationFailed;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
@@ -77,7 +76,7 @@ class AuthenticationMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('authenticate')
             ->with($request)
-            ->willThrowException(new AuthenticationFailed());
+            ->willReturn(false);
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
 

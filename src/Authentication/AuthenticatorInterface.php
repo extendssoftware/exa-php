@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authentication;
 
-use ExtendsSoftware\ExaPHP\Authentication\Realm\Exception\AuthenticationFailed;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
@@ -16,8 +15,7 @@ interface AuthenticatorInterface
      *
      * @param RequestInterface $request
      *
-     * @return IdentityInterface|null
-     * @throws AuthenticationFailed When authentication fails.
+     * @return IdentityInterface|false|null
      */
-    public function authenticate(RequestInterface $request): IdentityInterface|null;
+    public function authenticate(RequestInterface $request): IdentityInterface|false|null;
 }
