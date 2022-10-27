@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware;
 
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
-use ExtendsSoftware\ExaPHP\Authentication\Header\Header;
+use ExtendsSoftware\ExaPHP\Authentication\Realm\Exception\AuthenticationFailed;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
@@ -15,13 +15,6 @@ use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 class AuthenticationMiddleware implements MiddlewareInterface
 {
-    /**
-     * Pattern to detect scheme and credentials.
-     *
-     * @var string
-     */
-    private string $pattern = '/^(?P<scheme>[^\s]+)\s(?P<credentials>[^\s]+)$/';
-
     /**
      * AuthenticationHeaderMiddleware constructor.
      *
@@ -36,22 +29,15 @@ class AuthenticationMiddleware implements MiddlewareInterface
      */
     public function process(RequestInterface $request, MiddlewareChainInterface $chain): ResponseInterface
     {
-        $authorization = $request->getHeader('Authorization');
-        if (is_string($authorization)) {
-            if (!preg_match($this->pattern, $authorization, $matches)) {
-                return (new Response())->withBody(
-                    new UnauthorizedProblemDetails($request)
-                );
+        try {
+            $identity = $this->authenticator->authenticate($request);
+            if ($identity instanceof IdentityInterface) {
+                $request = $request->andAttribute('identity', $identity);
             }
-
-            $identity = $this->authenticator->authenticate(new Header($matches['scheme'], $matches['credentials']));
-            if (!$identity instanceof IdentityInterface) {
-                return (new Response())->withBody(
-                    new UnauthorizedProblemDetails($request)
-                );
-            }
-
-            $request = $request->andAttribute('identity', $identity);
+        } catch (AuthenticationFailed) {
+            return (new Response())->withBody(
+                new UnauthorizedProblemDetails($request)
+            );
         }
 
         return $chain->proceed($request);

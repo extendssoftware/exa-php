@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Authentication\Framework\Http;
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware;
 use ExtendsSoftware\ExaPHP\Authentication\Framework\ProblemDetails\UnauthorizedProblemDetails;
-use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
+use ExtendsSoftware\ExaPHP\Authentication\Realm\Exception\AuthenticationFailed;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
@@ -27,30 +27,19 @@ class AuthenticationMiddlewareTest extends TestCase
     {
         $identity = $this->createMock(IdentityInterface::class);
 
-        $authenticator = $this->createMock(AuthenticatorInterface::class);
-        $authenticator
-            ->expects($this->once())
-            ->method('authenticate')
-            ->with($this->callback(function (HeaderInterface $header) {
-                $this->assertSame('Bearer', $header->getScheme());
-                $this->assertSame('ed6ed1ec-769b-4f35-b74a-d4d4205f1d88', $header->getCredentials());
-
-                return true;
-            }))
-            ->willReturn($identity);
-
         $request = $this->createMock(RequestInterface::class);
-        $request
-            ->expects($this->once())
-            ->method('getHeader')
-            ->with('Authorization')
-            ->willReturn('Bearer ed6ed1ec-769b-4f35-b74a-d4d4205f1d88');
-
         $request
             ->expects($this->once())
             ->method('andAttribute')
             ->with('identity', $identity)
             ->willReturnSelf();
+
+        $authenticator = $this->createMock(AuthenticatorInterface::class);
+        $authenticator
+            ->expects($this->once())
+            ->method('authenticate')
+            ->with($request)
+            ->willReturn($identity);
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -72,38 +61,6 @@ class AuthenticationMiddlewareTest extends TestCase
     }
 
     /**
-     * Authorization header malformed.
-     *
-     * Test that the correct response will be returned when authorization header is malformed.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\AuthenticationMiddleware::process()
-     */
-    public function testAuthorizationHeaderMalformed(): void
-    {
-        $authenticator = $this->createMock(AuthenticatorInterface::class);
-
-        $request = $this->createMock(RequestInterface::class);
-        $request
-            ->expects($this->once())
-            ->method('getHeader')
-            ->with('Authorization')
-            ->willReturn('Bearer');
-
-        $chain = $this->createMock(MiddlewareChainInterface::class);
-
-        /**
-         * @var AuthenticatorInterface   $authenticator
-         * @var RequestInterface         $request
-         * @var MiddlewareChainInterface $chain
-         */
-        $middleware = new AuthenticationMiddleware($authenticator);
-        $response = $middleware->process($request, $chain);
-
-        $this->assertInstanceOf(UnauthorizedProblemDetails::class, $response->getBody());
-    }
-
-    /**
      * Unauthorized.
      *
      * Test that the correct response will be returned when request can not be authenticated.
@@ -113,24 +70,14 @@ class AuthenticationMiddlewareTest extends TestCase
      */
     public function testUnauthorized(): void
     {
+        $request = $this->createMock(RequestInterface::class);
+
         $authenticator = $this->createMock(AuthenticatorInterface::class);
         $authenticator
             ->expects($this->once())
             ->method('authenticate')
-            ->with($this->callback(function (HeaderInterface $header) {
-                $this->assertSame('Bearer', $header->getScheme());
-                $this->assertSame('ed6ed1ec-769b-4f35-b74a-d4d4205f1d88', $header->getCredentials());
-
-                return true;
-            }))
-            ->willReturn(null);
-
-        $request = $this->createMock(RequestInterface::class);
-        $request
-            ->expects($this->once())
-            ->method('getHeader')
-            ->with('Authorization')
-            ->willReturn('Bearer ed6ed1ec-769b-4f35-b74a-d4d4205f1d88');
+            ->with($request)
+            ->willThrowException(new AuthenticationFailed());
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
 

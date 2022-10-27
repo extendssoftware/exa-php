@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authentication;
 
-use ExtendsSoftware\ExaPHP\Authentication\Header\HeaderInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Realm\RealmInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -21,7 +21,7 @@ class AuthenticatorTest extends TestCase
      */
     public function testAuthenticate(): void
     {
-        $header = $this->createMock(HeaderInterface::class);
+        $request = $this->createMock(RequestInterface::class);
 
         $identity = $this->createMock(IdentityInterface::class);
 
@@ -29,66 +29,23 @@ class AuthenticatorTest extends TestCase
         $realm
             ->expects($this->once())
             ->method('canAuthenticate')
-            ->with($header)
+            ->with($request)
             ->willReturn(true);
 
         $realm
             ->expects($this->once())
             ->method('authenticate')
-            ->with($header)
+            ->with($request)
             ->willReturn($identity);
 
         /**
-         * @var RealmInterface $realm
-         * @var HeaderInterface $header
+         * @var RealmInterface   $realm
+         * @var RequestInterface $request
          */
         $authenticator = new Authenticator();
         $authenticated = $authenticator
             ->addRealm($realm)
-            ->authenticate($header);
-
-        $this->assertSame($identity, $authenticated);
-    }
-
-    /**
-     * Fallback realm.
-     *
-     * Test that both realms can authenticate header, but only the second has any authentication information.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Authenticator::addRealm()
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Authenticator::authenticate()
-     */
-    public function testFallbackRealm(): void
-    {
-        $header = $this->createMock(HeaderInterface::class);
-
-        $identity = $this->createMock(IdentityInterface::class);
-
-        $realm = $this->createMock(RealmInterface::class);
-        $realm
-            ->expects($this->exactly(2))
-            ->method('canAuthenticate')
-            ->with($header)
-            ->willReturn(true);
-
-        $realm
-            ->expects($this->exactly(2))
-            ->method('authenticate')
-            ->with($header)
-            ->willReturnOnConsecutiveCalls(
-                null,
-                $identity
-            );
-
-        /**
-         * @var RealmInterface $realm
-         * @var HeaderInterface $header
-         */
-        $authenticator = new Authenticator();
-        $authenticated = $authenticator
-            ->addRealm($realm)
-            ->addRealm($realm)
-            ->authenticate($header);
+            ->authenticate($request);
 
         $this->assertSame($identity, $authenticated);
     }
@@ -106,30 +63,30 @@ class AuthenticatorTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $header = $this->createMock(HeaderInterface::class);
+        $request = $this->createMock(RequestInterface::class);
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
             ->expects($this->once())
             ->method('canAuthenticate')
-            ->with($header)
+            ->with($request)
             ->willReturn(true);
 
         $realm
             ->expects($this->once())
             ->method('authenticate')
-            ->with($header)
+            ->with($request)
             ->willThrowException(new InvalidArgumentException());
 
         /**
-         * @var RealmInterface $realm
-         * @var HeaderInterface $header
+         * @var RealmInterface   $realm
+         * @var RequestInterface $request
          */
         $authenticator = new Authenticator();
         $authenticator
             ->addRealm($realm)
             ->addRealm($realm)
-            ->authenticate($header);
+            ->authenticate($request);
     }
 
     /**
@@ -142,12 +99,23 @@ class AuthenticatorTest extends TestCase
      */
     public function testAuthenticationNotSupported(): void
     {
-        $header = $this->createMock(HeaderInterface::class);
+        $request = $this->createMock(RequestInterface::class);
+
+        $realm = $this->createMock(RealmInterface::class);
+        $realm
+            ->expects($this->once())
+            ->method('canAuthenticate')
+            ->with($request)
+            ->willReturn(false);
 
         /**
-         * @var HeaderInterface $header
+         * @var RequestInterface $request
+         * @var RealmInterface   $realm
          */
         $authenticator = new Authenticator();
-        $this->assertNull($authenticator->authenticate($header));
+        $this->assertNull($authenticator->authenticate($request));
+
+        $authenticator->addRealm($realm);
+        $this->assertNull($authenticator->authenticate($request));
     }
 }
