@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authentication\Framework\Http;
 
-use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IpAddressIdentityMiddleware;
+use ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IdentityMiddleware;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
@@ -17,8 +17,8 @@ class IpAddressIdentityMiddlewareTest extends TestCase
      *
      * Test that IP address identity will be set in identity storage.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IpAddressIdentityMiddleware::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IpAddressIdentityMiddleware::process()
+     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IdentityMiddleware::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IdentityMiddleware::process()
      */
     public function testProcess(): void
     {
@@ -53,7 +53,7 @@ class IpAddressIdentityMiddlewareTest extends TestCase
          * @var RequestInterface         $request
          * @var MiddlewareChainInterface $chain
          */
-        $middleware = new IpAddressIdentityMiddleware();
+        $middleware = new IdentityMiddleware();
 
         $this->assertSame($response, $middleware->process($request, $chain));
     }

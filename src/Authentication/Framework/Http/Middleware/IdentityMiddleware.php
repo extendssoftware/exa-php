@@ -9,7 +9,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\Identity;
 
-class IpAddressIdentityMiddleware implements MiddlewareInterface
+class IdentityMiddleware implements MiddlewareInterface
 {
     /**
      * @inheritDoc
