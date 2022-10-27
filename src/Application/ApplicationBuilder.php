@@ -13,6 +13,7 @@ use ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Loader\Authen
 use ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Loader\AuthorizationConfigLoader;
 use ExtendsSoftware\ExaPHP\Cache\Framework\ServiceLocator\Loader\CacheConfigLoader;
 use ExtendsSoftware\ExaPHP\Console\Framework\ServiceLocator\Loader\ConsoleConfigLoader;
+use ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Loader\FirewallConfigLoader;
 use ExtendsSoftware\ExaPHP\Hateoas\Framework\ServiceLocator\Loader\HateoasConfigLoader;
 use ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Loader\HttpConfigLoader;
 use ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Loader\LoggerConfigLoader;
@@ -115,6 +116,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         AuthorizationConfigLoader::class,
         CacheConfigLoader::class,
         ConsoleConfigLoader::class,
+        FirewallConfigLoader::class,
         HateoasConfigLoader::class,
         HttpConfigLoader::class,
         LoggerConfigLoader::class,

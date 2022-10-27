@@ -10,14 +10,13 @@ use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 
-class IpAddressIdentityMiddlewareTest extends TestCase
+class IdentityMiddlewareTest extends TestCase
 {
     /**
      * Process.
      *
      * Test that IP address identity will be set in identity storage.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IdentityMiddleware::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Authentication\Framework\Http\Middleware\IdentityMiddleware::process()
      */
     public function testProcess(): void

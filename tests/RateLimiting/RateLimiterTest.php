@@ -18,7 +18,7 @@ class RateLimiterTest extends TestCase
      *
      * Test that permission is consumed for identity.
      *
-     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::addAlgorithm()
+     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::addRealm()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::consume()
      */
@@ -74,7 +74,7 @@ class RateLimiterTest extends TestCase
      *
      * Test that permission is not consumed for identity.
      *
-     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::addAlgorithm()
+     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::addRealm()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::consume()
      */

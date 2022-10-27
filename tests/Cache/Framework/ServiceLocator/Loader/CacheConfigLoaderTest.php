@@ -16,7 +16,7 @@ class CacheConfigLoaderTest extends TestCase
      *
      * Test that loader returns correct array.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Cache\Framework\ServiceLocator\Loader\AuthenticationConfigLoader::load()
+     * @covers \ExtendsSoftware\ExaPHP\Cache\Framework\ServiceLocator\Loader\CacheConfigLoader::load()
      */
     public function testLoad(): void
     {
