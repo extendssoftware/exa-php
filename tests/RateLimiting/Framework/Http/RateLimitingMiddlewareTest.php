@@ -85,7 +85,7 @@ class RateLimitingMiddlewareTest extends TestCase
         $response = $this->createMock(ResponseInterface::class);
         $response
             ->expects($this->exactly(3))
-            ->method('andHeader')
+            ->method('withHeader')
             ->willReturnOnConsecutiveCalls(
                 ['X-RateLimit-Limit', 10],
                 ['X-RateLimit-Remaining', 5],

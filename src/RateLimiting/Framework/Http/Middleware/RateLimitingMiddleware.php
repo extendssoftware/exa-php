@@ -64,8 +64,8 @@ class RateLimitingMiddleware implements MiddlewareInterface
     private function addRateLimitHeaders(ResponseInterface $response, QuotaInterface $quota): ResponseInterface
     {
         return $response
-            ->andHeader('X-RateLimit-Limit', (string)$quota->getLimit())
-            ->andHeader('X-RateLimit-Remaining', (string)$quota->getRemaining())
-            ->andHeader('X-RateLimit-Reset', (string)$quota->getReset());
+            ->withHeader('X-RateLimit-Limit', (string)$quota->getLimit())
+            ->withHeader('X-RateLimit-Remaining', (string)$quota->getRemaining())
+            ->withHeader('X-RateLimit-Reset', (string)$quota->getReset());
     }
 }
