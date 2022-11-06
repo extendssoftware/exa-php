@@ -99,6 +99,7 @@ class PathRoute implements RouteInterface, StaticFactoryInterface
                 }
             }
 
+            /** @phpstan-ignore-next-line */
             return new RouteMatch(array_replace_recursive($this->parameters, $parameters), end($matches)[1], $name);
         }
 
