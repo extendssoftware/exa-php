@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger;
+namespace ExtendsSoftware\ExaPHP\Utility\Merger;
 
 use Throwable;
 

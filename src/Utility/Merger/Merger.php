@@ -1,11 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\Recursive;
+namespace ExtendsSoftware\ExaPHP\Utility\Merger;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\MergerInterface;
-
-class RecursiveMerger implements MergerInterface
+class Merger implements MergerInterface
 {
     /**
      * When a key in the right array does not exist in the left array, it will be added to the left array. The right

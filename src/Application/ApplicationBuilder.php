@@ -24,13 +24,13 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File\FileLoader;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\MergerException;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\MergerInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Merger\Recursive\RecursiveMerger;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorFactory;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorFactoryInterface;
 use ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Loader\ShellConfigLoader;
+use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
+use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
+use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Validator\Framework\ServiceLocator\Loader\ValidatorConfigLoader;
 
 class ApplicationBuilder implements ApplicationBuilderInterface
@@ -375,7 +375,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         $this->cacheEnabled = false;
         $this->modules = [];
         $this->configs = [];
-        $this->merger = new RecursiveMerger();
+        $this->merger = new Merger();
         $this->loader = null;
         $this->factory = null;
     }
