@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
+use ArrayIterator;
 use ExtendsSoftware\ExaPHP\Utility\Flattener\FlattenerInterface;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
 use PHPUnit\Framework\TestCase;
@@ -77,6 +78,33 @@ class ContainerTest extends TestCase
         $this->assertNotSame('quux', $container->get('baz.qux'));
         $this->assertSame('quux', $container->get('baz.qux.bar'));
         $this->assertSame('quux', $container->get('bar.qux'));
+    }
+
+    /**
+     * Unset.
+     *
+     * Test that unset method will unset correct values.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::set()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::unset()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::get()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::getSegments()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testUnset(): void
+    {
+        $container = new Container([
+            'foo' => [
+                'bar' => 'baz',
+            ],
+        ]);
+
+        $this->assertSame($container, $container->unset('foo.bar.baz'));
+        $this->assertSame('baz', $container->get('foo.bar'));
+
+        $this->assertSame($container, $container->unset('foo.bar'));
+        $this->assertSame($this, $container->get('foo.bar', $this));
     }
 
     /**
@@ -243,6 +271,7 @@ class ContainerTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::flatten()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
      */
     public function testFlatten(): void
     {
@@ -271,5 +300,106 @@ class ContainerTest extends TestCase
         $this->assertSame([
             'foo.bar' => 'baz',
         ], $container->flatten());
+    }
+
+    /**
+     * Array access.
+     *
+     * Test that array access will redirect to interface methods.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::offsetSet()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::offsetGet()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::offsetUnset()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::offsetExists()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testArrayAccess(): void
+    {
+        $container = new Container();
+        $container['foo.bar.qux'] = 'baz';
+        $container['bar.baz'] = 'foo';
+        $container['qux.baz'] = 'bar';
+        unset($container['qux']);
+
+        $this->assertTrue(isset($container['bar.baz']));
+        $this->assertFalse(isset($container['bar.foo']));
+        $this->assertSame([
+            'qux' => 'baz',
+        ], $container['foo.bar']);
+        $this->assertNull($container['qux']);
+    }
+
+    /**
+     * Iterator.
+     *
+     * Test that iterator contains data.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::getIterator()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testIteratorAggregate(): void
+    {
+        $container = new Container([
+            'foo' => 'bar',
+        ]);
+
+        $iterator = $container->getIterator();
+
+        $this->assertInstanceOf(ArrayIterator::class, $iterator);
+        foreach ($iterator as $key => $value) {
+            $this->assertSame('foo', $key);
+            $this->assertSame('bar', $value);
+        }
+    }
+
+    /**
+     * JSON serializable.
+     *
+     * Test that method returns data.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::jsonSerialize()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testJsonSerializable(): void
+    {
+        $container = new Container([
+            'foo' => 'bar',
+        ]);
+
+        $this->assertSame([
+            'foo' => 'bar',
+        ], $container->jsonSerialize());
+    }
+
+    /**
+     * Overloading.
+     *
+     * Test that overloading will redirect to interface methods.
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__get()
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__set()
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__isset()
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__unset()
+     * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     * @noinspection PhpFieldImmediatelyRewrittenInspection
+     */
+    public function testOverloading(): void
+    {
+        $container = new Container();
+        $container->{'foo.bar.qux'} = 'baz';
+        $container->{'bar.baz'} = 'foo';
+        $container->{'qux.baz'} = 'bar';
+        unset($container->qux);
+
+        $this->assertTrue(isset($container->{'bar.baz'}));
+        $this->assertFalse(isset($container->{'bar.foo'}));
+        $this->assertSame([
+            'qux' => 'baz',
+        ], $container->{'foo.bar'});
+        $this->assertNull($container->{'qux'});
     }
 }

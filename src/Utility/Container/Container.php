@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
+use ArrayIterator;
 use ExtendsSoftware\ExaPHP\Utility\Flattener\Flattener;
 use ExtendsSoftware\ExaPHP\Utility\Flattener\FlattenerInterface;
 use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
+use Traversable;
 
 class Container implements ContainerInterface
 {
@@ -69,6 +71,27 @@ class Container implements ContainerInterface
     /**
      * @inheritDoc
      */
+    public function unset(string $path): static
+    {
+        $reference = &$this->data;
+        $segments = $this->getSegments($path);
+        $lastSegment = array_pop($segments);
+        foreach ($segments as $segment) {
+            if (!isset($reference[$segment]) || !is_array($reference[$segment])) {
+                return $this;
+            }
+
+            $reference = &$reference[$segment];
+        }
+
+        unset($reference[$lastSegment]);
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function has(string $path): bool
     {
         return $this->get($path, $this) !== $this;
@@ -109,6 +132,103 @@ class Container implements ContainerInterface
     public function flatten(): array
     {
         return $this->flattener->flatten($this->data, $this->delimiter);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetExists(mixed $offset): bool
+    {
+        return $this->has((string)$offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->get((string)$offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        $this->set((string)$offset, $value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function offsetUnset(mixed $offset): void
+    {
+        $this->unset((string)$offset);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->data);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function jsonSerialize(): mixed
+    {
+        return $this->extract();
+    }
+
+    /**
+     * Get value from container.
+     *
+     * @param string $name Dot notation path.
+     *
+     * @return mixed
+     */
+    public function __get(string $name): mixed
+    {
+        return $this->get($name);
+    }
+
+    /**
+     * Set value to container.
+     *
+     * @param string $name  Dot notation path.
+     * @param mixed  $value Value to set.
+     *
+     * @return void
+     */
+    public function __set(string $name, mixed $value): void
+    {
+        $this->set($name, $value);
+    }
+
+    /**
+     * If container has value.
+     *
+     * @param string $name Dot notation path.
+     *
+     * @return bool
+     */
+    public function __isset(string $name): bool
+    {
+        return $this->has($name);
+    }
+
+    /**
+     * Unset value from container.
+     *
+     * @param string $name Dot notation path.
+     *
+     * @return void
+     */
+    public function __unset(string $name): void
+    {
+        $this->unset($name);
     }
 
     /**
