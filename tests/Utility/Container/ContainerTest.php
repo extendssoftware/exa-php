@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
+use ExtendsSoftware\ExaPHP\Utility\Flattener\FlattenerInterface;
+use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -179,7 +181,95 @@ class ContainerTest extends TestCase
                 ],
             ],
         ], '|');
-        
+
         $this->assertSame('quux', $container->get('foo|bar|foo|qux'));
+    }
+
+    /**
+     * Merge.
+     *
+     * Test that one container will be merged into the other.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::merge()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::extract()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testMerge(): void
+    {
+        $merger = $this->createMock(MergerInterface::class);
+        $merger
+            ->expects($this->once())
+            ->method('merge')
+            ->with(
+                [
+                    'bar' => 'baz',
+                ],
+                [
+                    'foo' => 'bar',
+                ]
+            )
+            ->willReturn([
+                'bar' => 'baz',
+                'foo' => 'bar',
+            ]);
+
+        $other = $this->createMock(ContainerInterface::class);
+        $other
+            ->expects($this->once())
+            ->method('extract')
+            ->willReturn([
+                'foo' => 'bar',
+            ]);
+
+        /**
+         * @var MergerInterface $merger
+         */
+        $container = new Container([
+            'bar' => 'baz',
+        ], merger: $merger);
+
+        $this->assertSame($container, $container->merge($other));
+        $this->assertSame([
+            'bar' => 'baz',
+            'foo' => 'bar',
+        ], $container->extract());
+    }
+
+    /**
+     * Flatten.
+     *
+     * Test that data will be flattened.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::flatten()
+     */
+    public function testFlatten(): void
+    {
+        $flattener = $this->createMock(FlattenerInterface::class);
+        $flattener
+            ->expects($this->once())
+            ->method('flatten')
+            ->with([
+                'foo' => [
+                    'bar' => 'baz',
+                ],
+            ])
+            ->willReturn([
+                'foo.bar' => 'baz',
+            ]);
+
+        /**
+         * @var FlattenerInterface $flattener
+         */
+        $container = new Container([
+            'foo' => [
+                'bar' => 'baz',
+            ],
+        ], flattener: $flattener);
+
+        $this->assertSame([
+            'foo.bar' => 'baz',
+        ], $container->flatten());
     }
 }

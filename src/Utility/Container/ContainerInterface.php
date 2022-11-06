@@ -47,4 +47,20 @@ interface ContainerInterface
      * @return array<int|string, mixed>
      */
     public function extract(): array;
+
+    /**
+     * Merge other container.
+     *
+     * @param ContainerInterface $container
+     *
+     * @return $this
+     */
+    public function merge(ContainerInterface $container): static;
+
+    /**
+     * Flatten data.
+     *
+     * @return array<string, mixed>
+     */
+    public function flatten(): array;
 }

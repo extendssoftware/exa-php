@@ -3,16 +3,28 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
+use ExtendsSoftware\ExaPHP\Utility\Flattener\Flattener;
+use ExtendsSoftware\ExaPHP\Utility\Flattener\FlattenerInterface;
+use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
+use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
+use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
+
 class Container implements ContainerInterface
 {
     /**
      * Container constructor.
      *
-     * @param mixed       $data
-     * @param string|null $delimiter
+     * @param mixed              $data
+     * @param string             $delimiter
+     * @param MergerInterface    $merger
+     * @param FlattenerInterface $flattener
      */
-    public function __construct(private mixed $data = [], private readonly ?string $delimiter = null)
-    {
+    public function __construct(
+        private mixed                       $data = [],
+        private readonly string             $delimiter = '.',
+        private readonly MergerInterface    $merger = new Merger(),
+        private readonly FlattenerInterface $flattener = new Flattener()
+    ) {
         $this->data = (array)$this->convertObjectsToArrays($data);
     }
 
@@ -78,6 +90,25 @@ class Container implements ContainerInterface
     public function extract(): array
     {
         return $this->data;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws MergerException
+     */
+    public function merge(ContainerInterface $container): static
+    {
+        $this->data = $this->merger->merge($this->data, $container->extract());
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function flatten(): array
+    {
+        return $this->flattener->flatten($this->data, $this->delimiter);
     }
 
     /**
