@@ -68,7 +68,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function andHeader(string $name, $value, bool $replace = null): RequestInterface
+    public function andHeader(string $name, $value): RequestInterface
     {
         $clone = clone $this;
         if (array_key_exists($name, $clone->headers)) {
