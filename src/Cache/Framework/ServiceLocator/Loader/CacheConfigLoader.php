@@ -5,9 +5,9 @@ namespace ExtendsSoftware\ExaPHP\Cache\Framework\ServiceLocator\Loader;
 
 use ExtendsSoftware\ExaPHP\Cache\CacheInterface;
 use ExtendsSoftware\ExaPHP\Cache\Dummy\DummyCache;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Alias\AliasResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class CacheConfigLoader implements LoaderInterface
 {

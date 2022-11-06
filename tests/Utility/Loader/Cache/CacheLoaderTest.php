@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache;
+namespace ExtendsSoftware\ExaPHP\Utility\Loader\Cache;
 
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
@@ -13,10 +13,10 @@ class CacheLoaderTest extends TestCase
      *
      * Test that same config will be saved and laded.
      *
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::save()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::load()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::getFilename()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::save()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::load()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::getFilename()
      */
     public function testSaveAndLoad(): void
     {
@@ -39,9 +39,9 @@ class CacheLoaderTest extends TestCase
      *
      * Test that load will return an empty array when no cache is available.
      *
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::load()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader::getFilename()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::load()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader::getFilename()
      */
     public function testLoadNotCached(): void
     {

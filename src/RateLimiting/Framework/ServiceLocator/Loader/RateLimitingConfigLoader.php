@@ -6,10 +6,10 @@ namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Loader;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Factory\RateLimiterFactory;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class RateLimitingConfigLoader implements LoaderInterface
 {

@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Framework\ServiceLocator\Loader;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\Validator\Boolean\FalseValidator;
 use ExtendsSoftware\ExaPHP\Validator\Boolean\TrueValidator;
 use ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator;

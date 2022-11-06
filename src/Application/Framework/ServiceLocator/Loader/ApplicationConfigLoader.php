@@ -21,11 +21,11 @@ use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\Http\Middleware\ProblemDetai
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
 use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
 use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router\RouterMiddleware;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class ApplicationConfigLoader implements LoaderInterface
 {

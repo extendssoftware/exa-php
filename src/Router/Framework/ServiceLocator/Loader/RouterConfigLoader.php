@@ -15,11 +15,11 @@ use ExtendsSoftware\ExaPHP\Router\Route\Path\PathRoute;
 use ExtendsSoftware\ExaPHP\Router\Route\Query\QueryRoute;
 use ExtendsSoftware\ExaPHP\Router\Route\Scheme\SchemeRoute;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class RouterConfigLoader implements LoaderInterface
 {

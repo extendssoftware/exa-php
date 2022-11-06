@@ -6,10 +6,10 @@ namespace ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Loader;
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Framework\Http\Middleware\AuthorizationMiddleware;
 use ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Factory\AuthorizerFactory;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class AuthorizationConfigLoader implements LoaderInterface
 {

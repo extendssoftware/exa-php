@@ -17,11 +17,11 @@ use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Notice\NoticePriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Warning\WarningPriority;
 use ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class LoggerConfigLoader implements LoaderInterface
 {

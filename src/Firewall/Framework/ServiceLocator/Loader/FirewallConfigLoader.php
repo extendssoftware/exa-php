@@ -6,10 +6,10 @@ namespace ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Loader;
 use ExtendsSoftware\ExaPHP\Firewall\FirewallInterface;
 use ExtendsSoftware\ExaPHP\Firewall\Framework\Http\Middleware\FirewallMiddleware;
 use ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Factory\FirewallFactory;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class FirewallConfigLoader implements LoaderInterface
 {

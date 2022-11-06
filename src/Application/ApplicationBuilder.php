@@ -20,17 +20,17 @@ use ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Loader\LoggerConfigLo
 use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\ServiceLocator\Loader\ProblemDetailsConfigLoader;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Loader\RateLimitingConfigLoader;
 use ExtendsSoftware\ExaPHP\Router\Framework\ServiceLocator\Loader\RouterConfigLoader;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache\CacheLoader;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File\FileLoader;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderException;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorFactory;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorFactoryInterface;
 use ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Loader\ShellConfigLoader;
+use ExtendsSoftware\ExaPHP\Utility\Loader\Cache\CacheLoader;
+use ExtendsSoftware\ExaPHP\Utility\Loader\File\FileLoader;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderException;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
+use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
-use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Validator\Framework\ServiceLocator\Loader\ValidatorConfigLoader;
 
 class ApplicationBuilder implements ApplicationBuilderInterface

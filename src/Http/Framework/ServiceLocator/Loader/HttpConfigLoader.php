@@ -9,10 +9,10 @@ use ExtendsSoftware\ExaPHP\Http\Request\Request;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class HttpConfigLoader implements LoaderInterface
 {

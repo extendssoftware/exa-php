@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File;
+namespace ExtendsSoftware\ExaPHP\Utility\Loader\File;
 
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
@@ -13,8 +13,8 @@ class FileLoaderTest extends TestCase
      *
      * Test that added path will be loaded and array is returned.
      *
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File\FileLoader::addPath()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\File\FileLoader::load()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\File\FileLoader::addPath()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Loader\File\FileLoader::load()
      */
     public function testLoad(): void
     {

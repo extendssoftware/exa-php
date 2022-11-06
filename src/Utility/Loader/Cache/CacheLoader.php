@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\Cache;
+namespace ExtendsSoftware\ExaPHP\Utility\Loader\Cache;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Loader\LoaderInterface;
+use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
 class CacheLoader implements LoaderInterface
 {
@@ -30,17 +30,17 @@ class CacheLoader implements LoaderInterface
     }
 
     /**
-     * Save config to file.
+     * Save to file.
      *
-     * @param mixed[] $config
+     * @param mixed[] $loaded
      *
      * @return CacheLoader
      */
-    public function save(array $config): CacheLoader
+    public function save(array $loaded): CacheLoader
     {
         file_put_contents(
             $this->getFilename(),
-            sprintf('<?php return %s;', var_export($config, true))
+            sprintf('<?php return %s;', var_export($loaded, true))
         );
 
         return $this;
