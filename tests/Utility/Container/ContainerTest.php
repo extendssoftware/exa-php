@@ -129,6 +129,28 @@ class ContainerTest extends TestCase
     }
 
     /**
+     * Empty.
+     *
+     * Test that empty method will return correct boolean.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::set()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::empty()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::getSegments()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testEmpty(): void
+    {
+        $container = new Container();
+
+        $this->assertTrue($container->empty());
+
+        $container->set('foo', 'bar');
+
+        $this->assertFalse($container->empty());
+    }
+
+    /**
      * Clear.
      *
      * Test that clear method will clear whole container.

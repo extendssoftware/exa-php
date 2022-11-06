@@ -100,6 +100,14 @@ class Container implements ContainerInterface
     /**
      * @inheritDoc
      */
+    public function empty(): bool
+    {
+        return empty($this->data);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function clear(): static
     {
         $this->data = [];

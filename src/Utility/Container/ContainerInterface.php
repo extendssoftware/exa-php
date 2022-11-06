@@ -48,6 +48,13 @@ interface ContainerInterface extends ArrayAccess, IteratorAggregate, JsonSeriali
     public function has(string $path): bool;
 
     /**
+     * Check if container is empty.
+     *
+     * @return bool
+     */
+    public function empty(): bool;
+
+    /**
      * Clean all container data.
      *
      * @return $this
