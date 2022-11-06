@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Factory;
 
 use ExtendsSoftware\ExaPHP\Firewall\FirewallInterface;
 use ExtendsSoftware\ExaPHP\Firewall\Realm\RealmInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -22,8 +22,8 @@ class FirewallFactoryTest extends TestCase
     {
         $realm = $this->createMock(RealmInterface::class);
 
-        $config = $this->createMock(ConfigInterface::class);
-        $config
+        $container = $this->createMock(ContainerInterface::class);
+        $container
             ->expects($this->once())
             ->method('get')
             ->with(FirewallInterface::class)
@@ -43,8 +43,8 @@ class FirewallFactoryTest extends TestCase
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn($config);
+            ->method('getContainer')
+            ->willReturn($container);
 
         $serviceLocator
             ->expects($this->once())

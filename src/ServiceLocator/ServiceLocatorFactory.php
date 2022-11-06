@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\Config;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\UnknownResolverType;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\Container;
 
 class ServiceLocatorFactory implements ServiceLocatorFactoryInterface
 {
@@ -14,7 +14,7 @@ class ServiceLocatorFactory implements ServiceLocatorFactoryInterface
      */
     public function create(array $config): ServiceLocatorInterface
     {
-        $config = new Config($config);
+        $config = new Container($config);
         $serviceLocator = new ServiceLocator($config);
         foreach ($config->get(ServiceLocatorInterface::class, []) as $fqcn => $services) {
             if (!is_string($fqcn) || !is_subclass_of($fqcn, ResolverInterface::class)) {

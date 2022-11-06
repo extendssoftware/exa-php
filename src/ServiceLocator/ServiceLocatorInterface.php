@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 
 interface ServiceLocatorInterface
 {
@@ -24,9 +24,9 @@ interface ServiceLocatorInterface
     /**
      * Get global config.
      *
-     * @return ConfigInterface
+     * @return ContainerInterface
      */
-    public function getConfig(): ConfigInterface;
+    public function getContainer(): ContainerInterface;
 
     /**
      * If console is the current environment.

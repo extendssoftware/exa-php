@@ -25,7 +25,7 @@ class RouterFactory implements ServiceFactoryInterface
      */
     public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
-        $config = $serviceLocator->getConfig()->get(RouterInterface::class, []);
+        $config = $serviceLocator->getContainer()->get(RouterInterface::class, []);
         $router = new Router();
         foreach ($config['routes'] ?? [] as $name => $config) {
             $router->addRoute(

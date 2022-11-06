@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\Router\Route\Method\MethodRoute;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Scheme\SchemeRoute;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -25,8 +25,8 @@ class RouterFactoryTest extends TestCase
      */
     public function testCreateService(): void
     {
-        $config = $this->createMock(ConfigInterface::class);
-        $config
+        $container = $this->createMock(ContainerInterface::class);
+        $container
             ->expects($this->once())
             ->method('get')
             ->with(RouterInterface::class)
@@ -58,8 +58,8 @@ class RouterFactoryTest extends TestCase
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
             ->expects($this->once())
-            ->method('getConfig')
-            ->willReturn($config);
+            ->method('getContainer')
+            ->willReturn($container);
 
         $route1 = $this->createMock(RouteInterface::class);
 

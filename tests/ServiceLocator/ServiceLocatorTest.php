@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Config\ConfigInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
@@ -35,13 +35,13 @@ class ServiceLocatorTest extends TestCase
             ->with('A')
             ->willReturn(true);
 
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
          * @var ResolverInterface $resolver
-         * @var ConfigInterface   $config
+         * @var ContainerInterface   $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
         $service = $serviceLocator
             ->addResolver($resolver, 'invokables')
             ->getService('A');
@@ -73,13 +73,13 @@ class ServiceLocatorTest extends TestCase
             ->with('A')
             ->willReturn(true);
 
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
          * @var ResolverInterface $resolver
-         * @var ConfigInterface   $config
+         * @var ContainerInterface   $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
         $service1 = $serviceLocator
             ->addResolver($resolver, 'invokables')
             ->getService('A');
@@ -122,13 +122,13 @@ class ServiceLocatorTest extends TestCase
             ->with('A')
             ->willReturn(true);
 
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
          * @var ResolverInterface $resolver
-         * @var ConfigInterface   $config
+         * @var ContainerInterface   $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
         $service1 = $serviceLocator
             ->addResolver($resolver, 'invokables')
             ->getService('A', ['foo' => 'bar']);
@@ -146,18 +146,18 @@ class ServiceLocatorTest extends TestCase
      * Test that config is returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::getConfig()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::getContainer()
      */
     public function testGetConfig(): void
     {
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ConfigInterface $config
+         * @var ContainerInterface $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
 
-        $this->assertSame($config, $serviceLocator->getConfig());
+        $this->assertSame($container, $serviceLocator->getContainer());
     }
 
     /**
@@ -170,12 +170,12 @@ class ServiceLocatorTest extends TestCase
      */
     public function testIsConsole(): void
     {
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ConfigInterface   $config
+         * @var ContainerInterface   $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
 
         $this->assertTrue($serviceLocator->isConsole());
     }
@@ -194,12 +194,12 @@ class ServiceLocatorTest extends TestCase
         $this->expectException(ServiceNotFound::class);
         $this->expectExceptionMessage('No service found for key "foo".');
 
-        $config = $this->createMock(ConfigInterface::class);
+        $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ConfigInterface   $config
+         * @var ContainerInterface   $container
          */
-        $serviceLocator = new ServiceLocator($config);
+        $serviceLocator = new ServiceLocator($container);
         $serviceLocator->getService('foo');
     }
 }

@@ -157,14 +157,14 @@ class ApplicationBuilderTest extends TestCase
 
         $this->assertIsObject($application);
 
-        $config = include $root->url() . '/config/application.cache.php';
+        $container = include $root->url() . '/config/application.cache.php';
 
-        $this->assertArrayHasKey(ServiceLocatorInterface::class, $config);
-        $this->assertArrayHasKey(MiddlewareChainInterface::class, $config);
+        $this->assertArrayHasKey(ServiceLocatorInterface::class, $container);
+        $this->assertArrayHasKey(MiddlewareChainInterface::class, $container);
 
-        $this->assertFalse($config['global']);
-        $this->assertSame('bar', $config['foo']);
-        $this->assertTrue($config['enabled']);
+        $this->assertFalse($container['global']);
+        $this->assertSame('bar', $container['foo']);
+        $this->assertTrue($container['enabled']);
     }
 
     /**

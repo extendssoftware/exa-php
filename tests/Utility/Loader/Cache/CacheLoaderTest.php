@@ -22,16 +22,16 @@ class CacheLoaderTest extends TestCase
     {
         $root = vfsStream::setup();
         $filename = $root->url() . '/cache';
-        $config = [
+        $container = [
             'global' => [
                 'baz' => 'baz',
             ],
         ];
 
         $loader = new CacheLoader($filename);
-        $loader->save($config);
+        $loader->save($container);
 
-        $this->assertSame($config, $loader->load());
+        $this->assertSame($container, $loader->load());
     }
 
     /**
