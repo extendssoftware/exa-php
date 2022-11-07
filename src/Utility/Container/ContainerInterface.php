@@ -22,12 +22,13 @@ interface ContainerInterface extends ArrayAccess, IteratorAggregate, JsonSeriali
     /**
      * Set value to container.
      *
-     * @param string $path  Dot notation path.
-     * @param mixed  $value Value to set for path.
+     * @param string    $path   Dot notation path.
+     * @param mixed     $value  Value to set for path.
+     * @param bool|null $append Append value to array if path already exists, default is false.
      *
      * @return $this
      */
-    public function set(string $path, mixed $value): static;
+    public function set(string $path, mixed $value, bool $append = null): static;
 
     /**
      * Unset value from container.

@@ -51,19 +51,28 @@ class Container implements ContainerInterface
     /**
      * @inheritDoc
      */
-    public function set(string $path, mixed $value): static
+    public function set(string $path, mixed $value, bool $append = null): static
     {
         $reference = &$this->data;
         $segments = $this->getSegments($path);
         foreach ($segments as $segment) {
-            if (!isset($reference[$segment]) || !is_array($reference[$segment])) {
+            if (!isset($reference[$segment])) {
                 $reference[$segment] = [];
             }
 
             $reference = &$reference[$segment];
         }
 
-        $reference = $this->convertObjectsToArrays($value);
+        $value = $this->convertObjectsToArrays($value);
+        if ($append) {
+            if (!is_array($reference) || !array_is_list($reference)) {
+                $reference = [$reference];
+            }
+
+            $reference[] = $value;
+        } else {
+            $reference = $value;
+        }
 
         return $this;
     }

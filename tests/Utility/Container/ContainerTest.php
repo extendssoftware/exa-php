@@ -81,6 +81,34 @@ class ContainerTest extends TestCase
     }
 
     /**
+     * Set append.
+     *
+     * Test that set method with append will set correct values.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::set()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::get()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::getSegments()
+     * @covers \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
+     */
+    public function testSetAppend(): void
+    {
+        $container = new Container();
+        $container
+            ->set('foo', 'bar')
+            ->set('foo', 'bar', true);
+
+        $this->assertSame([
+            'bar',
+            'bar',
+        ], $container->get('foo'));
+
+        $container->set('foo', 'bar');
+
+        $this->assertSame('bar', $container->get('foo'));
+    }
+
+    /**
      * Unset.
      *
      * Test that unset method will unset correct values.
