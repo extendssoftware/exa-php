@@ -151,6 +151,43 @@ class PropertiesValidatorTest extends TestCase
     }
 
     /**
+     * Value as context.
+     *
+     * Test that value will be passed as context when context is null.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::validate()
+     */
+    public function testValueAsContext(): void
+    {
+        $object = (object)[
+            'foo' => 'bar',
+        ];
+
+        $result = $this->createMock(ResultInterface::class);
+        $result
+            ->method('isValid')
+            ->willReturn(true);
+
+        $validator = $this->createMock(ValidatorInterface::class);
+        $validator
+            ->expects($this->exactly(2))
+            ->method('validate')
+            ->withConsecutive(
+                ['bar', $object],
+                ['bar', 'foo']
+            )
+            ->willReturn($result);
+
+        $properties = new PropertiesValidator([
+            'foo' => $validator,
+        ]);
+
+        $this->assertTrue($properties->validate($object)->isValid());
+        $this->assertTrue($properties->validate($object, 'foo')->isValid());
+    }
+
+    /**
      * Factory.
      *
      * Test that factory will return correct instance.
