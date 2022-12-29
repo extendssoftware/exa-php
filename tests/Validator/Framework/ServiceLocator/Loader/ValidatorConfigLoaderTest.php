@@ -25,11 +25,24 @@ use ExtendsSoftware\ExaPHP\Validator\Logical\NotValidator;
 use ExtendsSoftware\ExaPHP\Validator\Logical\OrValidator;
 use ExtendsSoftware\ExaPHP\Validator\Logical\XorValidator;
 use ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator;
+use ExtendsSoftware\ExaPHP\Validator\Object\DependencyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator;
+use ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LongitudeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\CoordinatesValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\NullableValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\AlphabeticValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\AlphanumericValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\ControlValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\DigitValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\HexadecimalValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\LowercaseValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\PrintableValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\PunctuationValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\UppercaseValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\VisibleValidator;
+use ExtendsSoftware\ExaPHP\Validator\String\WhitespaceValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\EmailAddressValidator;
 use ExtendsSoftware\ExaPHP\Validator\Text\IpAddressValidator;
@@ -93,12 +106,26 @@ class ValidatorConfigLoaderTest extends TestCase
                     // Number
                     BetweenValidator::class => BetweenValidator::class,
                     // Object
+                    DependencyValidator::class => DependencyValidator::class,
                     PropertiesValidator::class => PropertiesValidator::class,
+                    PropertyValidator::class => PropertyValidator::class,
                     // Other
                     CoordinatesValidator::class => CoordinatesValidator::class,
                     LatitudeValidator::class => LatitudeValidator::class,
                     LongitudeValidator::class => LongitudeValidator::class,
                     NullableValidator::class => NullableValidator::class,
+                    // String
+                    AlphabeticValidator::class => AlphabeticValidator::class,
+                    AlphanumericValidator::class => AlphanumericValidator::class,
+                    ControlValidator::class => ControlValidator::class,
+                    DigitValidator::class => DigitValidator::class,
+                    HexadecimalValidator::class => HexadecimalValidator::class,
+                    LowercaseValidator::class => LowercaseValidator::class,
+                    PrintableValidator::class => PrintableValidator::class,
+                    PunctuationValidator::class => PunctuationValidator::class,
+                    UppercaseValidator::class => UppercaseValidator::class,
+                    VisibleValidator::class => VisibleValidator::class,
+                    WhitespaceValidator::class => WhitespaceValidator::class,
                     // Text
                     DateTimeValidator::class => DateTimeValidator::class,
                     EmailAddressValidator::class => EmailAddressValidator::class,
