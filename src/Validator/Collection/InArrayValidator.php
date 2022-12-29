@@ -44,7 +44,7 @@ class InArrayValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         if (!in_array($value, $this->values)) {
             return $this->getInvalidResult(self::NOT_IN_ARRAY, [

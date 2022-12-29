@@ -21,7 +21,7 @@ class CallbackValidator implements ValidatorInterface
     /**
      * @inheritDoc
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         return ($this->callback)($value, $context);
     }

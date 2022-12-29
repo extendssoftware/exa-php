@@ -22,7 +22,7 @@ class InterruptValidator implements ValidatorInterface
     /**
      * @inheritDoc
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         return $this->validator->validate($value, $context);
     }

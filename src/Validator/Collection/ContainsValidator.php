@@ -54,7 +54,7 @@ class ContainsValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $result = (new IterableValidator())->validate($value);
         if (!$result->isValid()) {

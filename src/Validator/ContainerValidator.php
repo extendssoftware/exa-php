@@ -18,7 +18,7 @@ class ContainerValidator implements ValidatorInterface
     /**
      * @inheritdoc
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $container = new ContainerResult();
         foreach ($this->validators as $validator) {

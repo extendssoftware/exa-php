@@ -33,7 +33,7 @@ class ArrayValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         if (is_array($value)) {
             return $this->getValidResult();

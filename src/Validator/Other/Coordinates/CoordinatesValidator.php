@@ -58,7 +58,7 @@ class CoordinatesValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $validator = new PropertiesValidator([
             $this->latitude => new LatitudeValidator(),

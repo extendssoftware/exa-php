@@ -50,7 +50,7 @@ class NullableValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $result = (new NullValidator())->validate($value, $context);
         if ($result->isValid()) {

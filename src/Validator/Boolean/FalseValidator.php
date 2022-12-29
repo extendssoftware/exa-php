@@ -34,7 +34,7 @@ class FalseValidator extends AbstractValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $result = (new BooleanValidator())->validate($value, $context);
         if (!$result->isValid()) {

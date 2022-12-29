@@ -39,7 +39,7 @@ class NotValidator extends AbstractLogicalValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         if (!$value) {
             return $this->getValidResult();

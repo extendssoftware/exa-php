@@ -46,7 +46,7 @@ class XorValidator extends AbstractLogicalValidator
      * @inheritDoc
      * @throws TemplateNotFound
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         $valid = 0;
         $validators = $this->getValidators();

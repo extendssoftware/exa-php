@@ -30,7 +30,7 @@ class AndValidator extends AbstractLogicalValidator
     /**
      * @inheritDoc
      */
-    public function validate($value, $context = null): ResultInterface
+    public function validate($value, mixed $context = null): ResultInterface
     {
         foreach ($this->getValidators() as $validator) {
             $result = $validator->validate($value, $context);
