@@ -14,7 +14,7 @@ class PropertyValidatorTest extends TestCase
      *
      * Test that object property exists.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::validate()
      */
     public function testValid(): void
     {
@@ -31,8 +31,8 @@ class PropertyValidatorTest extends TestCase
      *
      * Test that object property not exists.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::getTemplates()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::getTemplates()
      */
     public function testInvalid(): void
     {
@@ -49,8 +49,8 @@ class PropertyValidatorTest extends TestCase
      *
      * Test that value is not an object.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::getTemplates()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::getTemplates()
      */
     public function testNotObject(): void
     {
@@ -67,7 +67,7 @@ class PropertyValidatorTest extends TestCase
      *
      * Test that factory returns a PropertyValidator.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\PropertyValidator::factory()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator::factory()
      */
     public function testFactory(): void
     {
