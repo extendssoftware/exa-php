@@ -86,7 +86,7 @@ class HateoasMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($resource)
-            ->willReturn('{"id":1}');
+            ->willReturn('{"name":"Jáne Doe"}');
 
         $builder = $this->createMock(BuilderInterface::class);
         $builder
@@ -145,14 +145,14 @@ class HateoasMiddlewareTest extends TestCase
             ->method('withHeader')
             ->withConsecutive(
                 ['Content-Type', 'application/hal+json'],
-                ['Content-Length', '8']
+                ['Content-Length', '19']
             )
             ->willReturnSelf();
 
         $response
             ->expects($this->once())
             ->method('withBody')
-            ->with('{"id":1}')
+            ->with('{"name":"Jáne Doe"}')
             ->willReturnSelf();
 
         $chain = $this->createMock(MiddlewareChainInterface::class);

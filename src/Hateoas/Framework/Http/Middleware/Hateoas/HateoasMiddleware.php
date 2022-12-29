@@ -77,7 +77,7 @@ class HateoasMiddleware implements MiddlewareInterface
 
                 $response = $response
                     ->withHeader('Content-Type', 'application/hal+json')
-                    ->withHeader('Content-Length', (string)strlen($serialized))
+                    ->withHeader('Content-Length', (string)mb_strlen($serialized))
                     ->withBody($serialized);
             } catch (LinkNotFound $exception) {
                 return (new Response())->withBody(

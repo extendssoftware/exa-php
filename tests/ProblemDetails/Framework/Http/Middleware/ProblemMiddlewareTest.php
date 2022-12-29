@@ -33,7 +33,7 @@ class ProblemMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($problem)
-            ->willReturn('{"type":"/foo/bar}');
+            ->willReturn('{"type":"/foo/bár}');
 
         $response = $this->createMock(ResponseInterface::class);
         $response
@@ -53,7 +53,7 @@ class ProblemMiddlewareTest extends TestCase
         $response
             ->expects($this->once())
             ->method('withBody')
-            ->with('{"type":"/foo/bar}')
+            ->with('{"type":"/foo/bár}')
             ->willReturnSelf();
 
         $response

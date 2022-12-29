@@ -33,7 +33,7 @@ class ProblemDetailsMiddleware implements MiddlewareInterface
 
             $response = $response
                 ->withHeader('Content-Type', 'application/problem+json')
-                ->withHeader('Content-Length', (string)strlen($serialized))
+                ->withHeader('Content-Length', (string)mb_strlen($serialized))
                 ->withStatusCode($body->getStatus())
                 ->withBody($serialized);
         }

@@ -62,7 +62,7 @@ class Descriptor implements DescriptorInterface
                 $this->output
                     ->getFormatter()
                     ->setForeground(new Yellow())
-                    ->setFixedWidth(strlen($about->getProgram()) + 1)
+                    ->setFixedWidth(mb_strlen($about->getProgram()) + 1)
                     ->setTextIndent(2)
             )
             ->line('<command> [<arguments>] [<options>]')
@@ -164,7 +164,7 @@ class Descriptor implements DescriptorInterface
                 $this->output
                     ->getFormatter()
                     ->setForeground(new Yellow())
-                    ->setFixedWidth(strlen($about->getProgram()) + 1)
+                    ->setFixedWidth(mb_strlen($about->getProgram()) + 1)
                     ->setTextIndent(2)
             )
             ->text(sprintf(
