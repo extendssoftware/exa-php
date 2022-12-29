@@ -61,7 +61,7 @@ class LengthValidator extends AbstractValidator
             return $result;
         }
 
-        $length = strlen($value);
+        $length = mb_strlen($value);
         if (is_int($this->min) && $length < $this->min) {
             return $this->getInvalidResult(self::TOO_SHORT, [
                 'min' => $this->min,

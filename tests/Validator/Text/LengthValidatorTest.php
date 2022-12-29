@@ -20,7 +20,7 @@ class LengthValidatorTest extends TestCase
     public function testValid(): void
     {
         $validator = new LengthValidator(5, 15);
-        $result = $validator->validate('foo bar baz');
+        $result = $validator->validate('foo bár báz qux');
 
         $this->assertTrue($result->isValid());
     }
