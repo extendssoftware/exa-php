@@ -26,7 +26,7 @@ use ExtendsSoftware\ExaPHP\Validator\Logical\NotValidator;
 use ExtendsSoftware\ExaPHP\Validator\Logical\OrValidator;
 use ExtendsSoftware\ExaPHP\Validator\Logical\XorValidator;
 use ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator;
-use ExtendsSoftware\ExaPHP\Validator\Object\DependencyValidator;
+use ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator;
 use ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator;
 use ExtendsSoftware\ExaPHP\Validator\Object\PropertyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator;
@@ -100,7 +100,7 @@ class ValidatorConfigLoader implements LoaderInterface
                     // Number
                     BetweenValidator::class => BetweenValidator::class,
                     // Object
-                    DependencyValidator::class => DependencyValidator::class,
+                    PropertyDependentValidator::class => PropertyDependentValidator::class,
                     PropertiesValidator::class => PropertiesValidator::class,
                     PropertyValidator::class => PropertyValidator::class,
                     // Other

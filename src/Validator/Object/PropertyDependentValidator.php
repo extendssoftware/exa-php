@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
-class DependencyValidator extends AbstractValidator
+class PropertyDependentValidator extends AbstractValidator
 {
     /**
      * When property validator can not be found.
@@ -38,7 +38,7 @@ class DependencyValidator extends AbstractValidator
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
-        return new DependencyValidator(
+        return new PropertyDependentValidator(
             $extra['property'] ?? '',
             $extra['validators'] ?? []
         );
