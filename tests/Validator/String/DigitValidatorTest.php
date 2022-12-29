@@ -7,18 +7,18 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
-class NumericValidatorTest extends TestCase
+class DigitValidatorTest extends TestCase
 {
     /**
      * Valid.
      *
-     * Test that string consist of numeric characters.
+     * Test that string consist of digit characters.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\NumericValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\String\DigitValidator::validate()
      */
     public function testValid(): void
     {
-        $validator = new NumericValidator();
+        $validator = new DigitValidator();
 
         $this->assertTrue($validator->validate('10002')->isValid());
     }
@@ -26,14 +26,14 @@ class NumericValidatorTest extends TestCase
     /**
      * Invalid.
      *
-     * Test that string does not consist of numeric characters.
+     * Test that string does not consist of digit characters.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\NumericValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\NumericValidator::getTemplates()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\String\DigitValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\String\DigitValidator::getTemplates()
      */
     public function testInvalid(): void
     {
-        $validator = new NumericValidator();
+        $validator = new DigitValidator();
 
         $this->assertFalse($validator->validate('1820.20')->isValid());
         $this->assertFalse($validator->validate('wsl!12')->isValid());
@@ -44,11 +44,11 @@ class NumericValidatorTest extends TestCase
      *
      * Test that none-string value will not validate.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\NumericValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\String\DigitValidator::validate()
      */
     public function testNotString(): void
     {
-        $validator = new NumericValidator();
+        $validator = new DigitValidator();
         $result = $validator->validate(9);
 
         $this->assertFalse($result->isValid());
@@ -59,7 +59,7 @@ class NumericValidatorTest extends TestCase
      *
      * Test that factory returns an instanceof of ValidatorInterface.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\NumericValidator::factory()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\String\DigitValidator::factory()
      */
     public function testFactory(): void
     {
@@ -68,7 +68,7 @@ class NumericValidatorTest extends TestCase
         /**
          * @var ServiceLocatorInterface $serviceLocator
          */
-        $validator = NumericValidator::factory(NumericValidator::class, $serviceLocator);
+        $validator = DigitValidator::factory(DigitValidator::class, $serviceLocator);
 
         $this->assertInstanceOf(ValidatorInterface::class, $validator);
     }

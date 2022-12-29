@@ -11,14 +11,14 @@ use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use function ctype_digit;
 
-class NumericValidator extends AbstractValidator
+class DigitValidator extends AbstractValidator
 {
     /**
-     * When string does not consist of only numeric characters.
+     * When string does not consist of only digit characters.
      *
      * @const string
      */
-    public const NOT_NUMERIC = 'notNumeric';
+    public const NOT_DIGIT = 'notDigit';
 
     /**
      * @inheritDoc
@@ -28,7 +28,7 @@ class NumericValidator extends AbstractValidator
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): ValidatorInterface {
-        return new NumericValidator();
+        return new DigitValidator();
     }
 
     /**
@@ -46,7 +46,7 @@ class NumericValidator extends AbstractValidator
             return $this->getValidResult();
         }
 
-        return $this->getInvalidResult(self::NOT_NUMERIC);
+        return $this->getInvalidResult(self::NOT_DIGIT);
     }
 
     /**
@@ -55,7 +55,7 @@ class NumericValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::NOT_NUMERIC => 'String can only consist of numeric characters.',
+            self::NOT_DIGIT => 'String can only consist of digit characters.',
         ];
     }
 }
