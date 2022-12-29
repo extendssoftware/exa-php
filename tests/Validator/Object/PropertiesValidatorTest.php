@@ -22,6 +22,12 @@ class PropertiesValidatorTest extends TestCase
      */
     public function testIsValid(): void
     {
+        $object = (object)[
+            'foo' => 'bar',
+            'bar' => 'baz',
+            'baz' => 'qux',
+        ];
+
         $result = $this->createMock(ResultInterface::class);
         $result
             ->method('isValid')
@@ -32,9 +38,9 @@ class PropertiesValidatorTest extends TestCase
             ->expects($this->exactly(3))
             ->method('validate')
             ->withConsecutive(
-                ['bar', 'context'],
-                ['baz', 'context'],
-                ['qux', 'context']
+                ['bar', $object],
+                ['baz', $object],
+                ['qux', $object]
             )
             ->willReturn($result);
 
@@ -44,11 +50,7 @@ class PropertiesValidatorTest extends TestCase
             'baz' => $validator,
             'qux' => [$validator, true],
         ]);
-        $result = $properties->validate((object)[
-            'foo' => 'bar',
-            'bar' => 'baz',
-            'baz' => 'qux',
-        ], 'context');
+        $result = $properties->validate($object, 'context');
 
         $this->assertTrue($result->isValid());
     }
@@ -66,6 +68,11 @@ class PropertiesValidatorTest extends TestCase
      */
     public function testStrict(): void
     {
+        $object = (object)[
+            'foo' => 'bar',
+            'bar' => 'baz',
+        ];
+
         $result = $this->createMock(ResultInterface::class);
         $result
             ->method('isValid')
@@ -75,16 +82,13 @@ class PropertiesValidatorTest extends TestCase
         $validator
             ->expects($this->once())
             ->method('validate')
-            ->with('bar', 'context')
+            ->with('bar', $object)
             ->willReturn($result);
 
         $properties = new PropertiesValidator([
             'foo' => $validator,
         ]);
-        $result = $properties->validate((object)[
-            'foo' => 'bar',
-            'bar' => 'baz',
-        ], 'context');
+        $result = $properties->validate($object, 'context');
 
         $this->assertFalse($result->isValid());
     }
@@ -153,7 +157,7 @@ class PropertiesValidatorTest extends TestCase
     /**
      * Value as context.
      *
-     * Test that value will be passed as context when context is null.
+     * Test that value will be passed as context.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::validate()
@@ -175,7 +179,7 @@ class PropertiesValidatorTest extends TestCase
             ->method('validate')
             ->withConsecutive(
                 ['bar', $object],
-                ['bar', 'foo']
+                ['bar', $object]
             )
             ->willReturn($result);
 

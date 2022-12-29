@@ -108,7 +108,7 @@ class PropertiesValidator extends AbstractValidator
             $container->addResult(
                 $property
                     ->getValidator()
-                    ->validate($value->{$name}, $context ?? $value),
+                    ->validate($value->{$name}, $value),
                 $name
             );
         }
