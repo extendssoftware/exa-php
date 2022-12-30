@@ -19,10 +19,10 @@ class AboutTest extends TestCase
      */
     public function testGetMethods(): void
     {
-        $about = new About('ExaPHP Console', 'extends', '0.1');
+        $about = new About('ExaPHP Console', 'exa', '0.1.0');
 
         $this->assertSame('ExaPHP Console', $about->getName());
-        $this->assertSame('extends', $about->getProgram());
-        $this->assertSame('0.1', $about->getVersion());
+        $this->assertSame('exa', $about->getProgram());
+        $this->assertSame('0.1.0', $about->getVersion());
     }
 }

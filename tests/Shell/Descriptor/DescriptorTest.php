@@ -33,14 +33,14 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->once())
             ->method('line')
-            ->with("See 'extends --help' for more information about available commands and options.");
+            ->with("See 'exa --help' for more information about available commands and options.");
 
         $definition = $this->createMock(DefinitionInterface::class);
 
         $about = $this->createMock(AboutInterface::class);
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         /**
          * @var DefinitionInterface $definition
@@ -74,14 +74,14 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(8))
             ->method('line')
             ->withConsecutive(
-                ['ExaPHP Console (version 0.1)'],
+                ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
                 ['Commands:'],
                 ['Do some fancy task!'],
                 ['Options:'],
                 ['Show help.'],
-                ["See 'extends <command> --help' for more information about a command."]
+                ["See 'exa <command> --help' for more information about a command."]
             )
             ->willReturnSelf();
 
@@ -89,7 +89,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(3))
             ->method('text')
             ->withConsecutive(
-                ['extends '],
+                ['exa '],
                 ['do.task'],
                 ['-h=|--help=']
             )
@@ -142,11 +142,11 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1');
+            ->willReturn('0.1.0');
 
         /**
          * @var DefinitionInterface $definition
@@ -182,14 +182,14 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(8))
             ->method('line')
             ->withConsecutive(
-                ['ExaPHP Console (version 0.1)'],
+                ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
                 ['Commands:'],
                 ['No commands defined.'],
                 ['Options:'],
                 ['Show help.'],
-                ["See 'extends <command> --help' for more information about a command."]
+                ["See 'exa <command> --help' for more information about a command."]
             )
             ->willReturnSelf();
 
@@ -197,7 +197,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(2))
             ->method('text')
             ->withConsecutive(
-                ['extends '],
+                ['exa '],
                 ['-h=|--help=']
             )
             ->willReturnSelf();
@@ -238,11 +238,11 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1');
+            ->willReturn('0.1.0');
 
         /**
          * @var DefinitionInterface $definition
@@ -274,7 +274,7 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->once())
             ->method('line')
-            ->with("See 'extends do.task --help' for more information about the command.")
+            ->with("See 'exa do.task --help' for more information about the command.")
             ->willReturnSelf();
 
         $command = $this->createMock(CommandInterface::class);
@@ -290,11 +290,11 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1');
+            ->willReturn('0.1.0');
 
         /**
          * @var CommandInterface $command
@@ -328,12 +328,12 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(6))
             ->method('line')
             ->withConsecutive(
-                ['ExaPHP Console (version 0.1)'],
+                ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['[<options>] '],
                 ['Options:'],
                 ['Show option.'],
-                ["See 'extends --help' for more information about this shell and default options."]
+                ["See 'exa --help' for more information about this shell and default options."]
             )
             ->willReturnSelf();
 
@@ -341,7 +341,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(4))
             ->method('text')
             ->withConsecutive(
-                ['extends '],
+                ['exa '],
                 ['do.task '],
                 ['<name> '],
                 ['-o+|--option+']
@@ -413,11 +413,11 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1');
+            ->willReturn('0.1.0');
 
         /**
          * @var CommandInterface $command
@@ -451,9 +451,9 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(3))
             ->method('line')
             ->withConsecutive(
-                ['ExaPHP Console (version 0.1)'],
+                ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
-                ["See 'extends --help' for more information about this shell and default options."]
+                ["See 'exa --help' for more information about this shell and default options."]
             )
             ->willReturnSelf();
 
@@ -461,7 +461,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(2))
             ->method('text')
             ->withConsecutive(
-                ['extends '],
+                ['exa '],
                 ['do.task ']
             )
             ->willReturnSelf();
@@ -495,11 +495,11 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getProgram')
-            ->willReturn('extends');
+            ->willReturn('exa');
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1');
+            ->willReturn('0.1.0');
 
         /**
          * @var CommandInterface $command
