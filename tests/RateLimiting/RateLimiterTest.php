@@ -21,19 +21,20 @@ class RateLimiterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::addRealm()
      * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::consume()
+     * @covers \ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter::getRules()
      */
     public function testIsConsumed(): void
     {
         $permission = $this->createMock(PermissionInterface::class);
         $permission
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('implies')
             ->with($permission)
             ->willReturn(true);
 
         $rule = $this->createMock(RuleInterface::class);
         $rule
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getPermission')
             ->willReturn($permission);
 
@@ -41,7 +42,7 @@ class RateLimiterTest extends TestCase
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
-            ->expects($this->once())
+            ->expects($this->once()) // Use cached rules for identity.
             ->method('getRules')
             ->with($identity)
             ->willReturn([
@@ -52,7 +53,7 @@ class RateLimiterTest extends TestCase
 
         $algorithm = $this->createMock(AlgorithmInterface::class);
         $algorithm
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('consume')
             ->with($rule, $identity)
             ->willReturn($quota);
@@ -66,6 +67,7 @@ class RateLimiterTest extends TestCase
         $rateLimiter = new RateLimiter($algorithm);
         $rateLimiter->addRealm($realm);
 
+        $this->assertSame($quota, $rateLimiter->consume($permission, $identity));
         $this->assertSame($quota, $rateLimiter->consume($permission, $identity));
     }
 
