@@ -76,15 +76,16 @@ class Authorizer implements AuthorizerInterface
             return $this->cache[$identifier];
         }
 
+        $this->cache[$identifier] = [];
         foreach ($this->realms as $realm) {
             $permissions = $realm->getPermissions($identity);
             if (is_array($permissions)) {
                 $this->cache[$identifier] = $permissions;
 
-                return $permissions;
+                break;
             }
         }
 
-        return [];
+        return $this->cache[$identifier];
     }
 }
