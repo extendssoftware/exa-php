@@ -69,7 +69,8 @@ class RateLimitingMiddlewareTest extends TestCase
 
         $routeMatch
             ->expects($this->once())
-            ->method('getName')
+            ->method('getParameter')
+            ->with('permission')
             ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);
@@ -162,7 +163,8 @@ class RateLimitingMiddlewareTest extends TestCase
 
         $routeMatch
             ->expects($this->once())
-            ->method('getName')
+            ->method('getParameter')
+            ->with('permission')
             ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);

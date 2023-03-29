@@ -31,12 +31,14 @@ class AuthorizationMiddleware implements MiddlewareInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
-            $permission = new Permission($match->getName());
-            $identity = $request->getAttribute('identity');
-            if (!$this->authorizer->isPermitted($permission, $identity)) {
-                return (new Response())->withBody(
-                    new ForbiddenProblemDetails($request)
-                );
+            $permission = $match->getParameter('permission');
+            if ($permission) {
+                $identity = $request->getAttribute('identity');
+                if (!$this->authorizer->isPermitted(new Permission($permission), $identity)) {
+                    return (new Response())->withBody(
+                        new ForbiddenProblemDetails($request)
+                    );
+                }
             }
         }
 

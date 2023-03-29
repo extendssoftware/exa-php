@@ -46,7 +46,8 @@ class AuthorizationMiddlewareTest extends TestCase
 
         $routeMatch
             ->expects($this->once())
-            ->method('getName')
+            ->method('getParameter')
+            ->with('permission')
             ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);
@@ -108,7 +109,8 @@ class AuthorizationMiddlewareTest extends TestCase
 
         $routeMatch
             ->expects($this->once())
-            ->method('getName')
+            ->method('getParameter')
+            ->with('permission')
             ->willReturn('foo/bar/baz');
 
         $request = $this->createMock(RequestInterface::class);

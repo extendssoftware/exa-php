@@ -32,13 +32,15 @@ class RateLimitingMiddleware implements MiddlewareInterface
     {
         $match = $request->getAttribute('routeMatch');
         if ($match instanceof RouteMatchInterface) {
-            $permission = new Permission($match->getName());
-            $identity = $request->getAttribute('identity');
-            $quota = $this->rateLimiter->consume($permission, $identity);
-            if ($quota?->isConsumed() === false) {
-                $response = (new Response())->withBody(
-                    new TooManyRequestsProblemDetails($request, $quota)
-                );
+            $permission = $match->getParameter('permission');
+            if ($permission) {
+                $identity = $request->getAttribute('identity');
+                $quota = $this->rateLimiter->consume(new Permission($permission), $identity);
+                if ($quota?->isConsumed() === false) {
+                    $response = (new Response())->withBody(
+                        new TooManyRequestsProblemDetails($request, $quota)
+                    );
+                }
             }
         }
 
