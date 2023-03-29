@@ -7,6 +7,7 @@ use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+use function is_array;
 
 class Authorizer implements AuthorizerInterface
 {
@@ -18,18 +19,21 @@ class Authorizer implements AuthorizerInterface
     private array $realms = [];
 
     /**
+     * Cached permissions per identity.
+     *
+     * @var array<mixed, PermissionInterface[]>
+     */
+    private array $cache = [];
+
+    /**
      * @inheritDoc
      */
     public function isPermitted(PermissionInterface $permission, IdentityInterface $identity): bool
     {
-        foreach ($this->realms as $realm) {
-            $permissions = $realm->getPermissions($identity);
-            if (is_array($permissions)) {
-                foreach ($permissions as $inner) {
-                    if ($inner->implies($permission)) {
-                        return true;
-                    }
-                }
+        $permissions = $this->getPermissions($identity);
+        foreach ($permissions as $inner) {
+            if ($inner->implies($permission)) {
+                return true;
             }
         }
 
@@ -56,5 +60,31 @@ class Authorizer implements AuthorizerInterface
         $this->realms[] = $realm;
 
         return $this;
+    }
+
+    /**
+     * Get permissions for identity.
+     *
+     * @param IdentityInterface $identity
+     *
+     * @return PermissionInterface[]
+     */
+    private function getPermissions(IdentityInterface $identity): array
+    {
+        $identifier = $identity->getIdentifier();
+        if (isset($this->cache[$identifier])) {
+            return $this->cache[$identifier];
+        }
+
+        foreach ($this->realms as $realm) {
+            $permissions = $realm->getPermissions($identity);
+            if (is_array($permissions)) {
+                $this->cache[$identifier] = $permissions;
+
+                return $permissions;
+            }
+        }
+
+        return [];
     }
 }

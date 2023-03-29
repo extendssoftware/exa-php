@@ -18,6 +18,7 @@ class AuthorizerTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::addRealm()
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::isPermitted()
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getPermissions()
      */
     public function testIsPermitted(): void
     {
@@ -32,7 +33,7 @@ class AuthorizerTest extends TestCase
 
         $realm = $this->createMock(RealmInterface::class);
         $realm
-            ->expects($this->exactly(2))
+            ->expects($this->once()) // Use cached permissions for identity.
             ->method('getPermissions')
             ->with($identity)
             ->willReturn([
@@ -47,13 +48,35 @@ class AuthorizerTest extends TestCase
         $authorizer = new Authorizer();
         $authorizer->addRealm($realm);
 
-        $permitted = $authorizer->isPermitted($permission, $identity);
+        $this->assertTrue($authorizer->isPermitted($permission, $identity));
+        $this->assertFalse($authorizer->isPermitted($permission, $identity));
+    }
 
-        $this->assertTrue($permitted);
+    /**
+     * No permissions.
+     *
+     * Test that identity without permissions is not permitted.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::isPermitted()
+     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getPermissions()
+     */
+    public function testNoPermissions(): void
+    {
+        $permission = $this->createMock(PermissionInterface::class);
+        $permission
+            ->expects($this->never())
+            ->method('implies');
 
-        $permitted = $authorizer->isPermitted($permission, $identity);
+        $identity = $this->createMock(IdentityInterface::class);
 
-        $this->assertFalse($permitted);
+        /**
+         * @var PermissionInterface $permission
+         * @var IdentityInterface   $identity
+         */
+        $authorizer = new Authorizer();
+
+        $this->assertFalse($authorizer->isPermitted($permission, $identity));
     }
 
     /**
