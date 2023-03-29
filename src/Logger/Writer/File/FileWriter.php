@@ -42,9 +42,9 @@ class FileWriter extends AbstractWriter
         $writer = new FileWriter(
         /** @phpstan-ignore-next-line */
             $extra['location'],
-            $extra['file_format'] ?? null,
-            $extra['log_format'] ?? null,
-            $extra['new_line'] ?? null
+            $extra['file_format'] ?? 'Y-m-d',
+            $extra['log_format'] ?? '{datetime} {keyword} ({value}): {message} {metaData}',
+            $extra['new_line'] ?? PHP_EOL
         );
 
         foreach ($extra['filters'] ?? [] as $config) {
