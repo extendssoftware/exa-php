@@ -218,13 +218,13 @@ class RouterTest extends TestCase
     }
 
     /**
-     * Assemble.
+     * Assemble name.
      *
-     * Test that route will be assembled and request will be returned.
+     * Test that route name will be assembled and request will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::assemble()
      */
-    public function testAssemble(): void
+    public function testAssembleName(): void
     {
         $route = $this->createMock(GroupRoute::class);
         $route
@@ -244,6 +244,51 @@ class RouterTest extends TestCase
         $request = $router
             ->addRoute($route, 'foo')
             ->assemble('foo/bar/baz', ['foo' => 'bar']);
+
+        $this->assertIsObject($request);
+    }
+
+    /**
+     * Assemble route match.
+     *
+     * Test that route match will be assembled and request will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::assemble()
+     */
+    public function testAssembleRouteMatch(): void
+    {
+        $route = $this->createMock(GroupRoute::class);
+        $route
+            ->expects($this->once())
+            ->method('assemble')
+            ->with(
+                $this->isInstanceOf(RequestInterface::class),
+                ['bar', 'baz'],
+                ['foo' => 'bar']
+            )
+            ->willReturn($this->createMock(RequestInterface::class));
+
+        $routeMatch = $this->createMock(RouteMatchInterface::class);
+        $routeMatch
+            ->expects($this->once())
+            ->method('getName')
+            ->willReturn('foo/bar/baz');
+
+        $routeMatch
+            ->expects($this->once())
+            ->method('getParameters')
+            ->willReturn([
+                'foo' => 'qux',
+            ]);
+
+        /**
+         * @var RouteInterface      $route
+         * @var RouteMatchInterface $routeMatch
+         */
+        $router = new Router();
+        $request = $router
+            ->addRoute($route, 'foo')
+            ->assemble($routeMatch, ['foo' => 'bar']);
 
         $this->assertIsObject($request);
     }

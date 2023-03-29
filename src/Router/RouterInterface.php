@@ -23,11 +23,13 @@ interface RouterInterface
     /**
      * Assemble route name into a request.
      *
-     * @param string       $name       Consecutive route names separated with a forward slash.
-     * @param mixed[]|null $parameters Parameters to use when assembling routes.
+     * @param RouteMatchInterface|string $name       Consecutive route names separated with a forward slash or matched
+     *                                               route to use for name.
+     * @param mixed[]|null               $parameters Parameters to use when assembling routes. Will merge into route
+     *                                               match parameters if provided.
      *
      * @return RequestInterface
      * @throws RouterException       When $path can not be found.
      */
-    public function assemble(string $name, array $parameters = null): RequestInterface;
+    public function assemble(RouteMatchInterface|string $name, array $parameters = null): RequestInterface;
 }

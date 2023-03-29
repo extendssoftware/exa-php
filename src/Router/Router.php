@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRoutePath;
 use ExtendsSoftware\ExaPHP\Router\Exception\NotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
+use function array_merge;
 
 class Router implements RouterInterface
 {
@@ -40,8 +41,16 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function assemble(string $name, array $parameters = null): RequestInterface
+    public function assemble(RouteMatchInterface|string $name, array $parameters = null): RequestInterface
     {
+        if ($name instanceof RouteMatchInterface) {
+            $parameters = array_merge(
+                $name->getParameters(),
+                $parameters ?? []
+            );
+            $name = $name->getName();
+        }
+
         if (preg_match($this->pattern, $name) === 0) {
             throw new InvalidRoutePath($name);
         }
