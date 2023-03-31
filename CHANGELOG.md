@@ -9,13 +9,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+- Added internal permission cache for Authorizer::isPermitted() to not call RealmInterface::getPermissions() twice.
+- Added RouteMatchInterface as type to RouterInterface::assemble() name argument.
+
 ### Changed
+
+- Changed permission name from RouteMatchInterface::getName() to route parameter to allow more control.
 
 ### Deprecated
 
 ### Removed
 
+- Removed HATEOAS collection builder.
+
 ### Fixed
+
+- Fixed default values for FileWriter::factory() to allow nullable config parameter arguments.
 
 ### Security
 
