@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
-use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -38,8 +38,8 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface $resolver
-         * @var ContainerInterface   $container
+         * @var ResolverInterface  $resolver
+         * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
         $service = $serviceLocator
@@ -76,8 +76,8 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface $resolver
-         * @var ContainerInterface   $container
+         * @var ResolverInterface  $resolver
+         * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
         $service1 = $serviceLocator
@@ -125,8 +125,8 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface $resolver
-         * @var ContainerInterface   $container
+         * @var ResolverInterface  $resolver
+         * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
         $service1 = $serviceLocator
@@ -173,7 +173,7 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ContainerInterface   $container
+         * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
 
@@ -197,9 +197,29 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ContainerInterface   $container
+         * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
         $serviceLocator->getService('foo');
+    }
+
+    /**
+     * Service locator as shared service.
+     *
+     * Test that service locator is available as a shared service.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::getService()
+     */
+    public function testServiceLocatorAsSharedService(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+
+        /**
+         * @var ContainerInterface $container
+         */
+        $serviceLocator = new ServiceLocator($container);
+
+        $this->assertSame($serviceLocator, $serviceLocator->getService(ServiceLocatorInterface::class));
     }
 }

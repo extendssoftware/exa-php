@@ -30,6 +30,7 @@ class ServiceLocator implements ServiceLocatorInterface
      */
     public function __construct(private readonly ContainerInterface $container)
     {
+        $this->shared[ServiceLocatorInterface::class] = $this;
     }
 
     /**
