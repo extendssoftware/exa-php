@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
 use ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
@@ -43,9 +44,9 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * Request method.
      *
-     * @var string
+     * @var Method
      */
-    private string $method;
+    private Method $method;
 
     /**
      * Request URI.
@@ -145,7 +146,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function getMethod(): string
+    public function getMethod(): Method
     {
         return $this->method;
     }
@@ -220,7 +221,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function withMethod(string $method): RequestInterface
+    public function withMethod(Method $method): RequestInterface
     {
         $clone = clone $this;
         $clone->method = $method;
@@ -296,7 +297,7 @@ class Request implements RequestInterface, StaticFactoryInterface
         fclose($stream);
 
         return (new Request())
-            ->withMethod($environment['REQUEST_METHOD'])
+            ->withMethod(Method::from($environment['REQUEST_METHOD']))
             ->withBody($body ?? null)
             ->withHeaders($headers)
             ->withServerParameters($parameters)

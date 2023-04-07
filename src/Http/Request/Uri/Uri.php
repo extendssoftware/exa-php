@@ -31,7 +31,7 @@ class Uri implements UriInterface
      *
      * @var string
      */
-    private string $host = 'GET';
+    private string $host;
 
     /**
      * Port of the URI.

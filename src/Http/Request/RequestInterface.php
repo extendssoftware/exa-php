@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 
 interface RequestInterface
@@ -96,9 +97,9 @@ interface RequestInterface
     /**
      * Return method.
      *
-     * @return string
+     * @return Method
      */
-    public function getMethod(): string;
+    public function getMethod(): Method;
 
     /**
      * Return request URI.
@@ -158,11 +159,11 @@ interface RequestInterface
     /**
      * Return new instance with method.
      *
-     * @param string $method
+     * @param Method $method
      *
      * @return RequestInterface
      */
-    public function withMethod(string $method): RequestInterface;
+    public function withMethod(Method $method): RequestInterface;
 
     /**
      * Return new instance with uri.

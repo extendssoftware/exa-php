@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
 use ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use org\bovigo\vfs\vfsStream;
@@ -83,7 +84,7 @@ class RequestTest extends TestCase
             'Query-String' => 'baz=qux',
             'Request-Uri' => '/foo/bar',
         ], $request->getServerParameters());
-        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(Method::POST, $request->getMethod());
         $this->assertIsObject($request->getUri());
     }
 
@@ -120,14 +121,14 @@ class RequestTest extends TestCase
             ->withBody(['baz' => 'qux'])
             ->withHeaders(['qux' => 'quux'])
             ->withServerParameters(['bar' => 'qux'])
-            ->withMethod('POST')
+            ->withMethod(Method::POST)
             ->withUri($uri);
 
         $this->assertSame(['foo' => 'bar'], $request->getAttributes());
         $this->assertSame(['baz' => 'qux'], $request->getBody());
         $this->assertSame(['qux' => 'quux'], $request->getHeaders());
         $this->assertSame(['bar' => 'qux'], $request->getServerParameters());
-        $this->assertSame('POST', $request->getMethod());
+        $this->assertSame(Method::POST, $request->getMethod());
         $this->assertSame($uri, $request->getUri());
         $this->assertSame('quux', $request->getHeader('qux'));
         $this->assertSame('qux', $request->getServerParameter('bar'));
