@@ -5,8 +5,8 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Expander;
 
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
-use ExtendsSoftware\ExaPHP\Router\Controller\Executor\ExecutorException;
-use ExtendsSoftware\ExaPHP\Router\Controller\Executor\ExecutorInterface;
+use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorException;
+use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 

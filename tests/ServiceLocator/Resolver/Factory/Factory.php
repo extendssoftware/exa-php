@@ -11,10 +11,10 @@ class Factory implements ServiceFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function createService(string $class, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         $service = new stdClass();
-        $service->key = $key;
+        $service->key = $class;
         $service->serviceLocator = $serviceLocator;
         $service->extra = $extra;
 

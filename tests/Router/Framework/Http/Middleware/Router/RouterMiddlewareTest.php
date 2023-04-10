@@ -4,20 +4,21 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router;
 
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Exception\NotFound;
+use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\InvalidQueryStringProblemDetails;
+use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\NotFoundProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\InvalidRequestBody;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\InvalidQueryString;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\QueryParameterMissing;
-use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
+use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterNotAllowedProblemDetails;
+use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
@@ -125,6 +126,10 @@ class RouterMiddlewareTest extends TestCase
         $request = $this->createMock(RequestInterface::class);
 
         $exception = $this->createMock(MethodNotAllowed::class);
+        $exception
+            ->expects($this->exactly(2))
+            ->method('getMethod')
+            ->willReturn(Method::GET);
 
         $router = $this->createMock(RouterInterface::class);
         $router
@@ -202,10 +207,10 @@ class RouterMiddlewareTest extends TestCase
 
         $request = $this->createMock(RequestInterface::class);
 
-        $exception = $this->createMock(QueryParameterMissing::class);
+        $exception = $this->createMock(QueryParametersNotAllowed::class);
         $exception
-            ->method('getParameter')
-            ->willReturn('phrase');
+            ->method('getParameters')
+            ->willReturn(['phrase']);
 
         $router = $this->createMock(RouterInterface::class);
         $router
@@ -222,7 +227,7 @@ class RouterMiddlewareTest extends TestCase
         $middleware = new RouterMiddleware($router);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(QueryParameterMissingProblemDetails::class, $response->getBody());
+        $this->assertInstanceOf(QueryParameterNotAllowedProblemDetails::class, $response->getBody());
     }
 
     /**

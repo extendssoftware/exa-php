@@ -3,34 +3,43 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Route;
 
-use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
+use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 interface RouteInterface
 {
     /**
-     * Match route against request.
+     * Get method.
      *
-     * Parameter pathOffset is used to pass the request uri path offset to other routes.
-     *
-     * @param RequestInterface $request
-     * @param int              $pathOffset
-     * @param string           $name
-     *
-     * @return ?RouteMatchInterface
-     * @throws RouteException
+     * @return Method
      */
-    public function match(RequestInterface $request, int $pathOffset, string $name): ?RouteMatchInterface;
+    public function getMethod(): Method;
 
     /**
-     * Assemble path into request.
+     * Get path.
      *
-     * An exception will be thrown when routes for path can not be found.
-     *
-     * @param RequestInterface $request
-     * @param mixed[]          $path
-     * @param mixed[]          $parameters
-     *
-     * @return RequestInterface
+     * @return string
      */
-    public function assemble(RequestInterface $request, array $path, array $parameters): RequestInterface;
+    public function getPath(): string;
+
+    /**
+     * Get validators.
+     *
+     * @return array<string, ValidatorInterface>
+     */
+    public function getValidators(): array;
+
+    /**
+     * Get parameters.
+     *
+     * @return array<string, mixed>
+     */
+    public function getParameters(): array;
+
+    /**
+     * Get name.
+     *
+     * @return string|null
+     */
+    public function getName(): ?string;
 }

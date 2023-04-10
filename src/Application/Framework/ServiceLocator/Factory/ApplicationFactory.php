@@ -21,7 +21,7 @@ class ApplicationFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $key,
+        string                  $class,
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): ApplicationInterface {

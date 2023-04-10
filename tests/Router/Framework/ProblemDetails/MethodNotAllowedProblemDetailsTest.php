@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
+use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
 use PHPUnit\Framework\TestCase;
 
 class MethodNotAllowedProblemDetailsTest extends TestCase
@@ -33,12 +34,12 @@ class MethodNotAllowedProblemDetailsTest extends TestCase
         $exception
             ->expects($this->exactly(2))
             ->method('getMethod')
-            ->willReturn('GET');
+            ->willReturn(Method::GET);
 
         $exception
             ->expects($this->exactly(1))
             ->method('getAllowedMethods')
-            ->willReturn(['PUT', 'POST']);
+            ->willReturn([Method::PUT, Method::POST]);
 
         /**
          * @var RequestInterface $request

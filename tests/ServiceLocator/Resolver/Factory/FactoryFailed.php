@@ -11,7 +11,7 @@ class FactoryFailed implements ServiceFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function createService(string $class, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
         throw new class extends RuntimeException implements ServiceFactoryException {
         };

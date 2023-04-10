@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\InvalidQueryString;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 

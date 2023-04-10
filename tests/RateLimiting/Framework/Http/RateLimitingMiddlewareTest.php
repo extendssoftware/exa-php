@@ -12,7 +12,7 @@ use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMi
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\ProblemDetails\TooManyRequestsProblemDetails;
 use ExtendsSoftware\ExaPHP\RateLimiting\Quota\QuotaInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
+use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
 class RateLimitingMiddlewareTest extends TestCase

@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\InvalidQueryString;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 
 class InvalidQueryStringProblemDetails extends ProblemDetails
 {

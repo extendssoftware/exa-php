@@ -11,7 +11,7 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
+use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use PHPUnit\Framework\TestCase;
 
 class AuthorizationMiddlewareTest extends TestCase

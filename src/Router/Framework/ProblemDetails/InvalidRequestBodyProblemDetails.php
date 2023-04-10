@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
 
 class InvalidRequestBodyProblemDetails extends ProblemDetails
 {

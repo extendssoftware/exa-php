@@ -57,7 +57,6 @@ class AuthorizerTest extends TestCase
      *
      * Test that identity without permissions is not permitted.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::isPermitted()
      * @covers \ExtendsSoftware\ExaPHP\Authorization\Authorizer::getPermissions()
      */

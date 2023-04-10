@@ -8,16 +8,16 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
+use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
+use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Exception\NotFound;
+use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\InvalidQueryStringProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\InvalidRequestBodyProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\MethodNotAllowedProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\NotFoundProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterMissingProblemDetails;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\InvalidRequestBody;
-use ExtendsSoftware\ExaPHP\Router\Route\Method\Exception\MethodNotAllowed;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\InvalidQueryString;
-use ExtendsSoftware\ExaPHP\Router\Route\Query\Exception\QueryParameterMissing;
+use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterNotAllowedProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
@@ -54,9 +54,9 @@ class RouterMiddleware implements MiddlewareInterface
             return (new Response())->withBody(
                 new InvalidQueryStringProblemDetails($request, $exception)
             );
-        } catch (QueryParameterMissing $exception) {
+        } catch (QueryParametersNotAllowed $exception) {
             return (new Response())->withBody(
-                new QueryParameterMissingProblemDetails($request, $exception)
+                new QueryParameterNotAllowedProblemDetails($request, $exception)
             );
         } catch (InvalidRequestBody $exception) {
             return (new Response())->withBody(

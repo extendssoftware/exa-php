@@ -19,7 +19,7 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Logger\Framework\Http\Middleware\Logger\LoggerMiddleware;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Framework\Http\Middleware\ProblemDetailsMiddleware;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
-use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Controller\ControllerMiddleware;
+use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Executor\ExecutorMiddleware;
 use ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router\RouterMiddleware;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolver;
@@ -60,7 +60,7 @@ class ApplicationConfigLoader implements LoaderInterface
                 AuthenticationMiddleware::class => 500,
                 AuthorizationMiddleware::class => 400,
                 RateLimitingMiddleware::class => 300,
-                ControllerMiddleware::class => 200,
+                ExecutorMiddleware::class => 200,
                 NotImplementedMiddleware::class => 100,
             ],
         ];

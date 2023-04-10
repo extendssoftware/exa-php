@@ -7,8 +7,8 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Router\Controller\Executor\ExecutorInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\RouteMatchInterface;
+use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
+use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
 
