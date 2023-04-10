@@ -131,6 +131,11 @@ class RouterMiddlewareTest extends TestCase
             ->method('getMethod')
             ->willReturn(Method::GET);
 
+        $exception
+            ->expects($this->exactly(2))
+            ->method('getAllowedMethods')
+            ->willReturn([Method::PUT, Method::POST]);
+
         $router = $this->createMock(RouterInterface::class);
         $router
             ->expects($this->once())
@@ -147,6 +152,7 @@ class RouterMiddlewareTest extends TestCase
         $response = $middleware->process($request, $chain);
 
         $this->assertInstanceOf(MethodNotAllowedProblemDetails::class, $response->getBody());
+        $this->assertSame('PUT, POST', $response->getHeader('Allow'));
     }
 
     /**
