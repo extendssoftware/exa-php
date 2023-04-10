@@ -11,10 +11,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Added internal permission cache for Authorizer::isPermitted() to not call RealmInterface::getPermissions() twice.
 - Added RouteMatchInterface as type to RouterInterface::assemble() name argument.
+- Added ServiceLocatorInterface::class key to service locator to get service locator from itself.
 
 ### Changed
 
 - Changed permission name from RouteMatchInterface::getName() to route parameter to allow more control.
+- Changed config based router to simpler attribute based router.
+- Changed RequestInterface::getMethod() return value from string to enum.
 
 ### Deprecated
 
