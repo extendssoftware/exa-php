@@ -39,5 +39,4 @@ class RouteDefinitionTest extends TestCase
         $this->assertSame($reflectionClass, $routeDefinition->getReflectionClass());
         $this->assertSame($reflectionMethod, $routeDefinition->getReflectionMethod());
     }
-
 }
