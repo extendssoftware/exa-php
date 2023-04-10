@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class NullValidatorTest extends TestCase

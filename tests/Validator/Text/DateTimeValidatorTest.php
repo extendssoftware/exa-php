@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class DateTimeValidatorTest extends TestCase

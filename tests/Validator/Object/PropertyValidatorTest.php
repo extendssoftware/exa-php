@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class PropertyValidatorTest extends TestCase

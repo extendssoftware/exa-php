@@ -8,7 +8,6 @@ use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class RouterFactoryTest extends TestCase
 {
