@@ -36,17 +36,6 @@ class AbstractValidatorTest extends TestCase
             /**
              * @inheritDoc
              */
-            public static function factory(
-                string $key,
-                ServiceLocatorInterface $serviceLocator,
-                array $extra = null
-            ): object {
-                return new static();
-            }
-
-            /**
-             * @inheritDoc
-             */
             public function validate($value, $context = null): ResultInterface
             {
                 if ($context === true) {
