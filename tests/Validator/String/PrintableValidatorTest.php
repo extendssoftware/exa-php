@@ -34,7 +34,7 @@ class PrintableValidatorTest extends TestCase
     {
         $validator = new PrintableValidator();
 
-        $this->assertFalse($validator->validate("asdf\n\r\t")->isValid());
+        $this->assertFalse($validator->validate("xyz\n\r\t")->isValid());
     }
 
     /**

@@ -33,7 +33,7 @@ class PunctuationValidatorTest extends TestCase
     {
         $validator = new PunctuationValidator();
 
-        $this->assertFalse($validator->validate('ABasdk!@!$#')->isValid());
+        $this->assertFalse($validator->validate('Xyz!@!$#')->isValid());
         $this->assertFalse($validator->validate('!@ # $')->isValid());
     }
 

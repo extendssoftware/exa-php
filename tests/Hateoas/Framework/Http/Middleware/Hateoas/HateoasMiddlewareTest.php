@@ -86,7 +86,7 @@ class HateoasMiddlewareTest extends TestCase
             ->expects($this->once())
             ->method('serialize')
             ->with($resource)
-            ->willReturn('{"name":"Jáne Doe"}');
+            ->willReturn('{"name":"Jane Doe"}');
 
         $builder = $this->createMock(BuilderInterface::class);
         $builder
@@ -151,7 +151,7 @@ class HateoasMiddlewareTest extends TestCase
         $response
             ->expects($this->once())
             ->method('withBody')
-            ->with('{"name":"Jáne Doe"}')
+            ->with('{"name":"Jane Doe"}')
             ->willReturnSelf();
 
         $chain = $this->createMock(MiddlewareChainInterface::class);

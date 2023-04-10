@@ -34,7 +34,7 @@ class VisibleValidatorTest extends TestCase
     {
         $validator = new VisibleValidator();
 
-        $this->assertFalse($validator->validate("asdf\n\r\t")->isValid());
+        $this->assertFalse($validator->validate("xyz\n\r\t")->isValid());
     }
 
     /**

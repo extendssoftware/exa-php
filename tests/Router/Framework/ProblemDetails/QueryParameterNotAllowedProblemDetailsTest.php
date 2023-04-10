@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
 use PHPUnit\Framework\TestCase;
 
-class QueryParameterNotAllowerdProblemDetailsTest extends TestCase
+class QueryParameterNotAllowedProblemDetailsTest extends TestCase
 {
     /**
      * Test that getters will return correct values.

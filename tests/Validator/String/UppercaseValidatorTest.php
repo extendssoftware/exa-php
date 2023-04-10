@@ -18,7 +18,7 @@ class UppercaseValidatorTest extends TestCase
     {
         $validator = new UppercaseValidator();
 
-        $this->assertTrue($validator->validate('LMNSDO')->isValid());
+        $this->assertTrue($validator->validate('XYZ')->isValid());
     }
 
     /**
@@ -33,7 +33,7 @@ class UppercaseValidatorTest extends TestCase
     {
         $validator = new UppercaseValidator();
 
-        $this->assertFalse($validator->validate('AKLWC139')->isValid());
+        $this->assertFalse($validator->validate('XYZ139')->isValid());
         $this->assertFalse($validator->validate('akwSKWsm')->isValid());
     }
 

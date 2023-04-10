@@ -18,7 +18,7 @@ class LowercaseValidatorTest extends TestCase
     {
         $validator = new LowercaseValidator();
 
-        $this->assertTrue($validator->validate('qiutoas')->isValid());
+        $this->assertTrue($validator->validate('xyz')->isValid());
     }
 
     /**
@@ -34,7 +34,7 @@ class LowercaseValidatorTest extends TestCase
         $validator = new LowercaseValidator();
 
         $this->assertFalse($validator->validate('aac123')->isValid());
-        $this->assertFalse($validator->validate('QASsdks')->isValid());
+        $this->assertFalse($validator->validate('XyZ')->isValid());
     }
 
     /**
