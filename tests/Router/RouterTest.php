@@ -8,7 +8,6 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
-use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRouteUrl;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Exception\NotFound;
 use ExtendsSoftware\ExaPHP\Router\Exception\PathParameterMissing;
