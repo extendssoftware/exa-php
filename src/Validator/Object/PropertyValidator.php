@@ -2,7 +2,6 @@
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
@@ -25,16 +24,6 @@ class PropertyValidator extends AbstractValidator
      */
     public function __construct(readonly private string $property)
     {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
-    {
-        return new PropertyValidator(
-            $extra['property'] ?? ''
-        );
     }
 
     /**

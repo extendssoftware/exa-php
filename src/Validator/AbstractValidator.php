@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 
-abstract class AbstractValidator implements ValidatorInterface, StaticFactoryInterface
+abstract class AbstractValidator implements ValidatorInterface
 {
     /**
      * Create valid result.

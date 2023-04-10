@@ -57,24 +57,4 @@ class DateTimeValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns an instanceof of ValidatorInterface.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = DateTimeValidator::factory(DateTimeValidator::class, $serviceLocator);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

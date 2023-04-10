@@ -39,23 +39,4 @@ class IterableValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a IterableValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IterableValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = IterableValidator::factory(IterableValidator::class, $serviceLocator);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

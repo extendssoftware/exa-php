@@ -92,26 +92,4 @@ class CoordinatesValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns correct instance.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\CoordinatesValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = CoordinatesValidator::factory(CoordinatesValidator::class, $serviceLocator, [
-            'latitude' => 'lat',
-            'longitude' => 'lng',
-        ]);
-
-        $this->assertInstanceOf(CoordinatesValidator::class, $validator);
-    }
 }

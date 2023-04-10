@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class NumericValidator extends AbstractValidator
 {
@@ -17,17 +15,6 @@ class NumericValidator extends AbstractValidator
      * @const string
      */
     public const NOT_NUMERIC = 'notNumeric';
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new NumericValidator();
-    }
 
     /**
      * @inheritDoc

@@ -53,23 +53,4 @@ class WhitespaceValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns an instanceof of ValidatorInterface.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\String\WhitespaceValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = WhitespaceValidator::factory(WhitespaceValidator::class, $serviceLocator);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

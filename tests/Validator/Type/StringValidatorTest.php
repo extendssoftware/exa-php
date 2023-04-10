@@ -39,23 +39,4 @@ class StringValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a StringValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\StringValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = StringValidator::factory(StringValidator::class, $serviceLocator);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Number;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class BetweenValidator extends AbstractValidator
 {
@@ -52,21 +50,6 @@ class BetweenValidator extends AbstractValidator
         private readonly ?int  $max = null,
         private readonly ?bool $inclusive = null
     ) {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new BetweenValidator(
-            $extra['min'] ?? null,
-            $extra['max'] ?? null,
-            $extra['inclusive'] ?? null
-        );
     }
 
     /**

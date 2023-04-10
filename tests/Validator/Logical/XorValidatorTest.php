@@ -140,44 +140,4 @@ class XorValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-    
-    /**
-     * Factory.
-     *
-     * Test that factory returns a XorValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\XorValidator::factory()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\XorValidator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\XorValidator::addValidator()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->once())
-            ->method('getService')
-            ->with(
-                ValidatorInterface::class,
-                [
-                    'foo' => 'bar',
-                ]
-            )
-            ->willReturn($this->createMock(ValidatorInterface::class));
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = XorValidator::factory(ValidatorInterface::class, $serviceLocator, [
-            'validators' => [
-                [
-                    'name' => ValidatorInterface::class,
-                    'options' => [
-                        'foo' => 'bar',
-                    ],
-                ],
-            ],
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

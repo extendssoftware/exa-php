@@ -124,27 +124,4 @@ class BetweenValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns correct instance.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = BetweenValidator::factory(BetweenValidator::class, $serviceLocator, [
-            'min' => 1,
-            'max' => 10,
-            'inclusive' => false,
-        ]);
-
-        $this->assertInstanceOf(BetweenValidator::class, $validator);
-    }
 }

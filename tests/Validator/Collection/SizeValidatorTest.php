@@ -93,26 +93,4 @@ class SizeValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns an instanceof of ValidatorInterface.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = SizeValidator::factory(SizeValidator::class, $serviceLocator, [
-            'min' => 5,
-            'max' => 10,
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

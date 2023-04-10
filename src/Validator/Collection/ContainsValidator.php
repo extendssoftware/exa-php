@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
@@ -29,25 +27,6 @@ class ContainsValidator extends AbstractValidator
     public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
-    }
-
-    /**
-     * @inheritDoc
-     * @throws ServiceLocatorException
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        /** @phpstan-ignore-next-line */
-        $validator = $extra['validator'];
-        $service = $serviceLocator->getService($validator['name'], $validator['options'] ?? []);
-
-        /**
-         * @var ValidatorInterface $service
-         */
-        return new ContainsValidator($service);
     }
 
     /**

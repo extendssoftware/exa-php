@@ -39,23 +39,4 @@ class NumericValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a NumericValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = NumericValidator::factory(NumericValidator::class, $serviceLocator);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

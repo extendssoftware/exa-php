@@ -100,36 +100,4 @@ class ContainsValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a AbstractTypeValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::factory()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::__construct()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->once())
-            ->method('getService')
-            ->with(ValidatorInterface::class, ['foo' => 'bar'])
-            ->willReturn($this->createMock(ValidatorInterface::class));
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = ContainsValidator::factory(ContainsValidator::class, $serviceLocator, [
-            'validator' => [
-                'name' => ValidatorInterface::class,
-                'options' => [
-                    'foo' => 'bar',
-                ],
-            ],
-        ]);
-
-        $this->assertInstanceOf(ContainsValidator::class, $validator);
-    }
 }

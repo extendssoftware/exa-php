@@ -31,7 +31,6 @@ use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
-use ExtendsSoftware\ExaPHP\Validator\Framework\ServiceLocator\Loader\ValidatorConfigLoader;
 
 class ApplicationBuilder implements ApplicationBuilderInterface
 {
@@ -124,7 +123,6 @@ class ApplicationBuilder implements ApplicationBuilderInterface
         RateLimitingConfigLoader::class,
         RouterConfigLoader::class,
         ShellConfigLoader::class,
-        ValidatorConfigLoader::class,
     ];
 
     /**

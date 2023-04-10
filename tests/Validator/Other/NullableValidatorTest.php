@@ -61,34 +61,4 @@ class NullableValidatorTest extends TestCase
         $result = $validator->validate(null);
         $this->assertTrue($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns an instanceof of ValidatorInterface.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\NullableValidator::factory()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\NullableValidator::__construct()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->once())
-            ->method('getService')
-            ->with(ValidatorInterface::class, ['foo' => 'bar'])
-            ->willReturn($this->createMock(ValidatorInterface::class));
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = NullableValidator::factory(NullableValidator::class, $serviceLocator, [
-            'name' => ValidatorInterface::class,
-            'options' => [
-                'foo' => 'bar',
-            ],
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

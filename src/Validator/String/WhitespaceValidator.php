@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use function ctype_space;
 
 class WhitespaceValidator extends AbstractValidator
@@ -19,17 +17,6 @@ class WhitespaceValidator extends AbstractValidator
      * @const string
      */
     public const NOT_WHITESPACE = 'notWhitespace';
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new WhitespaceValidator();
-    }
 
     /**
      * @inheritDoc

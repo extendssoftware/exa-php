@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Comparison;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class LessThanValidator extends AbstractValidator
 {
@@ -25,20 +23,6 @@ class LessThanValidator extends AbstractValidator
      */
     public function __construct(private readonly mixed $subject)
     {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new LessThanValidator(
-            /** @phpstan-ignore-next-line */
-            $extra['subject']
-        );
     }
 
     /**

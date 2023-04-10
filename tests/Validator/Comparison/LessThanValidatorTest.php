@@ -41,25 +41,4 @@ class LessThanValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a LessOrEqualValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Comparison\LessThanValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = LessThanValidator::factory(ValidatorInterface::class, $serviceLocator, [
-            'subject' => 5.5,
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

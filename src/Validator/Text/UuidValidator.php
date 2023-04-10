@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class UuidValidator extends AbstractValidator
 {
@@ -25,17 +23,6 @@ class UuidValidator extends AbstractValidator
      * @var string
      */
     private string $pattern = '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i';
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new UuidValidator();
-    }
 
     /**
      * @inheritDoc

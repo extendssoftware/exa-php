@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property;
@@ -47,34 +45,6 @@ class PropertiesValidator extends AbstractValidator
 
             $this->addProperty($property, $validator, $optional ?? null);
         }
-    }
-
-    /**
-     * @inheritDoc
-     * @throws ServiceLocatorException
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        $properties = new PropertiesValidator(
-            null,
-            $extra['strict'] ?? null
-        );
-
-        foreach ($extra['properties'] ?? [] as $property) {
-            $validator = $serviceLocator->getService(
-                $property['validator']['name'],
-                $property['validator']['options'] ?? []
-            );
-
-            if ($validator instanceof ValidatorInterface) {
-                $properties->addProperty($property['property'], $validator, $property['optional'] ?? null);
-            }
-        }
-
-        return $properties;
     }
 
     /**

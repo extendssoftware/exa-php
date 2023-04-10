@@ -43,25 +43,4 @@ class GreaterOrEqualValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a GreaterOrEqualValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Comparison\GreaterOrEqualValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = GreaterOrEqualValidator::factory(ValidatorInterface::class, $serviceLocator, [
-            'subject' => 5.5,
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

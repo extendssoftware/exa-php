@@ -190,42 +190,4 @@ class PropertiesValidatorTest extends TestCase
         $this->assertTrue($properties->validate($object)->isValid());
         $this->assertTrue($properties->validate($object, 'foo')->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory will return correct instance.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->once())
-            ->method('getService')
-            ->with(ValidatorInterface::class, ['foo' => 'bar'])
-            ->willReturn($this->createMock(ValidatorInterface::class));
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $properties = PropertiesValidator::factory(PropertiesValidator::class, $serviceLocator, [
-            'properties' => [
-                [
-                    'property' => 'foo',
-                    'validator' => [
-                        'name' => ValidatorInterface::class,
-                        'options' => [
-                            'foo' => 'bar',
-                        ],
-                    ],
-                    'optional' => false,
-                ],
-            ],
-            'strict' => false,
-        ]);
-
-        $this->assertInstanceOf(PropertiesValidator::class, $properties);
-    }
 }

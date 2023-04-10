@@ -3,11 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class InArrayValidator extends AbstractValidator
 {
@@ -25,19 +23,6 @@ class InArrayValidator extends AbstractValidator
      */
     public function __construct(private readonly array $values)
     {
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new InArrayValidator(
-            $extra['values'] ?? []
-        );
     }
 
     /**

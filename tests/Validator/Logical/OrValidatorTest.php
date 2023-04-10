@@ -95,44 +95,4 @@ class OrValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-    
-    /**
-     * Factory.
-     *
-     * Test that factory returns a OrValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\OrValidator::factory()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\OrValidator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\OrValidator::addValidator()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-        $serviceLocator
-            ->expects($this->once())
-            ->method('getService')
-            ->with(
-                ValidatorInterface::class,
-                [
-                    'foo' => 'bar',
-                ]
-            )
-            ->willReturn($this->createMock(ValidatorInterface::class));
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = OrValidator::factory(ValidatorInterface::class, $serviceLocator, [
-            'validators' => [
-                [
-                    'name' => ValidatorInterface::class,
-                    'options' => [
-                        'foo' => 'bar',
-                    ],
-                ],
-            ],
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }

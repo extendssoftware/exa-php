@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 class NotEmptyValidator extends AbstractValidator
 {
@@ -18,17 +16,6 @@ class NotEmptyValidator extends AbstractValidator
      * @var string
      */
     public const EMPTY = 'empty';
-
-    /**
-     * @inheritDoc
-     */
-    public static function factory(
-        string                  $key,
-        ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
-    ): ValidatorInterface {
-        return new NotEmptyValidator();
-    }
 
     /**
      * @inheritDoc

@@ -41,25 +41,4 @@ class NotEqualValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
-
-    /**
-     * Factory.
-     *
-     * Test that factory returns a NotEqualValidator.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Comparison\NotEqualValidator::factory()
-     */
-    public function testFactory(): void
-    {
-        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
-
-        /**
-         * @var ServiceLocatorInterface $serviceLocator
-         */
-        $validator = NotEqualValidator::factory(ValidatorInterface::class, $serviceLocator, [
-            'subject' => 5.5,
-        ]);
-
-        $this->assertInstanceOf(ValidatorInterface::class, $validator);
-    }
 }
