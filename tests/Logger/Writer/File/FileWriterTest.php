@@ -326,14 +326,10 @@ class FileWriterTest extends TestCase
         $serviceLocator
             ->expects($this->exactly(2))
             ->method('getService')
-            ->withConsecutive(
-                [FilterInterface::class],
-                [DecoratorInterface::class]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->createMock(FilterInterface::class),
-                $this->createMock(DecoratorInterface::class)
-            );
+            ->willReturnCallback(fn($service) => match ([$service]) {
+                [FilterInterface::class] => $this->createMock(FilterInterface::class),
+                [DecoratorInterface::class] => $this->createMock(DecoratorInterface::class),
+            });
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

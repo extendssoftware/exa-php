@@ -44,11 +44,10 @@ class ProblemMiddlewareTest extends TestCase
         $response
             ->expects($this->exactly(2))
             ->method('withHeader')
-            ->withConsecutive(
+            ->willReturnCallback(fn($header, $value) => match ([$header, $value]) {
                 ['Content-Type', 'application/problem+json'],
-                ['Content-Length', '18']
-            )
-            ->willReturnSelf();
+                ['Content-Length', '18'] => $response,
+            });
 
         $response
             ->expects($this->once())

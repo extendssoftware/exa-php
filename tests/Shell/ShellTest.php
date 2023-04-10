@@ -359,26 +359,21 @@ class ShellTest extends TestCase
         $parser
             ->expects($this->exactly(2))
             ->method('parse')
-            ->withConsecutive(
+            ->willReturnCallback(fn($definition, $arguments, $strict) => match ([$arguments, $strict]) {
                 [
-                    $this->isInstanceOf(DefinitionInterface::class),
                     [
                         'do.task',
                         'John Doe',
                     ],
                     false,
-                ],
+                ] => $defaults,
                 [
-                    $definition,
                     [
                         'John Doe',
                     ],
-                ]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $defaults,
-                $result
-            );
+                    null
+                ] => $result,
+            });
 
         /**
          * @var DescriptorInterface $descriptor
@@ -466,26 +461,21 @@ class ShellTest extends TestCase
         $parser
             ->expects($this->exactly(2))
             ->method('parse')
-            ->withConsecutive(
+            ->willReturnCallback(fn($definition, $arguments, $strict) => match ([$arguments, $strict]) {
                 [
-                    $this->isInstanceOf(DefinitionInterface::class),
                     [
                         'do.task',
                         'John Doe',
                     ],
                     false,
-                ],
+                ] => $defaults,
                 [
-                    $definition,
                     [
                         'John Doe',
                     ],
-                ]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $defaults,
-                $this->throwException($exception)
-            );
+                    null
+                ] => throw $exception,
+            });
 
         /**
          * @var DescriptorInterface $descriptor

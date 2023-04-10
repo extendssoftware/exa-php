@@ -54,11 +54,10 @@ class AuthorizationMiddlewareTest extends TestCase
         $request
             ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(
-                ['routeMatch'],
-                ['identity']
-            )
-            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
+            ->willReturnCallback(fn($attribute) => match ([$attribute]) {
+                ['routeMatch'] => $routeMatch,
+                ['identity'] => $identity
+            });
 
         $response = $this->createMock(ResponseInterface::class);
 
@@ -117,11 +116,10 @@ class AuthorizationMiddlewareTest extends TestCase
         $request
             ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(
-                ['routeMatch'],
-                ['identity']
-            )
-            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
+            ->willReturnCallback(fn($attribute) => match ([$attribute]) {
+                ['routeMatch'] => $routeMatch,
+                ['identity'] => $identity
+            });
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
 

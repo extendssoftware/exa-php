@@ -36,12 +36,11 @@ class PropertiesValidatorTest extends TestCase
         $validator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->withConsecutive(
+            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
                 ['bar', $object],
                 ['baz', $object],
-                ['qux', $object]
-            )
-            ->willReturn($result);
+                ['qux', $object] => $result
+            });
 
         $properties = new PropertiesValidator([
             'foo' => $validator,
@@ -176,11 +175,9 @@ class PropertiesValidatorTest extends TestCase
         $validator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->withConsecutive(
-                ['bar', $object],
-                ['bar', $object]
-            )
-            ->willReturn($result);
+            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
+                ['bar', $object] => $result,
+            });
 
         $properties = new PropertiesValidator([
             'foo' => $validator,

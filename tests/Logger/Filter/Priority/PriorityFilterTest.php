@@ -98,18 +98,10 @@ class PriorityFilterTest extends TestCase
         $serviceLocator
             ->expects($this->exactly(2))
             ->method('getService')
-            ->withConsecutive(
-                [
-                    PriorityInterface::class,
-                ],
-                [
-                    ValidatorInterface::class,
-                ]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->createMock(PriorityInterface::class),
-                $this->createMock(ValidatorInterface::class)
-            );
+            ->willReturnCallback(fn($key) => match ([$key]) {
+                [PriorityInterface::class] => $this->createMock(PriorityInterface::class),
+                [ValidatorInterface::class] => $this->createMock(ValidatorInterface::class),
+            });
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

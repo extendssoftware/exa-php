@@ -77,11 +77,10 @@ class RateLimitingMiddlewareTest extends TestCase
         $request
             ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(
-                ['routeMatch'],
-                ['identity']
-            )
-            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
+            ->willReturnCallback(fn($key) => match ([$key]) {
+                ['routeMatch'] => $routeMatch,
+                ['identity'] => $identity,
+            });
 
         $response = $this->createMock(ResponseInterface::class);
         $response
@@ -171,11 +170,10 @@ class RateLimitingMiddlewareTest extends TestCase
         $request
             ->expects($this->exactly(2))
             ->method('getAttribute')
-            ->withConsecutive(
-                ['routeMatch'],
-                ['identity']
-            )
-            ->willReturnOnConsecutiveCalls($routeMatch, $identity);
+            ->willReturnCallback(fn($key) => match ([$key]) {
+                ['routeMatch'] => $routeMatch,
+                ['identity'] => $identity,
+            });
 
         $chain = $this->createMock(MiddlewareChainInterface::class);
         $chain

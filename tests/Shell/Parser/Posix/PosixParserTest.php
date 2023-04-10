@@ -44,11 +44,10 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(2))
             ->method('getOption')
-            ->withConsecutive(
+            ->willReturnCallback(fn($name) => match ([$name]) {
                 ['f'],
-                ['l']
-            )
-            ->willReturn($option);
+                ['l'] => $option,
+            });
 
         /**
          * @var DefinitionInterface $definition
@@ -139,12 +138,10 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(3))
             ->method('getOption')
-            ->withConsecutive(
+            ->willReturnCallback(fn($name) => match ([$name]) {
                 ['f'],
-                ['b'],
-                ['b']
-            )
-            ->willReturn($option);
+                ['b'] => $option,
+            });
 
         /**
          * @var DefinitionInterface $definition
@@ -198,11 +195,7 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(3))
             ->method('getOption')
-            ->withConsecutive(
-                ['v'],
-                ['v'],
-                ['v']
-            )
+            ->with('v')
             ->willReturn($option);
 
         /**
@@ -302,12 +295,11 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(3))
             ->method('getOption')
-            ->withConsecutive(
+            ->willReturnCallback(fn($name) => match ([$name]) {
                 ['f'],
                 ['b'],
-                ['q']
-            )
-            ->willReturn($option);
+                ['q'] => $option,
+            });
 
         /**
          * @var DefinitionInterface $definition
@@ -642,9 +634,8 @@ class PosixParserTest extends TestCase
      */
     public function testNonStrictMode(): void
     {
-        /** @var OptionNotFound  $optionNotFound */
         $optionNotFound = $this->createMock(OptionNotFound::class);
-        /** @var OperandNotFound $operandNotFound */
+
         $operandNotFound = $this->createMock(OperandNotFound::class);
 
         $definition = $this->createMock(DefinitionInterface::class);
@@ -674,20 +665,13 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(5))
             ->method('getOption')
-            ->withConsecutive(
-                ['x'],
-                ['f'],
-                ['a'],
-                ['help', true],
-                ['quite', true]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->throwException($optionNotFound),
-                $option,
-                $this->throwException($optionNotFound),
-                $this->throwException($optionNotFound),
-                $option
-            );
+            ->willReturnCallback(fn($name, $long) => match ([$name, $long]) {
+                ['x', false],
+                ['a', false],
+                ['help', true] => throw $optionNotFound,
+                ['f', false],
+                ['quite', true] => $option,
+            });
 
         $operand = $this->createMock(OperandInterface::class);
         $operand
@@ -698,14 +682,10 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(2))
             ->method('getOperand')
-            ->withConsecutive(
-                [0],
-                [1]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $operand,
-                $this->throwException($operandNotFound)
-            );
+            ->willReturnCallback(fn($position) => match ([$position]) {
+                [0] => $operand,
+                [1] => throw $operandNotFound,
+            });
 
         /**
          * @var DefinitionInterface $definition
@@ -865,14 +845,10 @@ class PosixParserTest extends TestCase
         $definition
             ->expects($this->exactly(2))
             ->method('getOperand')
-            ->withConsecutive(
-                [0],
-                [1]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $operand1,
-                $operand2
-            );
+            ->willReturnCallback(fn($position) => match ([$position]) {
+                [0] => $operand1,
+                [1] => $operand2,
+            });
 
         /**
          * @var DefinitionInterface $definition

@@ -20,6 +20,8 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
+use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -143,11 +145,10 @@ class HateoasMiddlewareTest extends TestCase
         $response
             ->expects($this->exactly(2))
             ->method('withHeader')
-            ->withConsecutive(
+            ->willReturnCallback(fn($header, $value) => match ([$header, $value]) {
                 ['Content-Type', 'application/hal+json'],
-                ['Content-Length', '19']
-            )
-            ->willReturnSelf();
+                ['Content-Length', '19'] => $response,
+            });
 
         $response
             ->expects($this->once())

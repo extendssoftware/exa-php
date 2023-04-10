@@ -58,14 +58,10 @@ class RateLimiterFactoryTest extends TestCase
         $serviceLocator
             ->expects($this->exactly(2))
             ->method('getService')
-            ->withConsecutive(
-                [AlgorithmInterface::class, ['qux' => 'quux']],
-                [RealmInterface::class, ['foo' => 'bar']]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $algorithm,
-                $realm
-            );
+            ->willReturnCallback(fn($key, $extra) => match ([$key, $extra]) {
+                [AlgorithmInterface::class, ['qux' => 'quux']] => $algorithm,
+                [RealmInterface::class, ['foo' => 'bar']] => $realm,
+            });
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

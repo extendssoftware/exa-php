@@ -44,7 +44,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var DefinitionInterface $definition
-         * @var AboutInterface      $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->shell($about, $definition, [], true);
@@ -73,7 +73,7 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->exactly(8))
             ->method('line')
-            ->withConsecutive(
+            ->willReturnCallback(fn($line) => match ([$line]) {
                 ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
@@ -81,19 +81,17 @@ class DescriptorTest extends TestCase
                 ['Do some fancy task!'],
                 ['Options:'],
                 ['Show help.'],
-                ["See 'exa <command> --help' for more information about a command."]
-            )
-            ->willReturnSelf();
+                ["See 'exa <command> --help' for more information about a command."] => $output
+            });
 
         $output
             ->expects($this->exactly(3))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['exa '],
                 ['do.task'],
-                ['-h=|--help=']
-            )
-            ->willReturnSelf();
+                ['-h=|--help='] => $output
+            });
 
         $option = $this->createMock(OptionInterface::class);
         $option
@@ -150,7 +148,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var DefinitionInterface $definition
-         * @var AboutInterface      $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->shell($about, $definition, [
@@ -181,7 +179,7 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->exactly(8))
             ->method('line')
-            ->withConsecutive(
+            ->willReturnCallback(fn($line) => match ([$line]) {
                 ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
@@ -189,17 +187,16 @@ class DescriptorTest extends TestCase
                 ['No commands defined.'],
                 ['Options:'],
                 ['Show help.'],
-                ["See 'exa <command> --help' for more information about a command."]
-            )
-            ->willReturnSelf();
+                ["See 'exa <command> --help' for more information about a command."] => $output,
+            });
 
         $output
             ->expects($this->exactly(2))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['exa '],
-                ['-h=|--help=']
-            )
+                ['-h=|--help='] => $output,
+            })
             ->willReturnSelf();
 
         $option = $this->createMock(OptionInterface::class);
@@ -246,7 +243,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var DefinitionInterface $definition
-         * @var AboutInterface      $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->shell($about, $definition, []);
@@ -298,7 +295,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var CommandInterface $command
-         * @var AboutInterface   $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->command($about, $command, true);
@@ -327,26 +324,24 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->exactly(6))
             ->method('line')
-            ->withConsecutive(
+            ->willReturnCallback(fn($line) => match ([$line]) {
                 ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
                 ['[<options>] '],
                 ['Options:'],
                 ['Show option.'],
-                ["See 'exa --help' for more information about this shell and default options."]
-            )
-            ->willReturnSelf();
+                ["See 'exa --help' for more information about this shell and default options."] => $output,
+            });
 
         $output
             ->expects($this->exactly(4))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['exa '],
                 ['do.task '],
                 ['<name> '],
-                ['-o+|--option+']
-            )
-            ->willReturnSelf();
+                ['-o+|--option+'] => $output,
+            });
 
         $operand = $this->createMock(OperandInterface::class);
         $operand
@@ -421,7 +416,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var CommandInterface $command
-         * @var AboutInterface   $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->command($about, $command);
@@ -450,21 +445,19 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->exactly(3))
             ->method('line')
-            ->withConsecutive(
+            ->willReturnCallback(fn($line) => match ([$line]) {
                 ['ExaPHP Console (version 0.1.0)'],
                 ['Usage:'],
-                ["See 'exa --help' for more information about this shell and default options."]
-            )
-            ->willReturnSelf();
+                ["See 'exa --help' for more information about this shell and default options."] => $output,
+            });
 
         $output
             ->expects($this->exactly(2))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['exa '],
-                ['do.task ']
-            )
-            ->willReturnSelf();
+                ['do.task '] => $output,
+            });
 
         $definition = $this->createMock(DefinitionInterface::class);
         $definition
@@ -503,7 +496,7 @@ class DescriptorTest extends TestCase
 
         /**
          * @var CommandInterface $command
-         * @var AboutInterface   $about
+         * @var AboutInterface $about
          */
         $descriptor = new Descriptor($output);
         $instance = $descriptor->command($about, $command);
@@ -537,11 +530,10 @@ class DescriptorTest extends TestCase
         $output
             ->expects($this->exactly(2))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['Did you mean "'],
-                ['do.task']
-            )
-            ->willReturnSelf();
+                ['do.task'] => $output,
+            });
 
         $command = $this->createMock(CommandInterface::class);
         $command
@@ -550,7 +542,7 @@ class DescriptorTest extends TestCase
             ->willReturn('do.task');
 
         /**
-         * @var OutputInterface  $output
+         * @var OutputInterface $output
          * @var CommandInterface $command
          */
         $descriptor = new Descriptor($output);

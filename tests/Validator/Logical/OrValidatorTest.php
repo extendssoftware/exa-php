@@ -33,11 +33,9 @@ class OrValidatorTest extends TestCase
         $innerValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->withConsecutive(
-                ['foo', ['bar' => 'baz']],
-                ['foo', ['bar' => 'baz']]
-            )
-            ->willReturn($result);
+            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
+                ['foo', ['bar' => 'baz']] => $result,
+            });
 
         /**
          * @var ValidatorInterface $innerValidator
@@ -77,11 +75,9 @@ class OrValidatorTest extends TestCase
         $innerValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->withConsecutive(
-                ['foo', ['bar' => 'baz']],
-                ['foo', ['bar' => 'baz']]
-            )
-            ->willReturn($result);
+            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
+                ['foo', ['bar' => 'baz']] => $result,
+            });
 
         /**
          * @var ValidatorInterface $innerValidator

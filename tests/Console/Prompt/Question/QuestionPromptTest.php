@@ -62,8 +62,9 @@ class QuestionPromptTest extends TestCase
         $output
             ->expects($this->exactly(2))
             ->method('text')
-            ->withConsecutive(['How are you doing?: '], ['How are you doing?: '])
-            ->willReturnSelf();
+            ->willReturnCallback(fn($text) => match ([$text]) {
+                ['How are you doing?: '] => $output,
+            });
 
         /**
          * @var InputInterface  $input

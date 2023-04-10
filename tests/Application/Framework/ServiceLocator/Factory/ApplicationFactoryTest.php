@@ -26,14 +26,11 @@ class ApplicationFactoryTest extends TestCase
         $serviceLocator
             ->expects($this->exactly(2))
             ->method('getService')
-            ->withConsecutive(
-                [MiddlewareChainInterface::class],
-                [RequestInterface::class]
-            )
-            ->willReturnOnConsecutiveCalls(
-                $this->createMock(MiddlewareChainInterface::class),
-                $this->createMock(RequestInterface::class)
-            );
+            ->willReturnCallback(fn($class) => match ([$class]) {
+                [MiddlewareChainInterface::class] => $this->createMock(MiddlewareChainInterface::class),
+                [RequestInterface::class] => $this->createMock(RequestInterface::class)
+            })
+        ;
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

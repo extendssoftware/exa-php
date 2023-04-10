@@ -29,12 +29,11 @@ class MultipleChoicePromptTest extends TestCase
         $output
             ->expects($this->exactly(3))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['Continue? '],
                 ['[y,n]'],
-                [': ']
-            )
-            ->willReturnSelf();
+                [': '] => $output,
+            });
 
         /**
          * @var InputInterface  $input
@@ -66,15 +65,11 @@ class MultipleChoicePromptTest extends TestCase
         $output
             ->expects($this->exactly(6))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['Continue? '],
                 ['[y,n]'],
-                [': '],
-                ['Continue? '],
-                ['[y,n]'],
-                [': ']
-            )
-            ->willReturnSelf();
+                [': '] => $output,
+            });
 
         /**
          * @var InputInterface  $input
@@ -106,11 +101,11 @@ class MultipleChoicePromptTest extends TestCase
         $output
             ->expects($this->exactly(3))
             ->method('text')
-            ->withConsecutive(
+            ->willReturnCallback(fn($text) => match ([$text]) {
                 ['Continue? '],
                 ['[y,n]'],
-                [': ']
-            )
+                [': '] => $output,
+            })
             ->willReturnSelf();
 
         /**
