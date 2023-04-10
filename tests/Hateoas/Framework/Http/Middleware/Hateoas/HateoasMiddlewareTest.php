@@ -20,8 +20,6 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
-use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
-use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use PHPUnit\Framework\TestCase;
 
