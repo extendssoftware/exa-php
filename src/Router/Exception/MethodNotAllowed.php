@@ -15,7 +15,7 @@ class MethodNotAllowed extends LogicException implements RouterException
      * @param Method   $method
      * @param Method[] $allowedMethods
      */
-    public function __construct(private readonly Method $method, private array $allowedMethods)
+    public function __construct(private readonly Method $method, private readonly array $allowedMethods)
     {
         parent::__construct(
             sprintf(
