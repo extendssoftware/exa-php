@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
 
-use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
