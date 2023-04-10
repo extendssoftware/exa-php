@@ -435,7 +435,7 @@ class ContainerTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__isset()
      * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::__unset()
      * @covers       \ExtendsSoftware\ExaPHP\Utility\Container\Container::convertObjectsToArrays
-     * @noinspection PhpFieldImmediatelyRewrittenInspection
+     * @noinspection PhpConditionAlreadyCheckedInspection
      */
     public function testOverloading(): void
     {
