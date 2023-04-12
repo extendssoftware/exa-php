@@ -38,7 +38,7 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface  $resolver
+         * @var ResolverInterface $resolver
          * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
@@ -60,35 +60,47 @@ class ServiceLocatorTest extends TestCase
      */
     public function testSharedService(): void
     {
+        /**
+         * @var ResolverInterface $resolver
+         * @var ContainerInterface $container
+         */
+        $container = $this->createMock(ContainerInterface::class);
+        $serviceLocator = new ServiceLocator($container);
+
         $resolver = $this->createMock(ResolverInterface::class);
         $resolver
-            ->expects($this->once())
+            ->expects($this->exactly(3))
             ->method('getService')
-            ->with('A')
-            ->willReturn(new stdClass());
+            ->willReturnCallback(fn($key, $instance, $extra) => match ([$key, $instance, $extra]) {
+                ['A', $serviceLocator, null],
+                ['A', $serviceLocator, ['foo' => 'bar']] => new stdClass(),
+            });
 
         $resolver
-            ->expects($this->once())
+            ->expects($this->exactly(3))
             ->method('hasService')
             ->with('A')
             ->willReturn(true);
 
-        $container = $this->createMock(ContainerInterface::class);
-
-        /**
-         * @var ResolverInterface  $resolver
-         * @var ContainerInterface $container
-         */
-        $serviceLocator = new ServiceLocator($container);
         $service1 = $serviceLocator
             ->addResolver($resolver, 'invokables')
-            ->getService('A');
+            ->getService('A', ['foo' => 'bar']);
 
         $service2 = $serviceLocator
             ->addResolver($resolver, 'invokables')
             ->getService('A');
 
-        $this->assertSame($service1, $service2);
+        $service3 = $serviceLocator
+            ->addResolver($resolver, 'invokables')
+            ->getService('A');
+
+        $service4 = $serviceLocator
+            ->addResolver($resolver, 'invokables')
+            ->getService('A', ['foo' => 'bar']);
+
+        $this->assertNotSame($service1, $service2);
+        $this->assertSame($service2, $service3);
+        $this->assertNotSame($service3, $service4);
     }
 
     /**
@@ -125,7 +137,7 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface  $resolver
+         * @var ResolverInterface $resolver
          * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);

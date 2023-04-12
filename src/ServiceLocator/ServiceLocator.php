@@ -38,26 +38,28 @@ class ServiceLocator implements ServiceLocatorInterface
      */
     public function getService(string $key, array $extra = null): object
     {
-        if (!isset($this->shared[$key])) {
-            $service = null;
-            foreach ($this->resolvers as $resolver) {
-                if ($resolver->hasService($key)) {
-                    $service = $resolver->getService($key, $this, $extra);
+        if (isset($this->shared[$key]) && $extra === null) {
+            return $this->shared[$key];
+        }
 
-                    if (!$extra) {
-                        $this->shared[$key] = $service;
-                    }
+        $service = null;
+        foreach ($this->resolvers as $resolver) {
+            if ($resolver->hasService($key)) {
+                $service = $resolver->getService($key, $this, $extra);
 
-                    break;
+                if (!$extra) {
+                    $this->shared[$key] = $service;
                 }
-            }
 
-            if (!$service) {
-                throw new ServiceNotFound($key);
+                break;
             }
         }
 
-        return $service ?? $this->shared[$key];
+        if (!$service) {
+            throw new ServiceNotFound($key);
+        }
+
+        return $service;
     }
 
     /**
@@ -82,7 +84,7 @@ class ServiceLocator implements ServiceLocatorInterface
      * When a resolver is already registered for key, it will be overwritten.
      *
      * @param ResolverInterface $resolver
-     * @param string            $key
+     * @param string $key
      *
      * @return ServiceLocator
      */
