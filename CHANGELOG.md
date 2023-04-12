@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed config based router to simpler attribute based router.
 - Changed RequestInterface::getMethod() return value from string to enum.
 - Changed RouteMatchInterface::getParameter() return value from ?string to mixed.
+- Changed middleware order to log and catch exceptions from every other middleware.
 
 ### Deprecated
 
