@@ -31,5 +31,6 @@ class RouteMatchTest extends TestCase
         $this->assertSame(['foo' => 'bar'], $match->getParameters());
         $this->assertSame('bar', $match->getParameter('foo'));
         $this->assertNull($match->getParameter('bar'));
+        $this->assertSame('foo', $match->getParameter('bar', 'foo'));
     }
 }

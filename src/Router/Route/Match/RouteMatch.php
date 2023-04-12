@@ -38,8 +38,8 @@ class RouteMatch implements RouteMatchInterface
     /**
      * @inheritDoc
      */
-    public function getParameter(string $name): ?string
+    public function getParameter(string $name, mixed $default = null): mixed
     {
-        return $this->parameters[$name] ?? null;
+        return $this->parameters[$name] ?? $default;
     }
 }

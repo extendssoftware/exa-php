@@ -25,8 +25,9 @@ interface RouteMatchInterface
      * Get parameter.
      *
      * @param string $name
+     * @param mixed|null $default
      *
-     * @return string|null
+     * @return mixed
      */
-    public function getParameter(string $name): ?string;
+    public function getParameter(string $name, mixed $default = null): mixed;
 }
