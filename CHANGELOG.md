@@ -12,12 +12,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added internal permission cache for Authorizer::isPermitted() to not call RealmInterface::getPermissions() twice.
 - Added RouteMatchInterface as type to RouterInterface::assemble() name argument.
 - Added ServiceLocatorInterface::class key to service locator to get service locator from itself.
+- Added default value parameter to RouteMatchInterface::getParameter() method to return when no value found for name.
 
 ### Changed
 
 - Changed permission name from RouteMatchInterface::getName() to route parameter to allow more control.
 - Changed config based router to simpler attribute based router.
 - Changed RequestInterface::getMethod() return value from string to enum.
+- Changed RouteMatchInterface::getParameter() return value from ?string to mixed.
 
 ### Deprecated
 
@@ -28,6 +30,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 - Fixed default values for FileWriter::factory() to allow nullable config parameter arguments.
+- Fixed that ServiceLocator::getService() will not return a shared service when parameter extra is other than null.
 
 ### Security
 
