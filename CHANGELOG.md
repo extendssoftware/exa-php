@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed RequestInterface::getMethod() return value from string to enum.
 - Changed RouteMatchInterface::getParameter() return value from ?string to mixed.
 - Changed middleware order to log and catch exceptions from every other middleware.
+- Changed that invalid request body will default to NULL and no exception will be thrown.
 
 ### Deprecated
 

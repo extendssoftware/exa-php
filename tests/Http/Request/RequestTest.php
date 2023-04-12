@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
-use ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -232,14 +231,18 @@ class RequestTest extends TestCase
      */
     public function testInvalidBody(): void
     {
-        $this->expectException(InvalidRequestBody::class);
-        $this->expectExceptionMessage('Invalid JSON for request body, got parse error "Syntax error".');
-
         $root = vfsStream::setup('root', null, [
             'input' => '{"foo":"qux"',
         ]);
 
-        Request::fromEnvironment($_SERVER, fopen($root->url() . '/input', 'r'));
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['HTTP_HOST'] = 'www.extends.nl';
+        $_SERVER['SERVER_PORT'] = 80;
+        $_SERVER['REQUEST_URI'] = '/';
+
+        $request = Request::fromEnvironment($_SERVER, fopen($root->url() . '/input', 'r'));
+
+        $this->assertNull($request->getBody());
     }
 
     /**

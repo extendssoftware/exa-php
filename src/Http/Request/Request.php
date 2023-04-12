@@ -289,9 +289,6 @@ class Request implements RequestInterface, StaticFactoryInterface
         $input = stream_get_contents($stream);
         if (!empty($input)) {
             $body = json_decode($input, false);
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                throw new InvalidRequestBody(json_last_error_msg());
-            }
         }
 
         fclose($stream);
