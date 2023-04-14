@@ -14,6 +14,7 @@ class AndValidatorTest extends TestCase
      *
      * Test that all the inner validators will be validated.
      *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AndValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AndValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AbstractLogicalValidator::addValidator()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AbstractLogicalValidator::getValidators()
@@ -36,14 +37,13 @@ class AndValidatorTest extends TestCase
         /**
          * @var ValidatorInterface $innerValidator
          */
-        $validator = new AndValidator();
-        $result = $validator
-            ->addValidator($innerValidator)
-            ->addValidator($innerValidator)
-            ->addValidator($innerValidator)
-            ->validate('foo', ['bar' => 'baz']);
+        $validator = new AndValidator([
+            $innerValidator,
+            $innerValidator,
+            $innerValidator,
+        ]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertTrue($validator->validate('foo', ['bar' => 'baz'])->isValid());
     }
 
     /**
@@ -51,6 +51,7 @@ class AndValidatorTest extends TestCase
      *
      * Test that all the inner validators will be validated.
      *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AndValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AndValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Logical\AbstractLogicalValidator::addValidator()
      */
