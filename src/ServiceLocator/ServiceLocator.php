@@ -47,7 +47,7 @@ class ServiceLocator implements ServiceLocatorInterface
             if ($resolver->hasService($key)) {
                 $service = $resolver->getService($key, $this, $extra);
 
-                if (!$extra) {
+                if ($extra === null) {
                     $this->shared[$key] = $service;
                 }
 
