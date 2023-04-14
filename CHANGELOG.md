@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added RouteMatchInterface as type to RouterInterface::assemble() name argument.
 - Added ServiceLocatorInterface::class key to service locator to get service locator from itself.
 - Added default value parameter to RouteMatchInterface::getParameter() method to return when no value found for name.
+- Added Executor::execute() parameter lookup inside request attributes.
 
 ### Changed
 

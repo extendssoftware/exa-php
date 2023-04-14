@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Executor;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterNotFound;
+use ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterValueNotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -53,16 +53,19 @@ class Executor implements ExecutorInterface
             }
 
             $name = $parameter->getName();
-            if (!array_key_exists($name, $parameters)) {
-                if ($parameter->isDefaultValueAvailable()) {
+            if (array_key_exists($name, $parameters)) {
+                $arguments[] = $parameters[$name];
+            } else {
+                $attribute = $request->getAttribute($name);
+                if ($attribute !== null) {
+                    $arguments[] = $attribute;
+                } elseif ($parameter->isDefaultValueAvailable()) {
                     $arguments[] = $parameter->getDefaultValue();
                 } elseif ($parameter->allowsNull()) {
                     $arguments[] = null;
                 } else {
-                    throw new ParameterNotFound($name);
+                    throw new ParameterValueNotFound($name);
                 }
-            } else {
-                $arguments[] = $parameters[$name];
             }
         }
 

@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Executor;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterNotFound;
+use ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterValueNotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\Definition\RouteDefinitionInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -25,8 +25,6 @@ class ExecutorTest extends TestCase
      */
     public function testExecute(): void
     {
-        $request = $this->createMock(RequestInterface::class);
-
         $service = new class {
             /** @noinspection PhpUnusedParameterInspection */
             public function get(
@@ -34,7 +32,8 @@ class ExecutorTest extends TestCase
                 RouteMatchInterface $routeMatch,
                 string              $first,
                 ?string             $second,
-                string              $third = 'default',
+                string              $third,
+                string              $forth = 'default',
             ): ResponseInterface {
                 return new Response();
             }
@@ -53,6 +52,16 @@ class ExecutorTest extends TestCase
             ->expects($this->once())
             ->method('getReflectionMethod')
             ->willReturn($reflectionMethod);
+
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->exactly(3))
+            ->method('getAttribute')
+            ->willReturnCallback(fn($name) => match ([$name]) {
+                ['second'],
+                ['forth'] => null,
+                ['third'] => 'bar',
+            });
 
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
@@ -89,15 +98,13 @@ class ExecutorTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Executor::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Executor::execute()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterNotFound::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterValueNotFound::__construct()
      */
     public function testParameterNotFound(): void
     {
-        $this->expectException(ParameterNotFound::class);
-        $this->expectExceptionMessage('Parameter name "first" can not be found in route match parameters and has no ' .
-            'default value or allows null.');
-
-        $request = $this->createMock(RequestInterface::class);
+        $this->expectException(ParameterValueNotFound::class);
+        $this->expectExceptionMessage('Value for parameter "first" can not be found in route match parameters or ' .
+            'request attributes and has no default value or allows null.');
 
         $service = new class {
             /** @noinspection PhpUnusedParameterInspection */
@@ -120,6 +127,13 @@ class ExecutorTest extends TestCase
             ->expects($this->once())
             ->method('getReflectionMethod')
             ->willReturn($reflectionMethod);
+
+        $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('getAttribute')
+            ->with('first')
+            ->willReturn(null);
 
         $routeMatch = $this->createMock(RouteMatchInterface::class);
         $routeMatch
