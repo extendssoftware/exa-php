@@ -9,13 +9,6 @@ use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 interface RouteInterface
 {
     /**
-     * Get method.
-     *
-     * @return Method
-     */
-    public function getMethod(): Method;
-
-    /**
      * Get path.
      *
      * @return string
@@ -42,4 +35,11 @@ interface RouteInterface
      * @return string|null
      */
     public function getName(): ?string;
+
+    /**
+     * Get method.
+     *
+     * @return Method
+     */
+    public function getMethod(): Method;
 }

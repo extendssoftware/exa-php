@@ -30,14 +30,14 @@ class RouteTest extends TestCase
          */
         $route = new Route(
             '/',
-            Method::POST,
             [
                 'parameter' => $validator,
             ],
             [
                 'foo' => 'bar',
             ],
-            'index'
+            'index',
+            Method::POST
         );
 
         $this->assertSame('/', $route->getPath());

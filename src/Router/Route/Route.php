@@ -14,17 +14,17 @@ class Route implements RouteInterface
      * Route constructor.
      *
      * @param string                            $path
-     * @param Method                            $method
      * @param array<string, ValidatorInterface> $validators
      * @param array<string, mixed>              $parameters
      * @param string|null                       $name
+     * @param Method                            $method
      */
     public function __construct(
         private readonly string  $path,
-        private readonly Method  $method = Method::GET,
         private readonly array   $validators = [],
         private readonly array   $parameters = [],
         private readonly ?string $name = null,
+        private readonly Method  $method = Method::GET,
     ) {
     }
 
@@ -34,14 +34,6 @@ class Route implements RouteInterface
     public function getPath(): string
     {
         return $this->path;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getMethod(): Method
-    {
-        return $this->method;
     }
 
     /**
@@ -66,5 +58,13 @@ class Route implements RouteInterface
     public function getName(): ?string
     {
         return $this->name;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getMethod(): Method
+    {
+        return $this->method;
     }
 }
