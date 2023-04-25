@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added ServiceLocatorInterface::class key to service locator to get service locator from itself.
 - Added default value parameter to RouteMatchInterface::getParameter() method to return when no value found for name.
 - Added Executor::execute() parameter lookup inside request attributes.
+- Added ContainerInterface::find() to find a value for path, returns default when not found.
 
 ### Changed
 
@@ -23,12 +24,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed RouteMatchInterface::getParameter() return value from ?string to mixed.
 - Changed middleware order to log and catch exceptions from every other middleware.
 - Changed that invalid request body will default to NULL and no exception will be thrown.
+- Changed ContainerInterface::get to thrown exception when value not found for path.
 
 ### Deprecated
 
 ### Removed
 
 - Removed HATEOAS collection builder.
+- Removed ArrayAccess, IteratorAggregate and JsonSerializable interfaces from ContainerInterface.
+- Removed InvalidRequestBody exception.
 
 ### Fixed
 
