@@ -23,7 +23,7 @@ class MiddlewareChainFactoryTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
         $container
             ->expects($this->once())
-            ->method('get')
+            ->method('find')
             ->with(MiddlewareChainInterface::class)
             ->willReturn(
                 [
