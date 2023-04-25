@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
 
-use ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
@@ -242,7 +241,6 @@ class Request implements RequestInterface, StaticFactoryInterface
 
     /**
      * @inheritDoc
-     * @throws InvalidRequestBody
      */
     public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
@@ -259,7 +257,6 @@ class Request implements RequestInterface, StaticFactoryInterface
      * @param mixed   $stream
      *
      * @return RequestInterface
-     * @throws InvalidRequestBody
      * @throws TypeError When stream not of type resource.
      */
     public static function fromEnvironment(array $environment, mixed $stream): RequestInterface

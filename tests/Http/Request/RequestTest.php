@@ -227,7 +227,6 @@ class RequestTest extends TestCase
      * Test that invalid body can not be parsed and an exception will be thrown.
      *
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::fromEnvironment()
-     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Exception\InvalidRequestBody::__construct()
      */
     public function testInvalidBody(): void
     {

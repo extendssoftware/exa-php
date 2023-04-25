@@ -3,41 +3,27 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
-use ArrayAccess;
-use IteratorAggregate;
-use JsonSerializable;
-
-interface ContainerInterface extends ArrayAccess, IteratorAggregate, JsonSerializable
+interface ContainerInterface
 {
     /**
-     * Get value from container.
+     * Find value in container.
      *
      * @param string     $path    Dot notation path.
      * @param mixed|null $default Default value to return when path not found.
      *
      * @return mixed
      */
-    public function get(string $path, mixed $default = null): mixed;
+    public function find(string $path, mixed $default = null): mixed;
 
     /**
-     * Set value to container.
+     * Get value from container.
      *
-     * @param string    $path   Dot notation path.
-     * @param mixed     $value  Value to set for path.
-     * @param bool|null $append Append value to array if path already exists, default is false.
+     * @param string $path
      *
-     * @return $this
+     * @return mixed
+     * @throws ContainerException When path can not be found in container.
      */
-    public function set(string $path, mixed $value, bool $append = null): static;
-
-    /**
-     * Unset value from container.
-     *
-     * @param string $path Dot notation path.
-     *
-     * @return $this
-     */
-    public function unset(string $path): static;
+    public function get(string $path): mixed;
 
     /**
      * Check if container has value.
@@ -49,39 +35,9 @@ interface ContainerInterface extends ArrayAccess, IteratorAggregate, JsonSeriali
     public function has(string $path): bool;
 
     /**
-     * Check if container is empty.
-     *
-     * @return bool
-     */
-    public function empty(): bool;
-
-    /**
-     * Clean all container data.
-     *
-     * @return $this
-     */
-    public function clear(): static;
-
-    /**
      * Extract all data.
      *
-     * @return array<int|string, mixed>
+     * @return object|array<mixed>
      */
-    public function extract(): array;
-
-    /**
-     * Merge other container.
-     *
-     * @param ContainerInterface $container
-     *
-     * @return $this
-     */
-    public function merge(ContainerInterface $container): static;
-
-    /**
-     * Flatten data.
-     *
-     * @return array<string, mixed>
-     */
-    public function flatten(): array;
+    public function extract(): object|array;
 }

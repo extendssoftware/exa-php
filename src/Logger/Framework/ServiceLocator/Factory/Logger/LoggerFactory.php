@@ -21,7 +21,7 @@ class LoggerFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): LoggerInterface {
-        $config = $serviceLocator->getContainer()->get(LoggerInterface::class, []);
+        $config = $serviceLocator->getContainer()->find(LoggerInterface::class, []);
         $logger = new Logger();
         foreach ($config['writers'] ?? [] as $config) {
             $writer = $serviceLocator->getService($config['name'], $config['options'] ?? []);

@@ -21,7 +21,7 @@ class MiddlewareChainFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): MiddlewareChainInterface {
-        $config = $serviceLocator->getContainer()->get(MiddlewareChainInterface::class, []);
+        $config = $serviceLocator->getContainer()->find(MiddlewareChainInterface::class, []);
         $chain = new MiddlewareChain();
         foreach ($config as $middlewareKey => $priority) {
             $middleware = $serviceLocator->getService($middlewareKey);

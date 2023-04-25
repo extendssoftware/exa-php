@@ -21,7 +21,7 @@ class FirewallFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): FirewallInterface {
-        $config = $serviceLocator->getContainer()->get(FirewallInterface::class, []);
+        $config = $serviceLocator->getContainer()->find(FirewallInterface::class, []);
         $firewall = new Firewall();
         foreach ($config['realms'] ?? [] as $config) {
             $realm = $serviceLocator->getService($config['name'], $config['options'] ?? []);

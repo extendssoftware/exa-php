@@ -22,7 +22,7 @@ class RateLimiterFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): RateLimiterInterface {
-        $config = $serviceLocator->getContainer()->get(RateLimiterInterface::class, []);
+        $config = $serviceLocator->getContainer()->find(RateLimiterInterface::class, []);
 
         $algorithmConfig = $config['algorithm'] ?? [];
         if ($algorithmConfig) {

@@ -21,7 +21,7 @@ class AuthorizerFactory implements ServiceFactoryInterface
         ServiceLocatorInterface $serviceLocator,
         array                   $extra = null
     ): AuthorizerInterface {
-        $config = $serviceLocator->getContainer()->get(AuthorizerInterface::class, []);
+        $config = $serviceLocator->getContainer()->find(AuthorizerInterface::class, []);
         $authenticator = new Authorizer();
         foreach ($config['realms'] ?? [] as $config) {
             $realm = $serviceLocator->getService($config['name'], $config['options'] ?? []);
