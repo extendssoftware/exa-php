@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Factory;
 
+use ExtendsSoftware\ExaPHP\Shell\Descriptor\DescriptorInterface;
+use ExtendsSoftware\ExaPHP\Shell\Parser\ParserInterface;
+use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\Shell\ShellInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -70,6 +73,15 @@ class ShellFactoryTest extends TestCase
         $serviceLocator
             ->method('getContainer')
             ->willReturn($container);
+
+        $serviceLocator
+            ->expects($this->exactly(3))
+            ->method('getService')
+            ->willReturnCallback(fn($class) => match ([$class]) {
+                [DescriptorInterface::class] => $this->createMock(DescriptorInterface::class),
+                [ParserInterface::class] => $this->createMock(ParserInterface::class),
+                [SuggesterInterface::class] => $this->createMock(SuggesterInterface::class)
+            });
 
         /**
          * @var ServiceLocatorInterface $serviceLocator
