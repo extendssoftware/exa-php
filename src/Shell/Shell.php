@@ -68,7 +68,7 @@ class Shell implements ShellInterface
         $remaining = $defaults->getRemaining();
         $parsed = $defaults->getParsed();
 
-        $this->descriptor->setVerbosity($parsed['verbose'] ?? 1);
+        $this->descriptor->setVerbosity($parsed['verbose'] ?? 0);
 
         $name = array_shift($remaining);
         if ($name === null) {

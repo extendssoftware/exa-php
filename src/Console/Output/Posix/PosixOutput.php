@@ -21,7 +21,7 @@ class PosixOutput implements OutputInterface
      */
     public function __construct(
         private readonly FormatterInterface $formatter = new AnsiFormatter(),
-        private int                         $verbosity = 1,
+        private int                         $verbosity = 0,
         private mixed                       $stream = null
     ) {
         $stream = $stream ?: STDOUT;
@@ -40,7 +40,7 @@ class PosixOutput implements OutputInterface
      */
     public function text(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface
     {
-        if (($verbosity ?? 1) <= $this->verbosity) {
+        if (($verbosity ?? 0) <= $this->verbosity) {
             if ($formatter) {
                 $text = $formatter->create($text);
             }
