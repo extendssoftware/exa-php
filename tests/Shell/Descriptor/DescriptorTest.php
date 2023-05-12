@@ -569,12 +569,6 @@ class DescriptorTest extends TestCase
             ->with('Random exception message!')
             ->willReturnSelf();
 
-        $output
-            ->expects($this->once())
-            ->method('setVerbosity')
-            ->with(0)
-            ->willReturnSelf();
-
         /**
          * @var OutputInterface $output
          */

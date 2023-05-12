@@ -25,7 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed middleware order to log and catch exceptions from every other middleware.
 - Changed that invalid request body will default to NULL and no exception will be thrown.
 - Changed ContainerInterface::get to thrown exception when value not found for path.
-- Changed default output verbosity from 1 to 0, at least one -v flag needed to show output if no verbosity is passed.
+- Changed default output verbosity from 1 to 0 so that verbosity corresponds to the amount if -v flags.
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
 
 ### Deprecated

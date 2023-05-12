@@ -40,7 +40,7 @@ class PosixOutput implements OutputInterface
      */
     public function text(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface
     {
-        if (($verbosity ?? 1) <= $this->verbosity) {
+        if (($verbosity ?? 0) <= $this->verbosity) {
             if ($formatter) {
                 $text = $formatter->create($text);
             }
