@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Console\Output\Posix;
 
 use ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter;
+use ExtendsSoftware\ExaPHP\Console\Formatter\FormatterInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use TypeError;
@@ -112,10 +113,13 @@ class PosixOutputTest extends TestCase
     {
         $root = vfsStream::setup();
 
-        $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
-        $formatter = $output->getFormatter();
+        $formatter = $this->createMock(FormatterInterface::class);
 
-        $this->assertInstanceOf(AnsiFormatter::class, $formatter);
+        $output = new PosixOutput($formatter, stream: fopen($root->url() . '/posix', 'w'));
+        $clonedFormatter = $output->getFormatter();
+
+        $this->assertInstanceOf(FormatterInterface::class, $clonedFormatter);
+        $this->assertNotSame($formatter, $clonedFormatter);
     }
 
     /**

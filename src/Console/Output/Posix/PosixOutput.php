@@ -74,7 +74,7 @@ class PosixOutput implements OutputInterface
      */
     public function getFormatter(): FormatterInterface
     {
-        return $this->formatter;
+        return clone $this->formatter;
     }
 
     /**
