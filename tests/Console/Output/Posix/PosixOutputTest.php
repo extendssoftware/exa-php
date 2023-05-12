@@ -23,7 +23,9 @@ class PosixOutputTest extends TestCase
         $root = vfsStream::setup();
 
         $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
-        $output->text('Hello world!');
+        $output
+            ->setVerbosity(1)
+            ->text('Hello world!');
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertEquals('Hello world!', $root->getChild('posix')->getContent());
@@ -42,7 +44,9 @@ class PosixOutputTest extends TestCase
         $root = vfsStream::setup();
 
         $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
-        $output->text('1234567890', $output->getFormatter()->setFixedWidth(5));
+        $output
+            ->setVerbosity(1)
+            ->text('1234567890', $output->getFormatter()->setFixedWidth(5));
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $text = $root->getChild('posix')->getContent();
@@ -66,7 +70,9 @@ class PosixOutputTest extends TestCase
         $root = vfsStream::setup();
 
         $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
-        $output->line('Hello world!');
+        $output
+            ->setVerbosity(1)
+            ->line('Hello world!');
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertEquals('Hello world!' . "\n\r", $root->getChild('posix')->getContent());
@@ -86,7 +92,9 @@ class PosixOutputTest extends TestCase
         $root = vfsStream::setup();
 
         $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
-        $output->newLine();
+        $output
+            ->setVerbosity(1)
+            ->newLine();
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertEquals("\n\r", $root->getChild('posix')->getContent());
