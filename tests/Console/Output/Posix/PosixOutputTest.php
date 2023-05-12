@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Console\Output\Posix;
 
-use ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\AnsiFormatter;
 use ExtendsSoftware\ExaPHP\Console\Formatter\FormatterInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
