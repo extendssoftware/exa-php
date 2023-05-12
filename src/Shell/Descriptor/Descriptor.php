@@ -34,6 +34,8 @@ class Descriptor implements DescriptorInterface
         array               $commands,
         bool                $short = null
     ): DescriptorInterface {
+        $this->output->setVerbosity(0);
+
         if ($short) {
             $this->output
                 ->newLine()
@@ -132,6 +134,8 @@ class Descriptor implements DescriptorInterface
      */
     public function command(AboutInterface $about, CommandInterface $command, bool $short = null): DescriptorInterface
     {
+        $this->output->setVerbosity(0);
+
         $short = $short ?? false;
         $definition = $command->getDefinition();
 
@@ -224,6 +228,8 @@ class Descriptor implements DescriptorInterface
     public function suggest(CommandInterface $command = null): DescriptorInterface
     {
         if ($command instanceof CommandInterface) {
+            $this->output->setVerbosity(0);
+
             $this->output
                 ->newLine()
                 ->text('Did you mean "')
@@ -245,12 +251,14 @@ class Descriptor implements DescriptorInterface
      */
     public function exception(Throwable $exception): DescriptorInterface
     {
-        $this->output->line(
-            $exception->getMessage(),
-            $this->output
-                ->getFormatter()
-                ->setForeground(new Red())
-        );
+        $this->output
+            ->setVerbosity(0)
+            ->line(
+                $exception->getMessage(),
+                $this->output
+                    ->getFormatter()
+                    ->setForeground(new Red())
+            );
 
         return $this;
     }
