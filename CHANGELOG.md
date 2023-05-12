@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed middleware order to log and catch exceptions from every other middleware.
 - Changed that invalid request body will default to NULL and no exception will be thrown.
 - Changed ContainerInterface::get to thrown exception when value not found for path.
+- Changed default output verbosity from 1 to 0, at least one -v flag needed to show output if no verbosity is passed.
+- Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
 
 ### Deprecated
 
@@ -38,6 +40,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Fixed default values for FileWriter::factory() to allow nullable config parameter arguments.
 - Fixed that ServiceLocator::getService() will not return a shared service when parameter extra is other than null.
+- Fixed that PosixInput::__construct() uses STDIN as default stream.
+- Fixed that PosixOutput::__construct() uses STDOUT as default stream.
+- Fixed that ShellFactory::create() uses service locator to get descriptor, parser and suggester.
 
 ### Security
 
