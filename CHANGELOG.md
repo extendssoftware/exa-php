@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed ContainerInterface::get to thrown exception when value not found for path.
 - Changed default output verbosity from 1 to 0 so that verbosity corresponds to the amount if -v flags.
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
+- Changed prompt question with prefixed newline.
 
 ### Deprecated
 
@@ -44,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that PosixOutput::__construct() uses STDOUT as default stream.
 - Fixed that ShellFactory::create() uses service locator to get descriptor, parser and suggester.
 - Fixed that ShellBuilder::build() can expand singular and non-singular links.
+- Fixed that MultipleChoicePrompt::prompt() will not continue on invalid option.
 
 ### Security
 

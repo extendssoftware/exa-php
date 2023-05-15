@@ -14,9 +14,9 @@ class MultipleChoicePrompt implements PromptInterface
     /**
      * Create new multiple choice prompt.
      *
-     * @param string  $question
+     * @param string $question
      * @param mixed[] $options
-     * @param bool    $required
+     * @param bool $required
      */
     public function __construct(
         private readonly string $question,
@@ -33,6 +33,7 @@ class MultipleChoicePrompt implements PromptInterface
     {
         do {
             $output
+                ->newLine()
                 ->text($this->question . ' ')
                 ->text(
                     sprintf(
@@ -46,7 +47,8 @@ class MultipleChoicePrompt implements PromptInterface
                 ->text(': ');
 
             $option = $input->character();
-        } while (!in_array($option, $this->options, true) && $this->required && $option === null);
+        } while (($this->required && $option === null) ||
+            ($option !== null && !in_array($option, $this->options, true)));
 
         return $option;
     }

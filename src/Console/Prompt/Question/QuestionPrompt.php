@@ -25,7 +25,9 @@ class QuestionPrompt implements PromptInterface
     public function prompt(InputInterface $input, OutputInterface $output): ?string
     {
         do {
-            $output->text($this->question . ': ');
+            $output
+                ->newLine()
+                ->text($this->question . ': ');
             $answer = $input->line();
         } while ($this->required && $answer === null);
 
