@@ -355,7 +355,7 @@ class Builder implements BuilderInterface
                             throw new LinkNotEmbeddable($relation);
                         }
 
-                        if (!is_array($expanded[$relation])) {
+                        if (!isset($expanded[$relation]) || !is_array($expanded[$relation])) {
                             $expanded[$relation] = [];
                         }
 
