@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that PosixInput::__construct() uses STDIN as default stream.
 - Fixed that PosixOutput::__construct() uses STDOUT as default stream.
 - Fixed that ShellFactory::create() uses service locator to get descriptor, parser and suggester.
+- Fixed that ShellBuilder::build() can expand singular and non-singular links.
 
 ### Security
 

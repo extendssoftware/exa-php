@@ -16,6 +16,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Resource;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+use function is_array;
 
 class Builder implements BuilderInterface
 {
@@ -117,56 +118,6 @@ class Builder implements BuilderInterface
 
     /**
      * @inheritDoc
-     */
-    public function setToExpand(array $relations = null): BuilderInterface
-    {
-        $this->toExpand = $relations ?? [];
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setToProject(array $properties = null): BuilderInterface
-    {
-        $this->toProject = $properties ?? [];
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setIdentity(IdentityInterface $identity = null): BuilderInterface
-    {
-        $this->identity = $identity;
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setAuthorizer(AuthorizerInterface $authorizer = null): BuilderInterface
-    {
-        $this->authorizer = $authorizer;
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setExpander(ExpanderInterface $expander = null): BuilderInterface
-    {
-        $this->expander = $expander;
-
-        return $this;
-    }
-
-    /**
-     * @inheritDoc
      * @throws ExpanderException
      * @throws AttributeNotFound
      * @throws LinkNotFound
@@ -223,7 +174,7 @@ class Builder implements BuilderInterface
      * Check if authorized.
      *
      * @param PermissionInterface|null $permission
-     * @param PolicyInterface|null     $policy
+     * @param PolicyInterface|null $policy
      *
      * @return bool
      */
@@ -249,7 +200,7 @@ class Builder implements BuilderInterface
      * Get projected attributes.
      *
      * @param AttributeInterface[] $attributes
-     * @param string[]             $properties
+     * @param string[] $properties
      *
      * @return AttributeInterface[]
      * @throws AttributeNotFound
@@ -291,7 +242,7 @@ class Builder implements BuilderInterface
      * Build built resources.
      *
      * @param BuilderInterface[]|BuilderInterface[][] $resources
-     * @param string|null                             $outerRel
+     * @param string|null $outerRel
      *
      * @return ResourceInterface[]|ResourceInterface[][]
      * @throws AttributeNotFound
@@ -320,12 +271,62 @@ class Builder implements BuilderInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function setToProject(array $properties = null): BuilderInterface
+    {
+        $this->toProject = $properties ?? [];
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setToExpand(array $relations = null): BuilderInterface
+    {
+        $this->toExpand = $relations ?? [];
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setExpander(ExpanderInterface $expander = null): BuilderInterface
+    {
+        $this->expander = $expander;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setAuthorizer(AuthorizerInterface $authorizer = null): BuilderInterface
+    {
+        $this->authorizer = $authorizer;
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setIdentity(IdentityInterface $identity = null): BuilderInterface
+    {
+        $this->identity = $identity;
+
+        return $this;
+    }
+
+    /**
      * Get expanded resources.
      *
      * @param LinkInterface[]|LinkInterface[][] $links
-     * @param string[]                          $relations
+     * @param string[] $relations
      *
-     * @return BuilderInterface[]
+     * @return BuilderInterface[]|BuilderInterface[][]
      * @throws ExpanderException
      * @throws LinkNotFound
      * @throws LinkNotEmbeddable
@@ -333,19 +334,35 @@ class Builder implements BuilderInterface
     private function getExpandedResources(array $links, array $relations): array
     {
         $expanded = [];
-        foreach ($relations as $relation) {
-            if (!isset($links[$relation])) {
-                throw new LinkNotFound($relation);
-            }
+        if ($this->expander) {
+            foreach ($relations as $relation) {
+                if (!isset($links[$relation])) {
+                    throw new LinkNotFound($relation);
+                }
 
-            $link = $links[$relation];
-            /** @phpstan-ignore-next-line */
-            if (!$link->isEmbeddable()) {
-                throw new LinkNotEmbeddable($relation);
-            }
+                if ($links[$relation] instanceof LinkInterface) {
+                    $link = $links[$relation];
+                    if (!$link->isEmbeddable()) {
+                        throw new LinkNotEmbeddable($relation);
+                    }
 
-            /** @phpstan-ignore-next-line */
-            $expanded[$relation] = $this->expander->expand($links[$relation]);
+                    $expanded[$relation] = $this->expander->expand($link);
+                }
+
+                if (is_array($links[$relation])) {
+                    foreach ($links[$relation] as $link) {
+                        if (!$link->isEmbeddable()) {
+                            throw new LinkNotEmbeddable($relation);
+                        }
+
+                        if (!is_array($expanded[$relation])) {
+                            $expanded[$relation] = [];
+                        }
+
+                        $expanded[$relation][] = $this->expander->expand($link);
+                    }
+                }
+            }
         }
 
         return $expanded;

@@ -14,6 +14,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class BuilderTest extends TestCase
 {
@@ -102,9 +103,7 @@ class BuilderTest extends TestCase
             ])
             ->setToExpand([
                 'author',
-                'multiple' => [
-                    'author'
-                ],
+                'items',
             ])
             ->build();
 
@@ -124,6 +123,7 @@ class BuilderTest extends TestCase
         $resources = $resource->getResources();
         $this->assertInstanceOf(ResourceInterface::class, $resources['single']);
         $this->assertInstanceOf(ResourceInterface::class, $resources['author']);
+        $this->assertContainsOnlyInstancesOf(ResourceInterface::class, $resources['items']);
 
         $this->assertCount(2, $resources['multiple']);
         $this->assertContainsOnlyInstancesOf(ResourceInterface::class, $resources['multiple']);
@@ -222,30 +222,46 @@ class BuilderTest extends TestCase
      */
     public function testLinkNotEmbeddable(): void
     {
-        $this->expectException(LinkNotEmbeddable::class);
-
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
         $expander = $this->createMock(ExpanderInterface::class);
 
         $link = $this->createMock(LinkInterface::class);
         $link
-            ->expects($this->once())
+            ->expects($this->exactly(3))
             ->method('isEmbeddable')
-            ->willReturn(false);
+            ->willReturnOnConsecutiveCalls(false, true, false);
 
         /**
          * @var AuthorizerInterface $authorizer
          * @var ExpanderInterface $expander
          * @var LinkInterface $link
          */
-        (new Builder())
+        $builder = (new Builder())
             ->setAuthorizer($authorizer)
             ->setExpander($expander)
-            ->addLink('self', $link)
-            ->setToExpand([
-                'self',
-            ])
-            ->build();
+            ->addLink('singular', $link)
+            ->addLink('multiple', $link, false)
+            ->addLink('multiple', $link, false);
+
+        try {
+            $builder
+                ->setToExpand([
+                    'singular',
+                ])
+                ->build();
+        } catch (Throwable $throwable) {
+            $this->assertInstanceOf(LinkNotEmbeddable::class, $throwable);
+        }
+
+        try {
+            $builder
+                ->setToExpand([
+                    'multiple',
+                ])
+                ->build();
+        } catch (Throwable $throwable) {
+            $this->assertInstanceOf(LinkNotEmbeddable::class, $throwable);
+        }
     }
 }
