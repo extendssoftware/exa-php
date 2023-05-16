@@ -27,7 +27,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed ContainerInterface::get to thrown exception when value not found for path.
 - Changed default output verbosity from 1 to 0 so that verbosity corresponds to the amount if -v flags.
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
-- Changed prompt question with prefixed newline.
 
 ### Deprecated
 

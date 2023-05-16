@@ -33,7 +33,6 @@ class MultipleChoicePrompt implements PromptInterface
     {
         do {
             $output
-                ->newLine()
                 ->text($this->question . ' ')
                 ->text(
                     sprintf(
