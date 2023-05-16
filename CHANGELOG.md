@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that ShellFactory::create() uses service locator to get descriptor, parser and suggester.
 - Fixed that ShellBuilder::build() can expand singular and non-singular links.
 - Fixed that MultipleChoicePrompt::prompt() will not continue on invalid option.
+- Fixed that PosixInput::character() reads the whole line and only uses the first character.
 
 ### Security
 

@@ -73,6 +73,7 @@ class PosixInputTest extends TestCase
      * Test that character ('b') can be read from input and is returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::line()
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::character()
      */
     public function testCharacter(): void
@@ -92,6 +93,7 @@ class PosixInputTest extends TestCase
      * Test that null will be returned on newline.
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::line()
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::character()
      */
     public function testCharacterWithReturn(): void
@@ -106,25 +108,42 @@ class PosixInputTest extends TestCase
     }
 
     /**
-     * Allowed character.
+     * Not allowed character.
      *
-     * Test that only the allowed character ('a') is read and ('b') is ignored.
+     * Test that not allowed character will return null.
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::line()
      * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::character()
      */
     public function testAllowedCharacter(): void
     {
         $root = vfsStream::setup();
-        file_put_contents($root->url() . '/posix', 'aa');
+        file_put_contents($root->url() . '/posix', 'a');
 
         $input = new PosixInput(fopen($root->url() . '/posix', 'r'));
 
-        $first = $input->character('b');
-        $second = $input->character('a');
+        $this->assertNull($input->character('b'));
+    }
 
-        $this->assertNull($first);
-        $this->assertEquals('a', $second);
+    /**
+     * Multiple characters.
+     *
+     * Test that the whole input is read and only the first character will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::line()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Input\Posix\PosixInput::character()
+     */
+    public function testMultipleCharacters(): void
+    {
+        $root = vfsStream::setup();
+        file_put_contents($root->url() . '/posix', 'abc');
+
+        $input = new PosixInput(fopen($root->url() . '/posix', 'r'));
+        $character = $input->character();
+
+        $this->assertEquals('a', $character);
     }
 
     /**

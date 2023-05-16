@@ -40,12 +40,20 @@ class PosixInput implements InputInterface
      */
     public function line(int $length = null): ?string
     {
-        $line = fgets($this->stream, max(1, $length ?? 4096));
-        if (is_string($line)) {
-            $line = rtrim($line, "\n\r");
+        if (is_int($length)) {
+            // Add 1 to length because PHP reads length - 1 bytes.
+            $length = max(1, $length) + 1;
         }
 
-        return $line ?: null;
+        $line = fgets($this->stream, $length);
+        if (is_string($line)) {
+            $line = trim($line);
+            if (strlen($line) > 0) {
+                return $line;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -53,15 +61,14 @@ class PosixInput implements InputInterface
      */
     public function character(string $allowed = null): ?string
     {
-        $character = fgetc($this->stream);
+        $character = $this->line();
         if (is_string($character)) {
+            $character = substr($character, 0, 1);
             if (is_string($allowed) && !str_contains($allowed, $character)) {
-                $character = '';
+                return null;
             }
-
-            $character = rtrim($character, "\n\r");
         }
 
-        return $character ?: null;
+        return $character;
     }
 }
