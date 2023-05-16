@@ -28,11 +28,6 @@ class QuestionPromptTest extends TestCase
         $output = $this->createMock(OutputInterface::class);
         $output
             ->expects($this->once())
-            ->method('newLine')
-            ->willReturnSelf();
-
-        $output
-            ->expects($this->once())
             ->method('text')
             ->with('How are you doing?: ')
             ->willReturnSelf();
@@ -64,11 +59,6 @@ class QuestionPromptTest extends TestCase
             ->willReturnOnConsecutiveCalls(null, 'Very good!');
 
         $output = $this->createMock(OutputInterface::class);
-        $output
-            ->expects($this->exactly(2))
-            ->method('newLine')
-            ->willReturnSelf();
-
         $output
             ->expects($this->exactly(2))
             ->method('text')
@@ -103,11 +93,6 @@ class QuestionPromptTest extends TestCase
             ->willReturn(null);
 
         $output = $this->createMock(OutputInterface::class);
-        $output
-            ->expects($this->once())
-            ->method('newLine')
-            ->willReturnSelf();
-
         $output
             ->expects($this->once())
             ->method('text')

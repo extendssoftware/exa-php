@@ -27,11 +27,6 @@ class MultipleChoicePromptTest extends TestCase
 
         $output = $this->createMock(OutputInterface::class);
         $output
-            ->expects($this->once())
-            ->method('newLine')
-            ->willReturnSelf();
-
-        $output
             ->expects($this->exactly(3))
             ->method('text')
             ->willReturnCallback(fn($text) => match ([$text]) {
@@ -68,11 +63,6 @@ class MultipleChoicePromptTest extends TestCase
 
         $output = $this->createMock(OutputInterface::class);
         $output
-            ->expects($this->exactly(3))
-            ->method('newLine')
-            ->willReturnSelf();
-
-        $output
             ->expects($this->exactly(9))
             ->method('text')
             ->willReturnCallback(fn($text) => match ([$text]) {
@@ -108,11 +98,6 @@ class MultipleChoicePromptTest extends TestCase
             ->willReturnOnConsecutiveCalls('x', null);
 
         $output = $this->createMock(OutputInterface::class);
-        $output
-            ->expects($this->exactly(2))
-            ->method('newLine')
-            ->willReturnSelf();
-
         $output
             ->expects($this->exactly(6))
             ->method('text')
