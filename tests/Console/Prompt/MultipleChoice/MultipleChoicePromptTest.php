@@ -117,4 +117,41 @@ class MultipleChoicePromptTest extends TestCase
 
         $this->assertNull($continue);
     }
+
+    /**
+     * Default option.
+     *
+     * Test that default option will be shown capitalized and will return on empty input.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::prompt()
+     */
+    public function testDefaultOption(): void
+    {
+        $input = $this->createMock(InputInterface::class);
+        $input
+            ->expects($this->exactly(1))
+            ->method('character')
+            ->willReturnOnConsecutiveCalls(null);
+
+        $output = $this->createMock(OutputInterface::class);
+        $output
+            ->expects($this->exactly(3))
+            ->method('text')
+            ->willReturnCallback(fn($text) => match ([$text]) {
+                ['Continue? '],
+                ['[y,N]'],
+                [': '] => $output,
+            })
+            ->willReturnSelf();
+
+        /**
+         * @var InputInterface  $input
+         * @var OutputInterface $output
+         */
+        $multipleChoice = new MultipleChoicePrompt('Continue?', ['y', 'n'], false, 'n');
+        $continue = $multipleChoice->prompt($input, $output);
+
+        $this->assertSame('n', $continue);
+    }
 }

@@ -14,14 +14,16 @@ class MultipleChoicePrompt implements PromptInterface
     /**
      * Create new multiple choice prompt.
      *
-     * @param string $question
-     * @param mixed[] $options
-     * @param bool $required
+     * @param string      $question
+     * @param string[]    $options
+     * @param bool        $required
+     * @param string|null $default
      */
     public function __construct(
-        private readonly string $question,
-        private readonly array  $options,
-        private readonly bool   $required = true
+        private readonly string  $question,
+        private readonly array   $options,
+        private readonly bool    $required = true,
+        private readonly ?string $default = null
     ) {
     }
 
@@ -37,7 +39,13 @@ class MultipleChoicePrompt implements PromptInterface
                 ->text(
                     sprintf(
                         '[%s]',
-                        implode(',', $this->options)
+                        implode(',', array_map(function (string $option) {
+                            if (is_string($this->default) && $option === $this->default) {
+                                return strtoupper($option);
+                            }
+
+                            return $option;
+                        }, $this->options))
                     ),
                     $output
                         ->getFormatter()
@@ -46,8 +54,11 @@ class MultipleChoicePrompt implements PromptInterface
                 ->text(': ');
 
             $option = $input->character();
+            if ($option === null && is_string($this->default)) {
+                $option = $this->default;
+            }
         } while (($this->required && $option === null) ||
-            ($option !== null && !in_array($option, $this->options, true)));
+        ($option !== null && !in_array($option, $this->options, true)));
 
         return $option;
     }
