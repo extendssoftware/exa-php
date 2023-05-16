@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotFound;
 use ExtendsSoftware\ExaPHP\Hateoas\Expander\ExpanderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 interface BuilderInterface
@@ -95,10 +96,12 @@ interface BuilderInterface
     /**
      * Build resource.
      *
+     * @param RequestInterface $request
+     *
      * @return ResourceInterface
      * @throws LinkNotFound
      * @throws LinkNotEmbeddable
      * @throws AttributeNotFound
      */
-    public function build(): ResourceInterface;
+    public function build(RequestInterface $request): ResourceInterface;
 }

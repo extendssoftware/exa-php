@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Expander;
 
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorException;
 use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
@@ -27,9 +28,9 @@ class Expander implements ExpanderInterface
      * @throws RouterException
      * @throws ExecutorException
      */
-    public function expand(LinkInterface $link): BuilderInterface
+    public function expand(LinkInterface $link, RequestInterface $request): BuilderInterface
     {
-        $request = $link->getRequest();
+        $request = $request->withUri($link->getUri());
 
         $match = $this->router->route($request);
         $response = $this->executor->execute($request, $match);

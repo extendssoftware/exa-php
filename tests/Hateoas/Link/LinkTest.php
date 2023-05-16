@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Link;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use PHPUnit\Framework\TestCase;
 
 class LinkTest extends TestCase
@@ -21,21 +21,21 @@ class LinkTest extends TestCase
      */
     public function testGetters(): void
     {
-        $request = $this->createMock(RequestInterface::class);
+        $uri = $this->createMock(UriInterface::class);
 
         $permission = $this->createMock(PermissionInterface::class);
 
         $policy = $this->createMock(PolicyInterface::class);
 
         /**
-         * @var RequestInterface    $request
+         * @var UriInterface        $uri
          * @var PermissionInterface $permission
          * @var PolicyInterface     $policy
          */
-        $link = new Link($request, true, $permission, $policy);
+        $link = new Link($uri, true, $permission, $policy);
 
         $this->assertTrue($link->isEmbeddable());
-        $this->assertSame($request, $link->getRequest());
+        $this->assertSame($uri, $link->getUri());
         $this->assertSame($permission, $link->getPermission());
         $this->assertSame($policy, $link->getPolicy());
     }

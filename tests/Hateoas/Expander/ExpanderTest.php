@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Expander;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
@@ -26,7 +27,14 @@ class ExpanderTest extends TestCase
     {
         $builder = $this->createMock(BuilderInterface::class);
 
+        $uri = $this->createMock(UriInterface::class);
+
         $request = $this->createMock(RequestInterface::class);
+        $request
+            ->expects($this->once())
+            ->method('withUri')
+            ->with($uri)
+            ->willReturnSelf();
 
         $response = $this->createMock(ResponseInterface::class);
         $response
@@ -53,16 +61,16 @@ class ExpanderTest extends TestCase
         $link = $this->createMock(LinkInterface::class);
         $link
             ->expects($this->once())
-            ->method('getRequest')
-            ->willReturn($request);
+            ->method('getUri')
+            ->willReturn($uri);
 
         /**
-         * @var RouterInterface $router
+         * @var RouterInterface   $router
          * @var ExecutorInterface $executor
-         * @var LinkInterface $link
+         * @var LinkInterface     $link
          */
         $expander = new Expander($router, $executor);
 
-        $this->assertSame($builder, $expander->expand($link));
+        $this->assertSame($builder, $expander->expand($link, $request));
     }
 }

@@ -60,7 +60,6 @@ class JsonSerializer implements SerializerInterface
             } else {
                 $serialized[$rel] = [
                     'href' => $link
-                        ->getRequest()
                         ->getUri()
                         ->toRelative(),
                 ];

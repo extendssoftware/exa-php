@@ -72,7 +72,7 @@ class HateoasMiddleware implements MiddlewareInterface
                             ->setIdentity($request->getAttribute('identity'))
                             ->setToExpand($expand)
                             ->setToProject($project)
-                            ->build()
+                            ->build($request)
                     );
 
                 $response = $response

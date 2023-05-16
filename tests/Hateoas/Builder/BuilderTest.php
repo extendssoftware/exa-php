@@ -12,6 +12,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotFound;
 use ExtendsSoftware\ExaPHP\Hateoas\Expander\ExpanderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -40,6 +41,8 @@ class BuilderTest extends TestCase
      */
     public function testBuild(): void
     {
+        $request = $this->createMock(RequestInterface::class);
+
         $permission = $this->createMock(PermissionInterface::class);
 
         $identity = $this->createMock(IdentityInterface::class);
@@ -73,12 +76,13 @@ class BuilderTest extends TestCase
         $attribute = $this->createMock(AttributeInterface::class);
 
         /**
+         * @var RequestInterface    $request
          * @var AuthorizerInterface $authorizer
-         * @var ExpanderInterface $expander
-         * @var IdentityInterface $identity
-         * @var LinkInterface $link
-         * @var AttributeInterface $attribute
-         * @var ResourceInterface $resource
+         * @var ExpanderInterface   $expander
+         * @var IdentityInterface   $identity
+         * @var LinkInterface       $link
+         * @var AttributeInterface  $attribute
+         * @var ResourceInterface   $resource
          */
         $resource = (new Builder())
             ->setAuthorizer($authorizer)
@@ -105,7 +109,7 @@ class BuilderTest extends TestCase
                 'author',
                 'items',
             ])
-            ->build();
+            ->build($request);
 
         $this->assertSame([
             'self' => $link,
@@ -146,6 +150,8 @@ class BuilderTest extends TestCase
     {
         $this->expectException(AttributeNotFound::class);
 
+        $request = $this->createMock(RequestInterface::class);
+
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
         $expander = $this->createMock(ExpanderInterface::class);
@@ -153,9 +159,10 @@ class BuilderTest extends TestCase
         $attribute = $this->createMock(AttributeInterface::class);
 
         /**
+         * @var RequestInterface    $request
          * @var AuthorizerInterface $authorizer
-         * @var ExpanderInterface $expander
-         * @var AttributeInterface $attribute
+         * @var ExpanderInterface   $expander
+         * @var AttributeInterface  $attribute
          */
         (new Builder())
             ->setAuthorizer($authorizer)
@@ -164,7 +171,7 @@ class BuilderTest extends TestCase
             ->setToProject([
                 'title',
             ])
-            ->build();
+            ->build($request);
     }
 
     /**
@@ -185,6 +192,8 @@ class BuilderTest extends TestCase
     {
         $this->expectException(LinkNotFound::class);
 
+        $request = $this->createMock(RequestInterface::class);
+
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
         $expander = $this->createMock(ExpanderInterface::class);
@@ -192,9 +201,10 @@ class BuilderTest extends TestCase
         $link = $this->createMock(LinkInterface::class);
 
         /**
+         * @var RequestInterface    $request
          * @var AuthorizerInterface $authorizer
-         * @var ExpanderInterface $expander
-         * @var LinkInterface $link
+         * @var ExpanderInterface   $expander
+         * @var LinkInterface       $link
          */
         (new Builder())
             ->setAuthorizer($authorizer)
@@ -203,7 +213,7 @@ class BuilderTest extends TestCase
             ->setToExpand([
                 'author',
             ])
-            ->build();
+            ->build($request);
     }
 
     /**
@@ -222,6 +232,8 @@ class BuilderTest extends TestCase
      */
     public function testLinkNotEmbeddable(): void
     {
+        $request = $this->createMock(RequestInterface::class);
+
         $authorizer = $this->createMock(AuthorizerInterface::class);
 
         $expander = $this->createMock(ExpanderInterface::class);
@@ -233,9 +245,10 @@ class BuilderTest extends TestCase
             ->willReturnOnConsecutiveCalls(false, true, false);
 
         /**
+         * @var RequestInterface    $request
          * @var AuthorizerInterface $authorizer
-         * @var ExpanderInterface $expander
-         * @var LinkInterface $link
+         * @var ExpanderInterface   $expander
+         * @var LinkInterface       $link
          */
         $builder = (new Builder())
             ->setAuthorizer($authorizer)
@@ -249,7 +262,7 @@ class BuilderTest extends TestCase
                 ->setToExpand([
                     'singular',
                 ])
-                ->build();
+                ->build($request);
         } catch (Throwable $throwable) {
             $this->assertInstanceOf(LinkNotEmbeddable::class, $throwable);
         }
@@ -259,7 +272,7 @@ class BuilderTest extends TestCase
                 ->setToExpand([
                     'multiple',
                 ])
-                ->build();
+                ->build($request);
         } catch (Throwable $throwable) {
             $this->assertInstanceOf(LinkNotEmbeddable::class, $throwable);
         }

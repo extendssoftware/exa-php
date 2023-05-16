@@ -126,6 +126,7 @@ class HateoasMiddlewareTest extends TestCase
         $builder
             ->expects($this->once())
             ->method('build')
+            ->with($request)
             ->willReturn($resource);
 
         $provider = $this->createMock(BuilderProviderInterface::class);
@@ -271,6 +272,7 @@ class HateoasMiddlewareTest extends TestCase
         $builder
             ->expects($this->once())
             ->method('build')
+            ->with($request)
             ->willThrowException(new LinkNotFound('author'));
 
         $response = $this->createMock(ResponseInterface::class);
@@ -396,6 +398,7 @@ class HateoasMiddlewareTest extends TestCase
         $builder
             ->expects($this->once())
             ->method('build')
+            ->with($request)
             ->willThrowException(new LinkNotEmbeddable('comments'));
 
         $response = $this->createMock(ResponseInterface::class);
@@ -521,6 +524,7 @@ class HateoasMiddlewareTest extends TestCase
         $builder
             ->expects($this->once())
             ->method('build')
+            ->with($request)
             ->willThrowException(new AttributeNotFound('name'));
 
         $response = $this->createMock(ResponseInterface::class);

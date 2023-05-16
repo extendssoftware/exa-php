@@ -5,16 +5,16 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Link;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
-use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 
 interface LinkInterface
 {
     /**
-     * Get request.
+     * Get URI.
      *
-     * @return RequestInterface
+     * @return UriInterface
      */
-    public function getRequest(): RequestInterface;
+    public function getUri(): UriInterface;
 
     /**
      * If link is embeddable.

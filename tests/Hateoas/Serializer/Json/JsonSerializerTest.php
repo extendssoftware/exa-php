@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Serializer\Json;
 use ExtendsSoftware\ExaPHP\Hateoas\Attribute\AttributeInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
-use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -29,17 +28,11 @@ class JsonSerializerTest extends TestCase
             ->method('toRelative')
             ->willReturn('/api/blog/1');
 
-        $request = $this->createMock(RequestInterface::class);
-        $request
-            ->expects($this->any())
-            ->method('getUri')
-            ->willReturn($uri);
-
         $link = $this->createMock(LinkInterface::class);
         $link
             ->expects($this->any())
-            ->method('getRequest')
-            ->willReturn($request);
+            ->method('getUri')
+            ->willReturn($uri);
 
         $attribute = $this->createMock(AttributeInterface::class);
         $attribute

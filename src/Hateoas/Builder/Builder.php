@@ -15,6 +15,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Expander\ExpanderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Resource;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use function is_array;
 
@@ -123,7 +124,7 @@ class Builder implements BuilderInterface
      * @throws LinkNotFound
      * @throws LinkNotEmbeddable
      */
-    public function build(): ResourceInterface
+    public function build(RequestInterface $request): ResourceInterface
     {
         $links = $this->getAuthorizedLinks($this->links);
 
@@ -135,9 +136,14 @@ class Builder implements BuilderInterface
                 array_filter($this->toProject, 'is_string')
             ),
             $this->getBuiltResources(
+                $request,
                 array_merge(
                     $this->resources,
-                    $this->getExpandedResources($links, array_filter($this->toExpand, 'is_string'))
+                    $this->getExpandedResources(
+                        $links,
+                        array_filter($this->toExpand, 'is_string'),
+                        $request
+                    )
                 )
             )
         );
@@ -145,129 +151,6 @@ class Builder implements BuilderInterface
         $this->reset();
 
         return $resource;
-    }
-
-    /**
-     * Get permitted links.
-     *
-     * @param LinkInterface[]|LinkInterface[][] $links
-     *
-     * @return mixed[]
-     */
-    private function getAuthorizedLinks(array $links): array
-    {
-        $authorized = [];
-        foreach ($links as $rel => $link) {
-            if (is_array($link)) {
-                $authorized[$rel] = $this->getAuthorizedLinks($link);
-            } else {
-                if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
-                    $authorized[$rel] = $link;
-                }
-            }
-        }
-
-        return $authorized;
-    }
-
-    /**
-     * Check if authorized.
-     *
-     * @param PermissionInterface|null $permission
-     * @param PolicyInterface|null $policy
-     *
-     * @return bool
-     */
-    private function isAuthorized(PermissionInterface $permission = null, PolicyInterface $policy = null): bool
-    {
-        $authorized = true;
-        if ($permission || $policy) {
-            $authorized = false;
-
-            if ($this->authorizer && $this->identity) {
-                if (($permission && $this->authorizer->isPermitted($permission, $this->identity)) ||
-                    ($policy && $this->authorizer->isAllowed($policy, $this->identity))
-                ) {
-                    $authorized = true;
-                }
-            }
-        }
-
-        return $authorized;
-    }
-
-    /**
-     * Get projected attributes.
-     *
-     * @param AttributeInterface[] $attributes
-     * @param string[] $properties
-     *
-     * @return AttributeInterface[]
-     * @throws AttributeNotFound
-     */
-    private function getProjectedAttributes(array $attributes, array $properties): array
-    {
-        $projected = [];
-        foreach ($properties as $property) {
-            if (!isset($attributes[$property])) {
-                throw new AttributeNotFound($property);
-            }
-
-            $projected[$property] = $attributes[$property];
-        }
-
-        return $projected ?: $attributes;
-    }
-
-    /**
-     * Get permitted attributes.
-     *
-     * @param AttributeInterface[] $attributes
-     *
-     * @return mixed[]
-     */
-    private function getAuthorizedAttributes(array $attributes): array
-    {
-        $authorized = [];
-        foreach ($attributes as $property => $attribute) {
-            if ($this->isAuthorized($attribute->getPermission(), $attribute->getPolicy())) {
-                $authorized[$property] = $attribute;
-            }
-        }
-
-        return $authorized;
-    }
-
-    /**
-     * Build built resources.
-     *
-     * @param BuilderInterface[]|BuilderInterface[][] $resources
-     * @param string|null $outerRel
-     *
-     * @return ResourceInterface[]|ResourceInterface[][]
-     * @throws AttributeNotFound
-     * @throws LinkNotEmbeddable
-     * @throws LinkNotFound
-     */
-    private function getBuiltResources(array $resources, string $outerRel = null): array
-    {
-        $build = [];
-        foreach ($resources as $rel => $resource) {
-            if (is_array($resource)) {
-                $build[$rel] = $this->getBuiltResources($resource, $rel);
-            } else {
-                $build[$rel] = $resource
-                    ->setIdentity($this->identity)
-                    ->setAuthorizer($this->authorizer)
-                    ->setExpander($this->expander)
-                    ->setToExpand($this->toExpand[$outerRel ?: $rel] ?? [])
-                    ->setToProject($this->toProject[$outerRel ?: $rel] ?? [])
-                    ->build();
-            }
-        }
-
-        /** @phpstan-ignore-next-line */
-        return $build;
     }
 
     /**
@@ -321,17 +204,142 @@ class Builder implements BuilderInterface
     }
 
     /**
+     * Get permitted links.
+     *
+     * @param LinkInterface[]|LinkInterface[][] $links
+     *
+     * @return mixed[]
+     */
+    private function getAuthorizedLinks(array $links): array
+    {
+        $authorized = [];
+        foreach ($links as $rel => $link) {
+            if (is_array($link)) {
+                $authorized[$rel] = $this->getAuthorizedLinks($link);
+            } else {
+                if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
+                    $authorized[$rel] = $link;
+                }
+            }
+        }
+
+        return $authorized;
+    }
+
+    /**
+     * Check if authorized.
+     *
+     * @param PermissionInterface|null $permission
+     * @param PolicyInterface|null     $policy
+     *
+     * @return bool
+     */
+    private function isAuthorized(PermissionInterface $permission = null, PolicyInterface $policy = null): bool
+    {
+        $authorized = true;
+        if ($permission || $policy) {
+            $authorized = false;
+
+            if ($this->authorizer && $this->identity) {
+                if (($permission && $this->authorizer->isPermitted($permission, $this->identity)) ||
+                    ($policy && $this->authorizer->isAllowed($policy, $this->identity))
+                ) {
+                    $authorized = true;
+                }
+            }
+        }
+
+        return $authorized;
+    }
+
+    /**
+     * Get projected attributes.
+     *
+     * @param AttributeInterface[] $attributes
+     * @param string[]             $properties
+     *
+     * @return AttributeInterface[]
+     * @throws AttributeNotFound
+     */
+    private function getProjectedAttributes(array $attributes, array $properties): array
+    {
+        $projected = [];
+        foreach ($properties as $property) {
+            if (!isset($attributes[$property])) {
+                throw new AttributeNotFound($property);
+            }
+
+            $projected[$property] = $attributes[$property];
+        }
+
+        return $projected ?: $attributes;
+    }
+
+    /**
+     * Get permitted attributes.
+     *
+     * @param AttributeInterface[] $attributes
+     *
+     * @return mixed[]
+     */
+    private function getAuthorizedAttributes(array $attributes): array
+    {
+        $authorized = [];
+        foreach ($attributes as $property => $attribute) {
+            if ($this->isAuthorized($attribute->getPermission(), $attribute->getPolicy())) {
+                $authorized[$property] = $attribute;
+            }
+        }
+
+        return $authorized;
+    }
+
+    /**
+     * Build built resources.
+     *
+     * @param RequestInterface                        $request
+     * @param BuilderInterface[]|BuilderInterface[][] $resources
+     * @param string|null                             $outerRel
+     *
+     * @return ResourceInterface[]|ResourceInterface[][]
+     * @throws AttributeNotFound
+     * @throws LinkNotEmbeddable
+     * @throws LinkNotFound
+     */
+    private function getBuiltResources(RequestInterface $request, array $resources, string $outerRel = null): array
+    {
+        $build = [];
+        foreach ($resources as $rel => $resource) {
+            if (is_array($resource)) {
+                $build[$rel] = $this->getBuiltResources($request, $resource, $rel);
+            } else {
+                $build[$rel] = $resource
+                    ->setIdentity($this->identity)
+                    ->setAuthorizer($this->authorizer)
+                    ->setExpander($this->expander)
+                    ->setToExpand($this->toExpand[$outerRel ?: $rel] ?? [])
+                    ->setToProject($this->toProject[$outerRel ?: $rel] ?? [])
+                    ->build($request);
+            }
+        }
+
+        /** @phpstan-ignore-next-line */
+        return $build;
+    }
+
+    /**
      * Get expanded resources.
      *
      * @param LinkInterface[]|LinkInterface[][] $links
-     * @param string[] $relations
+     * @param string[]                          $relations
+     * @param RequestInterface                  $request
      *
      * @return BuilderInterface[]|BuilderInterface[][]
      * @throws ExpanderException
      * @throws LinkNotFound
      * @throws LinkNotEmbeddable
      */
-    private function getExpandedResources(array $links, array $relations): array
+    private function getExpandedResources(array $links, array $relations, RequestInterface $request): array
     {
         $expanded = [];
         if ($this->expander) {
@@ -346,7 +354,7 @@ class Builder implements BuilderInterface
                         throw new LinkNotEmbeddable($relation);
                     }
 
-                    $expanded[$relation] = $this->expander->expand($link);
+                    $expanded[$relation] = $this->expander->expand($link, $request);
                 }
 
                 if (is_array($links[$relation])) {
@@ -359,7 +367,7 @@ class Builder implements BuilderInterface
                             $expanded[$relation] = [];
                         }
 
-                        $expanded[$relation][] = $this->expander->expand($link);
+                        $expanded[$relation][] = $this->expander->expand($link, $request);
                     }
                 }
             }
