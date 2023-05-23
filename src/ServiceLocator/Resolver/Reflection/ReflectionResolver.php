@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\Exception\InvalidParameter;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionMethod;
@@ -61,6 +62,8 @@ class ReflectionResolver implements ResolverInterface
                 $name = $type->getName();
                 if ($name === ServiceLocatorInterface::class) {
                     $values[] = $serviceLocator;
+                } elseif ($name === ContainerInterface::class) {
+                    $values[] = $serviceLocator->getContainer();
                 } else {
                     $values[] = $serviceLocator->getService($name);
                 }
