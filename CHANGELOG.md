@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added ContainerInterface::find() to find a value for path, returns default when not found.
 - Added default option for MultipleChoicePrompt::prompt() to return when no input is given.
 - Added ContainerInterface::class support to ReflectionResolver::getService() to get service locator container.
+- Added ParameterValueNotFound::getName() to get parameter name for missing value.
 
 ### Changed
 

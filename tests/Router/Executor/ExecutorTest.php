@@ -99,13 +99,10 @@ class ExecutorTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Executor::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Executor::execute()
      * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterValueNotFound::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Executor\Exception\ParameterValueNotFound::getName()
      */
     public function testParameterNotFound(): void
     {
-        $this->expectException(ParameterValueNotFound::class);
-        $this->expectExceptionMessage('Value for parameter "first" can not be found in route match parameters or ' .
-            'request attributes and has no default value or allows null.');
-
         $service = new class {
             /** @noinspection PhpUnusedParameterInspection */
             public function get(string $first): ResponseInterface
@@ -154,6 +151,13 @@ class ExecutorTest extends TestCase
          * @var RouteMatchInterface $routeMatch
          */
         $executor = new Executor($serviceLocator);
-        $executor->execute($request, $routeMatch);
+
+        try {
+            $executor->execute($request, $routeMatch);
+        } catch (ParameterValueNotFound $exception) {
+            $this->assertSame('first', $exception->getName());
+            $this->assertSame($exception->getMessage(), 'Value for parameter "first" can not be found in route' .
+                ' match parameters or request attributes and has no default value or allows null.');
+        }
     }
 }

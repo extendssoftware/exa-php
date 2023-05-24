@@ -13,7 +13,7 @@ class ParameterValueNotFound extends InvalidArgumentException implements Executo
      *
      * @param string $name
      */
-    public function __construct(string $name)
+    public function __construct(private readonly string $name)
     {
         parent::__construct(
             sprintf(
@@ -22,5 +22,15 @@ class ParameterValueNotFound extends InvalidArgumentException implements Executo
                 $name
             )
         );
+    }
+
+    /**
+     * Get parameter name.
+     *
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }
