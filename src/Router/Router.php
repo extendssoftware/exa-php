@@ -79,12 +79,17 @@ class Router implements RouterInterface
                         }
                     }
 
-                    if (strlen($requestUrl['query'][$parameter])) {
-                        $parameters[$parameter] = $requestUrl['query'][$parameter];
-                    }
-                } elseif (strlen($default)) {
-                    $parameters[$parameter] = $default;
+                    $data = $requestUrl['query'][$parameter];
+                } else {
+                    $data = $default;
                 }
+
+                if (is_array($data) && current($data) === '') {
+                    // Empty array definition always contains an empty value, remove it and don't touch defined values.
+                    $data = array_slice($data, 1);
+                }
+
+                $parameters[$parameter] = $data;
             }
 
             $notAllowed = array_diff_key($requestUrl['query'], $routeUrl['query']);
@@ -184,7 +189,7 @@ class Router implements RouterInterface
      *
      * @param string $url
      *
-     * @return array{path: array<int, string>, query: array<string, string>}
+     * @return array{path: array<int, string>, query: array<string, string|array<int, string>>}
      */
     private function parseUrl(string $url): array
     {
