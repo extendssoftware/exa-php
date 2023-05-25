@@ -14,7 +14,6 @@ class LinkTest extends TestCase
      * Test that getter methods will return the correct values.
      *
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getRequest()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::isEmbeddable()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getPermission()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Link\Link::getPolicy()
