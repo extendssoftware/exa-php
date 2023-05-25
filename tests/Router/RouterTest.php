@@ -110,7 +110,6 @@ class RouterTest extends TestCase
             'limit' => '10',
             'page' => '2',
             'filled' => ['0', '1'],
-            'empty' => [],
             'default' => ['a'],
         ], $routeMatch->getParameters());
         $this->assertSame($definition, $routeMatch->getDefinition());

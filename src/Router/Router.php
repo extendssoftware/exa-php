@@ -89,7 +89,9 @@ class Router implements RouterInterface
                     $data = array_slice($data, 1);
                 }
 
-                $parameters[$parameter] = $data;
+                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data))) {
+                    $parameters[$parameter] = $data;
+                }
             }
 
             $notAllowed = array_diff_key($requestUrl['query'], $routeUrl['query']);
