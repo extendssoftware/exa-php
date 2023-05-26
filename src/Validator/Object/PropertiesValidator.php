@@ -28,22 +28,24 @@ class PropertiesValidator extends AbstractValidator
     public const PROPERTY_MISSING = 'propertyMissing';
 
     /**
+     * Properties.
+     *
+     * @var array<string, Property>
+     */
+    private array $properties = [];
+
+    /**
      * ObjectPropertiesValidator constructor.
      *
-     * @param mixed[]|null $properties
-     * @param bool|null    $strict
+     * @param array<string, ValidatorInterface>|null $properties
+     * @param bool|null                              $strict
      */
-    public function __construct(private ?array $properties = null, private ?bool $strict = null)
+    public function __construct(?array $properties = null, private ?bool $strict = null)
     {
-        $this->properties ??= [];
         $this->strict ??= true;
 
         foreach ($properties ?? [] as $property => $validator) {
-            if (is_array($validator)) {
-                [$validator, $optional] = $validator;
-            }
-
-            $this->addProperty($property, $validator, $optional ?? null);
+            $this->addProperty($property, $validator);
         }
     }
 
@@ -59,11 +61,10 @@ class PropertiesValidator extends AbstractValidator
         }
 
         $container = new ContainerResult();
-        /** @phpstan-ignore-next-line */
         foreach ($this->properties as $property) {
             $name = $property->getName();
             if (!property_exists($value, $name)) {
-                if (!$property->isOptional()) {
+                if (!$property->getValidator() instanceof OptionalPropertyValidator) {
                     $container->addResult(
                         $this->getInvalidResult(self::PROPERTY_MISSING, [
                             'property' => $name,
@@ -97,16 +98,12 @@ class PropertiesValidator extends AbstractValidator
      *
      * @param string             $property
      * @param ValidatorInterface $validator
-     * @param bool|null          $optional
      *
      * @return PropertiesValidator
      */
-    public function addProperty(
-        string             $property,
-        ValidatorInterface $validator,
-        bool               $optional = null
-    ): PropertiesValidator {
-        $this->properties[$property] = new Property($property, $validator, $optional);
+    public function addProperty(string $property, ValidatorInterface $validator): PropertiesValidator
+    {
+        $this->properties[$property] = new Property($property, $validator);
 
         return $this;
     }
@@ -136,7 +133,6 @@ class PropertiesValidator extends AbstractValidator
     private function checkStrictness(ContainerResult $container, mixed $object): void
     {
         foreach ($object as $property => $value) {
-            /** @phpstan-ignore-next-line */
             if (!array_key_exists($property, $this->properties)) {
                 $container->addResult(
                     $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [

@@ -16,7 +16,6 @@ class PropertyTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property::getName()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property::getValidator()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property::isOptional()
      */
     public function testGetMethods(): void
     {
@@ -29,6 +28,5 @@ class PropertyTest extends TestCase
 
         $this->assertSame('foo', $property->getName());
         $this->assertSame($validator, $property->getValidator());
-        $this->assertFalse($property->isOptional());
     }
 }

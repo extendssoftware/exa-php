@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added default option for MultipleChoicePrompt::prompt() to return when no input is given.
 - Added ContainerInterface::class support to ReflectionResolver::getService() to get service locator container.
 - Added ParameterValueNotFound::getName() to get parameter name for missing value.
+- Added OptionalPropertyValidator class to flag object property as optional instead of array with boolean value.
 
 ### Changed
 

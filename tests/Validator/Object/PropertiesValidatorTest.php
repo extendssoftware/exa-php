@@ -46,7 +46,7 @@ class PropertiesValidatorTest extends TestCase
             'foo' => $validator,
             'bar' => $validator,
             'baz' => $validator,
-            'qux' => [$validator, true],
+            'qux' => new OptionalPropertyValidator($validator),
         ]);
         $result = $properties->validate($object, 'context');
 
