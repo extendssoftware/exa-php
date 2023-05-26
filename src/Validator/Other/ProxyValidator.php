@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Validator\Object;
+namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
-class OptionalPropertyValidator implements ValidatorInterface
+class ProxyValidator implements ValidatorInterface
 {
     /**
      * OptionalValidator constructor.

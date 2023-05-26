@@ -1,21 +1,21 @@
 <?php
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Validator\Object;
+namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
-class OptionalPropertyValidatorTest extends TestCase
+class ProxyValidatorTest extends TestCase
 {
     /**
      * Validate.
      *
      * Test that validator will act as a proxy to the inner validator.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\OptionalPropertyValidator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\OptionalPropertyValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator::validate()
      */
     public function testValidate(): void
     {
@@ -31,7 +31,7 @@ class OptionalPropertyValidatorTest extends TestCase
         /**
          * @var ValidatorInterface $validator
          */
-        $optionalValidator = new OptionalPropertyValidator($validator);
+        $optionalValidator = new ProxyValidator($validator);
 
         $this->assertSame($result, $optionalValidator->validate('foo', ['bar']));
     }

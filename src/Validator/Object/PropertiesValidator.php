@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Validator\Object;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property;
+use ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator;
@@ -64,7 +65,7 @@ class PropertiesValidator extends AbstractValidator
         foreach ($this->properties as $property) {
             $name = $property->getName();
             if (!property_exists($value, $name)) {
-                if (!$property->getValidator() instanceof OptionalPropertyValidator) {
+                if (!$property->getValidator() instanceof ProxyValidator) {
                     $container->addResult(
                         $this->getInvalidResult(self::PROPERTY_MISSING, [
                             'property' => $name,

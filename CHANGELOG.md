@@ -18,7 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added default option for MultipleChoicePrompt::prompt() to return when no input is given.
 - Added ContainerInterface::class support to ReflectionResolver::getService() to get service locator container.
 - Added ParameterValueNotFound::getName() to get parameter name for missing value.
-- Added OptionalPropertyValidator class to flag object property as optional instead of array with boolean value.
+- Added ProxyValidator to proxy value and context to inner validator.
 
 ### Changed
 
@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
 - Changed that resource link contains uri and the current request will be used for resource expanding. 
 - Changed middleware order for HATEOAS middleware to have a identified request.
+- Changed optional object property validator from array with added boolean value to ProxyValidator.
 
 ### Deprecated
 

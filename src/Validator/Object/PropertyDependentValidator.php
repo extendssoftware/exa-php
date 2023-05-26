@@ -38,13 +38,11 @@ class PropertyDependentValidator extends AbstractValidator
      */
     public function __construct(
         private readonly string $property,
-        private ?array          $validators = null,
-        private ?bool           $strict = null
+        ?array                  $validators = null,
+        private readonly ?bool  $strict = true
     ) {
-        $this->strict ??= true;
-
-        foreach ($validators ?? [] as $value => $validator) {
-            $this->addProperty($value, $validator);
+        foreach ($validators ?? [] as $name => $validator) {
+            $this->addProperty($name, $validator);
         }
     }
 
@@ -66,7 +64,7 @@ class PropertyDependentValidator extends AbstractValidator
         }
 
         $dependent = $context->{$this->property};
-        if (!isset($this->validators[$dependent])) {
+        if (!isset($this->properties[$dependent])) {
             if ($this->strict) {
                 return $this->getInvalidResult(self::VALIDATOR_MISSING, [
                     'property' => $dependent,
@@ -76,7 +74,7 @@ class PropertyDependentValidator extends AbstractValidator
             return $this->getValidResult();
         }
 
-        return $this->validators[$dependent]->validate($value, $context);
+        return $this->properties[$dependent]->getValidator()->validate($value, $context);
     }
 
     /**
@@ -84,14 +82,14 @@ class PropertyDependentValidator extends AbstractValidator
      *
      * An existing validator for property value will be overwritten.
      *
-     * @param string             $value
+     * @param string             $name
      * @param ValidatorInterface $validator
      *
      * @return PropertyDependentValidator
      */
-    public function addProperty(string $value, ValidatorInterface $validator): PropertyDependentValidator
+    public function addProperty(string $name, ValidatorInterface $validator): PropertyDependentValidator
     {
-        $this->validators[$value] = $validator;
+        $this->properties[$name] = new Property($name, $validator);
 
         return $this;
     }

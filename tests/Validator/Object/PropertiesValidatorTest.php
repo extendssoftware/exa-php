@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
+use ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -46,7 +47,7 @@ class PropertiesValidatorTest extends TestCase
             'foo' => $validator,
             'bar' => $validator,
             'baz' => $validator,
-            'qux' => new OptionalPropertyValidator($validator),
+            'qux' => new ProxyValidator($validator),
         ]);
         $result = $properties->validate($object, 'context');
 
