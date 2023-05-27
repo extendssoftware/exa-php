@@ -8,10 +8,10 @@ interface FlattenerInterface
     /**
      * Flatten data to key/value array.
      *
-     * @param array<int|string, mixed> $data      Data to flatten
-     * @param string                   $delimiter Delimiter to use to combine nested keys.
+     * @param object|array<int|string, mixed> $data      Data to flatten
+     * @param string                          $delimiter Delimiter to use to combine nested keys.
      *
      * @return array<string, mixed>
      */
-    public function flatten(array $data, string $delimiter): array;
+    public function flatten(object|array $data, string $delimiter): array;
 }

@@ -19,8 +19,8 @@ class FlattenerTest extends TestCase
         $flattener = new Flattener();
         $flattened = $flattener->flatten([
             'foo' => [
-                'qux' => [
-                    'baz' => [
+                'qux' => (object)[
+                    'baz' => (object)[
                         'foo' => 'quux',
                         'bar' => 'baz',
                     ],
