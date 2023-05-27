@@ -16,6 +16,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added Executor::execute() parameter lookup inside request attributes.
 - Added ContainerInterface::find() to find a value for path, returns default when not found.
 - Added default option for MultipleChoicePrompt::prompt() to return when no input is given.
+- Added ContainerInterface::class support to ReflectionResolver::getService() to get service locator container.
+- Added ParameterValueNotFound::getName() to get parameter name for missing value.
+- Added ProxyValidator to proxy value and context to inner validator.
 
 ### Changed
 
@@ -30,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
 - Changed that resource link contains uri and the current request will be used for resource expanding. 
 - Changed middleware order for HATEOAS middleware to have a identified request.
+- Changed optional object property validator from array with added boolean value to ProxyValidator.
 
 ### Deprecated
 
@@ -49,6 +53,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that ShellBuilder::build() can expand singular and non-singular links.
 - Fixed that MultipleChoicePrompt::prompt() will not continue on invalid option.
 - Fixed that PosixInput::character() reads the whole line and only uses the first character.
+- Fixed that array is allowed in route definition.
 
 ### Security
 

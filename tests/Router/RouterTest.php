@@ -50,7 +50,7 @@ class RouterTest extends TestCase
         $route
             ->expects($this->once())
             ->method('getPath')
-            ->willReturn('/blogs/:blogId/comments?limit=10&page=1');
+            ->willReturn('/blogs/:blogId/comments?limit=10&page=1&filled[]&empty[]&default[]=a');
 
         $route
             ->expects($this->once())
@@ -68,6 +68,7 @@ class RouterTest extends TestCase
                 'blogId' => $validator,
                 'limit' => $validator,
                 'page' => $validator,
+                'multiple' => $validator,
             ]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -80,7 +81,7 @@ class RouterTest extends TestCase
         $uri
             ->expects($this->once())
             ->method('toRelative')
-            ->willReturn('/blogs/1234/comments?page=2');
+            ->willReturn('/blogs/1234/comments?page=2&filled[]=&filled[]=0&filled[]=1');
 
         $request = $this->createMock(RequestInterface::class);
         $request
@@ -108,6 +109,8 @@ class RouterTest extends TestCase
             'blogId' => '1234',
             'limit' => '10',
             'page' => '2',
+            'filled' => ['0', '1'],
+            'default' => ['a'],
         ], $routeMatch->getParameters());
         $this->assertSame($definition, $routeMatch->getDefinition());
     }

@@ -12,13 +12,9 @@ class Property
      *
      * @param string             $name
      * @param ValidatorInterface $validator
-     * @param bool|null          $optional
      */
-    public function __construct(
-        private readonly string             $name,
-        private readonly ValidatorInterface $validator,
-        private readonly ?bool              $optional = null
-    ) {
+    public function __construct(private readonly string $name, private readonly ValidatorInterface $validator)
+    {
     }
 
     /**
@@ -39,15 +35,5 @@ class Property
     public function getValidator(): ValidatorInterface
     {
         return $this->validator;
-    }
-
-    /**
-     * If property is optional.
-     *
-     * @return bool
-     */
-    public function isOptional(): bool
-    {
-        return $this->optional ?? false;
     }
 }

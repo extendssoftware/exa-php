@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection;
 
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\Exception\InvalidParameter;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
 class ReflectionResolverTest extends TestCase
@@ -20,12 +21,19 @@ class ReflectionResolverTest extends TestCase
      */
     public function testRegister(): void
     {
+        $container = $this->createMock(ContainerInterface::class);
+
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
             ->expects($this->once())
             ->method('getService')
             ->with(ReflectionB::class)
             ->willReturn(new ReflectionB());
+
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getContainer')
+            ->willReturn($container);
 
         /**
          * @var ServiceLocatorInterface $serviceLocator
