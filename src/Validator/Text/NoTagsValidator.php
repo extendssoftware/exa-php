@@ -8,14 +8,14 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
-class NotEmptyValidator extends AbstractValidator
+class NoTagsValidator extends AbstractValidator
 {
     /**
-     * When text is an empty string.
+     * When text contains tags.
      *
      * @var string
      */
-    public const EMPTY = 'empty';
+    public const TAGS = 'tags';
 
     /**
      * @inheritDoc
@@ -28,11 +28,11 @@ class NotEmptyValidator extends AbstractValidator
             return $result;
         }
 
-        if (!empty($value)) {
+        if ($value === strip_tags($value)) {
             return $this->getValidResult();
         }
 
-        return $this->getInvalidResult(self::EMPTY);
+        return $this->getInvalidResult(self::TAGS);
     }
 
     /**
@@ -41,7 +41,7 @@ class NotEmptyValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::EMPTY => 'Text can not be left empty.',
+            self::TAGS => 'Text can not contain tags.',
         ];
     }
 }

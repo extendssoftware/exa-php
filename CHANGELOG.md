@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added ParameterValueNotFound::getName() to get parameter name for missing value.
 - Added ProxyValidator to proxy value and context to inner validator.
 - Added object support to FlattenerInterface::flatten() method.
+- Added NoTagsValidator to validate string without HTML-tags.
 
 ### Changed
 
