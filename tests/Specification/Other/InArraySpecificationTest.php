@@ -12,8 +12,8 @@ class InArraySpecificationTest extends TestCase
      *
      * Test that specification is satisfied when value is in inner array.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Specification\Logical\InArraySpecification::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Specification\Logical\InArraySpecification::isSatisfied()
+     * @covers \ExtendsSoftware\ExaPHP\Specification\Other\InArraySpecification::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Specification\Other\InArraySpecification::isSatisfied()
      */
     public function testIsSatisfied(): void
     {
