@@ -10,8 +10,8 @@ class InArraySpecification implements SpecificationInterface
     /**
      * InArraySpecification constructor.
      *
-     * @param array     $haystack
-     * @param bool|null $strict
+     * @param array<mixed> $haystack
+     * @param bool|null    $strict
      */
     public function __construct(private readonly array $haystack, private readonly ?bool $strict = null)
     {
