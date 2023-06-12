@@ -46,5 +46,17 @@ class InArrayValidatorTest extends TestCase
         $result = $validator->validate('qux');
 
         $this->assertFalse($result->isValid());
+        $this->assertEquals([
+            'code' => 'notInArray',
+            'message' => 'Value {{value}} is not allowed in array, only {{values}} are allowed.',
+            'parameters' => [
+                'value' => 'qux',
+                'array' => [
+                    'foo',
+                    'bar',
+                    'baz',
+                ],
+            ],
+        ], $result->jsonSerialize());
     }
 }

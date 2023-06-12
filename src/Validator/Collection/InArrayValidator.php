@@ -19,9 +19,9 @@ class InArrayValidator extends AbstractValidator
     /**
      * InArrayValidator constructor.
      *
-     * @param mixed[] $values
+     * @param array<mixed> $array
      */
-    public function __construct(private readonly array $values)
+    public function __construct(private readonly array $array)
     {
     }
 
@@ -31,9 +31,10 @@ class InArrayValidator extends AbstractValidator
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
-        if (!in_array($value, $this->values)) {
+        if (!in_array($value, $this->array)) {
             return $this->getInvalidResult(self::NOT_IN_ARRAY, [
                 'value' => $value,
+                'array' => $this->array,
             ]);
         }
 
@@ -46,7 +47,7 @@ class InArrayValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::NOT_IN_ARRAY => 'Value {{value}} is not allowed in array.',
+            self::NOT_IN_ARRAY => 'Value {{value}} is not allowed in array, only {{values}} are allowed.',
         ];
     }
 }

@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added object support to FlattenerInterface::flatten() method.
 - Added NoTagsValidator to validate string without HTML-tags.
 - Added SpecificationInterface and implementations to use for specification pattern.
+- Added allowed array values to invalid validator result parameters.
 
 ### Changed
 
