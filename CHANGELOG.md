@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added NoTagsValidator to validate string without HTML-tags.
 - Added SpecificationInterface and implementations to use for specification pattern.
 - Added allowed array values to invalid validator result parameters.
+- Added ValidValidator that will always return a valid result.
 
 ### Changed
 
