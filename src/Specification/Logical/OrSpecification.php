@@ -24,6 +24,6 @@ class OrSpecification implements SpecificationInterface
      */
     public function isSatisfied(mixed $value): bool
     {
-        return $this->left->isSatisfied($value) || $this->right->isSatisfied($value);
+        return $this->left->isSatisfied($value) or $this->right->isSatisfied($value);
     }
 }

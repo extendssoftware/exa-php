@@ -5,10 +5,10 @@ namespace ExtendsSoftware\ExaPHP\Specification\Logical;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class AndSpecification implements SpecificationInterface
+class XorSpecification implements SpecificationInterface
 {
     /**
-     * AndSpecification constructor.
+     * XorSpecification constructor.
      *
      * @param SpecificationInterface $left
      * @param SpecificationInterface $right
@@ -24,6 +24,6 @@ class AndSpecification implements SpecificationInterface
      */
     public function isSatisfied(mixed $value): bool
     {
-        return $this->left->isSatisfied($value) and $this->right->isSatisfied($value);
+        return $this->left->isSatisfied($value) xor $this->right->isSatisfied($value);
     }
 }
