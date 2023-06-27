@@ -19,10 +19,8 @@ class LessThanSpecificationTest extends TestCase
      */
     public function testIsSatisfied(): void
     {
-        $specification = new LessThanSpecification('1');
-
-        $this->assertTrue($specification->isSatisfied(0));
-        $this->assertFalse($specification->isSatisfied('1'));
-        $this->assertFalse($specification->isSatisfied(2));
+        $this->assertTrue((new LessThanSpecification(0, '1'))->isSatisfied());
+        $this->assertFalse((new LessThanSpecification('1', '1'))->isSatisfied());
+        $this->assertFalse((new LessThanSpecification(2, '1'))->isSatisfied());
     }
 }

@@ -22,8 +22,8 @@ class XorSpecification implements SpecificationInterface
     /**
      * @inheritDoc
      */
-    public function isSatisfied(mixed $value): bool
+    public function isSatisfied(): bool
     {
-        return $this->left->isSatisfied($value) xor $this->right->isSatisfied($value);
+        return $this->left->isSatisfied() xor $this->right->isSatisfied();
     }
 }

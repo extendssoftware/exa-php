@@ -6,11 +6,9 @@ namespace ExtendsSoftware\ExaPHP\Specification;
 interface SpecificationInterface
 {
     /**
-     * If specification is satisfied by value.
-     *
-     * @param mixed $value
+     * If specification is satisfied.
      *
      * @return bool
      */
-    public function isSatisfied(mixed $value): bool;
+    public function isSatisfied(): bool;
 }

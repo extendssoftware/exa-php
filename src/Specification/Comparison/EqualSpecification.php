@@ -10,17 +10,18 @@ class EqualSpecification implements SpecificationInterface
     /**
      * EqualSpecification constructor.
      *
-     * @param mixed $value
+     * @param mixed $left
+     * @param mixed $right
      */
-    public function __construct(private readonly mixed $value)
+    public function __construct(private readonly mixed $left, private readonly mixed $right)
     {
     }
 
     /**
      * @inheritDoc
      */
-    public function isSatisfied(mixed $value): bool
+    public function isSatisfied(): bool
     {
-        return $this->value == $value;
+        return $this->left == $this->right;
     }
 }

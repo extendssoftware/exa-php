@@ -22,14 +22,12 @@ class AndSpecificationTest extends TestCase
         $leftSpecification
             ->expects($this->exactly(3))
             ->method('isSatisfied')
-            ->with('foo')
             ->willReturnOnConsecutiveCalls(true, false, true);
 
         $rightSpecification = $this->createMock(SpecificationInterface::class);
         $rightSpecification
             ->expects($this->exactly(2))
             ->method('isSatisfied')
-            ->with('foo')
             ->willReturnOnConsecutiveCalls(true, false);
 
         /**
@@ -38,8 +36,8 @@ class AndSpecificationTest extends TestCase
          */
         $andSpecification = new AndSpecification($leftSpecification, $rightSpecification);
 
-        $this->assertTrue($andSpecification->isSatisfied('foo'));
-        $this->assertFalse($andSpecification->isSatisfied('foo'));
-        $this->assertFalse($andSpecification->isSatisfied('foo'));
+        $this->assertTrue($andSpecification->isSatisfied());
+        $this->assertFalse($andSpecification->isSatisfied());
+        $this->assertFalse($andSpecification->isSatisfied());
     }
 }

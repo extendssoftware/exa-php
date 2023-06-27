@@ -19,8 +19,8 @@ class NotSpecification implements SpecificationInterface
     /**
      * @inheritDoc
      */
-    public function isSatisfied(mixed $value): bool
+    public function isSatisfied(): bool
     {
-        return !$this->specification->isSatisfied($value);
+        return !$this->specification->isSatisfied();
     }
 }

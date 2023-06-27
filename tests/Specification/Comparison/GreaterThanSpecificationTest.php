@@ -19,10 +19,8 @@ class GreaterThanSpecificationTest extends TestCase
      */
     public function testIsSatisfied(): void
     {
-        $specification = new GreaterThanSpecification('1');
-
-        $this->assertTrue($specification->isSatisfied(2));
-        $this->assertFalse($specification->isSatisfied('1'));
-        $this->assertFalse($specification->isSatisfied(0));
+        $this->assertTrue((new GreaterThanSpecification(2, '1'))->isSatisfied());
+        $this->assertFalse((new GreaterThanSpecification('1', '1'))->isSatisfied());
+        $this->assertFalse((new GreaterThanSpecification(0, '1'))->isSatisfied());
     }
 }

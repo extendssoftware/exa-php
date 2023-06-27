@@ -22,8 +22,8 @@ class AndSpecification implements SpecificationInterface
     /**
      * @inheritDoc
      */
-    public function isSatisfied(mixed $value): bool
+    public function isSatisfied(): bool
     {
-        return $this->left->isSatisfied($value) and $this->right->isSatisfied($value);
+        return $this->left->isSatisfied() and $this->right->isSatisfied();
     }
 }

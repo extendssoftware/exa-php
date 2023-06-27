@@ -22,7 +22,6 @@ class NotSpecificationTest extends TestCase
         $specification
             ->expects($this->exactly(2))
             ->method('isSatisfied')
-            ->with('foo')
             ->willReturnOnConsecutiveCalls(true, false);
 
         /**
@@ -30,7 +29,7 @@ class NotSpecificationTest extends TestCase
          */
         $notSpecification = new NotSpecification($specification);
 
-        $this->assertFalse($notSpecification->isSatisfied('foo'));
-        $this->assertTrue($notSpecification->isSatisfied('foo'));
+        $this->assertFalse($notSpecification->isSatisfied());
+        $this->assertTrue($notSpecification->isSatisfied());
     }
 }

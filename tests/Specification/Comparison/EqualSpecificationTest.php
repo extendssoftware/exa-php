@@ -19,9 +19,7 @@ class EqualSpecificationTest extends TestCase
      */
     public function testIsSatisfied(): void
     {
-        $specification = new EqualSpecification('1');
-
-        $this->assertTrue($specification->isSatisfied(1));
-        $this->assertFalse($specification->isSatisfied('2'));
+        $this->assertTrue((new EqualSpecification('1', 1))->isSatisfied());
+        $this->assertFalse((new EqualSpecification('1', '2'))->isSatisfied());
     }
 }

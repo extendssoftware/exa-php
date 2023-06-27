@@ -17,10 +17,8 @@ class InArraySpecificationTest extends TestCase
      */
     public function testIsSatisfied(): void
     {
-        $inArraySpecification = new InArraySpecification(['1', 2], true);
-
-        $this->assertTrue($inArraySpecification->isSatisfied('1'));
-        $this->assertTrue($inArraySpecification->isSatisfied(2));
-        $this->assertFalse($inArraySpecification->isSatisfied('2'));
+        $this->assertTrue((new InArraySpecification(['1', 2], '1', true))->isSatisfied());
+        $this->assertTrue((new InArraySpecification(['1', 2], 2, true))->isSatisfied());
+        $this->assertFalse((new InArraySpecification(['1', 2], '2', true))->isSatisfied());
     }
 }

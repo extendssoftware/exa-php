@@ -22,14 +22,12 @@ class XorSpecificationTest extends TestCase
         $leftSpecification
             ->expects($this->exactly(4))
             ->method('isSatisfied')
-            ->with('foo')
             ->willReturnOnConsecutiveCalls(true, false, true, false);
 
         $rightSpecification = $this->createMock(SpecificationInterface::class);
         $rightSpecification
             ->expects($this->exactly(4))
             ->method('isSatisfied')
-            ->with('foo')
             ->willReturnOnConsecutiveCalls(true, false, false, true);
 
         /**
@@ -38,9 +36,9 @@ class XorSpecificationTest extends TestCase
          */
         $orSpecification = new XorSpecification($leftSpecification, $rightSpecification);
 
-        $this->assertFalse($orSpecification->isSatisfied('foo'));
-        $this->assertFalse($orSpecification->isSatisfied('foo'));
-        $this->assertTrue($orSpecification->isSatisfied('foo'));
-        $this->assertTrue($orSpecification->isSatisfied('foo'));
+        $this->assertFalse($orSpecification->isSatisfied());
+        $this->assertFalse($orSpecification->isSatisfied());
+        $this->assertTrue($orSpecification->isSatisfied());
+        $this->assertTrue($orSpecification->isSatisfied());
     }
 }

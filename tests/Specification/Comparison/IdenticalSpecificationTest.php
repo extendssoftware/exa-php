@@ -19,9 +19,7 @@ class IdenticalSpecificationTest extends TestCase
      */
     public function testIsSatisfied(): void
     {
-        $specification = new IdenticalSpecification('1');
-
-        $this->assertTrue($specification->isSatisfied('1'));
-        $this->assertFalse($specification->isSatisfied(1));
+        $this->assertTrue((new IdenticalSpecification('1', '1'))->isSatisfied());
+        $this->assertFalse((new IdenticalSpecification('1', 1))->isSatisfied());
     }
 }
