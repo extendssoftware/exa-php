@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added allowed array values to invalid validator result parameters.
 - Added ValidValidator that will always return a valid result.
 - Added ValidatorProviderInterface for a class to act as a validator provider.
+- Added ConstraintValidator to validate if iterable values are allowed by array with constraints.
 
 ### Changed
 
