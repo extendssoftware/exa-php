@@ -25,13 +25,24 @@ class LengthValidator extends AbstractValidator
     public const TOO_LONG = 'tooLong';
 
     /**
+     * When text contains whitespace which is not allowed.
+     *
+     * @var string
+     */
+    public const WHITESPACE_NOT_ALLOWED = 'whitespaceNotAllowed';
+
+    /**
      * LengthValidator constructor.
      *
-     * @param int|null $min
-     * @param int|null $max
+     * @param int|null  $min
+     * @param int|null  $max
+     * @param bool|null $allowNewLine
      */
-    public function __construct(private readonly ?int $min = null, private readonly ?int $max = null)
-    {
+    public function __construct(
+        private readonly ?int  $min = null,
+        private readonly ?int  $max = null,
+        private readonly ?bool $allowNewLine = null
+    ) {
     }
 
     /**
@@ -58,6 +69,9 @@ class LengthValidator extends AbstractValidator
                 'length' => $length,
             ]);
         }
+        if ($this->allowNewLine === false && preg_match('/\R/', $value)) {
+            return $this->getInvalidResult(self::WHITESPACE_NOT_ALLOWED);
+        }
 
         return $this->getValidResult();
     }
@@ -70,6 +84,7 @@ class LengthValidator extends AbstractValidator
         return [
             self::TOO_SHORT => 'String length must be at least {{min}} characters, got {{length}}.',
             self::TOO_LONG => 'String length can be up to {{max}} characters, got {{length}}.',
+            self::WHITESPACE_NOT_ALLOWED => 'Whitespace it not allowed in string.',
         ];
     }
 }

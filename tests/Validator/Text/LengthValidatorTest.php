@@ -58,6 +58,25 @@ class LengthValidatorTest extends TestCase
     }
 
     /**
+     * Whitespace.
+     *
+     * Test that string contains a new line and an invalid result will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::getTemplates()
+     */
+    public function testWhitespace(): void
+    {
+        $validator = new LengthValidator(allowNewLine: false);
+        $result = $validator->validate('foo
+        bar
+        baz');
+
+        $this->assertFalse($result->isValid());
+    }
+
+    /**
      * Not string.
      *
      * Test that none string value will not validate.
