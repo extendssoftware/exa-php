@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Validator\Number;
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator;
+use ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator;
 
 class BetweenValidator extends AbstractValidator
 {
@@ -58,7 +58,7 @@ class BetweenValidator extends AbstractValidator
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
-        $result = (new NumericValidator())->validate($value);
+        $result = (new IntegerValidator())->validate($value);
         if (!$result->isValid()) {
             return $result;
         }

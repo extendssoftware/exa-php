@@ -15,13 +15,9 @@ class BetweenValidatorTest extends TestCase
     public function validInclusiveDataProvider(): array
     {
         return [
-            [1.0],
             [1],
-            [1.1],
             [5],
-            [9.9],
             [10],
-            [10.0],
         ];
     }
 
@@ -34,8 +30,6 @@ class BetweenValidatorTest extends TestCase
     {
         return [
             [0],
-            [0.9],
-            [10.1],
             [11],
         ];
     }
@@ -49,8 +43,6 @@ class BetweenValidatorTest extends TestCase
     {
         return [
             [1],
-            [1.0],
-            [10.0],
             [10],
         ];
     }
