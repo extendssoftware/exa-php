@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Factory\Logger;
 
+use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Logger;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
@@ -23,10 +24,18 @@ class LoggerFactory implements ServiceFactoryInterface
     ): LoggerInterface {
         $config = $serviceLocator->getContainer()->find(LoggerInterface::class, []);
         $logger = new Logger();
-        foreach ($config['writers'] ?? [] as $config) {
-            $writer = $serviceLocator->getService($config['name'], $config['options'] ?? []);
+
+        foreach ($config['writers'] ?? [] as $writer) {
+            $writer = $serviceLocator->getService($writer['name'], $writer['options'] ?? []);
             if ($writer instanceof WriterInterface) {
                 $logger->addWriter($writer);
+            }
+        }
+
+        foreach ($config['decorators'] ?? [] as $decorator) {
+            $decorator = $serviceLocator->getService($decorator['name'], $decorator['options'] ?? []);
+            if ($decorator instanceof DecoratorInterface) {
+                $logger->addDecorator($decorator);
             }
         }
 

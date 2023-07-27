@@ -23,10 +23,8 @@ class FileWriterTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addFilter()
-     * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addDecorator()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::write()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::filter()
-     * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::decorate()
      */
     public function testWrite(): void
     {
@@ -79,22 +77,13 @@ class FileWriterTest extends TestCase
             ->with($log)
             ->willReturn(false);
 
-        $decorator = $this->createMock(DecoratorInterface::class);
-        $decorator
-            ->expects($this->once())
-            ->method('decorate')
-            ->with($log)
-            ->willReturnArgument(0);
-
         /**
          * @var LogInterface       $log
          * @var FilterInterface    $filter
-         * @var DecoratorInterface $decorator
          */
         $writer = new FileWriter($root->url() . '/log');
         $result = $writer
             ->addFilter($filter)
-            ->addDecorator($decorator)
             ->write($log);
 
         $filename = 'log/' . date('Y-m-d') . '.log';
@@ -115,7 +104,6 @@ class FileWriterTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addFilter()
-     * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addDecorator()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::write()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::filter()
      */
@@ -170,17 +158,9 @@ class FileWriterTest extends TestCase
             ->with($log)
             ->willReturn(false);
 
-        $decorator = $this->createMock(DecoratorInterface::class);
-        $decorator
-            ->expects($this->once())
-            ->method('decorate')
-            ->with($log)
-            ->willReturnArgument(0);
-
         /**
          * @var LogInterface       $log
          * @var FilterInterface    $filter
-         * @var DecoratorInterface $decorator
          */
         $writer = new FileWriter(
             $root->url() . '/log',
@@ -190,7 +170,6 @@ class FileWriterTest extends TestCase
         );
         $result = $writer
             ->addFilter($filter)
-            ->addDecorator($decorator)
             ->write($log);
 
         $filename = 'log/' . date('d-m-Y') . '.log';
@@ -211,7 +190,6 @@ class FileWriterTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addFilter()
-     * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::addDecorator()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::write()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::filter()
      */
@@ -229,11 +207,6 @@ class FileWriterTest extends TestCase
             ->method('filter')
             ->with($log)
             ->willReturn(true);
-
-        $decorator = $this->createMock(DecoratorInterface::class);
-        $decorator
-            ->expects($this->never())
-            ->method('decorate');
 
         /**
          * @var LogInterface    $log
@@ -257,7 +230,6 @@ class FileWriterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriter::write()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::filter()
-     * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter::decorate()
      * @covers \ExtendsSoftware\ExaPHP\Logger\Writer\File\Exception\FileWriterFailed::__construct()
      */
     public function testWriteFailed(): void
@@ -324,11 +296,10 @@ class FileWriterTest extends TestCase
     {
         $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
         $serviceLocator
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getService')
             ->willReturnCallback(fn($service) => match ([$service]) {
                 [FilterInterface::class] => $this->createMock(FilterInterface::class),
-                [DecoratorInterface::class] => $this->createMock(DecoratorInterface::class),
             });
 
         /**
@@ -342,11 +313,6 @@ class FileWriterTest extends TestCase
             'filters' => [
                 [
                     'name' => FilterInterface::class,
-                ],
-            ],
-            'decorators' => [
-                [
-                    'name' => DecoratorInterface::class,
                 ],
             ],
         ]);

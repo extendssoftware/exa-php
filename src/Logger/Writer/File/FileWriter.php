@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Writer\File;
 
-use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\AbstractWriter;
@@ -55,13 +54,6 @@ class FileWriter extends AbstractWriter
             }
         }
 
-        foreach ($extra['decorators'] ?? [] as $config) {
-            $decorator = $serviceLocator->getService($config['name'], $config['options'] ?? []);
-            if ($decorator instanceof DecoratorInterface) {
-                $writer->addDecorator($decorator);
-            }
-        }
-
         return $writer;
     }
 
@@ -71,8 +63,6 @@ class FileWriter extends AbstractWriter
     public function write(LogInterface $log): WriterInterface
     {
         if (!$this->filter($log)) {
-            $log = $this->decorate($log);
-
             $metaData = $log->getMetaData() ?: null;
             if (is_array($metaData)) {
                 $metaData = json_encode($metaData, JSON_PARTIAL_OUTPUT_ON_ERROR | JSON_UNESCAPED_SLASHES);

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger;
 
+use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterException;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
@@ -17,12 +18,21 @@ class Logger implements LoggerInterface
     private array $writers = [];
 
     /**
+     * Decorators.
+     *
+     * @var DecoratorInterface[]
+     */
+    private array $decorators = [];
+
+    /**
      * @inheritDoc
      * @throws WriterException When writer failed to write.
      */
     public function log(string $message, PriorityInterface $priority = null, array $metaData = null): LoggerInterface
     {
         $log = new Log($message, $priority ?? null, null, $metaData ?? null);
+        $log = $this->decorate($log);
+
         foreach ($this->writers as $writer) {
             $writer
                 ->getWriter()
@@ -52,5 +62,35 @@ class Logger implements LoggerInterface
         $this->writers[] = new LoggerWriter($writer, $interrupt ?: false);
 
         return $this;
+    }
+
+    /**
+     * Add decorator.
+     *
+     * @param DecoratorInterface $decorator
+     *
+     * @return Logger
+     */
+    public function addDecorator(DecoratorInterface $decorator): Logger
+    {
+        $this->decorators[] = $decorator;
+
+        return $this;
+    }
+
+    /**
+     * Decorate log and return new instance.
+     *
+     * @param LogInterface $log
+     *
+     * @return LogInterface
+     */
+    protected function decorate(LogInterface $log): LogInterface
+    {
+        foreach ($this->decorators as $decorator) {
+            $log = $decorator->decorate($log);
+        }
+
+        return $log;
     }
 }

@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Factory\Logger;
 
+use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
-use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
 class LoggerFactoryTest extends TestCase
@@ -35,6 +36,11 @@ class LoggerFactoryTest extends TestCase
                             ],
                         ],
                     ],
+                    'decorators' => [
+                        [
+                            'name' => DecoratorInterface::class,
+                        ],
+                    ],
                 ]
             );
 
@@ -45,10 +51,12 @@ class LoggerFactoryTest extends TestCase
             ->willReturn($container);
 
         $serviceLocator
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getService')
-            ->with(WriterInterface::class, ['foo' => 'bar'])
-            ->willReturn($this->createMock(WriterInterface::class));
+            ->willReturnCallback(fn($service) => match ([$service]) {
+                [WriterInterface::class] => $this->createMock(WriterInterface::class),
+                [DecoratorInterface::class] => $this->createMock(DecoratorInterface::class),
+            });
 
         /**
          * @var ServiceLocatorInterface $serviceLocator

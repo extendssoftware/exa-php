@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added ConstraintValidator to validate if iterable values are allowed by array with constraints.
 - Added property to LengthValidator to disallow new line characters.
 - Added UrlValidator to validate URL string.
+- Added Logger::addDecorator() method.
 
 ### Changed
 
@@ -40,7 +41,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed ContainerInterface::get to thrown exception when value not found for path.
 - Changed default output verbosity from 1 to 0 so that verbosity corresponds to the amount if -v flags.
 - Changed that PosixOutput::getFormatter() will return a cloned formatter for us ability.
-- Changed that resource link contains uri and the current request will be used for resource expanding. 
+- Changed that resource link contains uri and the current request will be used for resource expanding.
 - Changed middleware order for HATEOAS middleware to have a identified request.
 - Changed optional object property validator from array with added boolean value to ProxyValidator.
 
@@ -51,6 +52,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Removed HATEOAS collection builder.
 - Removed ArrayAccess, IteratorAggregate and JsonSerializable interfaces from ContainerInterface.
 - Removed InvalidRequestBody exception.
+- Removed AbstractWriter::addDecorator() method.
 
 ### Fixed
 
