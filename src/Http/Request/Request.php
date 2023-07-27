@@ -8,10 +8,18 @@ use ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use Ramsey\Uuid\UuidFactory;
 use TypeError;
 
 class Request implements RequestInterface, StaticFactoryInterface
 {
+    /**
+     * Request ID.
+     *
+     * @var string
+     */
+    private string $id;
+
     /**
      * Custom request attributes.
      *
@@ -105,6 +113,14 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getBody(): mixed
     {
         return $this->body;
@@ -169,6 +185,17 @@ class Request implements RequestInterface, StaticFactoryInterface
     {
         $clone = clone $this;
         $clone->attributes = $attributes;
+
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withId(string $id): RequestInterface
+    {
+        $clone = clone $this;
+        $clone->id = $id;
 
         return $clone;
     }
@@ -291,6 +318,7 @@ class Request implements RequestInterface, StaticFactoryInterface
         fclose($stream);
 
         return (new Request())
+            ->withId((new UuidFactory())->uuid4()->toString())
             ->withMethod(Method::from($environment['REQUEST_METHOD']))
             ->withBody($body ?? null)
             ->withHeaders($headers)

@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added property to LengthValidator to disallow new line characters.
 - Added UrlValidator to validate URL string.
 - Added Logger::addDecorator() method.
+- Added RequestInterface::getId() to get unique ID for each request.
 
 ### Changed
 

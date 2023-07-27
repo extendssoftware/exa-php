@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Http\Request;
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Validator\Text\UuidValidator;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use TypeError;
@@ -46,6 +47,7 @@ class RequestTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::fromEnvironment()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getId()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getBody()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getHeaders()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::getServerParameters()
@@ -72,6 +74,7 @@ class RequestTest extends TestCase
         $request = Request::fromEnvironment($environment, fopen($root->url() . '/input', 'r'));
 
         $this->assertSame([], $request->getAttributes());
+        $this->assertTrue((new UuidValidator())->validate($request->getId())->isValid());
         $this->assertEquals((object)$body, $request->getBody());
         $this->assertSame([
             'Host' => 'www.example.com',
@@ -93,6 +96,7 @@ class RequestTest extends TestCase
      * Test that with methods will set the correct value.
      *
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withId()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withBody()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withHeaders()
      * @covers \ExtendsSoftware\ExaPHP\Http\Request\Request::withServerParameters()
@@ -117,12 +121,14 @@ class RequestTest extends TestCase
          */
         $request = (new Request())
             ->withAttributes(['foo' => 'bar'])
+            ->withId('b73a7424-9994-477c-abbb-6275ca53a136')
             ->withBody(['baz' => 'qux'])
             ->withHeaders(['qux' => 'quux'])
             ->withServerParameters(['bar' => 'qux'])
             ->withMethod(Method::POST)
             ->withUri($uri);
 
+        $this->assertSame('b73a7424-9994-477c-abbb-6275ca53a136', $request->getId());
         $this->assertSame(['foo' => 'bar'], $request->getAttributes());
         $this->assertSame(['baz' => 'qux'], $request->getBody());
         $this->assertSame(['qux' => 'quux'], $request->getHeaders());

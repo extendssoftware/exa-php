@@ -50,6 +50,13 @@ interface RequestInterface
     public function getAttribute(string $key, mixed $default = null): mixed;
 
     /**
+     * Return request ID.
+     *
+     * @return string
+     */
+    public function getId(): string;
+
+    /**
      * Return body.
      *
      * @return mixed
@@ -116,6 +123,15 @@ interface RequestInterface
      * @return RequestInterface
      */
     public function withAttributes(array $attributes): RequestInterface;
+
+    /**
+     * Return new instance with request ID.
+     *
+     * @param string $id
+     *
+     * @return RequestInterface
+     */
+    public function withId(string $id): RequestInterface;
 
     /**
      * Return new instance with body.
