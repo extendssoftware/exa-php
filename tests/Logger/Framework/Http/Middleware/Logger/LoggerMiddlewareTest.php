@@ -7,10 +7,10 @@ use Exception;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Logger\Exception\ReferencedExceptionInterface;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 class LoggerMiddlewareTest extends TestCase
 {
@@ -64,10 +64,7 @@ class LoggerMiddlewareTest extends TestCase
             ->method('log')
             ->with(
                 'Fancy exception message!',
-                $this->isInstanceOf(ErrorPriority::class),
-                [
-                    'reference' => '123456'
-                ]
+                $this->isInstanceOf(ErrorPriority::class)
             );
 
         $request = $this->createMock(RequestInterface::class);
@@ -88,19 +85,8 @@ class LoggerMiddlewareTest extends TestCase
 
         try {
             $middleware->process($request, $chain);
-        } catch (ReferencedExceptionInterface $exception) {
-            $this->assertSame($throwable, $exception->getPrevious());
-            $this->assertSame('123456', $exception->getReference());
+        } catch (Throwable $exception) {
+            $this->assertSame($throwable, $exception);
         }
     }
-}
-
-/**
- * Overwrite method.
- *
- * @return string
- */
-function uniqid(): string
-{
-    return '123456';
 }

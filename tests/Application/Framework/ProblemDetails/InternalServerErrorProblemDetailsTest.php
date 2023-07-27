@@ -33,14 +33,14 @@ class InternalServerErrorProblemDetailsTest extends TestCase
         /**
          * @var RequestInterface $request
          */
-        $problemDetails = new InternalServerErrorProblemDetails($request, '123');
+        $problemDetails = new InternalServerErrorProblemDetails($request);
 
         $this->assertSame('/problems/application/internal-server-error', $problemDetails->getType());
         $this->assertSame('Internal Server Error', $problemDetails->getTitle());
         $this->assertSame('An unknown error occurred.', $problemDetails->getDetail());
         $this->assertSame(500, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['reference' => '123'], $problemDetails->getAdditional());
+        $this->assertNull($problemDetails->getAdditional());
     }
 
     /**

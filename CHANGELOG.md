@@ -54,6 +54,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Removed ArrayAccess, IteratorAggregate and JsonSerializable interfaces from ContainerInterface.
 - Removed InvalidRequestBody exception.
 - Removed AbstractWriter::addDecorator() method.
+- Removed logger referenced exception.
 
 ### Fixed
 

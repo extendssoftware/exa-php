@@ -9,7 +9,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
-use ExtendsSoftware\ExaPHP\Logger\Exception\ReferencedExceptionInterface;
 use Throwable;
 
 class InternalServerErrorMiddleware implements MiddlewareInterface
@@ -21,14 +20,9 @@ class InternalServerErrorMiddleware implements MiddlewareInterface
     {
         try {
             return $chain->proceed($request);
-        } catch (Throwable $throwable) {
-            $reference = null;
-            if ($throwable instanceof ReferencedExceptionInterface) {
-                $reference = $throwable->getReference();
-            }
-
+        } catch (Throwable) {
             return (new Response())->withBody(
-                new InternalServerErrorProblemDetails($request, $reference)
+                new InternalServerErrorProblemDetails($request)
             );
         }
     }
