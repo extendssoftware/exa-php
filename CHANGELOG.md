@@ -68,6 +68,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that MultipleChoicePrompt::prompt() will not continue on invalid option.
 - Fixed that PosixInput::character() reads the whole line and only uses the first character.
 - Fixed that array is allowed in route definition.
+- Fixed that log writer interrupt flag can be passed in config with writer options.
 
 ### Security
 

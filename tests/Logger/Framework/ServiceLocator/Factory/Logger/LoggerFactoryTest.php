@@ -33,6 +33,7 @@ class LoggerFactoryTest extends TestCase
                             'name' => WriterInterface::class,
                             'options' => [
                                 'foo' => 'bar',
+                                'interrupt' => true,
                             ],
                         ],
                     ],

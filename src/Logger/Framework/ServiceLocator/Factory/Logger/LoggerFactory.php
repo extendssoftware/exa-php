@@ -26,9 +26,10 @@ class LoggerFactory implements ServiceFactoryInterface
         $logger = new Logger();
 
         foreach ($config['writers'] ?? [] as $writer) {
+            $interrupt = $writer['options']['interrupt'] ?? null;
             $writer = $serviceLocator->getService($writer['name'], $writer['options'] ?? []);
             if ($writer instanceof WriterInterface) {
-                $logger->addWriter($writer);
+                $logger->addWriter($writer, $interrupt);
             }
         }
 
