@@ -30,6 +30,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added UrlValidator to validate URL string.
 - Added Logger::addDecorator() method.
 - Added RequestInterface::getId() to get unique ID for each request.
+- Added identity attributes to hold additional identity information.
 
 ### Changed
 

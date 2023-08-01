@@ -8,11 +8,15 @@ class Identity implements IdentityInterface
     /**
      * Identity constructor.
      *
-     * @param mixed $identifier
-     * @param bool  $isAuthenticated
+     * @param mixed                $identifier
+     * @param bool                 $isAuthenticated
+     * @param array<string, mixed> $attributes
      */
-    public function __construct(private readonly mixed $identifier, private readonly bool $isAuthenticated)
-    {
+    public function __construct(
+        private readonly mixed $identifier,
+        private readonly bool  $isAuthenticated,
+        private readonly array $attributes = []
+    ) {
     }
 
     /**
@@ -29,5 +33,21 @@ class Identity implements IdentityInterface
     public function isAuthenticated(): bool
     {
         return $this->isAuthenticated;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAttribute(string $name, mixed $default = null): mixed
+    {
+        return $this->attributes[$name] ?? $default;
     }
 }
