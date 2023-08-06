@@ -31,6 +31,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added Logger::addDecorator() method.
 - Added RequestInterface::getId() to get unique ID for each request.
 - Added identity attributes to hold additional identity information.
+- Added SchemaValidator to validate object schema for correct properties, values and property count.
 
 ### Changed
 
