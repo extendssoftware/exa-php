@@ -18,8 +18,13 @@ class Base64ValidatorTest extends TestCase
     public function testValid(): void
     {
         $validator = new Base64Validator();
-        $result = $validator->validate(base64_encode('foobar'));
 
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // random_bytes(32)
+        $this->assertTrue($result->isValid());
+
+        $validator = new Base64Validator(true, true);
+
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs'); // random_bytes(32)
         $this->assertTrue($result->isValid());
     }
 
@@ -51,7 +56,12 @@ class Base64ValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new Base64Validator();
-        $result = $validator->validate('adadsa$');
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V+Vs='); // Replaced / with -.
+
+        $this->assertFalse($result->isValid());
+
+        $validator = new Base64Validator(true);
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V_Vs='); // Replaced - with /.
 
         $this->assertFalse($result->isValid());
     }
@@ -68,7 +78,12 @@ class Base64ValidatorTest extends TestCase
     public function testDecodeFailed(): void
     {
         $validator = new Base64Validator();
-        $result = $validator->validate('xyz1=');
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs=='); // Extra padding added.
+
+        $this->assertFalse($result->isValid());
+
+        $validator = new Base64Validator(true);
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs=='); // Extra padding added.
 
         $this->assertFalse($result->isValid());
     }
@@ -85,7 +100,12 @@ class Base64ValidatorTest extends TestCase
     public function testDecodeEncode(): void
     {
         $validator = new Base64Validator();
-        $result = $validator->validate('and'); // and -> jw -> anc=
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs'); // Removed padding.
+
+        $this->assertFalse($result->isValid());
+
+        $validator = new Base64Validator(false, true);
+        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // Added padding.
 
         $this->assertFalse($result->isValid());
     }
