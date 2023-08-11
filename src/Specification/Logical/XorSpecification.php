@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Specification\Logical;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class XorSpecification implements SpecificationInterface
+readonly class XorSpecification implements SpecificationInterface
 {
     /**
      * XorSpecification constructor.
@@ -13,10 +13,8 @@ class XorSpecification implements SpecificationInterface
      * @param SpecificationInterface $left
      * @param SpecificationInterface $right
      */
-    public function __construct(
-        private readonly SpecificationInterface $left,
-        private readonly SpecificationInterface $right
-    ) {
+    public function __construct(private SpecificationInterface $left, private SpecificationInterface $right)
+    {
     }
 
     /**

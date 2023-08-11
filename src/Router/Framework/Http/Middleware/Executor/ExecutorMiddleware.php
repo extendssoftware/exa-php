@@ -11,14 +11,14 @@ use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorException;
 use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 
-class ExecutorMiddleware implements MiddlewareInterface
+readonly class ExecutorMiddleware implements MiddlewareInterface
 {
     /**
      * ExecutorMiddleware constructor.
      *
      * @param ExecutorInterface $executor
      */
-    public function __construct(private readonly ExecutorInterface $executor)
+    public function __construct(private ExecutorInterface $executor)
     {
     }
 

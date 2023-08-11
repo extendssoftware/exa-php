@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Specification\Logical;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class AndSpecification implements SpecificationInterface
+readonly class AndSpecification implements SpecificationInterface
 {
     /**
      * AndSpecification constructor.
@@ -13,10 +13,8 @@ class AndSpecification implements SpecificationInterface
      * @param SpecificationInterface $left
      * @param SpecificationInterface $right
      */
-    public function __construct(
-        private readonly SpecificationInterface $left,
-        private readonly SpecificationInterface $right
-    ) {
+    public function __construct(private SpecificationInterface $left, private SpecificationInterface $right)
+    {
     }
 
     /**

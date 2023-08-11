@@ -12,7 +12,7 @@ class BetweenValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function validInclusiveDataProvider(): array
+    public static function validInclusiveDataProvider(): array
     {
         return [
             [1],
@@ -26,7 +26,7 @@ class BetweenValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function invalidInclusiveDataProvider(): array
+    public static function invalidInclusiveDataProvider(): array
     {
         return [
             [0],
@@ -39,7 +39,7 @@ class BetweenValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function invalidExclusiveDataProvider(): array
+    public static function invalidExclusiveDataProvider(): array
     {
         return [
             [1],

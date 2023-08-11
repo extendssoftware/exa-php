@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Shell;
 
 use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 
-class ShellResult implements ShellResultInterface
+readonly class ShellResult implements ShellResultInterface
 {
     /**
      * Create new shell result.
@@ -13,7 +13,7 @@ class ShellResult implements ShellResultInterface
      * @param CommandInterface $command
      * @param mixed[]          $data
      */
-    public function __construct(private readonly CommandInterface $command, private readonly array $data)
+    public function __construct(private CommandInterface $command, private array $data)
     {
     }
 

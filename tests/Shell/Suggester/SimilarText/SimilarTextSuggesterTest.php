@@ -11,7 +11,7 @@ class SimilarTextSuggesterTest extends TestCase
     /**
      * Best match.
      *
-     * Test that suggester can suggest command ('do.task') for phrase ('d_task').
+     * Test that suggester can suggest command "do.task" for phrase "d_task".
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::suggest()
@@ -39,7 +39,7 @@ class SimilarTextSuggesterTest extends TestCase
     /**
      * Exact match.
      *
-     * Test that suggester can suggest command ('some.task') for phrase ('some.task').
+     * Test that suggester can suggest command "some.task" for phrase "some.task".
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::suggest()
@@ -66,7 +66,7 @@ class SimilarTextSuggesterTest extends TestCase
     /**
      * No match.
      *
-     * Test that suggester can not suggest a command for phrase ('foo.bar').
+     * Test that suggester can not suggest a command for phrase "foo.bar".
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText\SimilarTextSuggester::suggest()

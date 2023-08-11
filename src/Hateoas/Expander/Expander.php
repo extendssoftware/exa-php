@@ -11,7 +11,7 @@ use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
-class Expander implements ExpanderInterface
+readonly class Expander implements ExpanderInterface
 {
     /**
      * Expander constructor.
@@ -19,7 +19,7 @@ class Expander implements ExpanderInterface
      * @param RouterInterface   $router
      * @param ExecutorInterface $executor
      */
-    public function __construct(private readonly RouterInterface $router, private readonly ExecutorInterface $executor)
+    public function __construct(private RouterInterface $router, private ExecutorInterface $executor)
     {
     }
 

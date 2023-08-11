@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Shell\Command;
 
 use ExtendsSoftware\ExaPHP\Shell\Definition\DefinitionInterface;
 
-class Command implements CommandInterface
+readonly class Command implements CommandInterface
 {
     /**
      * Create new command for name with description and definition.
@@ -16,10 +16,10 @@ class Command implements CommandInterface
      * @param mixed[]             $parameters
      */
     public function __construct(
-        private readonly string              $name,
-        private readonly string              $description,
-        private readonly DefinitionInterface $definition,
-        private readonly ?array              $parameters = null
+        private string              $name,
+        private string              $description,
+        private DefinitionInterface $definition,
+        private ?array              $parameters = null
     ) {
     }
 

@@ -11,14 +11,14 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 
-class FirewallMiddleware implements MiddlewareInterface
+readonly class FirewallMiddleware implements MiddlewareInterface
 {
     /**
      * FirewallMiddleware constructor.
      *
      * @param FirewallInterface $firewall
      */
-    public function __construct(private readonly FirewallInterface $firewall)
+    public function __construct(private FirewallInterface $firewall)
     {
     }
 

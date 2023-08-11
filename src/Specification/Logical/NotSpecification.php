@@ -5,14 +5,14 @@ namespace ExtendsSoftware\ExaPHP\Specification\Logical;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class NotSpecification implements SpecificationInterface
+readonly class NotSpecification implements SpecificationInterface
 {
     /**
      * NotSpecification constructor.
      *
      * @param SpecificationInterface $specification
      */
-    public function __construct(private readonly SpecificationInterface $specification)
+    public function __construct(private SpecificationInterface $specification)
     {
     }
 

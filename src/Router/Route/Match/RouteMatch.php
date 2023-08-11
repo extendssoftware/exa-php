@@ -5,18 +5,16 @@ namespace ExtendsSoftware\ExaPHP\Router\Route\Match;
 
 use ExtendsSoftware\ExaPHP\Router\Route\Definition\RouteDefinitionInterface;
 
-class RouteMatch implements RouteMatchInterface
+readonly class RouteMatch implements RouteMatchInterface
 {
     /**
      * RouteMatch constructor.
      *
      * @param RouteDefinitionInterface $definition
-     * @param array<string, string> $parameters
+     * @param array<string, string>    $parameters
      */
-    public function __construct(
-        private readonly RouteDefinitionInterface $definition,
-        private readonly array                    $parameters,
-    ) {
+    public function __construct(private RouteDefinitionInterface $definition, private array $parameters)
+    {
     }
 
     /**

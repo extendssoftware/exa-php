@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Specification\Other;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class InArraySpecification implements SpecificationInterface
+readonly class InArraySpecification implements SpecificationInterface
 {
     /**
      * InArraySpecification constructor.
@@ -14,11 +14,8 @@ class InArraySpecification implements SpecificationInterface
      * @param mixed        $right
      * @param bool|null    $strict
      */
-    public function __construct(
-        private readonly array $left,
-        private readonly mixed $right,
-        private readonly ?bool $strict = null
-    ) {
+    public function __construct(private array $left, private mixed $right, private ?bool $strict = null)
+    {
     }
 
     /**

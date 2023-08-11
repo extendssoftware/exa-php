@@ -23,14 +23,14 @@ use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 use function array_map;
 
-class RouterMiddleware implements MiddlewareInterface
+readonly class RouterMiddleware implements MiddlewareInterface
 {
     /**
      * Create a new router middleware.
      *
      * @param RouterInterface $router
      */
-    public function __construct(private readonly RouterInterface $router)
+    public function __construct(private RouterInterface $router)
     {
     }
 

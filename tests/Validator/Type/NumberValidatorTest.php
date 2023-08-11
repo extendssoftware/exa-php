@@ -12,7 +12,7 @@ class NumberValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function validNumberValues(): array
+    public static function validNumberValues(): array
     {
         return [
             [8],
@@ -44,7 +44,7 @@ class NumberValidatorTest extends TestCase
      *
      * @return array<array<string|array<void>>>
      */
-    public function invalidNumberValues(): array
+    public static function invalidNumberValues(): array
     {
         return [
             ['8'],

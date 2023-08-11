@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-class Route implements RouteInterface
+readonly class Route implements RouteInterface
 {
     /**
      * Route constructor.
@@ -20,11 +20,11 @@ class Route implements RouteInterface
      * @param Method                            $method
      */
     public function __construct(
-        private readonly string  $path,
-        private readonly array   $validators = [],
-        private readonly array   $parameters = [],
-        private readonly ?string $name = null,
-        private readonly Method  $method = Method::GET,
+        private string  $path,
+        private array   $validators = [],
+        private array   $parameters = [],
+        private ?string $name = null,
+        private Method  $method = Method::GET,
     ) {
     }
 

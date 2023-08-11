@@ -14,14 +14,14 @@ use ExtendsSoftware\ExaPHP\RateLimiting\Quota\QuotaInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 
-class RateLimitingMiddleware implements MiddlewareInterface
+readonly class RateLimitingMiddleware implements MiddlewareInterface
 {
     /**
      * RateLimitingMiddleware constructor.
      *
      * @param RateLimiterInterface $rateLimiter
      */
-    public function __construct(private readonly RateLimiterInterface $rateLimiter)
+    public function __construct(private RateLimiterInterface $rateLimiter)
     {
     }
 

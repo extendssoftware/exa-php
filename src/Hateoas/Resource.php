@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas;
 use ExtendsSoftware\ExaPHP\Hateoas\Attribute\AttributeInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
 
-class Resource implements ResourceInterface
+readonly class Resource implements ResourceInterface
 {
     /**
      * Resource constructor.
@@ -15,11 +15,8 @@ class Resource implements ResourceInterface
      * @param AttributeInterface[]                      $attributes
      * @param ResourceInterface[]|ResourceInterface[][] $resources
      */
-    public function __construct(
-        private readonly array $links,
-        private readonly array $attributes,
-        private readonly array $resources = []
-    ) {
+    public function __construct(private array $links, private array $attributes, private array $resources = [])
+    {
     }
 
     /**

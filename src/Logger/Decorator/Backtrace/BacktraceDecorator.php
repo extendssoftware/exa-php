@@ -8,14 +8,14 @@ use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 
-class BacktraceDecorator implements DecoratorInterface, StaticFactoryInterface
+readonly class BacktraceDecorator implements DecoratorInterface, StaticFactoryInterface
 {
     /**
      * Create backtrace decorator.
      *
      * @param int $limit
      */
-    public function __construct(private readonly int $limit = 6)
+    public function __construct(private int $limit = 6)
     {
     }
 

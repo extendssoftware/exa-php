@@ -7,14 +7,14 @@ use Closure;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
-class CallbackValidator implements ValidatorInterface
+readonly class CallbackValidator implements ValidatorInterface
 {
     /**
      * CallbackValidator constructor.
      *
      * @param Closure $callback
      */
-    public function __construct(private readonly Closure $callback)
+    public function __construct(private Closure $callback)
     {
     }
 

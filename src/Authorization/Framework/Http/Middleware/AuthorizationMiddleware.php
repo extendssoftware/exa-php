@@ -13,14 +13,14 @@ use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 
-class AuthorizationMiddleware implements MiddlewareInterface
+readonly class AuthorizationMiddleware implements MiddlewareInterface
 {
     /**
      * AuthorizationMiddleware constructor.
      *
      * @param AuthorizerInterface $authorizer
      */
-    public function __construct(private readonly AuthorizerInterface $authorizer)
+    public function __construct(private AuthorizerInterface $authorizer)
     {
     }
 

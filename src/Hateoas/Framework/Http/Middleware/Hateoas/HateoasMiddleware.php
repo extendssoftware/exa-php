@@ -21,7 +21,7 @@ use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
-class HateoasMiddleware implements MiddlewareInterface
+readonly class HateoasMiddleware implements MiddlewareInterface
 {
     /**
      * HateoasMiddleware constructor.
@@ -32,10 +32,10 @@ class HateoasMiddleware implements MiddlewareInterface
      * @param RouterInterface     $router
      */
     public function __construct(
-        private readonly AuthorizerInterface $authorizer,
-        private readonly ExpanderInterface   $expander,
-        private readonly SerializerInterface $serializer,
-        private readonly RouterInterface     $router
+        private AuthorizerInterface $authorizer,
+        private ExpanderInterface   $expander,
+        private SerializerInterface $serializer,
+        private RouterInterface     $router
     ) {
     }
 

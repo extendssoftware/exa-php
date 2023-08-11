@@ -12,7 +12,7 @@ class LatitudeValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function validLatitudeValuesProvider(): array
+    public static function validLatitudeValuesProvider(): array
     {
         return [
             [-180],
@@ -45,7 +45,7 @@ class LatitudeValidatorTest extends TestCase
      *
      * @return array<array<float>>
      */
-    public function invalidLatitudeValuesProvider(): array
+    public static function invalidLatitudeValuesProvider(): array
     {
         return [
             [-190],

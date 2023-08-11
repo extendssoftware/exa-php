@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Attribute;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 
-class Attribute implements AttributeInterface
+readonly class Attribute implements AttributeInterface
 {
     /**
      * Attribute constructor.
@@ -16,9 +16,9 @@ class Attribute implements AttributeInterface
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        private readonly mixed                $value,
-        private readonly ?PermissionInterface $permission = null,
-        private readonly ?PolicyInterface     $policy = null
+        private mixed                $value,
+        private ?PermissionInterface $permission = null,
+        private ?PolicyInterface     $policy = null
     ) {
     }
 

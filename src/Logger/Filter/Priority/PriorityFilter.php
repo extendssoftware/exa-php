@@ -14,7 +14,7 @@ use ExtendsSoftware\ExaPHP\Validator\Comparison\GreaterThanValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
-class PriorityFilter implements FilterInterface, StaticFactoryInterface
+readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
 {
     /**
      * Create new priority filter.
@@ -23,8 +23,8 @@ class PriorityFilter implements FilterInterface, StaticFactoryInterface
      * @param ValidatorInterface|null $validator
      */
     public function __construct(
-        private readonly ?PriorityInterface  $priority = null,
-        private readonly ?ValidatorInterface $validator = null
+        private ?PriorityInterface  $priority = null,
+        private ?ValidatorInterface $validator = null
     ) {
     }
 

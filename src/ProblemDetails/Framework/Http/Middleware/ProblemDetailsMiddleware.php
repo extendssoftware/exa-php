@@ -10,14 +10,14 @@ use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetailsInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\SerializerInterface;
 
-class ProblemDetailsMiddleware implements MiddlewareInterface
+readonly class ProblemDetailsMiddleware implements MiddlewareInterface
 {
     /**
      * ProblemMiddleware constructor.
      *
      * @param SerializerInterface $serializer
      */
-    public function __construct(private readonly SerializerInterface $serializer)
+    public function __construct(private SerializerInterface $serializer)
     {
     }
 

@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Logger\Writer\File;
 
 use DateTime;
-use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;

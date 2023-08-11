@@ -91,7 +91,7 @@ class Base64ValidatorTest extends TestCase
     /**
      * Invalid decode encode.
      *
-     * Test that different decode/encode string and initial string will return invalid result..
+     * Test that different decode/encode string and initial string will return invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::validate()

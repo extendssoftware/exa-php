@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\RateLimiting\Rule;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 
-class Rule implements RuleInterface
+readonly class Rule implements RuleInterface
 {
     /**
      * Rule constructor.
@@ -13,7 +13,7 @@ class Rule implements RuleInterface
      * @param PermissionInterface $permission
      * @param mixed[]             $options
      */
-    public function __construct(private readonly PermissionInterface $permission, private readonly array $options)
+    public function __construct(private PermissionInterface $permission, private array $options)
     {
     }
 

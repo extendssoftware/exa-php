@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Specification\Comparison;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
-class LessThanSpecification implements SpecificationInterface
+readonly class LessThanSpecification implements SpecificationInterface
 {
     /**
      * LessThanSpecification constructor.
@@ -13,7 +13,7 @@ class LessThanSpecification implements SpecificationInterface
      * @param mixed $left
      * @param mixed $right
      */
-    public function __construct(private readonly mixed $left, private readonly mixed $right)
+    public function __construct(private mixed $left, private mixed $right)
     {
     }
 

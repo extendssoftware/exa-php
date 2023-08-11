@@ -11,14 +11,14 @@ use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use Throwable;
 
-class LoggerMiddleware implements MiddlewareInterface
+readonly class LoggerMiddleware implements MiddlewareInterface
 {
     /**
      * LoggerMiddleware constructor.
      *
      * @param LoggerInterface $logger
      */
-    public function __construct(private readonly LoggerInterface $logger)
+    public function __construct(private LoggerInterface $logger)
     {
     }
 

@@ -7,7 +7,7 @@ use ExtendsSoftware\ExaPHP\Console\Input\InputInterface;
 use ExtendsSoftware\ExaPHP\Console\Output\OutputInterface;
 use ExtendsSoftware\ExaPHP\Console\Prompt\PromptInterface;
 
-class QuestionPrompt implements PromptInterface
+readonly class QuestionPrompt implements PromptInterface
 {
     /**
      * Create new question prompt.
@@ -15,7 +15,7 @@ class QuestionPrompt implements PromptInterface
      * @param string $question
      * @param bool   $required
      */
-    public function __construct(private readonly string $question, private readonly bool $required = true)
+    public function __construct(private string $question, private bool $required = true)
     {
     }
 

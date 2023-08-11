@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Validator;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
-class InterruptValidator implements ValidatorInterface
+readonly class InterruptValidator implements ValidatorInterface
 {
     /**
      * Set validator and interrupt flag.
@@ -13,10 +13,8 @@ class InterruptValidator implements ValidatorInterface
      * @param ValidatorInterface $validator
      * @param bool               $interrupt
      */
-    public function __construct(
-        private readonly ValidatorInterface $validator,
-        private readonly ?bool              $interrupt = null
-    ) {
+    public function __construct(private ValidatorInterface $validator, private ?bool $interrupt = null)
+    {
     }
 
     /**

@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Logger;
 
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 
-class LoggerWriter
+readonly class LoggerWriter
 {
     /**
      * Create new logger writer.
@@ -13,7 +13,7 @@ class LoggerWriter
      * @param WriterInterface $writer
      * @param bool            $interrupt
      */
-    public function __construct(private readonly WriterInterface $writer, private readonly bool $interrupt)
+    public function __construct(private WriterInterface $writer, private bool $interrupt)
     {
     }
 

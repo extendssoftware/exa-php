@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Validator\Object\Properties;
 
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
-class Property
+readonly class Property
 {
     /**
      * Property constructor.
@@ -13,7 +13,7 @@ class Property
      * @param string             $name
      * @param ValidatorInterface $validator
      */
-    public function __construct(private readonly string $name, private readonly ValidatorInterface $validator)
+    public function __construct(private string $name, private ValidatorInterface $validator)
     {
     }
 

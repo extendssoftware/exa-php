@@ -6,14 +6,14 @@ namespace ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText;
 use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 
-class SimilarTextSuggester implements SuggesterInterface
+readonly class SimilarTextSuggester implements SuggesterInterface
 {
     /**
      * Create new suggester.
      *
      * @param int $percentage
      */
-    public function __construct(private readonly int $percentage = 60)
+    public function __construct(private int $percentage = 60)
     {
     }
 

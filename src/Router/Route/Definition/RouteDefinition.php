@@ -7,7 +7,7 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
 use ReflectionClass;
 use ReflectionMethod;
 
-class RouteDefinition implements RouteDefinitionInterface
+readonly class RouteDefinition implements RouteDefinitionInterface
 {
     /**
      * RouteDefinition constructor.
@@ -17,9 +17,9 @@ class RouteDefinition implements RouteDefinitionInterface
      * @param ReflectionMethod $reflectionMethod
      */
     public function __construct(
-        private readonly RouteInterface   $route,
-        private readonly ReflectionClass  $reflectionClass,
-        private readonly ReflectionMethod $reflectionMethod,
+        private RouteInterface   $route,
+        private ReflectionClass  $reflectionClass,
+        private ReflectionMethod $reflectionMethod,
     ) {
     }
 

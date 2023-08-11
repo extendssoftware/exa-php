@@ -5,14 +5,14 @@ namespace ExtendsSoftware\ExaPHP\Utility\Loader\Cache;
 
 use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
-class CacheLoader implements LoaderInterface
+readonly class CacheLoader implements LoaderInterface
 {
     /**
      * CacheLoader constructor.
      *
      * @param string $filename
      */
-    public function __construct(private readonly string $filename)
+    public function __construct(private string $filename)
     {
     }
 

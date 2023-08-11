@@ -13,14 +13,14 @@ use ReflectionException;
 use ReflectionNamedType;
 use function array_key_exists;
 
-class Executor implements ExecutorInterface
+readonly class Executor implements ExecutorInterface
 {
     /**
      * Executor constructor.
      *
      * @param ServiceLocatorInterface $serviceLocator
      */
-    public function __construct(private readonly ServiceLocatorInterface $serviceLocator)
+    public function __construct(private ServiceLocatorInterface $serviceLocator)
     {
     }
 

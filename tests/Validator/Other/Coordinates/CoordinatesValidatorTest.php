@@ -50,7 +50,7 @@ class CoordinatesValidatorTest extends TestCase
      *
      * @return array<array<object>>
      */
-    public function invalidCoordinatesObjectProvider(): array
+    public static function invalidCoordinatesObjectProvider(): array
     {
         return [
             [

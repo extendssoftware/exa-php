@@ -5,7 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Shell\Definition\Option;
 
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\Exception\NoShortAndLongName;
 
-class Option implements OptionInterface
+readonly class Option implements OptionInterface
 {
     /**
      * Create new option.
@@ -20,12 +20,12 @@ class Option implements OptionInterface
      * @throws NoShortAndLongName When both short and long name are not given.
      */
     public function __construct(
-        private readonly string  $name,
-        private readonly string  $description,
-        private readonly ?string $short = null,
-        private readonly ?string $long = null,
-        private readonly ?bool   $isFlag = null,
-        private readonly ?bool   $isMultiple = null
+        private string  $name,
+        private string  $description,
+        private ?string $short = null,
+        private ?string $long = null,
+        private ?bool   $isFlag = null,
+        private ?bool   $isMultiple = null
     ) {
         if ($short === null && $long === null) {
             throw new NoShortAndLongName($name);

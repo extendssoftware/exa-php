@@ -2,7 +2,7 @@
 
 namespace ExtendsSoftware\ExaPHP\RateLimiting\Quota;
 
-class Quota implements QuotaInterface
+readonly class Quota implements QuotaInterface
 {
     /**
      * Quota constructor.
@@ -12,12 +12,8 @@ class Quota implements QuotaInterface
      * @param int  $remaining
      * @param int  $reset
      */
-    public function __construct(
-        private readonly bool $isAllowed,
-        private readonly int  $limit,
-        private readonly int  $remaining,
-        private readonly int  $reset
-    ) {
+    public function __construct(private bool $isAllowed, private int $limit, private int $remaining, private int $reset)
+    {
     }
 
     /**

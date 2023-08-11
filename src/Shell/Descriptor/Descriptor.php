@@ -13,14 +13,14 @@ use ExtendsSoftware\ExaPHP\Shell\Definition\DefinitionInterface;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\OptionInterface;
 use Throwable;
 
-class Descriptor implements DescriptorInterface
+readonly class Descriptor implements DescriptorInterface
 {
     /**
      * Create a new descriptor.
      *
      * @param OutputInterface $output
      */
-    public function __construct(private readonly OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
     }
 

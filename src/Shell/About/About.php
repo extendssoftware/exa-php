@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\About;
 
-class About implements AboutInterface
+readonly class About implements AboutInterface
 {
     /**
      * About constructor.
@@ -12,11 +12,8 @@ class About implements AboutInterface
      * @param string $program
      * @param string $version
      */
-    public function __construct(
-        private readonly string $name,
-        private readonly string $program,
-        private readonly string $version
-    ) {
+    public function __construct(private string $name, private string $program, private string $version)
+    {
     }
 
     /**

@@ -9,7 +9,7 @@ use ExtendsSoftware\ExaPHP\Console\Input\InputInterface;
 use ExtendsSoftware\ExaPHP\Console\Output\OutputInterface;
 use ExtendsSoftware\ExaPHP\Console\Prompt\PromptInterface;
 
-class MultipleChoicePrompt implements PromptInterface
+readonly class MultipleChoicePrompt implements PromptInterface
 {
     /**
      * Create new multiple choice prompt.
@@ -20,10 +20,10 @@ class MultipleChoicePrompt implements PromptInterface
      * @param string|null $default
      */
     public function __construct(
-        private readonly string  $question,
-        private readonly array   $options,
-        private readonly bool    $required = true,
-        private readonly ?string $default = null
+        private string  $question,
+        private array   $options,
+        private bool    $required = true,
+        private ?string $default = null
     ) {
     }
 

@@ -7,7 +7,7 @@ use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 
-class Link implements LinkInterface
+readonly class Link implements LinkInterface
 {
     /**
      * Link constructor.
@@ -18,10 +18,10 @@ class Link implements LinkInterface
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        private readonly UriInterface         $uri,
-        private readonly bool                 $embeddable = false,
-        private readonly ?PermissionInterface $permission = null,
-        private readonly ?PolicyInterface     $policy = null
+        private UriInterface         $uri,
+        private bool                 $embeddable = false,
+        private ?PermissionInterface $permission = null,
+        private ?PolicyInterface     $policy = null
     ) {
     }
 

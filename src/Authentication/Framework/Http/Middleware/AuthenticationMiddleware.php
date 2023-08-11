@@ -12,14 +12,14 @@ use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
-class AuthenticationMiddleware implements MiddlewareInterface
+readonly class AuthenticationMiddleware implements MiddlewareInterface
 {
     /**
      * AuthenticationHeaderMiddleware constructor.
      *
      * @param AuthenticatorInterface $authenticator
      */
-    public function __construct(private readonly AuthenticatorInterface $authenticator)
+    public function __construct(private AuthenticatorInterface $authenticator)
     {
     }
 
