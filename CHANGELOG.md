@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed middleware order for HATEOAS middleware to have a identified request.
 - Changed optional object property validator from array with added boolean value to ProxyValidator.
 - Changed BetweenValidator internal value validator from numeric to integer.
+- Changed the order of commands alphabetically when described by the shell descriptor.
 
 ### Deprecated
 
