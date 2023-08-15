@@ -72,6 +72,14 @@ class PosixOutput implements OutputInterface
     /**
      * @inheritDoc
      */
+    public function clearLine(int $verbosity = null): OutputInterface
+    {
+        return $this->text("\r", verbosity: $verbosity);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getFormatter(): FormatterInterface
     {
         return clone $this->formatter;

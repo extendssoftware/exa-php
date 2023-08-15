@@ -33,6 +33,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added identity attributes to hold additional identity information.
 - Added SchemaValidator to validate object schema for correct properties, values and property count.
 - Added Base64Validator to validate base64 encoded string.
+- Added OutputInterface::clearLine() to clear current line.
 
 ### Changed
 

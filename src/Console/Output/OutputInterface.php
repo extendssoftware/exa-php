@@ -41,6 +41,15 @@ interface OutputInterface
     public function newLine(int $verbosity = null): OutputInterface;
 
     /**
+     * Clear current line.
+     *
+     * @param int|null $verbosity
+     *
+     * @return OutputInterface
+     */
+    public function clearLine(int $verbosity = null): OutputInterface;
+
+    /**
      * Get new builder to format text.
      *
      * @return FormatterInterface
