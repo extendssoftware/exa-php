@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Console\Output\Posix;
@@ -98,6 +99,28 @@ class PosixOutputTest extends TestCase
 
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         $this->assertEquals("\n\r", $root->getChild('posix')->getContent());
+    }
+
+    /**
+     * Clear line.
+     *
+     * Test that clear line ("\r") will be sent to output.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Console\Output\Posix\PosixOutput::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Output\Posix\PosixOutput::clearLine()
+     * @covers \ExtendsSoftware\ExaPHP\Console\Output\Posix\PosixOutput::text()
+     */
+    public function testCanWriteClearLineToOutput(): void
+    {
+        $root = vfsStream::setup();
+
+        $output = new PosixOutput(stream: fopen($root->url() . '/posix', 'w'));
+        $output
+            ->setVerbosity(1)
+            ->clearLine();
+
+        /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+        $this->assertEquals("\r", $root->getChild('posix')->getContent());
     }
 
     /**
