@@ -206,7 +206,7 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function withBody($body): RequestInterface
+    public function withBody(mixed $body): RequestInterface
     {
         $clone = clone $this;
         $clone->body = $body;
