@@ -680,11 +680,11 @@ class PosixParserTest extends TestCase
             ->willReturn('name');
 
         $definition
-            ->expects($this->exactly(2))
+            ->expects($this->exactly(3))
             ->method('getOperand')
             ->willReturnCallback(fn($position) => match ([$position]) {
                 [0] => $operand,
-                [1] => throw $operandNotFound,
+                [1], [2] => throw $operandNotFound,
             });
 
         /**
@@ -698,6 +698,8 @@ class PosixParserTest extends TestCase
             '--help',
             '--quite',
             'Jane Doe',
+            '--',
+            'Foo Bar',
         ], false);
 
         $this->assertSame([
@@ -711,6 +713,7 @@ class PosixParserTest extends TestCase
             '-ab',
             '--help',
             'Jane Doe',
+            'Foo Bar',
         ], $result->getRemaining());
     }
 
