@@ -65,13 +65,13 @@ class RangeValidator extends AbstractValidator
         if (is_scalar($leftValue) && is_scalar($rightValue)) {
             if ($this->inclusive && $leftValue > $rightValue) {
                 return $this->getInvalidResult(self::INVALID_RANGE_INCLUSIVE, [
-                    'left' => $this->leftKey,
-                    'right' => $this->rightKey,
+                    $this->leftKey => $leftValue,
+                    $this->rightKey => $rightValue,
                 ]);
             } elseif ($leftValue >= $rightValue) {
                 return $this->getInvalidResult(self::INVALID_RANGE_NON_INCLUSIVE, [
-                    'left' => $leftValue,
-                    'right' => $rightValue,
+                    $this->leftKey => $leftValue,
+                    $this->rightKey => $rightValue,
                 ]);
             }
         }
@@ -85,8 +85,16 @@ class RangeValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::INVALID_RANGE_INCLUSIVE => 'Value {{left}} can not be greater than {{right}}.',
-            self::INVALID_RANGE_NON_INCLUSIVE => 'Value {{left}} can not be greater than or equals {{right}}.',
+            self::INVALID_RANGE_INCLUSIVE => sprintf(
+                'Value {{%s}} can not be greater than {{%s}}.',
+                $this->leftKey,
+                $this->rightKey,
+            ),
+            self::INVALID_RANGE_NON_INCLUSIVE => sprintf(
+                'Value {{%s}} can not be greater than or equals {{%s}}.',
+                $this->leftKey,
+                $this->rightKey,
+            ),
         ];
     }
 }
