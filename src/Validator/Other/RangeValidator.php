@@ -63,16 +63,20 @@ class RangeValidator extends AbstractValidator
         $leftValue = $value->{$this->leftKey};
         $rightValue = $value->{$this->rightKey};
         if (is_scalar($leftValue) && is_scalar($rightValue)) {
-            if ($this->inclusive && $leftValue > $rightValue) {
-                return $this->getInvalidResult(self::INVALID_RANGE_INCLUSIVE, [
-                    $this->leftKey => $leftValue,
-                    $this->rightKey => $rightValue,
-                ]);
-            } elseif ($leftValue >= $rightValue) {
-                return $this->getInvalidResult(self::INVALID_RANGE_NON_INCLUSIVE, [
-                    $this->leftKey => $leftValue,
-                    $this->rightKey => $rightValue,
-                ]);
+            if ($this->inclusive) {
+                if ($leftValue > $rightValue) {
+                    return $this->getInvalidResult(self::INVALID_RANGE_INCLUSIVE, [
+                        $this->leftKey => $leftValue,
+                        $this->rightKey => $rightValue,
+                    ]);
+                }
+            } else {
+                if ($leftValue >= $rightValue) {
+                    return $this->getInvalidResult(self::INVALID_RANGE_NON_INCLUSIVE, [
+                        $this->leftKey => $leftValue,
+                        $this->rightKey => $rightValue,
+                    ]);
+                }
             }
         }
 
