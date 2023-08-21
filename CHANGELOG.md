@@ -52,6 +52,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed optional object property validator from array with added boolean value to ProxyValidator.
 - Changed BetweenValidator internal value validator from numeric to integer.
 - Changed the order of commands alphabetically when described by the shell descriptor.
+- Changed that a POST request body is only JSON decoded when the Content-Type is set with the value application/json.
 
 ### Deprecated
 

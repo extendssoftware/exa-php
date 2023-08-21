@@ -242,6 +242,7 @@ class RequestTest extends TestCase
 
         $_SERVER['REQUEST_METHOD'] = 'GET';
         $_SERVER['HTTP_HOST'] = 'www.extends.nl';
+        $_SERVER['HTTP_CONTENT_TYPE'] = 'application/json';
         $_SERVER['SERVER_PORT'] = 80;
         $_SERVER['REQUEST_URI'] = '/';
 

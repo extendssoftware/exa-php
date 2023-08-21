@@ -11,6 +11,9 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Ramsey\Uuid\UuidFactory;
 use TypeError;
 
+use function str_ends_with;
+use function strlen;
+
 class Request implements RequestInterface, StaticFactoryInterface
 {
     /**
@@ -310,9 +313,13 @@ class Request implements RequestInterface, StaticFactoryInterface
             }
         }
 
-        $input = stream_get_contents($stream);
-        if (!empty($input)) {
-            $body = json_decode($input, false);
+        $body = stream_get_contents($stream);
+        if (is_string($body) && strlen($body) > 0) {
+            if (isset($headers['Content-Type']) && strtolower($headers['Content-Type']) === 'application/json') {
+                $body = json_decode($body, false);
+            }
+        } else {
+            $body = null;
         }
 
         fclose($stream);
@@ -320,7 +327,7 @@ class Request implements RequestInterface, StaticFactoryInterface
         return (new Request())
             ->withId((new UuidFactory())->uuid4()->toString())
             ->withMethod(Method::from($environment['REQUEST_METHOD']))
-            ->withBody($body ?? null)
+            ->withBody($body)
             ->withHeaders($headers)
             ->withServerParameters($parameters)
             ->withUri(Uri::fromEnvironment($environment));
