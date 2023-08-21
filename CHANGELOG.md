@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added SchemaValidator to validate object schema for correct properties, values and property count.
 - Added Base64Validator to validate base64 encoded string.
 - Added OutputInterface::clearLine() to clear current line.
+- Added RangeValidator to validate if right value is greater than (or equals, when inclusive) left value.
 
 ### Changed
 
