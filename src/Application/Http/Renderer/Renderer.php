@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Application\Http\Renderer;
 
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use Generator;
 
 class Renderer implements RendererInterface
 {
@@ -28,6 +29,13 @@ class Renderer implements RendererInterface
 
         http_response_code($response->getStatusCode());
 
-        echo $response->getBody();
+        $body = $response->getBody();
+        if ($body instanceof Generator) {
+            foreach ($body as $part) {
+                echo $part;
+            }
+        } else {
+            echo $body;
+        }
     }
 }
