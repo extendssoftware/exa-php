@@ -5,6 +5,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
 use PHPUnit\Framework\TestCase;
 
+use function base64_decode;
+use function base64_encode;
 use function random_bytes;
 
 class LengthValidatorTest extends TestCase
@@ -70,13 +72,15 @@ class LengthValidatorTest extends TestCase
      */
     public function testBinary(): void
     {
+        $randomBytes = base64_decode('L3zw8k6jFccVGXr6mqci4Q=='); // random_bytes(16);
+
         $validator = new LengthValidator(16, 16);
-        $result = $validator->validate(random_bytes(16));
+        $result = $validator->validate($randomBytes);
 
         $this->assertFalse($result->isValid());
 
         $validator = new LengthValidator(1, 16, multibyte: false);
-        $result = $validator->validate(random_bytes(16));
+        $result = $validator->validate($randomBytes);
 
         $this->assertTrue($result->isValid());
     }
