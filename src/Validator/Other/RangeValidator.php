@@ -70,13 +70,11 @@ class RangeValidator extends AbstractValidator
                         $this->rightKey => $rightValue,
                     ]);
                 }
-            } else {
-                if ($leftValue >= $rightValue) {
-                    return $this->getInvalidResult(self::INVALID_RANGE_NON_INCLUSIVE, [
-                        $this->leftKey => $leftValue,
-                        $this->rightKey => $rightValue,
-                    ]);
-                }
+            } elseif ($leftValue >= $rightValue) {
+                return $this->getInvalidResult(self::INVALID_RANGE_NON_INCLUSIVE, [
+                    $this->leftKey => $leftValue,
+                    $this->rightKey => $rightValue,
+                ]);
             }
         }
 
