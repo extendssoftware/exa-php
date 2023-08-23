@@ -36,6 +36,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added OutputInterface::clearLine() to clear current line.
 - Added RangeValidator to validate if right value is greater than (or equals, when inclusive) left value.
 - Added HTTP renderer support for \Generator response body.
+- Added multibyte flag to LengthValidator to switch between strlen() and mb_strlen().
 
 ### Changed
 

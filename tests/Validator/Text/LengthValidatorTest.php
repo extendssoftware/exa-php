@@ -5,6 +5,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
 use PHPUnit\Framework\TestCase;
 
+use function random_bytes;
+
 class LengthValidatorTest extends TestCase
 {
     /**
@@ -55,6 +57,28 @@ class LengthValidatorTest extends TestCase
         $result = $validator->validate('foo bar baz');
 
         $this->assertFalse($result->isValid());
+    }
+
+    /**
+     * Binary.
+     *
+     * Test that binary string will be validated without multibyte if flag is set to false.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::getTemplates()
+     */
+    public function testBinary(): void
+    {
+        $validator = new LengthValidator(16, 16);
+        $result = $validator->validate(random_bytes(16));
+
+        $this->assertFalse($result->isValid());
+
+        $validator = new LengthValidator(1, 16, multibyte: false);
+        $result = $validator->validate(random_bytes(16));
+
+        $this->assertTrue($result->isValid());
     }
 
     /**

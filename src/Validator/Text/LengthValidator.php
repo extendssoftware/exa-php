@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function call_user_func;
+
 class LengthValidator extends AbstractValidator
 {
     /**
@@ -37,11 +39,13 @@ class LengthValidator extends AbstractValidator
      * @param int|null  $min
      * @param int|null  $max
      * @param bool|null $allowNewLine
+     * @param bool|null $multibyte
      */
     public function __construct(
         private readonly ?int  $min = null,
         private readonly ?int  $max = null,
-        private readonly ?bool $allowNewLine = null
+        private readonly ?bool $allowNewLine = null,
+        private readonly ?bool $multibyte = null
     ) {
     }
 
@@ -56,7 +60,12 @@ class LengthValidator extends AbstractValidator
             return $result;
         }
 
-        $length = mb_strlen($value);
+        if (($this->multibyte ?? true) === true) {
+            $length = mb_strlen($value);
+        } else {
+            $length = strlen($value);
+        }
+
         if (is_int($this->min) && $length < $this->min) {
             return $this->getInvalidResult(self::TOO_SHORT, [
                 'min' => $this->min,
