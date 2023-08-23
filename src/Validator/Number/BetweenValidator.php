@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Number;
@@ -7,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator;
+
+use function intval;
 
 class BetweenValidator extends AbstractValidator
 {
@@ -44,11 +47,13 @@ class BetweenValidator extends AbstractValidator
      * @param int|null  $min
      * @param int|null  $max
      * @param bool|null $inclusive
+     * @param bool|null $allowString
      */
     public function __construct(
-        private readonly ?int  $min = null,
-        private readonly ?int  $max = null,
-        private readonly ?bool $inclusive = null
+        private readonly ?int $min = null,
+        private readonly ?int $max = null,
+        private readonly ?bool $inclusive = null,
+        private readonly ?bool $allowString = null
     ) {
     }
 
@@ -58,6 +63,10 @@ class BetweenValidator extends AbstractValidator
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
+        if ($this->allowString && $value === (string)(int)$value) {
+            $value = intval($value);
+        }
+
         $result = (new IntegerValidator())->validate($value);
         if (!$result->isValid()) {
             return $result;
