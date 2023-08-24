@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router;
@@ -16,14 +17,23 @@ use ExtendsSoftware\ExaPHP\Router\Exception\RouteNotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\Definition\RouteDefinitionInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatch;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
+
 use function array_diff_key;
 use function array_keys;
+use function array_slice;
+use function count;
+use function current;
 use function explode;
+use function filter_var;
 use function implode;
+use function intval;
+use function is_array;
+use function is_string;
 use function parse_str;
 use function parse_url;
 use function str_starts_with;
 use function strlen;
+use function strval;
 use function substr;
 use function trim;
 
@@ -111,6 +121,21 @@ class Router implements RouterInterface
                     throw new InvalidRequestBody($result);
                 }
             }
+
+            /**
+             * Convert string representations of an integer to integer type.
+             *
+             * @var array<string, string> $parameters
+             */
+            $parameters = filter_var($parameters, FILTER_CALLBACK, [
+                'options' => function ($value) {
+                    if ($value === strval(intval($value))) {
+                        $value = intval($value);
+                    }
+
+                    return $value;
+                }
+            ]);
 
             return new RouteMatch($definition, $parameters);
         }

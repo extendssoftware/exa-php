@@ -106,10 +106,10 @@ class RouterTest extends TestCase
         $this->assertInstanceOf(RouteMatchInterface::class, $routeMatch);
         $this->assertSame([
             'permission' => 'route/blogs/blog/comments',
-            'blogId' => '1234',
-            'limit' => '10',
-            'page' => '2',
-            'filled' => ['0', '1'],
+            'blogId' => 1234,
+            'limit' => 10,
+            'page' => 2,
+            'filled' => [0, 1],
             'default' => ['a'],
         ], $routeMatch->getParameters());
         $this->assertSame($definition, $routeMatch->getDefinition());
