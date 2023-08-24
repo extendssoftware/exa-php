@@ -56,4 +56,19 @@ class IntegerValidatorTest extends TestCase
 
         $this->assertFalse($result->isValid());
     }
+
+    /**
+     * String.
+     *
+     * Test that a string representation of an integer is allowed.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator::validate()
+     */
+    public function testString(): void
+    {
+        $validator = new IntegerValidator(allowString: true);
+
+        $this->assertTrue($validator->validate('5')->isValid());
+    }
 }

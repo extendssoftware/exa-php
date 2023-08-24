@@ -30,9 +30,10 @@ class IntegerValidator extends AbstractValidator
     /**
      * IntegerValidator constructor.
      *
-     * @param bool|null $unsigned If an unsigned integer (negative value) is allowed, defaults to false.
+     * @param bool|null $unsigned    If an unsigned integer (negative value) is allowed, defaults to false.
+     * @param bool|null $allowString If a string representation of an integer is allowed, defaults to false.
      */
-    public function __construct(private readonly ?bool $unsigned = null)
+    public function __construct(private readonly ?bool $unsigned = null, private readonly ?bool $allowString = null)
     {
     }
 
@@ -42,6 +43,12 @@ class IntegerValidator extends AbstractValidator
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
+        // This will check if the string-int-string value is the same as the original value, thus '5' -> 5 -> '5' can
+        // be seen as a string representation of an integer. If so, and if allowed, convert string to an integer.
+        if ($this->allowString && $value === (string)(int)$value) {
+            $value = (int)$value;
+        }
+
         if (is_int($value)) {
             if ($this->unsigned === true && $value < 0) {
                 return $this->getInvalidResult(self::NOT_UNSIGNED);
