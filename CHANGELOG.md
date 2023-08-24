@@ -39,7 +39,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added multibyte flag to LengthValidator to switch between strlen() and mb_strlen().
 - Added BetweenValidator construct parameter to allow for custom value validation. 
 - Added allowString flag to IntegerValidator to allow string representations of integers (e.g. in case of a URL value).
-- Added conversion or RouteMatch parameters that are a string representation of an integer to integer type.
+- Added router match conversion that a string representation of an integer will be converted to an integer.
 
 ### Changed
 

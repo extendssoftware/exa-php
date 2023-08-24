@@ -66,15 +66,16 @@ class Router implements RouterInterface
             foreach ($routeUrl['path'] as $index => $part) {
                 if (str_starts_with($part, ':')) {
                     $parameter = substr($part, 1);
-                    $counterpart = $requestUrl['path'][$index];
+                    $value = $this->parseStringInteger($requestUrl['path'][$index]);
+
                     if (isset($validators[$parameter])) {
-                        $result = $validators[$parameter]->validate($counterpart);
+                        $result = $validators[$parameter]->validate($value);
                         if (!$result->isValid()) {
                             continue 2;
                         }
                     }
 
-                    $parameters[$parameter] = $counterpart;
+                    $parameters[$parameter] = $value;
                 } elseif ($requestUrl['path'][$index] !== $part) {
                     continue 2;
                 }
@@ -82,16 +83,18 @@ class Router implements RouterInterface
 
             foreach ($routeUrl['query'] as $parameter => $default) {
                 if (isset($requestUrl['query'][$parameter])) {
+                    $value = $this->parseStringInteger($requestUrl['query'][$parameter]);
+
                     if (isset($validators[$parameter])) {
-                        $result = $validators[$parameter]->validate($requestUrl['query'][$parameter]);
+                        $result = $validators[$parameter]->validate($value);
                         if (!$result->isValid()) {
                             throw new InvalidQueryString($parameter, $result);
                         }
                     }
 
-                    $data = $requestUrl['query'][$parameter];
+                    $data = $value;
                 } else {
-                    $data = $default;
+                    $data = $this->parseStringInteger($default);
                 }
 
                 if (is_array($data) && current($data) === '') {
@@ -99,7 +102,7 @@ class Router implements RouterInterface
                     $data = array_slice($data, 1);
                 }
 
-                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data))) {
+                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data)) || is_int($data)) {
                     $parameters[$parameter] = $data;
                 }
             }
@@ -121,21 +124,6 @@ class Router implements RouterInterface
                     throw new InvalidRequestBody($result);
                 }
             }
-
-            /**
-             * Convert string representations of an integer to integer type.
-             *
-             * @var array<string, string> $parameters
-             */
-            $parameters = filter_var($parameters, FILTER_CALLBACK, [
-                'options' => function ($value) {
-                    if ($value === strval(intval($value))) {
-                        $value = intval($value);
-                    }
-
-                    return $value;
-                }
-            ]);
 
             return new RouteMatch($definition, $parameters);
         }
@@ -236,5 +224,25 @@ class Router implements RouterInterface
         }
 
         return $return;
+    }
+
+    /**
+     * Parse string representation of an integer.
+     *
+     * @param mixed $value
+     *
+     * @return mixed
+     */
+    private function parseStringInteger(mixed $value): mixed
+    {
+        return filter_var($value, FILTER_CALLBACK, [
+            'options' => function (mixed $value): mixed {
+                if ($value === strval(intval($value))) {
+                    $value = intval($value);
+                }
+
+                return $value;
+            }
+        ]);
     }
 }

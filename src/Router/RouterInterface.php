@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router;
@@ -21,8 +22,8 @@ interface RouterInterface
     /**
      * Assemble route into request.
      *
-     * @param string                     $name       ...
-     * @param array<string, string>|null $parameters ...
+     * @param string                         $name       The name of the route.
+     * @param array<string, string|int>|null $parameters The parameters for the route.
      *
      * @return RequestInterface
      * @throws RouterException
