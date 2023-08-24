@@ -37,7 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added RangeValidator to validate if right value is greater than (or equals, when inclusive) left value.
 - Added HTTP renderer support for \Generator response body.
 - Added multibyte flag to LengthValidator to switch between strlen() and mb_strlen().
-- Added allowString flag to BetweenValidator to allow string representations of integers (e.g. in case of a URL value).
+- Added BetweenValidator construct parameter to allow for custom value validation. 
 
 ### Changed
 
@@ -53,7 +53,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed that resource link contains uri and the current request will be used for resource expanding.
 - Changed middleware order for HATEOAS middleware to have a identified request.
 - Changed optional object property validator from array with added boolean value to ProxyValidator.
-- Changed BetweenValidator internal value validator from numeric to integer.
 - Changed the order of commands alphabetically when described by the shell descriptor.
 - Changed that a POST request body is only JSON decoded when the Content-Type is set with the value application/json.
 - Changed IntegerValidator to accept unsigned flag to allow only unsigned values.

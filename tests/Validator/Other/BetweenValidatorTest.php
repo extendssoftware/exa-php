@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Validator\Number;
+namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator;
 use PHPUnit\Framework\TestCase;
 
 class BetweenValidatorTest extends TestCase
@@ -56,9 +57,9 @@ class BetweenValidatorTest extends TestCase
      *
      * @param int $integer
      *
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::__construct()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::validate()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::getTemplates()
      * @dataProvider validInclusiveDataProvider
      */
     public function testValid(int $integer): void
@@ -76,9 +77,9 @@ class BetweenValidatorTest extends TestCase
      * @param int $integer
      *
      * @throws TemplateNotFound
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::__construct()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::validate()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::getTemplates()
      * @dataProvider invalidInclusiveDataProvider
      */
     public function testInvalid(int $integer): void
@@ -95,9 +96,9 @@ class BetweenValidatorTest extends TestCase
      *
      * @param int $integer
      *
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::__construct()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::validate()
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::getTemplates()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::getTemplates()
      * @dataProvider invalidExclusiveDataProvider
      */
     public function testExclusive(int $integer): void
@@ -112,7 +113,9 @@ class BetweenValidatorTest extends TestCase
      *
      * Test that value is not numeric and validate will not validate.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::getTemplates()
      */
     public function testNotNumeric(): void
     {
@@ -123,20 +126,20 @@ class BetweenValidatorTest extends TestCase
     }
 
     /**
-     * Allow string.
+     * Internal validator.
      *
-     * Test that integer value as a string is allowed and will validate.
+     * Test that internal validator will validate values and allow for different type of values.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Number\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::getTemplates()
      */
-    public function testAllowString(): void
+    public function testInternalValidator(): void
     {
-        $validator = new BetweenValidator(1, 10, allowString: true);
+        $validator = new BetweenValidator('2023-01-01', '2023-12-31', validator: new DateTimeValidator('Y-m-d'));
 
-        $result = $validator->validate('5');
-        $this->assertTrue($result->isValid());
-
-        $result = $validator->validate('5.5');
-        $this->assertFalse($result->isValid());
+        $this->assertTrue($validator->validate('2023-10-10')->isValid());
+        $this->assertFalse($validator->validate('2022-10-10')->isValid());
+        $this->assertFalse($validator->validate('2024-10-10')->isValid());
     }
 }
