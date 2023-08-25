@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application\Http\Renderer;
@@ -33,6 +34,9 @@ class Renderer implements RendererInterface
         if ($body instanceof Generator) {
             foreach ($body as $part) {
                 echo $part;
+
+                // Flush part of output to the browser to reduce memory usage and allow for streaming the body content.
+                flush();
             }
         } else {
             echo $body;
