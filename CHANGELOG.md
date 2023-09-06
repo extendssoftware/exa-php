@@ -37,7 +37,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added RangeValidator to validate if right value is greater than (or equals, when inclusive) left value.
 - Added HTTP renderer support for \Generator response body.
 - Added multibyte flag to LengthValidator to switch between strlen() and mb_strlen().
-- Added BetweenValidator construct parameter to allow for custom value validation. 
+- Added BetweenValidator construct parameter to allow for custom value validation.
 - Added allowString flag to IntegerValidator to allow string representations of integers (e.g. in case of a URL value).
 - Added router match conversion that a string representation of an integer will be converted to an integer.
 
@@ -58,7 +58,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed the order of commands alphabetically when described by the shell descriptor.
 - Changed that a POST request body is only JSON decoded when the Content-Type is set with the value application/json.
 - Changed IntegerValidator to accept unsigned flag to allow only unsigned values.
-- Changed router that empty a query string parameter will pass through and an empty string will be converted to null.
+- Changed router that empty a query string parameter will pass through and an empty string will be converted to null and
+  the string "true" and "false" will be converted to there boolean representation.
 
 ### Deprecated
 

@@ -52,7 +52,7 @@ class RouterTest extends TestCase
         $route
             ->expects($this->once())
             ->method('getPath')
-            ->willReturn('/blogs/:blogId/comments?limit=10&page=1&filled[]&empty[]&default[]=a&flag=');
+            ->willReturn('/blogs/:blogId/comments?limit=10&page=1&filled[]&empty[]&default[]=a&flag=&bool=true');
 
         $route
             ->expects($this->once())
@@ -115,6 +115,7 @@ class RouterTest extends TestCase
             'empty' => [],
             'default' => ['a'],
             'flag' => null,
+            'bool' => true,
         ], $routeMatch->getParameters());
         $this->assertSame($definition, $routeMatch->getDefinition());
     }

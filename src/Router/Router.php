@@ -239,6 +239,8 @@ class Router implements RouterInterface
                 return match ($value) {
                     strval(intval($value)) => intval($value),
                     '' => null,
+                    'true' => true,
+                    'false' => false,
                     default => $value
                 };
             }
