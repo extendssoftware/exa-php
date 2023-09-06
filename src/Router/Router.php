@@ -28,11 +28,9 @@ use function filter_var;
 use function implode;
 use function intval;
 use function is_array;
-use function is_string;
 use function parse_str;
 use function parse_url;
 use function str_starts_with;
-use function strlen;
 use function strval;
 use function substr;
 use function trim;
@@ -66,7 +64,7 @@ class Router implements RouterInterface
             foreach ($routeUrl['path'] as $index => $part) {
                 if (str_starts_with($part, ':')) {
                     $parameter = substr($part, 1);
-                    $value = $this->parseStringInteger($requestUrl['path'][$index]);
+                    $value = $this->sanitizeValue($requestUrl['path'][$index]);
 
                     if (isset($validators[$parameter])) {
                         $result = $validators[$parameter]->validate($value);
@@ -83,7 +81,7 @@ class Router implements RouterInterface
 
             foreach ($routeUrl['query'] as $parameter => $default) {
                 if (isset($requestUrl['query'][$parameter])) {
-                    $value = $this->parseStringInteger($requestUrl['query'][$parameter]);
+                    $value = $this->sanitizeValue($requestUrl['query'][$parameter]);
 
                     if (isset($validators[$parameter])) {
                         $result = $validators[$parameter]->validate($value);
@@ -94,17 +92,18 @@ class Router implements RouterInterface
 
                     $data = $value;
                 } else {
-                    $data = $this->parseStringInteger($default);
+                    $data = $this->sanitizeValue($default);
                 }
 
-                if (is_array($data) && current($data) === '') {
-                    // Empty array definition always contains an empty value, remove it and don't touch defined values.
+                if (is_array($data) && current($data) === null) {
+                    // Empty array definition always contains an empty value (which is cast to null), remove it and
+                    // don't touch defined values.
                     $data = array_slice($data, 1);
                 }
 
-                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data)) || is_int($data)) {
-                    $parameters[$parameter] = $data;
-                }
+//                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data)) || is_int($data)) {
+                $parameters[$parameter] = $data;
+//                }
             }
 
             $notAllowed = array_diff_key($requestUrl['query'], $routeUrl['query']);
@@ -204,7 +203,7 @@ class Router implements RouterInterface
      *
      * @param string $url
      *
-     * @return array{path: array<int, string>, query: array<string, string|array<int, string>>}
+     * @return array{path: array<int, string>, query: array<string, string|array<int, string|null>|null>}
      */
     private function parseUrl(string $url): array
     {
@@ -227,21 +226,21 @@ class Router implements RouterInterface
     }
 
     /**
-     * Parse string representation of an integer.
+     * Sanitize value to desired format.
      *
      * @param mixed $value
      *
      * @return mixed
      */
-    private function parseStringInteger(mixed $value): mixed
+    private function sanitizeValue(mixed $value): mixed
     {
         return filter_var($value, FILTER_CALLBACK, [
             'options' => function (mixed $value): mixed {
-                if ($value === strval(intval($value))) {
-                    $value = intval($value);
-                }
-
-                return $value;
+                return match ($value) {
+                    strval(intval($value)) => intval($value),
+                    '' => null,
+                    default => $value
+                };
             }
         ]);
     }

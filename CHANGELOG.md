@@ -58,6 +58,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed the order of commands alphabetically when described by the shell descriptor.
 - Changed that a POST request body is only JSON decoded when the Content-Type is set with the value application/json.
 - Changed IntegerValidator to accept unsigned flag to allow only unsigned values.
+- Changed router that empty a query string parameter will pass through and an empty string will be converted to null.
 
 ### Deprecated
 
