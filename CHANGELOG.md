@@ -40,6 +40,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added BetweenValidator construct parameter to allow for custom value validation.
 - Added allowString flag to IntegerValidator to allow string representations of integers (e.g. in case of a URL value).
 - Added router match conversion that a string representation of an integer will be converted to an integer.
+- Added methods to InvalidResult to get code, message and parameters.
 
 ### Changed
 

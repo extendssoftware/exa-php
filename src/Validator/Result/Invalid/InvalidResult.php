@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Invalid;
@@ -31,9 +32,9 @@ class InvalidResult implements ResultInterface
     /**
      * Violation constructor.
      *
-     * @param string  $code
-     * @param string  $message
-     * @param mixed[] $parameters
+     * @param string               $code
+     * @param string               $message
+     * @param array<string, mixed> $parameters
      */
     public function __construct(string $code, string $message, array $parameters)
     {
@@ -61,6 +62,36 @@ class InvalidResult implements ResultInterface
             'message' => $this->message,
             'parameters' => $this->parameters,
         ];
+    }
+
+    /**
+     * Get code.
+     *
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * Get message.
+     *
+     * @return string
+     */
+    public function getMessage(): string
+    {
+        return $this->message;
+    }
+
+    /**
+     * Get parameters.
+     *
+     * @return array<string, mixed>
+     */
+    public function getParameters(): array
+    {
+        return $this->parameters;
     }
 
     /**

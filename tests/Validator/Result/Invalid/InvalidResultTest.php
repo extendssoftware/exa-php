@@ -13,6 +13,10 @@ class InvalidResultTest extends TestCase
      * Test that methods return correct values.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::getCode()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::getMessage()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::getParameters()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::isValid()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::isValid()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::jsonSerialize()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::__toString()
@@ -23,6 +27,11 @@ class InvalidResultTest extends TestCase
             'type' => 'array',
         ]);
 
+        $this->assertSame('notString', $result->getCode());
+        $this->assertSame('Value is not a string, got "{{type}}".', $result->getMessage());
+        $this->assertSame([
+            'type' => 'array',
+        ], $result->getParameters());
         $this->assertFalse($result->isValid());
         $this->assertSame([
             'code' => 'notString',
