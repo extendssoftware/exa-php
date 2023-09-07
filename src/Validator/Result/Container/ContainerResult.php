@@ -47,6 +47,16 @@ class ContainerResult implements ResultInterface
     }
 
     /**
+     * Get results.
+     *
+     * @return ResultInterface[]
+     */
+    public function getResults(): array
+    {
+        return $this->results;
+    }
+
+    /**
      * Add result to container.
      *
      * @param ResultInterface $result

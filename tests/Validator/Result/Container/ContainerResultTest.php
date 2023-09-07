@@ -133,4 +133,34 @@ class ContainerResultTest extends TestCase
             0 => $result,
         ], $json);
     }
+
+    /**
+     * Get results.
+     *
+     * Tes that method will return results.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult::addResult()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult::getResults()
+     */
+    public function testGetResults(): void
+    {
+        $result = $this->createMock(ResultInterface::class);
+        $result
+            ->expects($this->exactly(2))
+            ->method('isValid')
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        /**
+         * @var ResultInterface $result
+         */
+        $container = new ContainerResult();
+        $container
+            ->addResult($result, 'foo')
+            ->addResult($result, 'bar');
+
+        $this->assertSame([
+            'foo' => $result,
+            'bar' => $result,
+        ], $container->getResults());
+    }
 }
