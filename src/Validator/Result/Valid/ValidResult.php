@@ -18,7 +18,7 @@ class ValidResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize(): null
     {
         return null;
     }
