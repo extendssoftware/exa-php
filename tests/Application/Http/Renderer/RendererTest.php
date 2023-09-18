@@ -1,11 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application\Http\Renderer;
 
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use Generator;
-use PHPUnit\Framework\MockObject\Exception;
 use PHPUnit\Framework\TestCase;
 
 use function http_response_code;
@@ -78,7 +78,7 @@ class RendererTest extends TestCase
      */
     public function testRenderGenerator(): void
     {
-        $generator = function(): Generator {
+        $generator = function (): Generator {
             foreach (['123', '456', '789', '0'] as $chunk) {
                 yield $chunk;
             }
