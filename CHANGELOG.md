@@ -41,7 +41,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added router match conversion that a string representation of an integer will be converted to an integer.
 - Added methods to InvalidResult to get code, message and parameters.
 - Added method ContainerResult::getResults() to get all results.
-- Added NoNewlineValidator to validate of string does not contain any whitespace (\s).
+- Added NoNewlineValidator to validate that a string does not have a new line character (\n).
+- Added NoPaddingValidator to validate that a string does not have leading or trailing whitespaces (\s).
 
 ### Changed
 
