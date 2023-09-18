@@ -11,14 +11,14 @@ use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
 use function preg_match;
 
-class NoWhitespaceValidator extends AbstractValidator
+class NoNewlineValidator extends AbstractValidator
 {
     /**
-     * When whitespace is not allowed.
+     * When newline is not allowed.
      *
      * @var string
      */
-    public const WHITESPACE_NOT_ALLOWED = 'whitespaceNotAllowed';
+    public const NEWLINE_NOT_ALLOWED = 'newlineNotAllowed';
 
     /**
      * @inheritDoc
@@ -31,8 +31,8 @@ class NoWhitespaceValidator extends AbstractValidator
             return $result;
         }
 
-        if (preg_match('/\s/', $value)) {
-            return $this->getInvalidResult(self::WHITESPACE_NOT_ALLOWED);
+        if (preg_match('/\n/', $value)) {
+            return $this->getInvalidResult(self::NEWLINE_NOT_ALLOWED);
         }
 
         return $this->getValidResult();
@@ -44,7 +44,7 @@ class NoWhitespaceValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::WHITESPACE_NOT_ALLOWED => 'Whitespace is not allowed in text.',
+            self::NEWLINE_NOT_ALLOWED => 'Newline is not allowed in text.',
         ];
     }
 }

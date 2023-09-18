@@ -5,18 +5,18 @@ namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
 use PHPUnit\Framework\TestCase;
 
-class NoWhitespaceValidatorTest extends TestCase
+class NoNewlineValidatorTest extends TestCase
 {
     /**
      * Valid.
      *
-     * Test that value not contains whitespaces.
+     * Test that value not contain newlines.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoWhitespaceValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::validate()
      */
     public function testValid(): void
     {
-        $validator = new NoWhitespaceValidator();
+        $validator = new NoNewlineValidator();
 
         $this->assertTrue($validator->validate('foo')->isValid());
     }
@@ -24,14 +24,14 @@ class NoWhitespaceValidatorTest extends TestCase
     /**
      * Invalid.
      *
-     * Test that value contains whitespaces.
+     * Test that value contains newline.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoWhitespaceValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoWhitespaceValidator::getTemplates()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::getTemplates()
      */
     public function testInvalid(): void
     {
-        $validator = new NoWhitespaceValidator();
+        $validator = new NoNewlineValidator();
 
         $this->assertFalse($validator->validate("foo\nbar")->isValid());
     }
@@ -41,11 +41,11 @@ class NoWhitespaceValidatorTest extends TestCase
      *
      * Test that none string value will not validate.
      *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoWhitespaceValidator::validate()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::validate()
      */
     public function testNotString(): void
     {
-        $validator = new NoWhitespaceValidator();
+        $validator = new NoNewlineValidator();
         $result = $validator->validate(9);
 
         $this->assertFalse($result->isValid());
