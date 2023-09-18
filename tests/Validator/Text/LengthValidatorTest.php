@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
@@ -6,8 +7,6 @@ namespace ExtendsSoftware\ExaPHP\Validator\Text;
 use PHPUnit\Framework\TestCase;
 
 use function base64_decode;
-use function base64_encode;
-use function random_bytes;
 
 class LengthValidatorTest extends TestCase
 {
@@ -83,25 +82,6 @@ class LengthValidatorTest extends TestCase
         $result = $validator->validate($randomBytes);
 
         $this->assertTrue($result->isValid());
-    }
-
-    /**
-     * Whitespace.
-     *
-     * Test that string contains a new line and an invalid result will be returned.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::getTemplates()
-     */
-    public function testWhitespace(): void
-    {
-        $validator = new LengthValidator(allowNewLine: false);
-        $result = $validator->validate('foo
-        bar
-        baz');
-
-        $this->assertFalse($result->isValid());
     }
 
     /**

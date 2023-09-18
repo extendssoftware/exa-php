@@ -26,7 +26,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added ValidValidator that will always return a valid result.
 - Added ValidatorProviderInterface for a class to act as a validator provider.
 - Added ConstraintValidator to validate if iterable values are allowed by array with constraints.
-- Added property to LengthValidator to disallow new line characters.
 - Added UrlValidator to validate URL string.
 - Added Logger::addDecorator() method.
 - Added RequestInterface::getId() to get unique ID for each request.
@@ -42,6 +41,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added router match conversion that a string representation of an integer will be converted to an integer.
 - Added methods to InvalidResult to get code, message and parameters.
 - Added method ContainerResult::getResults() to get all results.
+- Added NoWhitespace validator to validate of string does not contain any whitespace (\s).
 
 ### Changed
 

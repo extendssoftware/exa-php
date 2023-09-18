@@ -10,7 +10,6 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
 use function is_int;
-use function preg_match;
 use function strlen;
 
 class LengthValidator extends AbstractValidator
@@ -30,24 +29,15 @@ class LengthValidator extends AbstractValidator
     public const TOO_LONG = 'tooLong';
 
     /**
-     * When text contains whitespace which is not allowed.
-     *
-     * @var string
-     */
-    public const WHITESPACE_NOT_ALLOWED = 'whitespaceNotAllowed';
-
-    /**
      * LengthValidator constructor.
      *
      * @param int|null  $min
      * @param int|null  $max
-     * @param bool|null $allowNewLine
      * @param bool|null $multibyte
      */
     public function __construct(
         private readonly ?int $min = null,
         private readonly ?int $max = null,
-        private readonly ?bool $allowNewLine = null,
         private readonly ?bool $multibyte = null
     ) {
     }
@@ -81,9 +71,6 @@ class LengthValidator extends AbstractValidator
                 'length' => $length,
             ]);
         }
-        if ($this->allowNewLine === false && preg_match('/\s/', $value)) {
-            return $this->getInvalidResult(self::WHITESPACE_NOT_ALLOWED);
-        }
 
         return $this->getValidResult();
     }
@@ -96,7 +83,6 @@ class LengthValidator extends AbstractValidator
         return [
             self::TOO_SHORT => 'String length must be at least {{min}} characters, got {{length}}.',
             self::TOO_LONG => 'String length can be up to {{max}} characters, got {{length}}.',
-            self::WHITESPACE_NOT_ALLOWED => 'Whitespace it not allowed in string.',
         ];
     }
 }
