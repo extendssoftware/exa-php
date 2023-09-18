@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
@@ -8,7 +9,9 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
-use function call_user_func;
+use function is_int;
+use function preg_match;
+use function strlen;
 
 class LengthValidator extends AbstractValidator
 {
@@ -42,8 +45,8 @@ class LengthValidator extends AbstractValidator
      * @param bool|null $multibyte
      */
     public function __construct(
-        private readonly ?int  $min = null,
-        private readonly ?int  $max = null,
+        private readonly ?int $min = null,
+        private readonly ?int $max = null,
         private readonly ?bool $allowNewLine = null,
         private readonly ?bool $multibyte = null
     ) {
@@ -78,7 +81,7 @@ class LengthValidator extends AbstractValidator
                 'length' => $length,
             ]);
         }
-        if ($this->allowNewLine === false && preg_match('/\R/', $value)) {
+        if ($this->allowNewLine === false && preg_match('/\s/', $value)) {
             return $this->getInvalidResult(self::WHITESPACE_NOT_ALLOWED);
         }
 
