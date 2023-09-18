@@ -48,7 +48,7 @@ class PeekIterator implements PeekIteratorInterface
     /**
      * @inheritDoc
      */
-    public function key(): mixed
+    public function key(): int
     {
         return $this->position;
     }
