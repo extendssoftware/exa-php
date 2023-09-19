@@ -31,7 +31,7 @@ class NoPaddingValidator extends AbstractValidator
             return $result;
         }
 
-        if (preg_match('/^\s/', $value) || preg_match('/\s$/', $value)) {
+        if (preg_match('/^\s|\s$/', $value)) {
             return $this->getInvalidResult(self::PADDING_NOT_ALLOWED);
         }
 
