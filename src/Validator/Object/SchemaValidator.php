@@ -78,9 +78,11 @@ class SchemaValidator extends AbstractValidator
                     $propertyName
                 );
             } else {
+                $valid = true;
                 if ($this->property) {
                     $result = $this->property->validate($propertyName);
                     if (!$result->isValid()) {
+                        $valid = false;
                         $container->addResult(
                             $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
                                 'property' => $propertyName,
@@ -93,6 +95,7 @@ class SchemaValidator extends AbstractValidator
                 if ($this->value) {
                     $result = $this->value->validate($propertyValue);
                     if (!$result->isValid()) {
+                        $valid = false;
                         $container->addResult(
                             $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
                                 'value' => $propertyValue,
@@ -100,6 +103,13 @@ class SchemaValidator extends AbstractValidator
                             $propertyName
                         );
                     }
+                }
+
+                if ($valid) {
+                    $container->addResult(
+                        $this->getValidResult(),
+                        $propertyName
+                    );
                 }
             }
         }
