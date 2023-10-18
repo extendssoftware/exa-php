@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
@@ -32,7 +33,7 @@ class SchemaValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TOO_MANY_PROPERTIES = 'tooManyProperties';
+    public const PROPERTY_NOT_ALLOWED = 'tooManyProperties';
 
     /**
      * SchemaValidator constructor.
@@ -44,7 +45,7 @@ class SchemaValidator extends AbstractValidator
     public function __construct(
         private readonly ?ValidatorInterface $property = null,
         private readonly ?ValidatorInterface $value = null,
-        private readonly ?int                $count = null
+        private readonly ?int $count = null
     ) {
     }
 
@@ -63,40 +64,41 @@ class SchemaValidator extends AbstractValidator
         $reflection = new ReflectionObject($value);
 
         $properties = $reflection->getProperties();
-        foreach ($properties as $property) {
-            $name = $property->getName();
-            if ($this->property) {
-                $result = $this->property->validate($name);
-                if (!$result->isValid()) {
-                    $container->addResult(
-                        $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
-                            'property' => $name,
-                        ]),
-                    );
-                }
-            }
-
+        foreach ($properties as $index => $property) {
+            $propertyName = $property->getName();
             $propertyValue = $property->getValue($value);
-            if ($this->value) {
-                $result = $this->value->validate($propertyValue);
-                if (!$result->isValid()) {
-                    $container->addResult(
-                        $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
-                            'value' => $propertyValue,
-                        ])
-                    );
+
+            if (is_int($this->count) && $index >= $this->count) {
+                // Too many properties, property not allowed.
+                $container->addResult(
+                    $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
+                        'property' => $propertyName,
+                        'count' => $this->count,
+                    ])
+                );
+            } else {
+                if ($this->property) {
+                    $result = $this->property->validate($propertyName);
+                    if (!$result->isValid()) {
+                        $container->addResult(
+                            $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
+                                'property' => $propertyName,
+                            ]),
+                        );
+                    }
+                }
+
+                if ($this->value) {
+                    $result = $this->value->validate($propertyValue);
+                    if (!$result->isValid()) {
+                        $container->addResult(
+                            $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
+                                'value' => $propertyValue,
+                            ])
+                        );
+                    }
                 }
             }
-        }
-
-        $propertyCount = count($properties);
-        if (is_int($this->count) && $propertyCount > $this->count) {
-            $container->addResult(
-                $this->getInvalidResult(self::TOO_MANY_PROPERTIES, [
-                    'properties' => $propertyCount,
-                    'allowed' => $this->count,
-                ])
-            );
         }
 
         return $container;
@@ -110,7 +112,7 @@ class SchemaValidator extends AbstractValidator
         return [
             self::INVALID_OBJECT_PROPERTY => 'Object property {{property}} is invalid.',
             self::INVALID_PROPERTY_VALUE => 'Property value {{value}} is invalid.',
-            self::TOO_MANY_PROPERTIES => 'There are {{properties}} properties, when only {{allowed} are allowed.',
+            self::PROPERTY_NOT_ALLOWED => 'Object property {{property}} is too much, {{count}} properties are allowed.',
         ];
     }
 }
