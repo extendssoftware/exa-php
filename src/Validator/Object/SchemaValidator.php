@@ -74,7 +74,8 @@ class SchemaValidator extends AbstractValidator
                     $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
                         'property' => $propertyName,
                         'count' => $this->count,
-                    ])
+                    ]),
+                    $propertyName
                 );
             } else {
                 if ($this->property) {
@@ -84,6 +85,7 @@ class SchemaValidator extends AbstractValidator
                             $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
                                 'property' => $propertyName,
                             ]),
+                            $propertyName
                         );
                     }
                 }
@@ -94,7 +96,8 @@ class SchemaValidator extends AbstractValidator
                         $container->addResult(
                             $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
                                 'value' => $propertyValue,
-                            ])
+                            ]),
+                            $propertyName
                         );
                     }
                 }
