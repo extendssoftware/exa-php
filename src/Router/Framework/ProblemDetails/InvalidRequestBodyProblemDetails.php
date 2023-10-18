@@ -24,7 +24,7 @@ class InvalidRequestBodyProblemDetails extends ProblemDetails
             400,
             $request->getUri()->toRelative(),
             [
-                'errors' => $exception->getResult(),
+                'result' => $exception->getResult(),
             ]
         );
     }
