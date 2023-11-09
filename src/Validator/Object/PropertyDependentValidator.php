@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
+use function array_key_exists;
+
 class PropertyDependentValidator extends AbstractValidator
 {
     /**
@@ -38,8 +40,8 @@ class PropertyDependentValidator extends AbstractValidator
      */
     public function __construct(
         private readonly string $property,
-        ?array                  $validators = null,
-        private readonly ?bool  $strict = true
+        ?array $validators = null,
+        private readonly ?bool $strict = true
     ) {
         foreach ($validators ?? [] as $name => $validator) {
             $this->addProperty($name, $validator);
@@ -65,13 +67,17 @@ class PropertyDependentValidator extends AbstractValidator
 
         $dependent = $context->{$this->property};
         if (!isset($this->properties[$dependent])) {
-            if ($this->strict) {
-                return $this->getInvalidResult(self::VALIDATOR_MISSING, [
-                    'property' => $dependent,
-                ]);
-            }
+            if (array_key_exists('*', $this->properties)) {
+                $dependent = '*';
+            } else {
+                if ($this->strict) {
+                    return $this->getInvalidResult(self::VALIDATOR_MISSING, [
+                        'property' => $dependent,
+                    ]);
+                }
 
-            return $this->getValidResult();
+                return $this->getValidResult();
+            }
         }
 
         return $this->properties[$dependent]->getValidator()->validate($value, $context);

@@ -199,6 +199,39 @@ class PropertyDependentValidatorTest extends TestCase
     }
 
     /**
+     * Missing property and wildcard validator.
+     *
+     * Test that missing property will be validated by wildcard validator.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::validate()
+     */
+    public function testMissingPropertyAndWildcardValidator(): void
+    {
+        $result = $this->createMock(ResultInterface::class);
+        $result
+            ->method('isValid')
+            ->willReturn(true);
+
+        $validator = $this->createMock(ValidatorInterface::class);
+        $validator
+            ->expects($this->once())
+            ->method('validate')
+            ->with('qux')
+            ->willReturn($result);
+
+        $validator = new PropertyDependentValidator('foo', [
+            '*' => $validator,
+        ], false);
+        $result = $validator->validate('qux', (object)[
+            'foo' => 'bar',
+        ]);
+
+        $this->assertTrue($result->isValid());
+    }
+
+    /**
      * Not object.
      *
      * Test that non object context can not be validated.

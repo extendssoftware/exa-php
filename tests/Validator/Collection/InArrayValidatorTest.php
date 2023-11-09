@@ -28,6 +28,31 @@ class InArrayValidatorTest extends TestCase
     }
 
     /**
+     * Strictness.
+     *
+     * Test that value will be validated with type strictness.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\InArrayValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\InArrayValidator::validate()
+     */
+    public function testStrictness(): void
+    {
+        $validator = new InArrayValidator([
+            '1',
+            2,
+            3.0,
+        ], true);
+
+        $this->assertTrue($validator->validate('1')->isValid());
+        $this->assertTrue($validator->validate(2)->isValid());
+        $this->assertTrue($validator->validate(3.0)->isValid());
+
+        $this->assertFalse($validator->validate(1)->isValid());
+        $this->assertFalse($validator->validate('2')->isValid());
+        $this->assertFalse($validator->validate(3)->isValid());
+    }
+
+    /**
      * Not in array.
      *
      * Test that value not exist in array and an invalid result will be returned.

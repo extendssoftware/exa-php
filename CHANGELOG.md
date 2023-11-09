@@ -44,6 +44,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added NoNewlineValidator to validate that a string does not have a new line character (\n).
 - Added NoPaddingValidator to validate that a string does not have leading or trailing whitespaces (\s).
 - Added JsonValidator to validate JSON string.
+- Added strict parameter to InArrayValidator to check for value strictness.
+- Added PropertyDependentValidator wildcard validator to validate value for undefined property.
 
 ### Changed
 

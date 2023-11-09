@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Container;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+
+use function is_string;
 
 class ContainerResult implements ResultInterface
 {
@@ -35,15 +38,7 @@ class ContainerResult implements ResultInterface
      */
     public function jsonSerialize(): array
     {
-        $results = array_filter($this->results, static function (ResultInterface $result) {
-            return !$result->isValid();
-        });
-
-        if (count(array_filter(array_keys($results), 'is_string')) === 0) {
-            $results = array_values($results); // Force JSON array by resetting keys.
-        }
-
-        return $results;
+        return $this->results;
     }
 
     /**

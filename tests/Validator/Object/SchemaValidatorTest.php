@@ -213,28 +213,26 @@ class SchemaValidatorTest extends TestCase
 
         $result = $this->createMock(ResultInterface::class);
         $result
-            ->expects($this->exactly(6))
+            ->expects($this->exactly(4))
             ->method('isValid')
             ->willReturn(true);
 
         $propertyValidator = $this->createMock(ValidatorInterface::class);
         $propertyValidator
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(2))
             ->method('validate')
             ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
                 ['foo', $context],
-                ['bar', $context],
-                ['baz', $context] => $result
+                ['bar', $context] => $result
             });
 
         $valueValidator = $this->createMock(ValidatorInterface::class);
         $valueValidator
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(2))
             ->method('validate')
             ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
                 ['bar', $context],
-                ['baz', $context],
-                ['qux', $context] => $result
+                ['baz', $context] => $result
             });
 
         /**

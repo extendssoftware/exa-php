@@ -32,7 +32,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      */
     public function testRoute(): void
     {
@@ -128,7 +128,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::getRequest()
      */
@@ -181,7 +181,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::getRequest()
      */
@@ -257,7 +257,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::getRequest()
      */
@@ -319,7 +319,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString::getParameter()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString::getResult()
@@ -397,7 +397,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed::getParameters
      */
@@ -459,7 +459,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody::getResult()
      */
@@ -552,7 +552,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed::getMethod()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed::getAllowedMethods()
@@ -634,7 +634,7 @@ class RouterTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::route()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      * @covers \ExtendsSoftware\ExaPHP\Router\Exception\NotFound::__construct()
      */
     public function testNotFound(): void
@@ -659,7 +659,7 @@ class RouterTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::assemble()
      * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseStringInteger()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
      */
     public function testAssemble(): void
     {

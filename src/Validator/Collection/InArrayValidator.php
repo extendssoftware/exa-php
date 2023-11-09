@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
@@ -20,8 +21,9 @@ class InArrayValidator extends AbstractValidator
      * InArrayValidator constructor.
      *
      * @param array<mixed> $array
+     * @param bool|null    $strict
      */
-    public function __construct(private readonly array $array)
+    public function __construct(private readonly array $array, private readonly ?bool $strict = null)
     {
     }
 
@@ -31,7 +33,7 @@ class InArrayValidator extends AbstractValidator
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
-        if (!in_array($value, $this->array)) {
+        if (!in_array($value, $this->array, $this->strict ?? false)) {
             return $this->getInvalidResult(self::NOT_IN_ARRAY, [
                 'value' => $value,
                 'array' => $this->array,
