@@ -43,6 +43,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added method ContainerResult::getResults() to get all results.
 - Added NoNewlineValidator to validate that a string does not have a new line character (\n).
 - Added NoPaddingValidator to validate that a string does not have leading or trailing whitespaces (\s).
+- Added JsonValidator to validate JSON string.
 
 ### Changed
 
