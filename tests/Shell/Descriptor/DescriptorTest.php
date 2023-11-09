@@ -74,7 +74,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(8))
             ->method('line')
             ->willReturnCallback(fn($line) => match ([$line]) {
-                ['ExaPHP Console (version 0.1.0)'],
+                ['ExaPHP Console (version 0.2.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
                 ['Commands:'],
@@ -144,7 +144,7 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1.0');
+            ->willReturn('0.2.0');
 
         /**
          * @var DefinitionInterface $definition
@@ -180,7 +180,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(8))
             ->method('line')
             ->willReturnCallback(fn($line) => match ([$line]) {
-                ['ExaPHP Console (version 0.1.0)'],
+                ['ExaPHP Console (version 0.2.0)'],
                 ['Usage:'],
                 ['<command> [<arguments>] [<options>]'],
                 ['Commands:'],
@@ -239,7 +239,7 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1.0');
+            ->willReturn('0.2.0');
 
         /**
          * @var DefinitionInterface $definition
@@ -291,7 +291,7 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1.0');
+            ->willReturn('0.2.0');
 
         /**
          * @var CommandInterface $command
@@ -325,7 +325,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(6))
             ->method('line')
             ->willReturnCallback(fn($line) => match ([$line]) {
-                ['ExaPHP Console (version 0.1.0)'],
+                ['ExaPHP Console (version 0.2.0)'],
                 ['Usage:'],
                 ['[<options>] '],
                 ['Options:'],
@@ -412,7 +412,7 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1.0');
+            ->willReturn('0.2.0');
 
         /**
          * @var CommandInterface $command
@@ -446,7 +446,7 @@ class DescriptorTest extends TestCase
             ->expects($this->exactly(3))
             ->method('line')
             ->willReturnCallback(fn($line) => match ([$line]) {
-                ['ExaPHP Console (version 0.1.0)'],
+                ['ExaPHP Console (version 0.2.0)'],
                 ['Usage:'],
                 ["See 'exa --help' for more information about this shell and default options."] => $output,
             });
@@ -492,7 +492,7 @@ class DescriptorTest extends TestCase
 
         $about
             ->method('getVersion')
-            ->willReturn('0.1.0');
+            ->willReturn('0.2.0');
 
         /**
          * @var CommandInterface $command

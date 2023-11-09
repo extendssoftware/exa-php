@@ -9,6 +9,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.2.0] - 2023-11-09
+
+### Added
+
 - Added internal permission cache for Authorizer::isPermitted() to not call RealmInterface::getPermissions() twice.
 - Added RouteMatchInterface as type to RouterInterface::assemble() name argument.
 - Added ServiceLocatorInterface::class key to service locator to get service locator from itself.
@@ -67,8 +81,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed router that empty a query string parameter will pass through and an empty string will be converted to null and
   the string "true" and "false" will be converted to there boolean representation.
 
-### Deprecated
-
 ### Removed
 
 - Removed HATEOAS collection builder.
@@ -90,14 +102,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Fixed that array is allowed in route definition.
 - Fixed that log writer interrupt flag can be passed in config with writer options.
 
-### Security
-
 ## [0.1.0] - 2022-12-30
 
 ### Added
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.1.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.2.0...HEAD
+
+[0.2.0]: https://github.com/extendssoftware/exa-php/commits/0.2.0
 
 [0.1.0]: https://github.com/extendssoftware/exa-php/commits/0.1.0
