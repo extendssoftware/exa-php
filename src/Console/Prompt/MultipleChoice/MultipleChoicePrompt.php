@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice;
@@ -20,9 +21,9 @@ readonly class MultipleChoicePrompt implements PromptInterface
      * @param string|null $default
      */
     public function __construct(
-        private string  $question,
-        private array   $options,
-        private bool    $required = true,
+        private string $question,
+        private array $options,
+        private bool $required = true,
         private ?string $default = null
     ) {
     }
@@ -39,13 +40,16 @@ readonly class MultipleChoicePrompt implements PromptInterface
                 ->text(
                     sprintf(
                         '[%s]',
-                        implode(',', array_map(function (string $option) {
-                            if (is_string($this->default) && $option === $this->default) {
-                                return strtoupper($option);
-                            }
+                        implode(
+                            ',',
+                            array_map(function (string $option) {
+                                if (is_string($this->default) && $option === $this->default) {
+                                    return strtoupper($option);
+                                }
 
-                            return $option;
-                        }, $this->options))
+                                return $option;
+                            }, $this->options)
+                        )
                     ),
                     $output
                         ->getFormatter()

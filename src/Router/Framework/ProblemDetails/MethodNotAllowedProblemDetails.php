@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
@@ -7,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
+
 use function array_map;
 
 class MethodNotAllowedProblemDetails extends ProblemDetails

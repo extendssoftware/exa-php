@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application\Http;
@@ -16,9 +17,9 @@ class HttpApplication extends AbstractApplication
      */
     public function __construct(
         private readonly MiddlewareChainInterface $chain,
-        private readonly RequestInterface         $request,
-        ServiceLocatorInterface                   $serviceLocator,
-        array                                     $modules
+        private readonly RequestInterface $request,
+        ServiceLocatorInterface $serviceLocator,
+        array $modules
     ) {
         parent::__construct($serviceLocator, $modules);
     }

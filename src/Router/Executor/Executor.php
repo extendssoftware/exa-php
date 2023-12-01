@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Executor;
@@ -11,6 +12,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ReflectionException;
 use ReflectionNamedType;
+
 use function array_key_exists;
 
 readonly class Executor implements ExecutorInterface

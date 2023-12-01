@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Factory;
@@ -17,9 +18,9 @@ class FirewallFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): FirewallInterface {
         $config = $serviceLocator->getContainer()->find(FirewallInterface::class, []);
         $firewall = new Firewall();

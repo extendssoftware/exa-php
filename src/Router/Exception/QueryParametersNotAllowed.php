@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Exception;
 
 use ExtendsSoftware\ExaPHP\Router\Route\RouteException;
 use LogicException;
+
 use function implode;
 
 class QueryParametersNotAllowed extends LogicException implements RouteException

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Command;
@@ -16,10 +17,10 @@ readonly class Command implements CommandInterface
      * @param mixed[]             $parameters
      */
     public function __construct(
-        private string              $name,
-        private string              $description,
+        private string $name,
+        private string $description,
         private DefinitionInterface $definition,
-        private ?array              $parameters = null
+        private ?array $parameters = null
     ) {
     }
 

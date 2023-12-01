@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Console\Input\Posix;
@@ -26,10 +27,12 @@ class PosixInput implements InputInterface
     {
         $stream = $stream ?: STDIN;
         if (!is_resource($stream)) {
-            throw new TypeError(sprintf(
-                'Stream must be of type resource, %s given.',
-                gettype($stream)
-            ));
+            throw new TypeError(
+                sprintf(
+                    'Stream must be of type resource, %s given.',
+                    gettype($stream)
+                )
+            );
         }
 
         $this->stream = $stream;

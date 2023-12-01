@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ProblemDetails;
@@ -13,7 +14,7 @@ class TooManyRequestsProblemDetails extends ProblemDetails
      * TooManyRequestsProblemDetails constructor.
      *
      * @param RequestInterface $request
-     * @param QuotaInterface   $quota
+     * @param QuotaInterface $quota
      */
     public function __construct(RequestInterface $request, QuotaInterface $quota)
     {

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Attribute;
@@ -16,9 +17,9 @@ readonly class Attribute implements AttributeInterface
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        private mixed                $value,
+        private mixed $value,
         private ?PermissionInterface $permission = null,
-        private ?PolicyInterface     $policy = null
+        private ?PolicyInterface $policy = null
     ) {
     }
 

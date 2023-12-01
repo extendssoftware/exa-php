@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Framework\ProblemDetails;
@@ -12,7 +13,7 @@ class AttributeNotFoundProblemDetails extends ProblemDetails
     /**
      * AttributeNotfoundProblemDetails constructor.
      *
-     * @param RequestInterface  $request
+     * @param RequestInterface $request
      * @param AttributeNotFound $exception
      */
     public function __construct(RequestInterface $request, AttributeNotFound $exception)

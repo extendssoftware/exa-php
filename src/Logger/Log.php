@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger;
@@ -18,10 +19,10 @@ class Log implements LogInterface
      * @param mixed[]                $metaData
      */
     public function __construct(
-        private string                      $message,
+        private string $message,
         private readonly ?PriorityInterface $priority = null,
-        private readonly ?DateTime          $datetime = null,
-        private ?array                      $metaData = []
+        private readonly ?DateTime $datetime = null,
+        private ?array $metaData = []
     ) {
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Route\Match;
@@ -24,7 +25,7 @@ interface RouteMatchInterface
     /**
      * Get parameter.
      *
-     * @param string $name
+     * @param string     $name
      * @param mixed|null $default
      *
      * @return mixed

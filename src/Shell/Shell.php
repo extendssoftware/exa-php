@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell;
@@ -41,9 +42,9 @@ class Shell implements ShellInterface
      */
     public function __construct(
         private readonly DescriptorInterface $descriptor,
-        private readonly SuggesterInterface  $suggester,
-        private readonly ParserInterface     $parser,
-        private readonly AboutInterface      $about
+        private readonly SuggesterInterface $suggester,
+        private readonly ParserInterface $parser,
+        private readonly AboutInterface $about
     ) {
         $this->definition = (new Definition())
             ->addOption(new Option('verbose', 'Be more verbose.', 'v', 'verbose', isMultiple: true))

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Identity;
@@ -14,7 +15,7 @@ readonly class Identity implements IdentityInterface
      */
     public function __construct(
         private mixed $identifier,
-        private bool  $isAuthenticated,
+        private bool $isAuthenticated,
         private array $attributes = []
     ) {
     }

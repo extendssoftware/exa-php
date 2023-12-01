@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Filter\Priority;
@@ -23,7 +24,7 @@ readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
      * @param ValidatorInterface|null $validator
      */
     public function __construct(
-        private ?PriorityInterface  $priority = null,
+        private ?PriorityInterface $priority = null,
         private ?ValidatorInterface $validator = null
     ) {
     }

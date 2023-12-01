@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Framework\Http\Middleware\Hateoas;
@@ -33,9 +34,9 @@ readonly class HateoasMiddleware implements MiddlewareInterface
      */
     public function __construct(
         private AuthorizerInterface $authorizer,
-        private ExpanderInterface   $expander,
+        private ExpanderInterface $expander,
         private SerializerInterface $serializer,
-        private RouterInterface     $router
+        private RouterInterface $router
     ) {
     }
 

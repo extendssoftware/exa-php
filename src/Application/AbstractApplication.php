@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application;
@@ -18,7 +19,7 @@ abstract class AbstractApplication implements ApplicationInterface
      */
     public function __construct(
         private readonly ServiceLocatorInterface $serviceLocator,
-        private readonly array                   $modules
+        private readonly array $modules
     ) {
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Factory;
@@ -21,9 +22,9 @@ class ShellFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): ShellInterface {
         /** @var DescriptorInterface $descriptor */
         $descriptor = $serviceLocator->getService(DescriptorInterface::class);

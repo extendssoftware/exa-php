@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Framework\ProblemDetails;
@@ -13,7 +14,7 @@ class LinkNotFoundProblemDetails extends ProblemDetails
      * LinkNotfoundProblemDetails constructor.
      *
      * @param RequestInterface $request
-     * @param LinkNotFound     $exception
+     * @param LinkNotFound $exception
      */
     public function __construct(RequestInterface $request, LinkNotFound $exception)
     {

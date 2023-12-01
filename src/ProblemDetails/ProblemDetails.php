@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ProblemDetails;
@@ -16,12 +17,12 @@ class ProblemDetails implements ProblemDetailsInterface
      * @param mixed[]|null $additional
      */
     public function __construct(
-        private readonly string  $type,
-        private readonly string  $title,
-        private readonly string  $detail,
-        private readonly int     $status,
+        private readonly string $type,
+        private readonly string $title,
+        private readonly string $detail,
+        private readonly int $status,
         private readonly ?string $instance = null,
-        private readonly ?array  $additional = null
+        private readonly ?array $additional = null
     ) {
     }
 

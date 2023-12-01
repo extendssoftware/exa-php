@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authorization\Framework\ServiceLocator\Factory;
@@ -17,9 +18,9 @@ class AuthorizerFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): AuthorizerInterface {
         $config = $serviceLocator->getContainer()->find(AuthorizerInterface::class, []);
         $authenticator = new Authorizer();

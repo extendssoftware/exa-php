@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
@@ -12,7 +13,7 @@ class InvalidRequestBodyProblemDetails extends ProblemDetails
     /**
      * InvalidRequestBodyProblemDetails constructor.
      *
-     * @param RequestInterface   $request
+     * @param RequestInterface $request
      * @param InvalidRequestBody $exception
      */
     public function __construct(RequestInterface $request, InvalidRequestBody $exception)

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
@@ -84,7 +85,7 @@ class ServiceLocator implements ServiceLocatorInterface
      * When a resolver is already registered for key, it will be overwritten.
      *
      * @param ResolverInterface $resolver
-     * @param string $key
+     * @param string            $key
      *
      * @return ServiceLocator
      */

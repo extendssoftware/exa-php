@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Parser\Posix;
@@ -51,8 +52,8 @@ class PosixParser implements ParserInterface
      */
     private function parseArguments(
         DefinitionInterface $definition,
-        array               $arguments,
-        bool                $strict
+        array $arguments,
+        bool $strict
     ): ParseResultInterface {
         $operandPosition = 0;
         $terminated = false;
@@ -189,9 +190,9 @@ class PosixParser implements ParserInterface
      */
     private function getOption(
         DefinitionInterface $definition,
-        string              $name,
-        bool                $long,
-        bool                $strict
+        string $name,
+        bool $long,
+        bool $strict
     ): ?OptionInterface {
         try {
             return $definition->getOption($name, $long);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Route;
@@ -20,11 +21,11 @@ readonly class Route implements RouteInterface
      * @param Method                            $method
      */
     public function __construct(
-        private string  $path,
-        private array   $validators = [],
-        private array   $parameters = [],
+        private string $path,
+        private array $validators = [],
+        private array $parameters = [],
         private ?string $name = null,
-        private Method  $method = Method::GET,
+        private Method $method = Method::GET,
     ) {
     }
 

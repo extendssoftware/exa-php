@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Link;
@@ -18,10 +19,10 @@ readonly class Link implements LinkInterface
      * @param PolicyInterface|null     $policy
      */
     public function __construct(
-        private UriInterface         $uri,
-        private bool                 $embeddable = false,
+        private UriInterface $uri,
+        private bool $embeddable = false,
         private ?PermissionInterface $permission = null,
-        private ?PolicyInterface     $policy = null
+        private ?PolicyInterface $policy = null
     ) {
     }
 

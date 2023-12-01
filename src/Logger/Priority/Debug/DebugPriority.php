@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Priority\Debug;
@@ -37,9 +38,9 @@ class DebugPriority implements PriorityInterface, StaticFactoryInterface
      * @inheritDoc
      */
     public static function factory(
-        string                  $key,
+        string $key,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): PriorityInterface {
         return new DebugPriority();
     }

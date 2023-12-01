@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authorization;
@@ -7,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+
 use function is_array;
 
 class Authorizer implements AuthorizerInterface

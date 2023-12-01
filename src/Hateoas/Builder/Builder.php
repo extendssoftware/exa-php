@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Builder;
@@ -17,6 +18,7 @@ use ExtendsSoftware\ExaPHP\Hateoas\Resource;
 use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
+
 use function is_array;
 
 class Builder implements BuilderInterface

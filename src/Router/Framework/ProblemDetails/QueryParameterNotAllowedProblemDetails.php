@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
@@ -6,6 +7,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
+
 use function implode;
 use function sprintf;
 
@@ -14,7 +16,7 @@ class QueryParameterNotAllowedProblemDetails extends ProblemDetails
     /**
      * QueryParameterNotAllowedProblemDetails constructor.
      *
-     * @param RequestInterface          $request
+     * @param RequestInterface $request
      * @param QueryParametersNotAllowed $exception
      */
     public function __construct(RequestInterface $request, QueryParametersNotAllowed $exception)

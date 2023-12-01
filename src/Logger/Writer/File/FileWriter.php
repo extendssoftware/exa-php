@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Writer\File;
@@ -34,9 +35,9 @@ class FileWriter extends AbstractWriter
      * @throws ServiceLocatorException
      */
     public static function factory(
-        string                  $key,
+        string $key,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): WriterInterface {
         $writer = new FileWriter(
         /** @phpstan-ignore-next-line */

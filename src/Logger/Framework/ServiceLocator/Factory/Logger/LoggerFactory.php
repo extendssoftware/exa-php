@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Factory\Logger;
@@ -18,9 +19,9 @@ class LoggerFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): LoggerInterface {
         $config = $serviceLocator->getContainer()->find(LoggerInterface::class, []);
         $logger = new Logger();

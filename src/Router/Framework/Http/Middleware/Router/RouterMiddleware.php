@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\Http\Middleware\Router;
@@ -21,6 +22,7 @@ use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\NotFoundProblemDetail
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterNotAllowedProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
+
 use function array_map;
 
 readonly class RouterMiddleware implements MiddlewareInterface
@@ -44,10 +46,16 @@ readonly class RouterMiddleware implements MiddlewareInterface
             $match = $this->router->route($request);
         } catch (MethodNotAllowed $exception) {
             return (new Response())
-                ->withHeader('Allow', implode(', ', array_map(
-                    fn(Method $method): string => $method->value,
-                    $exception->getAllowedMethods()
-                )))
+                ->withHeader(
+                    'Allow',
+                    implode(
+                        ', ',
+                        array_map(
+                            fn(Method $method): string => $method->value,
+                            $exception->getAllowedMethods()
+                        )
+                    )
+                )
                 ->withBody(
                     new MethodNotAllowedProblemDetails($request, $exception)
                 );

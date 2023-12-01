@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
@@ -11,7 +12,6 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Ramsey\Uuid\UuidFactory;
 use TypeError;
 
-use function str_ends_with;
 use function strlen;
 
 class Request implements RequestInterface, StaticFactoryInterface
@@ -292,10 +292,12 @@ class Request implements RequestInterface, StaticFactoryInterface
     public static function fromEnvironment(array $environment, mixed $stream): RequestInterface
     {
         if (!is_resource($stream)) {
-            throw new TypeError(sprintf(
-                'Stream must be of type resource, %s given.',
-                gettype($stream)
-            ));
+            throw new TypeError(
+                sprintf(
+                    'Stream must be of type resource, %s given.',
+                    gettype($stream)
+                )
+            );
         }
 
         $headers = [];

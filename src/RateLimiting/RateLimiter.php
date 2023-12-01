@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\RateLimiting;
@@ -9,6 +10,7 @@ use ExtendsSoftware\ExaPHP\RateLimiting\Algorithm\AlgorithmInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Quota\QuotaInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Rule\RuleInterface;
+
 use function is_array;
 
 class RateLimiter implements RateLimiterInterface

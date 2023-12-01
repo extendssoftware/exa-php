@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell\Definition\Option;
@@ -20,12 +21,12 @@ readonly class Option implements OptionInterface
      * @throws NoShortAndLongName When both short and long name are not given.
      */
     public function __construct(
-        private string  $name,
-        private string  $description,
+        private string $name,
+        private string $description,
         private ?string $short = null,
         private ?string $long = null,
-        private ?bool   $isFlag = null,
-        private ?bool   $isMultiple = null
+        private ?bool $isFlag = null,
+        private ?bool $isMultiple = null
     ) {
         if ($short === null && $long === null) {
             throw new NoShortAndLongName($name);

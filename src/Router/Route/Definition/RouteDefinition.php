@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Route\Definition;
@@ -17,8 +18,8 @@ readonly class RouteDefinition implements RouteDefinitionInterface
      * @param ReflectionMethod $reflectionMethod
      */
     public function __construct(
-        private RouteInterface   $route,
-        private ReflectionClass  $reflectionClass,
+        private RouteInterface $route,
+        private ReflectionClass $reflectionClass,
         private ReflectionMethod $reflectionMethod,
     ) {
     }

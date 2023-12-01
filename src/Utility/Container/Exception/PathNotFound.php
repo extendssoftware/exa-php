@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Container\Exception;
@@ -15,9 +16,11 @@ class PathNotFound extends InvalidArgumentException implements ContainerExceptio
      */
     public function __construct(string $path)
     {
-        parent::__construct(sprintf(
-            'Path "%s" in container can not be found.',
-            $path
-        ));
+        parent::__construct(
+            sprintf(
+                'Path "%s" in container can not be found.',
+                $path
+            )
+        );
     }
 }

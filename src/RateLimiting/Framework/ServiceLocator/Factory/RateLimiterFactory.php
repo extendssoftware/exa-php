@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Factory;
@@ -18,9 +19,9 @@ class RateLimiterFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): RateLimiterInterface {
         $config = $serviceLocator->getContainer()->find(RateLimiterInterface::class, []);
 

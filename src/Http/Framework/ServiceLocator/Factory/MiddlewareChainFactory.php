@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Factory;
@@ -17,9 +18,9 @@ class MiddlewareChainFactory implements ServiceFactoryInterface
      * @throws ServiceLocatorException
      */
     public function createService(
-        string                  $class,
+        string $class,
         ServiceLocatorInterface $serviceLocator,
-        array                   $extra = null
+        array $extra = null
     ): MiddlewareChainInterface {
         $config = $serviceLocator->getContainer()->find(MiddlewareChainInterface::class, []);
         $chain = new MiddlewareChain();

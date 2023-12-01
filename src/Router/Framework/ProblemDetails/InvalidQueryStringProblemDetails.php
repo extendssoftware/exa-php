@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
@@ -12,7 +13,7 @@ class InvalidQueryStringProblemDetails extends ProblemDetails
     /**
      * InvalidQueryStringProblemDetails constructor.
      *
-     * @param RequestInterface   $request
+     * @param RequestInterface $request
      * @param InvalidQueryString $exception
      */
     public function __construct(RequestInterface $request, InvalidQueryString $exception)

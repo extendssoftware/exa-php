@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Console\Output\Posix;
@@ -21,15 +22,17 @@ class PosixOutput implements OutputInterface
      */
     public function __construct(
         private readonly FormatterInterface $formatter = new AnsiFormatter(),
-        private int                         $verbosity = 0,
-        private mixed                       $stream = null
+        private int $verbosity = 0,
+        private mixed $stream = null
     ) {
         $stream = $stream ?: STDOUT;
         if (!is_resource($stream)) {
-            throw new TypeError(sprintf(
-                'Stream must be of type resource, %s given.',
-                gettype($stream)
-            ));
+            throw new TypeError(
+                sprintf(
+                    'Stream must be of type resource, %s given.',
+                    gettype($stream)
+                )
+            );
         }
 
         $this->stream = $stream;
