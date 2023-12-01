@@ -84,6 +84,7 @@ class InvokableResolverTest extends TestCase
     {
         $resolver = InvokableResolver::factory([
             'A' => Invokable::class,
+            Invokable::class,
         ]);
 
         $this->assertIsObject($resolver);

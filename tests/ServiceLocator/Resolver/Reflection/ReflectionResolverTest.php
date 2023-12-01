@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection;
@@ -94,6 +95,7 @@ class ReflectionResolverTest extends TestCase
     {
         $resolver = ReflectionResolver::factory([
             'A' => ReflectionA::class,
+            ReflectionB::class,
         ]);
 
         $this->assertIsObject($resolver);

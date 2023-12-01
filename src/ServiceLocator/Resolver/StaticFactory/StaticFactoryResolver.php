@@ -10,6 +10,8 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\Exception\Servi
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Throwable;
 
+use function is_string;
+
 class StaticFactoryResolver implements ResolverInterface
 {
     /**
@@ -26,6 +28,10 @@ class StaticFactoryResolver implements ResolverInterface
     {
         $resolver = new StaticFactoryResolver();
         foreach ($services as $key => $service) {
+            if (!is_string($key)) {
+                $key = $service;
+            }
+
             $resolver->addStaticFactory($key, $service);
         }
 

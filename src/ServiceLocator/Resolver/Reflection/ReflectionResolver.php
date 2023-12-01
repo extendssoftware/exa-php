@@ -13,6 +13,8 @@ use ReflectionException;
 use ReflectionMethod;
 use ReflectionNamedType;
 
+use function is_string;
+
 class ReflectionResolver implements ResolverInterface
 {
     /**
@@ -29,6 +31,10 @@ class ReflectionResolver implements ResolverInterface
     {
         $resolver = new ReflectionResolver();
         foreach ($services as $key => $class) {
+            if (!is_string($key)) {
+                $key = $class;
+            }
+
             $resolver->addReflection($key, $class);
         }
 

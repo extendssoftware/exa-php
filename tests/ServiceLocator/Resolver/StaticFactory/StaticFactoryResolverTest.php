@@ -70,6 +70,7 @@ class StaticFactoryResolverTest extends TestCase
     {
         $resolver = StaticFactoryResolver::factory([
             StaticFactory::class => StaticFactory::class,
+            StaticFactory::class,
         ]);
 
         $this->assertIsObject($resolver);

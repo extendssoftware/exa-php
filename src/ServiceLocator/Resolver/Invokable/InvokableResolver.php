@@ -24,6 +24,10 @@ class InvokableResolver implements ResolverInterface
     {
         $resolver = new InvokableResolver();
         foreach ($services as $key => $invokable) {
+            if (!is_string($key)) {
+                $key = $invokable;
+            }
+
             $resolver->addInvokable($key, $invokable);
         }
 
