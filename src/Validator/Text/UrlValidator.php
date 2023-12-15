@@ -62,7 +62,8 @@ class UrlValidator extends AbstractValidator
             $scheme = $parse['scheme'] ?? 'http';
             if (!in_array(strtolower($scheme), array_map('strtolower', $this->allowedSchemes))) {
                 return $this->getInvalidResult(self::SCHEME_NOT_ALLOWED, [
-                    'scheme' => $scheme
+                    'scheme' => $scheme,
+                    'schemes' => $this->allowedSchemes,
                 ]);
             }
         }
@@ -77,7 +78,7 @@ class UrlValidator extends AbstractValidator
     {
         return [
             self::NO_URL => 'Value {{value}} is not an valid URL.',
-            self::SCHEME_NOT_ALLOWED => 'Scheme {{scheme}} is not allowed for URL.'
+            self::SCHEME_NOT_ALLOWED => 'Scheme {{scheme}} is not allowed, only {{schemes}} is/are allowed for URL.'
         ];
     }
 }
