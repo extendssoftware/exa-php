@@ -9,6 +9,12 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function array_map;
+use function filter_var;
+use function in_array;
+use function parse_url;
+use function strtolower;
+
 class UrlValidator extends AbstractValidator
 {
     /**
@@ -17,6 +23,22 @@ class UrlValidator extends AbstractValidator
      * @const string
      */
     public const NO_URL = 'noUrl';
+
+    /**
+     * When scheme is not allowed.
+     *
+     * @const string
+     */
+    public const SCHEME_NOT_ALLOWED = 'schemeNotAllowed';
+
+    /**
+     * UrlValidator constructor.
+     *
+     * @param array<string>|null $allowedSchemes
+     */
+    public function __construct(private readonly ?array $allowedSchemes = null)
+    {
+    }
 
     /**
      * @inheritDoc
@@ -29,13 +51,23 @@ class UrlValidator extends AbstractValidator
             return $result;
         }
 
-        if (filter_var($value, FILTER_VALIDATE_URL)) {
-            return $this->getValidResult();
+        if (!filter_var($value, FILTER_VALIDATE_URL)) {
+            return $this->getInvalidResult(self::NO_URL, [
+                'value' => $value,
+            ]);
         }
 
-        return $this->getInvalidResult(self::NO_URL, [
-            'value' => $value,
-        ]);
+        if ($this->allowedSchemes) {
+            $parse = parse_url($value);
+            $scheme = $parse['scheme'] ?? 'http';
+            if (!in_array(strtolower($scheme), array_map('strtolower', $this->allowedSchemes))) {
+                return $this->getInvalidResult(self::SCHEME_NOT_ALLOWED, [
+                    'scheme' => $scheme
+                ]);
+            }
+        }
+
+        return $this->getValidResult();
     }
 
     /**
@@ -45,6 +77,7 @@ class UrlValidator extends AbstractValidator
     {
         return [
             self::NO_URL => 'Value {{value}} is not an valid URL.',
+            self::SCHEME_NOT_ALLOWED => 'Scheme {{scheme}} is not allowed for URL.'
         ];
     }
 }
