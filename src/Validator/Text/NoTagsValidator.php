@@ -16,7 +16,7 @@ class NoTagsValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TAGS = 'tags';
+    public const TAGS_NOT_ALLOWED = 'tagsNotAllowed';
 
     /**
      * @inheritDoc
@@ -33,7 +33,7 @@ class NoTagsValidator extends AbstractValidator
             return $this->getValidResult();
         }
 
-        return $this->getInvalidResult(self::TAGS);
+        return $this->getInvalidResult(self::TAGS_NOT_ALLOWED);
     }
 
     /**
@@ -42,7 +42,7 @@ class NoTagsValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::TAGS => 'Text can not contain tags.',
+            self::TAGS_NOT_ALLOWED => 'Text can not contain HTML and PHP tags.',
         ];
     }
 }
