@@ -6,41 +6,17 @@ namespace ExtendsSoftware\ExaPHP\Validator\Result\Invalid;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
-class InvalidResult implements ResultInterface
+readonly class InvalidResult implements ResultInterface
 {
     /**
-     * Error code.
-     *
-     * @var string
-     */
-    private string $code;
-
-    /**
-     * Error message.
-     *
-     * @var string
-     */
-    private string $message;
-
-    /**
-     * Message parameters.
-     *
-     * @var mixed[]
-     */
-    private array $parameters;
-
-    /**
-     * Violation constructor.
+     * InvalidResult constructor.
      *
      * @param string               $code
      * @param string               $message
      * @param array<string, mixed> $parameters
      */
-    public function __construct(string $code, string $message, array $parameters)
+    public function __construct(private string $code, private string $message, private array $parameters)
     {
-        $this->code = $code;
-        $this->message = $message;
-        $this->parameters = $parameters;
     }
 
     /**
