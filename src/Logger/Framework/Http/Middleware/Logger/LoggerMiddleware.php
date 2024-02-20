@@ -35,7 +35,7 @@ readonly class LoggerMiddleware implements MiddlewareInterface
             $this->logger->log(
                 $throwable->getMessage(),
                 new ErrorPriority(),
-                $throwable
+                throwable: $throwable
             );
 
             throw $throwable;

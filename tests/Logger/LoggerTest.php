@@ -62,7 +62,7 @@ class LoggerTest extends TestCase
         $logger
             ->addWriter($writer)
             ->addDecorator($decorator)
-            ->log('Error!', $priority, $throwable, ['foo' => 'bar']);
+            ->log('Error!', $priority, ['foo' => 'bar'], $throwable);
     }
 
     /**
@@ -96,6 +96,6 @@ class LoggerTest extends TestCase
             ->addWriter($writer, true)
             ->addWriter($writer)
             ->addWriter($writer)
-            ->log('Error!', $priority, $throwable, ['foo' => 'bar']);
+            ->log('Error!', $priority, ['foo' => 'bar'], $throwable);
     }
 }

@@ -24,8 +24,8 @@ class Log implements LogInterface
         private string $message,
         private readonly ?PriorityInterface $priority = null,
         private readonly ?DateTime $datetime = null,
-        private ?Throwable $throwable = null,
         private ?array $metaData = [],
+        private ?Throwable $throwable = null,
     ) {
     }
 
@@ -56,17 +56,17 @@ class Log implements LogInterface
     /**
      * @inheritDoc
      */
-    public function getThrowable(): ?Throwable
+    public function getMetaData(): array
     {
-        return $this->throwable;
+        return $this->metaData ?? [];
     }
 
     /**
      * @inheritDoc
      */
-    public function getMetaData(): array
+    public function getThrowable(): ?Throwable
     {
-        return $this->metaData ?? [];
+        return $this->throwable;
     }
 
     /**
@@ -76,17 +76,6 @@ class Log implements LogInterface
     {
         $log = clone $this;
         $log->message = $message;
-
-        return $log;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function withThrowable(Throwable $throwable = null): LogInterface
-    {
-        $log = clone $this;
-        $log->throwable = $throwable;
 
         return $log;
     }
@@ -109,6 +98,17 @@ class Log implements LogInterface
     {
         $log = clone $this;
         $log->metaData[$key] = $value;
+
+        return $log;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withThrowable(Throwable $throwable = null): LogInterface
+    {
+        $log = clone $this;
+        $log->throwable = $throwable;
 
         return $log;
     }

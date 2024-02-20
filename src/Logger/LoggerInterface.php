@@ -16,15 +16,15 @@ interface LoggerInterface
      *
      * @param string                 $message
      * @param PriorityInterface|null $priority
-     * @param Throwable|null         $throwable
      * @param mixed[]|null           $metaData
+     * @param Throwable|null         $throwable
      *
      * @return LoggerInterface
      */
     public function log(
         string $message,
         PriorityInterface $priority = null,
-        Throwable $throwable = null,
         array $metaData = null,
+        Throwable $throwable = null,
     ): LoggerInterface;
 }

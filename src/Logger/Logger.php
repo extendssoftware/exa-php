@@ -33,10 +33,10 @@ class Logger implements LoggerInterface
     public function log(
         string $message,
         PriorityInterface $priority = null,
-        Throwable $throwable = null,
         array $metaData = null,
+        Throwable $throwable = null,
     ): LoggerInterface {
-        $log = new Log($message, $priority, null, $throwable, $metaData);
+        $log = new Log($message, $priority, null, $metaData, $throwable);
         $log = $this->decorate($log);
 
         foreach ($this->writers as $writer) {
