@@ -11,11 +11,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Added support for InvokableResolver, ReflectionResolver and StaticFactoryResolver to dismiss the service key for a
   shorter config notation. The service value will be used as the key.
-- Added UrlValidator construct parameter to restrict allowed URL schemes.
+- Added method to LogInterface to get throwable in case of a caught throwable.
 
 ### Changed
-
-- Changed NoTagsValidator template code and message.
 
 ### Deprecated
 

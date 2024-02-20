@@ -31,13 +31,14 @@ readonly class LoggerMiddleware implements MiddlewareInterface
     {
         try {
             return $chain->proceed($request);
-        } catch (Throwable $exception) {
+        } catch (Throwable $throwable) {
             $this->logger->log(
-                $exception->getMessage(),
-                new ErrorPriority()
+                $throwable->getMessage(),
+                new ErrorPriority(),
+                $throwable
             );
 
-            throw $exception;
+            throw $throwable;
         }
     }
 }

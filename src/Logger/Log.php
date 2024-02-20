@@ -7,6 +7,7 @@ namespace ExtendsSoftware\ExaPHP\Logger;
 use DateTime;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
+use Throwable;
 
 class Log implements LogInterface
 {
@@ -17,12 +18,14 @@ class Log implements LogInterface
      * @param PriorityInterface|null $priority
      * @param DateTime|null          $datetime
      * @param mixed[]                $metaData
+     * @param Throwable|null         $throwable
      */
     public function __construct(
         private string $message,
         private readonly ?PriorityInterface $priority = null,
         private readonly ?DateTime $datetime = null,
-        private ?array $metaData = []
+        private ?Throwable $throwable = null,
+        private ?array $metaData = [],
     ) {
     }
 
@@ -53,6 +56,14 @@ class Log implements LogInterface
     /**
      * @inheritDoc
      */
+    public function getThrowable(): ?Throwable
+    {
+        return $this->throwable;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getMetaData(): array
     {
         return $this->metaData ?? [];
@@ -65,6 +76,17 @@ class Log implements LogInterface
     {
         $log = clone $this;
         $log->message = $message;
+
+        return $log;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withThrowable(Throwable $throwable = null): LogInterface
+    {
+        $log = clone $this;
+        $log->throwable = $throwable;
 
         return $log;
     }
