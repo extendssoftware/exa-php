@@ -9,10 +9,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added support for InvokableResolver, ReflectionResolver and StaticFactoryResolver to dismiss the service key for a
-  shorter config notation. The service value will be used as the key.
-- Added method to LogInterface to get throwable in case of a caught throwable.
-
 ### Changed
 
 ### Deprecated
@@ -22,6 +18,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.2.1] - 2024-03-05
+
+### Added
+
+- Added support for InvokableResolver, ReflectionResolver and StaticFactoryResolver to dismiss the service key for a
+  shorter config notation. The service value will be used as the key.
+- Added method to LogInterface to get throwable in case of a caught throwable.
 
 ## [0.2.0] - 2023-11-09
 
@@ -112,7 +116,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.2.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.2.1...HEAD
+
+[0.2.1]: https://github.com/extendssoftware/exa-php/commits/0.2.1
 
 [0.2.0]: https://github.com/extendssoftware/exa-php/commits/0.2.0
 
