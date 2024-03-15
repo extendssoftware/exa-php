@@ -37,7 +37,7 @@ class PropertiesValidator extends AbstractValidator
     private array $properties = [];
 
     /**
-     * ObjectPropertiesValidator constructor.
+     * PropertiesValidator constructor.
      *
      * @param array<string, ValidatorInterface>|null $properties
      * @param bool|null                              $strict
