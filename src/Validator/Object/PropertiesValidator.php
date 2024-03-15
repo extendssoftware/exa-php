@@ -16,7 +16,7 @@ use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 class PropertiesValidator extends AbstractValidator
 {
     /**
-     * WHen property is not allowed.
+     * When property is not allowed.
      *
      * @var string
      */
