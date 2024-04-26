@@ -48,7 +48,7 @@ class ConsoleApplicationTest extends TestCase
             ->willReturn($command);
 
         $result
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getData')
             ->willReturn([
                 'foo' => 'bar',
@@ -75,7 +75,9 @@ class ConsoleApplicationTest extends TestCase
         $serviceLocator
             ->expects($this->once())
             ->method('getService')
-            ->with(stdClass::class)
+            ->with(stdClass::class, [
+                'foo' => 'bar',
+            ])
             ->willReturn($task);
 
         /**
@@ -245,7 +247,7 @@ class ConsoleApplicationTest extends TestCase
             ->willReturn($command);
 
         $result
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('getData')
             ->willReturn([
                 'foo' => 'bar',
@@ -274,7 +276,9 @@ class ConsoleApplicationTest extends TestCase
         $serviceLocator
             ->expects($this->once())
             ->method('getService')
-            ->with(stdClass::class)
+            ->with(stdClass::class, [
+                'foo' => 'bar',
+            ])
             ->willReturn($task);
 
         /**

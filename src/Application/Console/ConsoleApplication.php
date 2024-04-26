@@ -51,7 +51,7 @@ class ConsoleApplication extends AbstractApplication
             try {
                 $instance = $this
                     ->getServiceLocator()
-                    ->getService($task);
+                    ->getService($task, $result->getData());
             } catch (ServiceLocatorException $exception) {
                 throw new TaskNotFound($command, $exception);
             }
