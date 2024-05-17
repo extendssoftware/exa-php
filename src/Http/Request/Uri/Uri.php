@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request\Uri;
 
+use function array_key_exists;
+use function http_build_query;
+use function is_array;
+use function parse_str;
+use function parse_url;
+use function strtok;
+
 class Uri implements UriInterface
 {
     /**
@@ -332,6 +339,7 @@ class Uri implements UriInterface
         return $this->getScheme() . '://' . $this->getAuthority() . $this->toRelative();
     }
 
+
     /**
      * Create URI from environment variables.
      *
@@ -356,6 +364,48 @@ class Uri implements UriInterface
 
         if (array_key_exists('PHP_AUTH_PW', $environment)) {
             $uri = $uri->withPass($environment['PHP_AUTH_PW']);
+        }
+
+        return $uri;
+    }
+
+    /**
+     * Create URI from string.
+     *
+     * @param string $uri
+     *
+     * @return UriInterface
+     */
+    public static function fromString(string $uri): UriInterface
+    {
+        $parts = parse_url($uri);
+
+        $uri = new Uri();
+        if (is_array($parts) === true) {
+            foreach ($parts as $name => $value) {
+                $uri = match ($name) {
+                    'scheme' => $uri->withScheme($value),
+                    'host' => $uri->withHost($value),
+                    'port' => $uri->withPort($value),
+                    'user' => $uri->withUser($value),
+                    'pass' => $uri->withPass($value),
+                    'query' => $uri->withQuery(
+                        (function () use ($value): array {
+                            parse_str($value, $result);
+
+                            return $result;
+                        })()
+                    ),
+                    'path' => $uri->withPath($value),
+                    'fragment' => $uri->withFragment(
+                        (function () use ($value): array {
+                            parse_str($value, $result);
+
+                            return $result;
+                        })()
+                    ),
+                };
+            }
         }
 
         return $uri;

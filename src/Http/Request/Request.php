@@ -12,7 +12,21 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Ramsey\Uuid\UuidFactory;
 use TypeError;
 
+use function array_key_exists;
+use function fclose;
+use function fopen;
+use function gettype;
+use function is_array;
+use function is_resource;
+use function is_string;
+use function json_decode;
+use function sprintf;
+use function str_replace;
+use function stream_get_contents;
 use function strlen;
+use function strtolower;
+use function substr;
+use function ucwords;
 
 class Request implements RequestInterface, StaticFactoryInterface
 {
@@ -261,8 +275,12 @@ class Request implements RequestInterface, StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public function withUri(UriInterface $uri): RequestInterface
+    public function withUri(UriInterface|string $uri): RequestInterface
     {
+        if (is_string($uri)) {
+            $uri = Uri::fromString($uri);
+        }
+
         $clone = clone $this;
         $clone->uri = $uri;
 

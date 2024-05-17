@@ -9,10 +9,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+- Added static method Uri::fromString() to get UriInterface from string.
+
 ### Changed
 
 - Changed NoTagsValidator template code and message.
-- Parsed shell command data will now be passed to ServiceLocator::getService() as extra parameters. 
+- Parsed shell command data will now be passed to ServiceLocator::getService() as extra parameters.
+- Changed Request::withUri() method to support URI string notation.
 
 ### Deprecated
 

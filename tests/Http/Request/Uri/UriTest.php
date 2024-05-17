@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request\Uri;
@@ -271,5 +272,26 @@ class UriTest extends TestCase
         $uri = Uri::fromEnvironment($environment);
 
         $this->assertSame('https://extends:framework@www.extends.nl:443/foo/bar', $uri->toAbsolute());
+    }
+
+    /**
+     * From string.
+     *
+     * Test that string will be parsed to a Uri instance.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri::fromString()
+     */
+    public function testFromString(): void
+    {
+        $uri = Uri::fromString('https://extends:framework@www.extends.nl:443/foo/bar?qux=quux#bar=baz');
+
+        $this->assertSame('https', $uri->getScheme());
+        $this->assertSame('extends', $uri->getUser());
+        $this->assertSame('framework', $uri->getPass());
+        $this->assertSame('www.extends.nl', $uri->getHost());
+        $this->assertSame(443, $uri->getPort());
+        $this->assertSame('/foo/bar', $uri->getPath());
+        $this->assertSame(['qux' => 'quux'], $uri->getQuery());
+        $this->assertSame(['bar' => 'baz'], $uri->getFragment());
     }
 }

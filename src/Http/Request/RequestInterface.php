@@ -185,9 +185,9 @@ interface RequestInterface
     /**
      * Return new instance with uri.
      *
-     * @param UriInterface $uri
+     * @param UriInterface|string $uri String will be parsed to an UriInterface instance.
      *
      * @return RequestInterface
      */
-    public function withUri(UriInterface $uri): RequestInterface;
+    public function withUri(UriInterface|string $uri): RequestInterface;
 }

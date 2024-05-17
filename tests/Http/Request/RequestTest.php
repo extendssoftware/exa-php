@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Request;
@@ -143,6 +144,11 @@ class RequestTest extends TestCase
         $this->assertSame('qux', $request->getHeader('bar', 'qux'));
         $this->assertSame('quux', $request->getServerParameter('baz', 'quux'));
         $this->assertSame('quux', $request->getAttribute('bar', 'quux'));
+
+        // Test that a string URI will be converted to a UriInterface instance.
+        $request = $request->withUri('https://extends:framework@www.extends.nl:443/foo/bar?qux=quux#bar=baz');
+
+        $this->assertInstanceOf(UriInterface::class, $request->getUri());
     }
 
     /**
