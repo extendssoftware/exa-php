@@ -25,14 +25,14 @@ class Uri implements UriInterface
      *
      * @var string|null
      */
-    private ?string $user;
+    private ?string $user = null;
 
     /**
      * Password of the URI.
      *
      * @var string|null
      */
-    private ?string $pass;
+    private ?string $pass = null;
 
     /**
      * Host of the URI.
@@ -46,7 +46,7 @@ class Uri implements UriInterface
      *
      * @var int|null
      */
-    private ?int $port;
+    private ?int $port = null;
 
     /**
      * Path of the URI.
@@ -338,7 +338,6 @@ class Uri implements UriInterface
     {
         return $this->getScheme() . '://' . $this->getAuthority() . $this->toRelative();
     }
-
 
     /**
      * Create URI from environment variables.

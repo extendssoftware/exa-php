@@ -23,6 +23,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Fixed
 
+- Added default value to nullable Uri properties. 
+
 ### Security
 
 ## [0.2.1] - 2024-03-05
