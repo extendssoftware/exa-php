@@ -71,7 +71,7 @@ class LengthValidatorTest extends TestCase
      */
     public function testBinary(): void
     {
-        $randomBytes = base64_decode('L3zw8k6jFccVGXr6mqci4Q=='); // random_bytes(16);
+        $randomBytes = base64_decode('+QYgucK5ozyJoGuXI05TKg=='); // random_bytes(16);
 
         $validator = new LengthValidator(16, 16);
         $result = $validator->validate($randomBytes);
