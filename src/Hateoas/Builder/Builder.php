@@ -218,10 +218,8 @@ class Builder implements BuilderInterface
         foreach ($links as $rel => $link) {
             if (is_array($link)) {
                 $authorized[$rel] = $this->getAuthorizedLinks($link);
-            } else {
-                if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
-                    $authorized[$rel] = $link;
-                }
+            } elseif ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
+                $authorized[$rel] = $link;
             }
         }
 
