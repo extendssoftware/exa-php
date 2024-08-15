@@ -316,7 +316,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
 
         if ($this->frameworkEnabled) {
             foreach ($this->frameworkConfigs as $frameworkConfig) {
-                $frameworkConfig = new $frameworkConfig;
+                $frameworkConfig = new $frameworkConfig();
                 if ($frameworkConfig instanceof LoaderInterface) {
                     $this->addConfig($frameworkConfig);
                 }
