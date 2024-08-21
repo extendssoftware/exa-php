@@ -5,13 +5,39 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Logger;
 
 use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Alert\AlertPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Emergency\EmergencyPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Notice\NoticePriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Warning\WarningPriority;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
 class LoggerTest extends TestCase
 {
+    /**
+     * /**
+     *  Data provider for log priority and method.
+     *
+     * @return array[]
+     */
+    public static function priorityProvider(): array
+    {
+        return [
+            [EmergencyPriority::class, 'emerg'],
+            [AlertPriority::class, 'alert'],
+            [CriticalPriority::class, 'crit'],
+            [ErrorPriority::class, 'error'],
+            [WarningPriority::class, 'warning'],
+            [NoticePriority::class, 'notice'],
+            [InformationalPriority::class, 'info'],
+        ];
+    }
+
     /**
      * Log.
      *
@@ -63,6 +89,56 @@ class LoggerTest extends TestCase
             ->addWriter($writer)
             ->addDecorator($decorator)
             ->log('Error!', $priority, ['foo' => 'bar'], $throwable);
+    }
+
+    /**
+     * Priority methods.
+     *
+     * Test that message will be logged with predefined priority and metadata.
+     *
+     * @dataProvider priorityProvider()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::addWriter()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::__construct()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::getWriter()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::mustInterrupt()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::log()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::emerg()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::alert()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::crit()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::error()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::warning()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::notice()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::info()
+     */
+    public function testPriorityMethods(string $subclass, string $method): void
+    {
+        $throwable = $this->createMock(Throwable::class);
+
+        $writer = $this->createMock(WriterInterface::class);
+        $writer
+            ->expects($this->once())
+            ->method('write')
+            ->with(
+                $this->callback(function (LogInterface $log) use ($subclass, $throwable) {
+                    $this->assertSame('Message!', $log->getMessage());
+                    $this->assertInstanceOf($subclass, $log->getPriority());
+                    $this->assertSame($throwable, $log->getThrowable());
+                    $this->assertSame(['foo' => 'bar'], $log->getMetaData());
+
+                    return true;
+                })
+            );
+
+        /**
+         * @var WriterInterface   $writer
+         * @var PriorityInterface $priority
+         * @var Throwable         $throwable
+         */
+        $logger = new Logger();
+        $logger->addWriter($writer);
+
+        $result = call_user_func_array([$logger, $method], ['Message!', ['foo' => 'bar'], $throwable]);
+        $this->assertInstanceOf(LoggerInterface::class, $result);
     }
 
     /**

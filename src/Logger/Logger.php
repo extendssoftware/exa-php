@@ -5,7 +5,14 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Logger;
 
 use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Alert\AlertPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Emergency\EmergencyPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Notice\NoticePriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Warning\WarningPriority;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterException;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use Throwable;
@@ -50,6 +57,69 @@ class Logger implements LoggerInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function emerg(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new EmergencyPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function alert(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new AlertPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function crit(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new CriticalPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function error(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new ErrorPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function warning(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new WarningPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function notice(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new NoticePriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function info(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new InformationalPriority(), $metaData, $throwable);
     }
 
     /**

@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Added
 
 - Added static method Uri::fromString() to get UriInterface from string.
+- Added LoggerInterface proxy methods for each priority.
 
 ### Changed
 
@@ -23,7 +24,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Fixed
 
-- Added default value to nullable Uri properties. 
+- Added default value to nullable Uri properties.
 
 ### Security
 
