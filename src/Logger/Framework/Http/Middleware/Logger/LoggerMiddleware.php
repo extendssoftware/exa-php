@@ -9,7 +9,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
-use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use Throwable;
 
 readonly class LoggerMiddleware implements MiddlewareInterface
@@ -32,11 +31,7 @@ readonly class LoggerMiddleware implements MiddlewareInterface
         try {
             return $chain->proceed($request);
         } catch (Throwable $throwable) {
-            $this->logger->log(
-                $throwable->getMessage(),
-                new ErrorPriority(),
-                throwable: $throwable
-            );
+            $this->logger->emerg($throwable->getMessage(), throwable: $throwable);
 
             throw $throwable;
         }

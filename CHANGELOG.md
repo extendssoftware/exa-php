@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed NoTagsValidator template code and message.
 - Parsed shell command data will now be passed to ServiceLocator::getService() as extra parameters.
 - Changed Request::withUri() method to support URI string notation.
+- Changed the log priority from ERROR (3) to EMERG (0) when an exception is caught.
 
 ### Deprecated
 

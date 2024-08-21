@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Framework\Http\Middleware\Logger;
@@ -8,7 +9,6 @@ use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
-use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
@@ -36,9 +36,9 @@ class LoggerMiddlewareTest extends TestCase
             ->willReturn($this->createMock(ResponseInterface::class));
 
         /**
-         * @var LoggerInterface $logger
+         * @var LoggerInterface          $logger
          * @var MiddlewareChainInterface $chain
-         * @var RequestInterface $request
+         * @var RequestInterface         $request
          */
         $middleware = new LoggerMiddleware($logger);
         $response = $middleware->process($request, $chain);
@@ -61,10 +61,11 @@ class LoggerMiddlewareTest extends TestCase
         $logger = $this->createMock(LoggerInterface::class);
         $logger
             ->expects($this->once())
-            ->method('log')
+            ->method('emerg')
             ->with(
                 'Fancy exception message!',
-                $this->isInstanceOf(ErrorPriority::class)
+                null,
+                $throwable
             );
 
         $request = $this->createMock(RequestInterface::class);
@@ -77,9 +78,9 @@ class LoggerMiddlewareTest extends TestCase
             ->willThrowException($throwable);
 
         /**
-         * @var LoggerInterface $logger
+         * @var LoggerInterface          $logger
          * @var MiddlewareChainInterface $chain
-         * @var RequestInterface $request
+         * @var RequestInterface         $request
          */
         $middleware = new LoggerMiddleware($logger);
 
