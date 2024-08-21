@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Console\Input\Posix;
 use ExtendsSoftware\ExaPHP\Console\Input\InputInterface;
 use TypeError;
 
+use function fopen;
+
 class PosixInput implements InputInterface
 {
     /**
@@ -25,7 +27,7 @@ class PosixInput implements InputInterface
      */
     public function __construct($stream = null)
     {
-        $stream = $stream ?: STDIN;
+        $stream = $stream ?: fopen('php://input', 'r');
         if (!is_resource($stream)) {
             throw new TypeError(
                 sprintf(

@@ -25,7 +25,7 @@ class PosixOutput implements OutputInterface
         private int $verbosity = 0,
         private mixed $stream = null
     ) {
-        $stream = $stream ?: STDOUT;
+        $stream = $stream ?: fopen('php://output', 'w');
         if (!is_resource($stream)) {
             throw new TypeError(
                 sprintf(
