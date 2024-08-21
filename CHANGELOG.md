@@ -18,6 +18,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Parsed shell command data will now be passed to ServiceLocator::getService() as extra parameters.
 - Changed Request::withUri() method to support URI string notation.
 - Changed the log priority from ERROR (3) to EMERG (0) when an exception is caught.
+- Replaced STDIN and STDOUT with fopen() function and PHP_SAPI constant.
 
 ### Deprecated
 

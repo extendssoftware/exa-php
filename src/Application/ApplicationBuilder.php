@@ -152,7 +152,7 @@ class ApplicationBuilder implements ApplicationBuilderInterface
                 ApplicationInterface::class,
                 [
                     'modules' => $this->modules,
-                    'console' => defined('STDIN'),
+                    'console' => PHP_SAPI === 'cli',
                 ]
             );
 

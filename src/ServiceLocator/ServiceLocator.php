@@ -76,7 +76,7 @@ class ServiceLocator implements ServiceLocatorInterface
      */
     public function isConsole(): bool
     {
-        return defined('STDIN');
+        return PHP_SAPI === 'cli';
     }
 
     /**
