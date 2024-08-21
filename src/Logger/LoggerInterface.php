@@ -104,4 +104,15 @@ interface LoggerInterface
      * @return LoggerInterface
      */
     public function info(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface;
+
+    /**
+     * Log DEBUG (7) message.
+     *
+     * @param string         $message
+     * @param mixed[]|null   $metaData
+     * @param Throwable|null $throwable
+     *
+     * @return LoggerInterface
+     */
+    public function debug(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface;
 }

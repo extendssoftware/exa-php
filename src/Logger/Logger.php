@@ -7,6 +7,7 @@ namespace ExtendsSoftware\ExaPHP\Logger;
 use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Alert\AlertPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Debug\DebugPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Emergency\EmergencyPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
@@ -120,6 +121,15 @@ class Logger implements LoggerInterface
     public function info(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new InformationalPriority(), $metaData, $throwable);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws WriterException
+     */
+    public function debug(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    {
+        return $this->log($message, new DebugPriority(), $metaData, $throwable);
     }
 
     /**

@@ -7,6 +7,7 @@ namespace ExtendsSoftware\ExaPHP\Logger;
 use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Alert\AlertPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Critical\CriticalPriority;
+use ExtendsSoftware\ExaPHP\Logger\Priority\Debug\DebugPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Emergency\EmergencyPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Error\ErrorPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
@@ -35,6 +36,7 @@ class LoggerTest extends TestCase
             [WarningPriority::class, 'warning'],
             [NoticePriority::class, 'notice'],
             [InformationalPriority::class, 'info'],
+            [DebugPriority::class, 'debug'],
         ];
     }
 
@@ -109,6 +111,7 @@ class LoggerTest extends TestCase
      * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::warning()
      * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::notice()
      * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::info()
+     * @covers       \ExtendsSoftware\ExaPHP\Logger\Logger::debug()
      */
     public function testPriorityMethods(string $subclass, string $method): void
     {
