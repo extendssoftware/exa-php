@@ -27,7 +27,7 @@ class PosixInput implements InputInterface
      */
     public function __construct($stream = null)
     {
-        $stream = $stream ?: fopen('php://input', 'r');
+        $stream = $stream ?: fopen('php://stdin', 'r');
         if (!is_resource($stream)) {
             throw new TypeError(
                 sprintf(
