@@ -28,6 +28,7 @@ use function filter_var;
 use function implode;
 use function intval;
 use function is_array;
+use function is_string;
 use function parse_str;
 use function parse_url;
 use function str_starts_with;
@@ -211,18 +212,23 @@ class Router implements RouterInterface
      */
     private function parseUrl(string $url): array
     {
-        $parsed = parse_url($url);
+        $parsedUrl = parse_url($url);
         $return = [
             'path' => [],
             'query' => [],
         ];
 
-        if (is_array($parsed)) {
-            if (isset($parsed['path'])) {
-                $return['path'] = explode('/', trim($parsed['path'], '/'));
+        if (is_array($parsedUrl)) {
+            if (isset($parsedUrl['path'])) {
+                $return['path'] = explode('/', trim($parsedUrl['path'], '/'));
             }
-            if (isset($parsed['query'])) {
-                parse_str($parsed['query'], $return['query']);
+            if (isset($parsedUrl['query'])) {
+                parse_str($parsedUrl['query'], $parsedQuery);
+                foreach ($parsedQuery as $key => $value) {
+                    if (is_string($key)) {
+                        $return['query'][$key] = $value;
+                    }
+                }
             }
         }
 
