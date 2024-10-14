@@ -11,6 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Added static method Uri::fromString() to get UriInterface from string.
 - Added LoggerInterface proxy methods for each priority.
+- Added RouterInterface::assemble() parameter $keepUnresolved to indicate that a missing path parameter must be ignored.
 
 ### Changed
 

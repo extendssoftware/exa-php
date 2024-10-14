@@ -137,7 +137,7 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function assemble(string $name, array $parameters = null): RequestInterface
+    public function assemble(string $name, array $parameters = null, bool $keepUnresolved = null): RequestInterface
     {
         foreach ($this->definitions as $definition) {
             $route = $definition->getRoute();
@@ -152,7 +152,11 @@ class Router implements RouterInterface
                 if (str_starts_with($part, ':')) {
                     $parameter = substr($part, 1);
                     if (!isset($parameters[$parameter])) {
-                        throw new PathParameterMissing($parameter);
+                        if ($keepUnresolved) {
+                            $parameters[$parameter] = $part;
+                        } else {
+                            throw new PathParameterMissing($parameter);
+                        }
                     }
 
                     $path[] = $parameters[$parameter];
@@ -173,7 +177,7 @@ class Router implements RouterInterface
                 ->withUri(
                     (new Uri())
                         ->withPath('/' . implode('/', $path))
-                        ->withQuery($query)
+                        ->withQuery($query),
                 );
         }
 
@@ -243,7 +247,7 @@ class Router implements RouterInterface
                     'false' => false,
                     default => $value
                 };
-            }
+            },
         ]);
     }
 }

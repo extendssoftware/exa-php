@@ -59,7 +59,8 @@ class RouterTest extends TestCase
             ->method('getMethod')
             ->willReturn(Method::GET);
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn(['permission' => 'route/blogs/blog/comments']);
 
@@ -205,7 +206,8 @@ class RouterTest extends TestCase
             ->method('getPath')
             ->willReturn('/blogs/:blogId');
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -269,7 +271,8 @@ class RouterTest extends TestCase
             ->method('getPath')
             ->willReturn('/blogs');
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -344,7 +347,8 @@ class RouterTest extends TestCase
             ->method('getPath')
             ->willReturn('/blogs?limit');
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -409,7 +413,8 @@ class RouterTest extends TestCase
             ->method('getPath')
             ->willReturn('/blogs?limit');
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -486,11 +491,13 @@ class RouterTest extends TestCase
             ->method('getPath')
             ->willReturn('/blogs');
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getMethod')
             ->willReturn(Method::GET);
 
-        $route->expects($this->once())
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -700,6 +707,57 @@ class RouterTest extends TestCase
         $this->assertInstanceOf(RequestInterface::class, $request);
         $this->assertSame(Method::GET, $request->getMethod());
         $this->assertSame('/blogs/1234/comments?page=2&limit=20', $request->getUri()->toRelative());
+    }
+
+    /**
+     * Assemble keep unresolved
+     *
+     * Test that route will be assembled for given name and parameters and an unresolved parameter will not throw an
+     * exception.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::addDefinition()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::assemble()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::parseUrl()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Router::sanitizeValue()
+     */
+    public function testAssembleKeepUnresolved(): void
+    {
+        $route = $this->createMock(RouteInterface::class);
+        $route
+            ->expects($this->once())
+            ->method('getName')
+            ->willReturn('blogs/blog');
+
+        $route
+            ->expects($this->once())
+            ->method('getPath')
+            ->willReturn('/blogs/:blogId/comments?page=1&limit=10');
+
+        $route
+            ->expects($this->once())
+            ->method('getMethod')
+            ->willReturn(Method::GET);
+
+        $definition = $this->createMock(RouteDefinitionInterface::class);
+        $definition
+            ->expects($this->once())
+            ->method('getRoute')
+            ->willReturn($route);
+
+        /**
+         * @var RouteDefinitionInterface $definition
+         */
+        $router = new Router();
+        $request = $router
+            ->addDefinition($definition)
+            ->assemble('blogs/blog', [
+                'limit' => 20,
+                'page' => 2,
+            ], true);
+
+        $this->assertInstanceOf(RequestInterface::class, $request);
+        $this->assertSame(Method::GET, $request->getMethod());
+        $this->assertSame('/blogs/:blogId/comments?page=2&limit=20', $request->getUri()->toRelative());
     }
 
     /**

@@ -22,11 +22,12 @@ interface RouterInterface
     /**
      * Assemble route into request.
      *
-     * @param string                         $name       The name of the route.
-     * @param array<string, string|int>|null $parameters The parameters for the route.
+     * @param string                         $name           The name of the route.
+     * @param array<string, string|int>|null $parameters     The parameters for the route.
+     * @param bool|null                      $keepUnresolved Keep path parameter when missing.
      *
      * @return RequestInterface
      * @throws RouterException
      */
-    public function assemble(string $name, array $parameters = null): RequestInterface;
+    public function assemble(string $name, array $parameters = null, bool $keepUnresolved = null): RequestInterface;
 }
