@@ -135,7 +135,7 @@ class Builder implements BuilderInterface
             $this->getProjectedAttributes(
             /** @phpstan-ignore-next-line */
                 $this->getAuthorizedAttributes($this->attributes),
-                array_filter($this->toProject, 'is_string')
+                array_filter($this->toProject, 'is_string'),
             ),
             $this->getBuiltResources(
                 $request,
@@ -144,10 +144,10 @@ class Builder implements BuilderInterface
                     $this->getExpandedResources(
                         $links,
                         array_filter($this->toExpand, 'is_string'),
-                        $request
-                    )
-                )
-            )
+                        $request,
+                    ),
+                ),
+            ),
         );
 
         $this->reset();
@@ -284,14 +284,9 @@ class Builder implements BuilderInterface
      */
     private function getAuthorizedAttributes(array $attributes): array
     {
-        $authorized = [];
-        foreach ($attributes as $property => $attribute) {
-            if ($this->isAuthorized($attribute->getPermission(), $attribute->getPolicy())) {
-                $authorized[$property] = $attribute;
-            }
-        }
-
-        return $authorized;
+        return array_filter($attributes, function ($attribute) {
+            return $this->isAuthorized($attribute->getPermission(), $attribute->getPolicy());
+        });
     }
 
     /**

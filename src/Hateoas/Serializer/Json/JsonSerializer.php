@@ -19,7 +19,7 @@ class JsonSerializer implements SerializerInterface
     public function serialize(ResourceInterface $resource): string
     {
         return json_encode(
-            $this->toArray($resource)
+            $this->toArray($resource),
         ) ?: '';
     }
 
@@ -38,9 +38,9 @@ class JsonSerializer implements SerializerInterface
                 [
                     '_links' => $this->serializeLinks($resource->getLinks()),
                     '_embedded' => $this->serializeResources($resource->getResources()),
-                ]
+                ],
             ),
-            $this->serializeAttributes($resource->getAttributes())
+            $this->serializeAttributes($resource->getAttributes()),
         );
     }
 
@@ -101,11 +101,8 @@ class JsonSerializer implements SerializerInterface
      */
     private function serializeAttributes(array $attributes): array
     {
-        $serialized = [];
-        foreach ($attributes as $property => $attribute) {
-            $serialized[$property] = $attribute->getValue();
-        }
-
-        return $serialized;
+        return array_map(function ($attribute) {
+            return $attribute->getValue();
+        }, $attributes);
     }
 }
