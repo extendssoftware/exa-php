@@ -13,16 +13,15 @@ readonly class RouteDefinition implements RouteDefinitionInterface
     /**
      * RouteDefinition constructor.
      *
-     * @param RouteInterface   $route
-     * @param ReflectionClass  $reflectionClass
-     * @param ReflectionMethod $reflectionMethod
+     * @param RouteInterface          $route
+     * @param ReflectionClass<object> $reflectionClass
+     * @param ReflectionMethod        $reflectionMethod
      */
     public function __construct(
         private RouteInterface $route,
         private ReflectionClass $reflectionClass,
         private ReflectionMethod $reflectionMethod,
-    ) {
-    }
+    ) {}
 
     /**
      * @inheritDoc

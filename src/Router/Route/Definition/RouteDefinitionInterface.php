@@ -20,7 +20,7 @@ interface RouteDefinitionInterface
     /**
      * Get reflection class.
      *
-     * @return ReflectionClass
+     * @return ReflectionClass<object>
      */
     public function getReflectionClass(): ReflectionClass;
 

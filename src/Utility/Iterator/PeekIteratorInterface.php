@@ -6,6 +6,9 @@ namespace ExtendsSoftware\ExaPHP\Utility\Iterator;
 
 use Iterator;
 
+/**
+ * @extends Iterator<int, mixed>
+ */
 interface PeekIteratorInterface extends Iterator
 {
     /**
