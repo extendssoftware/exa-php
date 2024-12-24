@@ -15,7 +15,7 @@ class IdenticalValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_IDENTICAL = 'notIdentical';
+    public const string NOT_IDENTICAL = 'notIdentical';
 
     /**
      * IdenticalValidator constructor.

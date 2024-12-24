@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Utility\Container\Exception;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class PathNotFound extends InvalidArgumentException implements ContainerException
 {
     /**

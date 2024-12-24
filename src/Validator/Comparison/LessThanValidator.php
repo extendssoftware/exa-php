@@ -15,7 +15,7 @@ class LessThanValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_LESS_THAN = 'notLessThan';
+    public const string NOT_LESS_THAN = 'notLessThan';
 
     /**
      * IdenticalValidator constructor.

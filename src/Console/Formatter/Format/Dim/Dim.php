@@ -11,7 +11,7 @@ class Dim implements FormatInterface
     /**
      * @const string
      */
-    public const NAME = 'Dim';
+    public const string NAME = 'Dim';
 
     /**
      * @inheritDoc

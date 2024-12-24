@@ -18,7 +18,7 @@ class ControlValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_CONTROL = 'notControl';
+    public const string NOT_CONTROL = 'notControl';
 
     /**
      * @inheritDoc

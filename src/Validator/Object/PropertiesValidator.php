@@ -13,6 +13,9 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
+use function array_key_exists;
+use function property_exists;
+
 class PropertiesValidator extends AbstractValidator
 {
     /**
@@ -20,14 +23,14 @@ class PropertiesValidator extends AbstractValidator
      *
      * @var string
      */
-    public const PROPERTY_NOT_ALLOWED = 'propertyNotAllowed';
+    public const string PROPERTY_NOT_ALLOWED = 'propertyNotAllowed';
 
     /**
      * When property is missing.
      *
      * @var string
      */
-    public const PROPERTY_MISSING = 'propertyMissing';
+    public const string PROPERTY_MISSING = 'propertyMissing';
 
     /**
      * Properties.

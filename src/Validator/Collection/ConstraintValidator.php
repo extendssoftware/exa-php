@@ -9,6 +9,9 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\IterableValidator;
 
+use function count;
+use function in_array;
+
 class ConstraintValidator extends AbstractValidator
 {
     /**
@@ -16,7 +19,7 @@ class ConstraintValidator extends AbstractValidator
      *
      * @var string
      */
-    public const NOT_ALLOWED_VALUES = 'notAllowedValues';
+    public const string NOT_ALLOWED_VALUES = 'notAllowedValues';
 
     /**
      * ConstraintValidator constructor.

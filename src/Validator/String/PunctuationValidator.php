@@ -18,7 +18,7 @@ class PunctuationValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_PUNCTUATION = 'notPunctuation';
+    public const string NOT_PUNCTUATION = 'notPunctuation';
 
     /**
      * @inheritDoc

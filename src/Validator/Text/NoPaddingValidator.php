@@ -18,7 +18,7 @@ class NoPaddingValidator extends AbstractValidator
      *
      * @var string
      */
-    public const PADDING_NOT_ALLOWED = 'paddingNotAllowed';
+    public const string PADDING_NOT_ALLOWED = 'paddingNotAllowed';
 
     /**
      * @inheritDoc

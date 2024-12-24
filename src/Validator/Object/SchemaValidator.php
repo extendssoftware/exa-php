@@ -12,6 +12,8 @@ use ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use ReflectionObject;
 
+use function is_int;
+
 class SchemaValidator extends AbstractValidator
 {
     /**
@@ -19,21 +21,21 @@ class SchemaValidator extends AbstractValidator
      *
      * @var string
      */
-    public const INVALID_OBJECT_PROPERTY = 'invalidObjectProperty';
+    public const string INVALID_OBJECT_PROPERTY = 'invalidObjectProperty';
 
     /**
      * When property value is invalid.
      *
      * @var string
      */
-    public const INVALID_PROPERTY_VALUE = 'invalidPropertyValue';
+    public const string INVALID_PROPERTY_VALUE = 'invalidPropertyValue';
 
     /**
      * When there are more properties than allowed.
      *
      * @var string
      */
-    public const PROPERTY_NOT_ALLOWED = 'tooManyProperties';
+    public const string PROPERTY_NOT_ALLOWED = 'tooManyProperties';
 
     /**
      * SchemaValidator constructor.

@@ -16,7 +16,7 @@ class NotEmptyValidator extends AbstractValidator
      *
      * @var string
      */
-    public const EMPTY = 'empty';
+    public const string EMPTY = 'empty';
 
     /**
      * @inheritDoc

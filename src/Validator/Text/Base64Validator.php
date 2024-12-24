@@ -23,28 +23,28 @@ class Base64Validator extends AbstractValidator
      *
      * @const string
      */
-    public const INVALID_CHARACTERS = 'invalidCharacters';
+    public const string INVALID_CHARACTERS = 'invalidCharacters';
 
     /**
      * When padding is not allowed.
      *
      * @const string
      */
-    public const PADDING_NOT_ALLOWED = 'paddingNotAllowed';
+    public const string PADDING_NOT_ALLOWED = 'paddingNotAllowed';
 
     /**
      * When failed to decode string.
      *
      * @const string
      */
-    public const DECODE_FAILED = 'decodeFailed';
+    public const string DECODE_FAILED = 'decodeFailed';
 
     /**
      * When encoded string not the same as initial string.
      *
      * @const string
      */
-    public const ENCODE_FAILED = 'encodeFailed';
+    public const string ENCODE_FAILED = 'encodeFailed';
 
     /**
      * Base64Validator constructor.

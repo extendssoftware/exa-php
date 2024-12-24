@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 
+use const PHP_SAPI;
+
 class ServiceLocator implements ServiceLocatorInterface
 {
     /**

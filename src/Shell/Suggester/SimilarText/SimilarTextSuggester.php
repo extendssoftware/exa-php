@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Shell\Suggester\SimilarText;
 use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 
+use function similar_text;
+
 readonly class SimilarTextSuggester implements SuggesterInterface
 {
     /**

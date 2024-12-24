@@ -7,6 +7,13 @@ namespace ExtendsSoftware\ExaPHP\Application\Http\Renderer;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use Generator;
 
+use function flush;
+use function header;
+use function http_response_code;
+use function implode;
+use function is_array;
+use function sprintf;
+
 class Renderer implements RendererInterface
 {
     /**

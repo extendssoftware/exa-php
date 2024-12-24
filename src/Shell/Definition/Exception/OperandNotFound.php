@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Shell\Definition\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Shell\Definition\DefinitionException;
 
+use function sprintf;
+
 class OperandNotFound extends Exception implements DefinitionException
 {
     /**

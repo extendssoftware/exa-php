@@ -11,7 +11,7 @@ class White implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'White';
+    public const string NAME = 'White';
 
     /**
      * @inheritDoc

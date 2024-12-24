@@ -18,7 +18,7 @@ class PrintableValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_PRINTABLE = 'notPrintable';
+    public const string NOT_PRINTABLE = 'notPrintable';
 
     /**
      * @inheritDoc

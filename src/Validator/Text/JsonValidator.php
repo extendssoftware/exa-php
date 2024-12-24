@@ -8,9 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
-use JsonException;
 
-use function json_decode;
+use function json_last_error_msg;
+use function json_validate;
 
 class JsonValidator extends AbstractValidator
 {
@@ -19,7 +19,7 @@ class JsonValidator extends AbstractValidator
      *
      * @const string
      */
-    public const DECODE_FAILED = 'decodeFailed';
+    public const string DECODE_FAILED = 'decodeFailed';
 
     /**
      * @inheritDoc
@@ -32,11 +32,10 @@ class JsonValidator extends AbstractValidator
             return $result;
         }
 
-        try {
-            json_decode($value, flags: JSON_THROW_ON_ERROR);
-        } catch (JsonException $exception) {
+        $valid = json_validate($value);
+        if (!$valid) {
             return $this->getInvalidResult(self::DECODE_FAILED, [
-                'reason' => $exception->getMessage(),
+                'reason' => json_last_error_msg(),
             ]);
         }
 

@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Logger\Writer\File\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Logger\Writer\File\FileWriterException;
 
+use function sprintf;
+
 class FileWriterFailed extends Exception implements FileWriterException
 {
     /**

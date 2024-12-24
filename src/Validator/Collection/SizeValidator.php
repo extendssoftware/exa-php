@@ -9,6 +9,9 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\ArrayValidator;
 
+use function count;
+use function is_int;
+
 class SizeValidator extends AbstractValidator
 {
     /**
@@ -16,14 +19,14 @@ class SizeValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TOO_FEW = 'tooFew';
+    public const string TOO_FEW = 'tooFew';
 
     /**
      * When there are too many items.
      *
      * @var string
      */
-    public const TOO_MANY = 'tooMany';
+    public const string TOO_MANY = 'tooMany';
 
     /**
      * SizeValidator constructor.

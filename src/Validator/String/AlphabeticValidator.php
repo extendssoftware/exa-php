@@ -18,7 +18,7 @@ class AlphabeticValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_ALPHABETIC = 'notAlphabetic';
+    public const string NOT_ALPHABETIC = 'notAlphabetic';
 
     /**
      * @inheritDoc

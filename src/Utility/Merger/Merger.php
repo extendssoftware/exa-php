@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Merger;
 
+use function array_is_list;
+use function array_merge;
+use function array_unique;
+use function is_array;
+
+use const SORT_REGULAR;
+
 class Merger implements MergerInterface
 {
     /**

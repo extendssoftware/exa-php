@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function in_array;
+
 class InArrayValidator extends AbstractValidator
 {
     /**
@@ -15,7 +17,7 @@ class InArrayValidator extends AbstractValidator
      *
      * @var string
      */
-    public const NOT_IN_ARRAY = 'notInArray';
+    public const string NOT_IN_ARRAY = 'notInArray';
 
     /**
      * InArrayValidator constructor.

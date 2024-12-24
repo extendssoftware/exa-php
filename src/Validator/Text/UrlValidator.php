@@ -15,6 +15,8 @@ use function in_array;
 use function parse_url;
 use function strtolower;
 
+use const FILTER_VALIDATE_URL;
+
 class UrlValidator extends AbstractValidator
 {
     /**
@@ -22,14 +24,14 @@ class UrlValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NO_URL = 'noUrl';
+    public const string NO_URL = 'noUrl';
 
     /**
      * When scheme is not allowed.
      *
      * @const string
      */
-    public const SCHEME_NOT_ALLOWED = 'schemeNotAllowed';
+    public const string SCHEME_NOT_ALLOWED = 'schemeNotAllowed';
 
     /**
      * UrlValidator constructor.

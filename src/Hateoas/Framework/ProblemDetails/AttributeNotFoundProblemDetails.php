@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\AttributeNotFound;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 
+use function sprintf;
+
 class AttributeNotFoundProblemDetails extends ProblemDetails
 {
     /**

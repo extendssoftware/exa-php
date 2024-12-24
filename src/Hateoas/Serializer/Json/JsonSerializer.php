@@ -10,6 +10,13 @@ use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Serializer\SerializerInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_values;
+use function is_array;
+use function json_encode;
+
 class JsonSerializer implements SerializerInterface
 {
     /**

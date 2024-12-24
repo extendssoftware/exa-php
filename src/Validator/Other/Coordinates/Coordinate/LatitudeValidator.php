@@ -16,7 +16,7 @@ class LatitudeValidator extends AbstractValidator
      *
      * @var string
      */
-    public const LATITUDE_OUT_OF_BOUND = 'latitudeOutOfBound';
+    public const string LATITUDE_OUT_OF_BOUND = 'latitudeOutOfBound';
 
     /**
      * Minimal latitude value.

@@ -15,6 +15,8 @@ use ExtendsSoftware\ExaPHP\Shell\ShellResultInterface;
 use ExtendsSoftware\ExaPHP\Shell\Task\TaskException;
 use ExtendsSoftware\ExaPHP\Shell\Task\TaskInterface;
 
+use function array_slice;
+
 class ConsoleApplication extends AbstractApplication
 {
     /**

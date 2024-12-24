@@ -10,6 +10,13 @@ use ExtendsSoftware\ExaPHP\Console\Input\InputInterface;
 use ExtendsSoftware\ExaPHP\Console\Output\OutputInterface;
 use ExtendsSoftware\ExaPHP\Console\Prompt\PromptInterface;
 
+use function array_map;
+use function implode;
+use function in_array;
+use function is_string;
+use function sprintf;
+use function strtoupper;
+
 readonly class MultipleChoicePrompt implements PromptInterface
 {
     /**

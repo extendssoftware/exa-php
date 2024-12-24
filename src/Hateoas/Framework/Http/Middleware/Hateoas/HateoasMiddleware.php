@@ -22,6 +22,8 @@ use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
+use function mb_strlen;
+
 readonly class HateoasMiddleware implements MiddlewareInterface
 {
     /**

@@ -8,6 +8,8 @@ use Exception;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolverException;
 use Throwable;
 
+use function sprintf;
+
 class ServiceCreateFailed extends Exception implements FactoryResolverException
 {
     /**

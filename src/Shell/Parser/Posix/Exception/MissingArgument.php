@@ -8,6 +8,8 @@ use Exception;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\OptionInterface;
 use ExtendsSoftware\ExaPHP\Shell\Parser\ParserException;
 
+use function sprintf;
+
 class MissingArgument extends Exception implements ParserException
 {
     /**

@@ -15,7 +15,7 @@ class GreaterThanValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_GREATER_THAN = 'notGreaterThan';
+    public const string NOT_GREATER_THAN = 'notGreaterThan';
 
     /**
      * GreaterThanValidator constructor.

@@ -11,7 +11,7 @@ class LightCyan implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'LightCyan';
+    public const string NAME = 'LightCyan';
 
     /**
      * @inheritDoc

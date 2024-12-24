@@ -11,7 +11,7 @@ class LightRed implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'LightRed';
+    public const string NAME = 'LightRed';
 
     /**
      * @inheritDoc

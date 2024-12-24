@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\InvokableResolverException;
 
+use function sprintf;
+
 class NonExistingClass extends Exception implements InvokableResolverException
 {
     /**

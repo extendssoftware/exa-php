@@ -24,6 +24,7 @@ use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
 
 use function array_map;
+use function implode;
 
 readonly class RouterMiddleware implements MiddlewareInterface
 {

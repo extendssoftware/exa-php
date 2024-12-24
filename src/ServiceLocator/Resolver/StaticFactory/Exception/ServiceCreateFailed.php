@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryRe
 use RuntimeException;
 use Throwable;
 
+use function sprintf;
+
 class ServiceCreateFailed extends RuntimeException implements StaticFactoryResolverException
 {
     /**

@@ -9,6 +9,10 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_IP;
+
 class IpAddressValidator extends AbstractValidator
 {
     /**
@@ -16,7 +20,7 @@ class IpAddressValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_IP_ADDRESS = 'notIpAddress';
+    public const string NOT_IP_ADDRESS = 'notIpAddress';
 
     /**
      * @inheritDoc

@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Router\Exception;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class PathParameterMissing extends InvalidArgumentException implements RouteException
 {
     /**

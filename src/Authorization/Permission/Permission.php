@@ -6,6 +6,15 @@ namespace ExtendsSoftware\ExaPHP\Authorization\Permission;
 
 use ExtendsSoftware\ExaPHP\Authorization\Permission\Exception\InvalidPermissionNotation;
 
+use function array_intersect;
+use function array_slice;
+use function count;
+use function explode;
+use function in_array;
+use function is_array;
+use function is_string;
+use function preg_match;
+
 class Permission implements PermissionInterface
 {
     /**

@@ -16,6 +16,8 @@ use ExtendsSoftware\ExaPHP\Shell\Parser\ParserException;
 use ExtendsSoftware\ExaPHP\Shell\Parser\ParserInterface;
 use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 
+use function array_shift;
+
 class Shell implements ShellInterface
 {
     /**

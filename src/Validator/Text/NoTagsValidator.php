@@ -9,6 +9,8 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function strip_tags;
+
 class NoTagsValidator extends AbstractValidator
 {
     /**
@@ -16,7 +18,7 @@ class NoTagsValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TAGS_NOT_ALLOWED = 'tagsNotAllowed';
+    public const string TAGS_NOT_ALLOWED = 'tagsNotAllowed';
 
     /**
      * @inheritDoc

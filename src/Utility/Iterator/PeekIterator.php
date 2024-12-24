@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Iterator;
 
+use function abs;
+use function array_key_exists;
+use function array_values;
+
 class PeekIterator implements PeekIteratorInterface
 {
     /**

@@ -11,7 +11,7 @@ class UrlValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that an valid URL will validate.
+     * Test that a valid URL will validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UrlValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UrlValidator::validate()

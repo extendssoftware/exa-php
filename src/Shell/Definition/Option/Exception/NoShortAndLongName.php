@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Shell\Definition\Option\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\OptionException;
 
+use function sprintf;
+
 class NoShortAndLongName extends Exception implements OptionException
 {
     /**

@@ -16,7 +16,7 @@ class FalseValidator extends AbstractValidator
      *
      * @var string
      */
-    public const NOT_FALSE = 'notFalse';
+    public const string NOT_FALSE = 'notFalse';
 
     /**
      * @inheritDoc

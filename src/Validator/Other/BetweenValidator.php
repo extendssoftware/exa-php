@@ -10,6 +10,8 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
+use function is_null;
+
 class BetweenValidator extends AbstractValidator
 {
     /**
@@ -17,28 +19,28 @@ class BetweenValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TOO_LOW = 'tooLow';
+    public const string TOO_LOW = 'tooLow';
 
     /**
      * When value is too low or same as min.
      *
      * @var string
      */
-    public const TOO_LOW_INCLUSIVE = 'tooLowInclusive';
+    public const string TOO_LOW_INCLUSIVE = 'tooLowInclusive';
 
     /**
      * When value is too high.
      *
      * @var string
      */
-    public const TOO_HIGH = 'tooHigh';
+    public const string TOO_HIGH = 'tooHigh';
 
     /**
      * When value is too high or same as max.
      *
      * @var string
      */
-    public const TOO_HIGH_INCLUSIVE = 'tooHighInclusive';
+    public const string TOO_HIGH_INCLUSIVE = 'tooHighInclusive';
 
     /**
      * Internal validator to validate value type, defaults to IntegerValidator.

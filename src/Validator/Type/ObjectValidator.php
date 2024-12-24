@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+use function is_object;
+
 class ObjectValidator extends AbstractValidator
 {
     /**
@@ -15,7 +18,7 @@ class ObjectValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_OBJECT = 'notObject';
+    public const string NOT_OBJECT = 'notObject';
 
     /**
      * @inheritDoc

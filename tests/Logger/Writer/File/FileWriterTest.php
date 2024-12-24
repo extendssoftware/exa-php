@@ -1,9 +1,10 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Writer\File;
 
-use DateTime;
+use DateTimeImmutable;
 use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
@@ -42,7 +43,7 @@ class FileWriterTest extends TestCase
             ->method('getValue')
             ->willReturn(2);
 
-        $dateTime = $this->createMock(DateTime::class);
+        $dateTime = $this->createMock(DateTimeImmutable::class);
         $dateTime
             ->expects($this->once())
             ->method('format')
@@ -77,8 +78,8 @@ class FileWriterTest extends TestCase
             ->willReturn(false);
 
         /**
-         * @var LogInterface       $log
-         * @var FilterInterface    $filter
+         * @var LogInterface    $log
+         * @var FilterInterface $filter
          */
         $writer = new FileWriter($root->url() . '/log');
         $result = $writer
@@ -123,7 +124,7 @@ class FileWriterTest extends TestCase
             ->method('getValue')
             ->willReturn(2);
 
-        $dateTime = $this->createMock(DateTime::class);
+        $dateTime = $this->createMock(DateTimeImmutable::class);
         $dateTime
             ->expects($this->once())
             ->method('format')
@@ -158,8 +159,8 @@ class FileWriterTest extends TestCase
             ->willReturn(false);
 
         /**
-         * @var LogInterface       $log
-         * @var FilterInterface    $filter
+         * @var LogInterface    $log
+         * @var FilterInterface $filter
          */
         $writer = new FileWriter(
             $root->url() . '/log',
@@ -234,8 +235,10 @@ class FileWriterTest extends TestCase
     public function testWriteFailed(): void
     {
         $this->expectException(FileWriterFailed::class);
-        $this->expectExceptionMessage('Failed to write message "2017-10-13T14:50:28+00:00 CRIT (2): Exceptional error! '
-            . '{"foo":"bar"}" to file "vfs://root/log/'. date('Y-m-d') . '.log".');
+        $this->expectExceptionMessage(
+            'Failed to write message "2017-10-13T14:50:28+00:00 CRIT (2): Exceptional error! '
+            . '{"foo":"bar"}" to file "vfs://root/log/' . date('Y-m-d') . '.log".'
+        );
 
         $root = vfsStream::setup();
 
@@ -250,7 +253,7 @@ class FileWriterTest extends TestCase
             ->method('getValue')
             ->willReturn(2);
 
-        $dateTime = $this->createMock(DateTime::class);
+        $dateTime = $this->createMock(DateTimeImmutable::class);
         $dateTime
             ->expects($this->once())
             ->method('format')

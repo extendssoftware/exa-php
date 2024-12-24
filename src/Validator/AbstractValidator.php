@@ -9,6 +9,8 @@ use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 
+use function array_key_exists;
+
 abstract class AbstractValidator implements ValidatorInterface
 {
     /**

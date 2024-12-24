@@ -9,6 +9,8 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class TaskNotFound extends InvalidArgumentException implements ConsoleException
 {
     /**

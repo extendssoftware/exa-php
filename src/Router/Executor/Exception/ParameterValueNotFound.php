@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Router\Executor\Exception;
 use ExtendsSoftware\ExaPHP\Router\Executor\ExecutorException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class ParameterValueNotFound extends InvalidArgumentException implements ExecutorException
 {
     /**

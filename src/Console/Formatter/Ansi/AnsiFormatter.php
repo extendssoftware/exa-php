@@ -32,6 +32,15 @@ use ExtendsSoftware\ExaPHP\Console\Formatter\Format\Reverse\Reverse;
 use ExtendsSoftware\ExaPHP\Console\Formatter\Format\Underlined\Underlined;
 use ExtendsSoftware\ExaPHP\Console\Formatter\FormatterInterface;
 
+use function array_diff;
+use function array_merge;
+use function implode;
+use function is_int;
+use function sprintf;
+use function str_pad;
+use function str_repeat;
+use function substr;
+
 class AnsiFormatter implements FormatterInterface
 {
     /**

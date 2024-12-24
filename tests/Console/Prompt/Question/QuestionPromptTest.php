@@ -12,7 +12,7 @@ class QuestionPromptTest extends TestCase
     /**
      * Prompt.
      *
-     * Test that question prompt ('How are you doing?') will be prompted ('How are you doing?: ').
+     * Test that question prompt ("How are you doing?") will be prompted ("How are you doing?: ").
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\Question\QuestionPrompt::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\Question\QuestionPrompt::prompt()
@@ -45,7 +45,7 @@ class QuestionPromptTest extends TestCase
     /**
      * Required.
      *
-     * Test that prompt will show again after not allowed answer (null) until valid answer ('Very good!').
+     * Test that prompt will show again after not allowed answer (null) until valid answer ("Very good!").
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\Question\QuestionPrompt::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\Question\QuestionPrompt::prompt()

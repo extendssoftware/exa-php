@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\Exception
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryResolverException;
 use RuntimeException;
 
+use function sprintf;
+
 class InvalidStaticFactory extends RuntimeException implements StaticFactoryResolverException
 {
     /**

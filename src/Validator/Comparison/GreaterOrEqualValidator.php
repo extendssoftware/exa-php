@@ -15,7 +15,7 @@ class GreaterOrEqualValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_GREATER_OR_EQUAL = 'notGreaterOrEqual';
+    public const string NOT_GREATER_OR_EQUAL = 'notGreaterOrEqual';
 
     /**
      * GreaterOrEqualValidator constructor.

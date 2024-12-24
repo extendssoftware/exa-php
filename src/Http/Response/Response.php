@@ -7,6 +7,9 @@ namespace ExtendsSoftware\ExaPHP\Http\Response;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 
+use function array_key_exists;
+use function is_array;
+
 class Response implements ResponseInterface, StaticFactoryInterface
 {
     /**

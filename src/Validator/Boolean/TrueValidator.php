@@ -16,7 +16,7 @@ class TrueValidator extends AbstractValidator
      *
      * @var string
      */
-    public const NOT_TRUE = 'notTrue';
+    public const string NOT_TRUE = 'notTrue';
 
     /**
      * @inheritDoc

@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Utility\Flattener;
 
+use function array_merge;
 use function get_object_vars;
+use function is_array;
 use function is_object;
 
 class Flattener implements FlattenerInterface

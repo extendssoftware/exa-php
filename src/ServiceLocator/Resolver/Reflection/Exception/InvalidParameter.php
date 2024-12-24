@@ -8,6 +8,8 @@ use Exception;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolverException;
 use ReflectionParameter;
 
+use function sprintf;
+
 class InvalidParameter extends Exception implements ReflectionResolverException
 {
     /**

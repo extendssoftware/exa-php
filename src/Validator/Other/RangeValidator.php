@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 
 use function is_scalar;
+use function sprintf;
 
 class RangeValidator extends AbstractValidator
 {
@@ -19,14 +20,14 @@ class RangeValidator extends AbstractValidator
      *
      * @var string
      */
-    public const INVALID_RANGE_INCLUSIVE = 'invalidRangeInclusive';
+    public const string INVALID_RANGE_INCLUSIVE = 'invalidRangeInclusive';
 
     /**
      * When left is greater than right or the same.
      *
      * @var string
      */
-    public const INVALID_RANGE_NON_INCLUSIVE = 'invalidRangeNonInclusive';
+    public const string INVALID_RANGE_NON_INCLUSIVE = 'invalidRangeNonInclusive';
 
     /**
      * RangeValidator constructor.

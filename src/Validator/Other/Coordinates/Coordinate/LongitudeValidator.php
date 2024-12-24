@@ -16,7 +16,7 @@ class LongitudeValidator extends AbstractValidator
      *
      * @var string
      */
-    public const LONGITUDE_OUT_OF_BOUND = 'longitudeOutOfBound';
+    public const string LONGITUDE_OUT_OF_BOUND = 'longitudeOutOfBound';
 
     /**
      * Minimal longitude value.

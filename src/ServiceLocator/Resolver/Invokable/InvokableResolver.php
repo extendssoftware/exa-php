@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Invokable\Exception\NonExisti
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 
+use function class_exists;
+use function is_string;
+
 class InvokableResolver implements ResolverInterface
 {
     /**

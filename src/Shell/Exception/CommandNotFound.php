@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Shell\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Shell\ShellException;
 
+use function sprintf;
+
 class CommandNotFound extends Exception implements ShellException
 {
     /**

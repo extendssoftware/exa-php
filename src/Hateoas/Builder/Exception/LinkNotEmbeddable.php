@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderException;
 
+use function sprintf;
+
 class LinkNotEmbeddable extends Exception implements BuilderException
 {
     /**

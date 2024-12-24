@@ -824,7 +824,7 @@ class PosixParserTest extends TestCase
     /**
      * Terminator.
      *
-     * Test that the terminator ('--') will terminate further parsing and return everything as an operand.
+     * Test that the terminator ("--") will terminate further parsing and return everything as an operand.
      *
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parse()
      * @covers \ExtendsSoftware\ExaPHP\Shell\Parser\Posix\PosixParser::parseArguments()

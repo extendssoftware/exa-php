@@ -11,6 +11,8 @@ use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetailsInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\SerializerInterface;
 
+use function mb_strlen;
+
 readonly class ProblemDetailsMiddleware implements MiddlewareInterface
 {
     /**

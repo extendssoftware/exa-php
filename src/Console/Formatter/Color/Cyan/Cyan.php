@@ -11,7 +11,7 @@ class Cyan implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'Cyan';
+    public const string NAME = 'Cyan';
 
     /**
      * @inheritDoc

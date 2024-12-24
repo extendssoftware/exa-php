@@ -15,7 +15,7 @@ class LessOrEqualValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_LESS_OR_EQUAL = 'notLessOrEqual';
+    public const string NOT_LESS_OR_EQUAL = 'notLessOrEqual';
 
     /**
      * LessOrEqualValidator constructor.

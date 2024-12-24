@@ -33,6 +33,11 @@ use ExtendsSoftware\ExaPHP\Utility\Merger\Merger;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerException;
 use ExtendsSoftware\ExaPHP\Utility\Merger\MergerInterface;
 
+use function rtrim;
+use function sprintf;
+
+use const PHP_SAPI;
+
 class ApplicationBuilder implements ApplicationBuilderInterface
 {
     /**

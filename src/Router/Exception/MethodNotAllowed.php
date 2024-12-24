@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use LogicException;
 
+use function sprintf;
+
 class MethodNotAllowed extends LogicException implements RouterException
 {
     /**

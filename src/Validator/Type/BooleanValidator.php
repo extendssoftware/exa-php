@@ -15,7 +15,7 @@ class BooleanValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_BOOLEAN = 'notBoolean';
+    public const string NOT_BOOLEAN = 'notBoolean';
 
     /**
      * @inheritDoc

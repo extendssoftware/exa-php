@@ -18,14 +18,14 @@ class IntegerValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_INTEGER = 'notInteger';
+    public const string NOT_INTEGER = 'notInteger';
 
     /**
      * When value is not an unsigned integer.
      *
      * @const string
      */
-    public const NOT_UNSIGNED = 'notUnsigned';
+    public const string NOT_UNSIGNED = 'notUnsigned';
 
     /**
      * IntegerValidator constructor.

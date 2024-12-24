@@ -10,6 +10,8 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use const DATE_ATOM;
+
 class DateTimeValidator extends AbstractValidator
 {
     /**
@@ -17,7 +19,7 @@ class DateTimeValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_DATE_TIME = 'notDateTime';
+    public const string NOT_DATE_TIME = 'notDateTime';
 
     /**
      * DateTimeValidator constructor.

@@ -9,6 +9,12 @@ use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\StaticFactory\StaticFactoryInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 
+use function debug_backtrace;
+use function end;
+use function is_array;
+
+use const DEBUG_BACKTRACE_IGNORE_ARGS;
+
 readonly class BacktraceDecorator implements DecoratorInterface, StaticFactoryInterface
 {
     /**

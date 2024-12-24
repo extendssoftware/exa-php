@@ -7,7 +7,18 @@ namespace ExtendsSoftware\ExaPHP\Console\Input\Posix;
 use ExtendsSoftware\ExaPHP\Console\Input\InputInterface;
 use TypeError;
 
+use function fgets;
 use function fopen;
+use function gettype;
+use function is_int;
+use function is_resource;
+use function is_string;
+use function max;
+use function sprintf;
+use function str_contains;
+use function strlen;
+use function substr;
+use function trim;
 
 class PosixInput implements InputInterface
 {

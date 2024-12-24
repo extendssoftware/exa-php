@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+use function is_array;
+
 class ArrayValidator extends AbstractValidator
 {
     /**
@@ -15,7 +18,7 @@ class ArrayValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_ARRAY = 'notArray';
+    public const string NOT_ARRAY = 'notArray';
 
     /**
      * @inheritDoc

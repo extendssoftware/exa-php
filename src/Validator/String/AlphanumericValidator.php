@@ -18,7 +18,7 @@ class AlphanumericValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_ALPHANUMERIC = 'notAlphanumeric';
+    public const string NOT_ALPHANUMERIC = 'notAlphanumeric';
 
     /**
      * @inheritDoc

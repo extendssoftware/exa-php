@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Application\Console\ConsoleException;
 use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class TaskParameterMissing extends InvalidArgumentException implements ConsoleException
 {
     /**

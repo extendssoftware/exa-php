@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+use function is_string;
+
 class StringValidator extends AbstractValidator
 {
     /**
@@ -15,7 +18,7 @@ class StringValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_STRING = 'notString';
+    public const string NOT_STRING = 'notString';
 
     /**
      * @inheritDoc

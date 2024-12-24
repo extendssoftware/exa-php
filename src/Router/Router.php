@@ -36,6 +36,8 @@ use function strval;
 use function substr;
 use function trim;
 
+use const FILTER_CALLBACK;
+
 class Router implements RouterInterface
 {
     /**

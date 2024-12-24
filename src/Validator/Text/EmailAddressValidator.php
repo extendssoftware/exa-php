@@ -9,6 +9,10 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function filter_var;
+
+use const FILTER_VALIDATE_EMAIL;
+
 class EmailAddressValidator extends AbstractValidator
 {
     /**
@@ -16,7 +20,7 @@ class EmailAddressValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NO_EMAIL_ADDRESS = 'noEmailAddress';
+    public const string NO_EMAIL_ADDRESS = 'noEmailAddress';
 
     /**
      * @inheritDoc

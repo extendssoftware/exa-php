@@ -18,7 +18,7 @@ class NoNewlineValidator extends AbstractValidator
      *
      * @var string
      */
-    public const NEWLINE_NOT_ALLOWED = 'newlineNotAllowed';
+    public const string NEWLINE_NOT_ALLOWED = 'newlineNotAllowed';
 
     /**
      * @inheritDoc

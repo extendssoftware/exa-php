@@ -11,6 +11,7 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Throwable;
 
 use function is_string;
+use function is_subclass_of;
 
 class StaticFactoryResolver implements ResolverInterface
 {

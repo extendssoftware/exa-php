@@ -16,7 +16,7 @@ class PropertyValidator extends AbstractValidator
      *
      * @const string
      */
-    public const OBJECT_PROPERTY_NOT_FOUND = 'objectPropertyNotFound';
+    public const string OBJECT_PROPERTY_NOT_FOUND = 'objectPropertyNotFound';
 
     /**
      * PropertyValidator constructor.

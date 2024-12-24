@@ -18,7 +18,7 @@ class UppercaseValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_LOWERCASE = 'notUppercase';
+    public const string NOT_LOWERCASE = 'notUppercase';
 
     /**
      * @inheritDoc

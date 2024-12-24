@@ -15,7 +15,7 @@ class EqualValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_EQUAL = 'notEqual';
+    public const string NOT_EQUAL = 'notEqual';
 
     /**
      * EqualValidator constructor.

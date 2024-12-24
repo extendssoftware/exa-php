@@ -11,7 +11,7 @@ class Red implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'Red';
+    public const string NAME = 'Red';
 
     /**
      * @inheritDoc

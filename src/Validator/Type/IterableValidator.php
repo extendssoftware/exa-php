@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+use function is_iterable;
+
 class IterableValidator extends AbstractValidator
 {
     /**
@@ -15,7 +18,7 @@ class IterableValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_ITERABLE = 'notIterable';
+    public const string NOT_ITERABLE = 'notIterable';
 
     /**
      * @inheritDoc

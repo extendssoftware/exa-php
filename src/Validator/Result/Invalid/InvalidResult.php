@@ -6,6 +6,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Result\Invalid;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function sprintf;
+
 readonly class InvalidResult implements ResultInterface
 {
     /**

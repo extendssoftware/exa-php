@@ -11,7 +11,7 @@ class Hidden implements FormatInterface
     /**
      * @const string
      */
-    public const NAME = 'Hidden';
+    public const string NAME = 'Hidden';
 
     /**
      * @inheritDoc

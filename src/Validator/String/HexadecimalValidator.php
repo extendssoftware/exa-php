@@ -18,7 +18,7 @@ class HexadecimalValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_HEXADECIMAL = 'notHexadecimal';
+    public const string NOT_HEXADECIMAL = 'notHexadecimal';
 
     /**
      * @inheritDoc

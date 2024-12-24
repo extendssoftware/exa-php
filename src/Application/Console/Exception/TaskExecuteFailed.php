@@ -9,6 +9,8 @@ use ExtendsSoftware\ExaPHP\Shell\Command\CommandInterface;
 use ExtendsSoftware\ExaPHP\Shell\Task\TaskException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class TaskExecuteFailed extends InvalidArgumentException implements ConsoleException
 {
     /**

@@ -19,6 +19,8 @@ use ExtendsSoftware\ExaPHP\Hateoas\ResourceInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
+use function array_filter;
+use function array_merge;
 use function is_array;
 
 class Builder implements BuilderInterface

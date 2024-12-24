@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Router\RouterException;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class InvalidQueryString extends InvalidArgumentException implements RouterException
 {
     /**

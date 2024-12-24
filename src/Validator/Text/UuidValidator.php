@@ -9,6 +9,8 @@ use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
+use function preg_match;
+
 class UuidValidator extends AbstractValidator
 {
     /**
@@ -16,7 +18,7 @@ class UuidValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_UUID = 'notUuid';
+    public const string NOT_UUID = 'notUuid';
 
     /**
      * UUID regular expression.

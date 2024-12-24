@@ -16,6 +16,16 @@ use ExtendsSoftware\ExaPHP\Shell\Parser\Posix\Exception\ArgumentNotAllowed;
 use ExtendsSoftware\ExaPHP\Shell\Parser\Posix\Exception\MissingArgument;
 use ExtendsSoftware\ExaPHP\Shell\Parser\Posix\Exception\MissingOperand;
 
+use function array_key_exists;
+use function array_slice;
+use function count;
+use function explode;
+use function implode;
+use function str_split;
+use function str_starts_with;
+use function substr;
+use function trim;
+
 class PosixParser implements ParserInterface
 {
     /**

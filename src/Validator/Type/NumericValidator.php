@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+use function is_numeric;
+
 class NumericValidator extends AbstractValidator
 {
     /**
@@ -15,7 +18,7 @@ class NumericValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_NUMERIC = 'notNumeric';
+    public const string NOT_NUMERIC = 'notNumeric';
 
     /**
      * @inheritDoc

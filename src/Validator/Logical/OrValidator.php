@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Logical;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function count;
+
 class OrValidator extends AbstractLogicalValidator
 {
     /**
@@ -14,7 +16,7 @@ class OrValidator extends AbstractLogicalValidator
      *
      * @const string
      */
-    public const NONE_VALID = 'noneValid';
+    public const string NONE_VALID = 'noneValid';
 
     /**
      * @inheritDoc

@@ -18,7 +18,7 @@ class DigitValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_DIGIT = 'notDigit';
+    public const string NOT_DIGIT = 'notDigit';
 
     /**
      * @inheritDoc

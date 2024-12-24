@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorException;
 
+use function sprintf;
+
 class TemplateNotFound extends Exception implements ValidatorException
 {
     /**

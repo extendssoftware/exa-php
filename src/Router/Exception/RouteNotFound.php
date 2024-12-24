@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Router\Exception;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class RouteNotFound extends InvalidArgumentException implements RouterException
 {
     /**

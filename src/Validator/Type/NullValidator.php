@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function gettype;
+
 class NullValidator extends AbstractValidator
 {
     /**
@@ -15,7 +17,7 @@ class NullValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_NULL = 'notNull';
+    public const string NOT_NULL = 'notNull';
 
     /**
      * @inheritDoc

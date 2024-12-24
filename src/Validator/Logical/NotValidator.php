@@ -14,7 +14,7 @@ class NotValidator extends AbstractLogicalValidator
      *
      * @const string
      */
-    public const NOT_FALSE = 'notFalse';
+    public const string NOT_FALSE = 'notFalse';
 
     /**
      * @inheritDoc

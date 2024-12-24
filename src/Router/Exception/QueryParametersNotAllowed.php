@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Router\Route\RouteException;
 use LogicException;
 
 use function implode;
+use function sprintf;
 
 class QueryParametersNotAllowed extends LogicException implements RouteException
 {

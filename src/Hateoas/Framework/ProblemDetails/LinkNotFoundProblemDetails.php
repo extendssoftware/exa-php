@@ -8,6 +8,8 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotFound;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 
+use function sprintf;
+
 class LinkNotFoundProblemDetails extends ProblemDetails
 {
     /**

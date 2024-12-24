@@ -6,6 +6,11 @@ namespace ExtendsSoftware\ExaPHP\Utility\Loader\Cache;
 
 use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
+use function file_put_contents;
+use function is_file;
+use function sprintf;
+use function var_export;
+
 readonly class CacheLoader implements LoaderInterface
 {
     /**

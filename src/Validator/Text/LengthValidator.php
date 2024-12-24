@@ -10,6 +10,7 @@ use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\StringValidator;
 
 use function is_int;
+use function mb_strlen;
 use function strlen;
 
 class LengthValidator extends AbstractValidator
@@ -19,14 +20,14 @@ class LengthValidator extends AbstractValidator
      *
      * @var string
      */
-    public const TOO_SHORT = 'tooShort';
+    public const string TOO_SHORT = 'tooShort';
 
     /**
      * When text is too long.
      *
      * @var string
      */
-    public const TOO_LONG = 'tooLong';
+    public const string TOO_LONG = 'tooLong';
 
     /**
      * LengthValidator constructor.

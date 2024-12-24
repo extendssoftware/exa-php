@@ -18,7 +18,7 @@ class WhitespaceValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_WHITESPACE = 'notWhitespace';
+    public const string NOT_WHITESPACE = 'notWhitespace';
 
     /**
      * @inheritDoc

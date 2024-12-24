@@ -10,7 +10,7 @@ class EmailAddressValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that an valid email address will validate.
+     * Test that a valid email address will validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\EmailAddressValidator::validate()
      */

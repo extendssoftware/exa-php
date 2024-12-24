@@ -8,6 +8,9 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\UnknownResolverType;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\Container;
 
+use function is_string;
+use function is_subclass_of;
+
 class ServiceLocatorFactory implements ServiceLocatorFactoryInterface
 {
     /**

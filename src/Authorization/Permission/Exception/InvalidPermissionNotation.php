@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Authorization\Permission\Exception;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionException;
 use InvalidArgumentException;
 
+use function sprintf;
+
 class InvalidPermissionNotation extends InvalidArgumentException implements PermissionException
 {
     /**

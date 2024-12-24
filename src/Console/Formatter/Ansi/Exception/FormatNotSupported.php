@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Console\Formatter\Ansi\Exception;
 use ExtendsSoftware\ExaPHP\Console\Formatter\Format\FormatInterface;
 use RuntimeException;
 
+use function sprintf;
+
 class FormatNotSupported extends RuntimeException
 {
     /**

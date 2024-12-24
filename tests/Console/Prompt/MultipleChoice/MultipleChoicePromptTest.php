@@ -12,7 +12,7 @@ class MultipleChoicePromptTest extends TestCase
     /**
      * Prompt.
      *
-     * Test that multiple choice prompt ('Continue?' with option 'y' and 'n') will be prompted ('Continue? [y,n]: ').
+     * Test that multiple choice prompt ("Continue?" with option "y" and "n") will be prompted ("Continue? [y,n]: ").
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::prompt()
@@ -48,7 +48,7 @@ class MultipleChoicePromptTest extends TestCase
     /**
      * Required.
      *
-     * Test that prompt will show again after not allowed answer (null) until valid answer ('y').
+     * Test that prompt will show again after not allowed answer (null) until valid answer ("y").
      *
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Console\Prompt\MultipleChoice\MultipleChoicePrompt::prompt()

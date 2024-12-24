@@ -11,7 +11,7 @@ class LightGray implements ColorInterface
     /**
      * @const string
      */
-    public const NAME = 'LightGray';
+    public const string NAME = 'LightGray';
 
     /**
      * @inheritDoc

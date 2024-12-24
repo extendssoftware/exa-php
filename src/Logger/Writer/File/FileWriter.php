@@ -12,6 +12,23 @@ use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 
+use function date;
+use function fclose;
+use function fopen;
+use function fwrite;
+use function is_array;
+use function is_resource;
+use function json_encode;
+use function rtrim;
+use function sprintf;
+use function strtoupper;
+use function trim;
+
+use const DATE_ATOM;
+use const JSON_PARTIAL_OUTPUT_ON_ERROR;
+use const JSON_UNESCAPED_SLASHES;
+use const PHP_EOL;
+
 class FileWriter extends AbstractWriter
 {
     /**

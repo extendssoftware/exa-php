@@ -6,6 +6,12 @@ namespace ExtendsSoftware\ExaPHP\Utility\Container;
 
 use ExtendsSoftware\ExaPHP\Utility\Container\Exception\PathNotFound;
 
+use function array_key_exists;
+use function explode;
+use function is_array;
+use function is_object;
+use function property_exists;
+
 class Container implements ContainerInterface
 {
     /**

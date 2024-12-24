@@ -14,6 +14,8 @@ use ExtendsSoftware\ExaPHP\Shell\Definition\DefinitionInterface;
 use ExtendsSoftware\ExaPHP\Shell\Definition\Option\OptionInterface;
 use Throwable;
 
+use function mb_strlen;
+use function sprintf;
 use function strcmp;
 use function usort;
 

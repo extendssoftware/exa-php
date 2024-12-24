@@ -10,6 +10,9 @@ use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use Throwable;
 
+use function is_string;
+use function is_subclass_of;
+
 class FactoryResolver implements ResolverInterface
 {
     /**

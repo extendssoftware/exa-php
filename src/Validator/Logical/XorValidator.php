@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Validator\Logical;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
+use function count;
+
 class XorValidator extends AbstractLogicalValidator
 {
     /**
@@ -14,14 +16,14 @@ class XorValidator extends AbstractLogicalValidator
      *
      * @const string
      */
-    public const NONE_VALID = 'noneValid';
+    public const string NONE_VALID = 'noneValid';
 
     /**
      * When multiple of the Validators are valid.
      *
      * @const string
      */
-    public const MULTIPLE_VALID = 'multipleValid';
+    public const string MULTIPLE_VALID = 'multipleValid';
 
     /**
      * @inheritDoc

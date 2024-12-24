@@ -17,14 +17,14 @@ class PropertyDependentValidator extends AbstractValidator
      *
      * @const string
      */
-    public const VALIDATOR_MISSING = 'validatorMissing';
+    public const string VALIDATOR_MISSING = 'validatorMissing';
 
     /**
      * When object property is missing.
      *
      * @const string
      */
-    public const PROPERTY_MISSING = 'propertyMissing';
+    public const string PROPERTY_MISSING = 'propertyMissing';
 
     /**
      * Properties.

@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Factory\FactoryResolverException;
 
+use function sprintf;
+
 class InvalidFactoryType extends Exception implements FactoryResolverException
 {
     /**

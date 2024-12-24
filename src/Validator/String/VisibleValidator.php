@@ -18,7 +18,7 @@ class VisibleValidator extends AbstractValidator
      *
      * @const string
      */
-    public const NOT_VISIBLE = 'notVisible';
+    public const string NOT_VISIBLE = 'notVisible';
 
     /**
      * @inheritDoc

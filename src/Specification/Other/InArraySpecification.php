@@ -6,6 +6,8 @@ namespace ExtendsSoftware\ExaPHP\Specification\Other;
 
 use ExtendsSoftware\ExaPHP\Specification\SpecificationInterface;
 
+use function in_array;
+
 readonly class InArraySpecification implements SpecificationInterface
 {
     /**

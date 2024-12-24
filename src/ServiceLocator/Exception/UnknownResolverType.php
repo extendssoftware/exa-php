@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\ServiceLocator\Exception;
 use Exception;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 
+use function sprintf;
+
 class UnknownResolverType extends Exception implements ServiceLocatorException
 {
     /**

@@ -6,6 +6,11 @@ namespace ExtendsSoftware\ExaPHP\Utility\Loader\File;
 
 use ExtendsSoftware\ExaPHP\Utility\Loader\LoaderInterface;
 
+use function in_array;
+use function is_array;
+use function preg_match;
+use function scandir;
+
 class FileLoader implements LoaderInterface
 {
     /**

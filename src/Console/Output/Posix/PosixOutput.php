@@ -9,6 +9,12 @@ use ExtendsSoftware\ExaPHP\Console\Formatter\FormatterInterface;
 use ExtendsSoftware\ExaPHP\Console\Output\OutputInterface;
 use TypeError;
 
+use function fopen;
+use function fwrite;
+use function gettype;
+use function is_resource;
+use function sprintf;
+
 class PosixOutput implements OutputInterface
 {
     /**

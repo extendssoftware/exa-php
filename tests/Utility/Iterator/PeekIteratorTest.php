@@ -22,11 +22,7 @@ class PeekIteratorTest extends TestCase
     public function testIterate(): void
     {
         $iterator = new PeekIterator(array_combine(range('a', 'e'), range(1, 5)));
-
-        $data = [];
-        foreach ($iterator as $key => $value) {
-            $data[$key] = $value;
-        }
+        $data = iterator_to_array($iterator);
 
         $this->assertSame($data, array_combine(range(0, 4), range(1, 5)));
     }

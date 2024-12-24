@@ -7,6 +7,12 @@ namespace ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\Json;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetailsInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\SerializerInterface;
 
+use function array_filter;
+use function array_merge;
+use function json_encode;
+
+use const JSON_UNESCAPED_SLASHES;
+
 class JsonSerializer implements SerializerInterface
 {
     /**
