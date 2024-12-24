@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed Request::withUri() method to support URI string notation.
 - Changed the log priority from ERROR (3) to EMERG (0) when an exception is caught.
 - Replaced STDIN and STDOUT with fopen() function and PHP_SAPI constant.
+- Changed LogInterface::getDateTime() return type from DateTime to DateTimeImmutable.
 
 ### Deprecated
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger;
 
-use DateTime;
+use DateTimeImmutable;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use Throwable;
 
@@ -27,9 +27,9 @@ interface LogInterface
     /**
      * Datetime when log happened.
      *
-     * @return DateTime
+     * @return DateTimeImmutable
      */
-    public function getDateTime(): DateTime;
+    public function getDateTime(): DateTimeImmutable;
 
     /**
      * Get extra metadata.
