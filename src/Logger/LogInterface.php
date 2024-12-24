@@ -32,7 +32,7 @@ interface LogInterface
     public function getDateTime(): DateTime;
 
     /**
-     * Get extra meta data.
+     * Get extra metadata.
      *
      * @return mixed[]
      */
