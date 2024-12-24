@@ -115,19 +115,17 @@ readonly class Descriptor implements DescriptorInterface
             ->newLine();
 
         foreach ($definition->getOptions() as $option) {
-            if ($option instanceof OptionInterface) {
-                $notation = $this->getOptionNotation($option);
-                $this->output
-                    ->text(
-                        $notation,
-                        $this->output
-                            ->getFormatter()
-                            ->setForeground(new Yellow())
-                            ->setFixedWidth(22)
-                            ->setTextIndent(2)
-                    )
-                    ->line($option->getDescription());
-            }
+            $notation = $this->getOptionNotation($option);
+            $this->output
+                ->text(
+                    $notation,
+                    $this->output
+                        ->getFormatter()
+                        ->setForeground(new Yellow())
+                        ->setFixedWidth(22)
+                        ->setTextIndent(2)
+                )
+                ->line($option->getDescription());
         }
 
         $this->output

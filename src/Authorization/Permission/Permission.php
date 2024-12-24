@@ -11,8 +11,6 @@ use function array_slice;
 use function count;
 use function explode;
 use function in_array;
-use function is_array;
-use function is_string;
 use function preg_match;
 
 class Permission implements PermissionInterface
@@ -110,13 +108,9 @@ class Permission implements PermissionInterface
 
         if (!empty($this->divider)) {
             $sections = explode($this->divider, $this->notation);
-            if (is_array($sections)) {
-                foreach ($sections as $index => $section) {
-                    if (is_string($section)) {
-                        if (!empty($this->separator)) {
-                            $sections[$index] = explode($this->separator, $section);
-                        }
-                    }
+            foreach ($sections as $index => $section) {
+                if (!empty($this->separator)) {
+                    $sections[$index] = explode($this->separator, $section);
                 }
             }
         }

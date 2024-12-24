@@ -64,16 +64,16 @@ class ApplicationBuilder implements ApplicationBuilderInterface
     /**
      * Cache filename.
      *
-     * @var string|null
+     * @var string
      */
-    private ?string $cacheFilename;
+    private string $cacheFilename;
 
     /**
      * If cache is enabled.
      *
-     * @var bool|null
+     * @var bool
      */
-    private ?bool $cacheEnabled;
+    private bool $cacheEnabled;
 
     /**
      * Added modules.
