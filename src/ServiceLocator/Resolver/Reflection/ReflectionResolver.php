@@ -94,8 +94,8 @@ class ReflectionResolver implements ResolverInterface
     /**
      * Register class for key.
      *
-     * @param string $key
-     * @param string $class
+     * @param string       $key
+     * @param class-string $class
      *
      * @return ReflectionResolver
      */
