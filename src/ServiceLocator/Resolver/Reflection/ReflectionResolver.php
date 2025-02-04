@@ -14,6 +14,7 @@ use ReflectionClass;
 use ReflectionException;
 use ReflectionFunction;
 use ReflectionFunctionAbstract;
+use ReflectionMethod;
 use ReflectionNamedType;
 
 use function is_string;
@@ -61,10 +62,10 @@ class ReflectionResolver implements ResolverInterface
         $class = $this->classes[$key];
 
         $reflectionClass = new ReflectionClass($class);
-        $constructor = $reflectionClass->getConstructor();
         $arguments = [];
 
-        if ($constructor !== null) {
+        $constructor = $reflectionClass->getConstructor();
+        if ($constructor instanceof ReflectionMethod) {
             $arguments = $this->resolveParameters($constructor, $serviceLocator);
         }
 
