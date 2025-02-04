@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Replaced STDIN and STDOUT with fopen() function and PHP_SAPI constant.
 - Changed LogInterface::getDateTime() return type from DateTime to DateTimeImmutable.
 - Bumped PHP version from 8.2 to 8.3.
+- Changed ReflectionResolver::addReflection() method to accept classname and closure.
 
 ### Deprecated
 

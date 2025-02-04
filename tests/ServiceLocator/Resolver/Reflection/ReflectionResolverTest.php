@@ -12,15 +12,16 @@ use PHPUnit\Framework\TestCase;
 class ReflectionResolverTest extends TestCase
 {
     /**
-     * Register.
+     * Register class.
      *
-     * Test that an invokable can be registered.
+     * Test that a classname can be registered.
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::addReflection()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::getService()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::resolveParameters()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::hasService()
      */
-    public function testRegister(): void
+    public function testRegisterClass(): void
     {
         $container = $this->createMock(ContainerInterface::class);
 
@@ -42,6 +43,52 @@ class ReflectionResolverTest extends TestCase
         $resolver = new ReflectionResolver();
         $service = $resolver
             ->addReflection(ReflectionA::class, ReflectionA::class)
+            ->getService(ReflectionA::class, $serviceLocator);
+
+        $this->assertInstanceOf(ReflectionA::class, $service);
+    }
+
+    /**
+     * Register closure.
+     *
+     * Test that a Closure can be registered.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::addReflection()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::getService()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::resolveParameters()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::hasService()
+     */
+    public function testRegisterClosure(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getService')
+            ->with(ReflectionB::class)
+            ->willReturn(new ReflectionB());
+
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getContainer')
+            ->willReturn($container);
+
+        /**
+         * @var ServiceLocatorInterface $serviceLocator
+         */
+        $resolver = new ReflectionResolver();
+        $service = $resolver
+            ->addReflection(
+                ReflectionA::class,
+                function (
+                    ReflectionB $b,
+                    ServiceLocatorInterface $serviceLocator,
+                    ContainerInterface $container,
+                ): ReflectionA {
+                    return new ReflectionA($b, $serviceLocator, $container);
+                },
+            )
             ->getService(ReflectionA::class, $serviceLocator);
 
         $this->assertInstanceOf(ReflectionA::class, $service);
@@ -94,8 +141,9 @@ class ReflectionResolverTest extends TestCase
     public function testCreate(): void
     {
         $resolver = ReflectionResolver::factory([
-            'A' => ReflectionA::class,
             ReflectionB::class,
+            'A' => ReflectionA::class,
+            'B' => fn() => new ReflectionB(),
         ]);
 
         $this->assertIsObject($resolver);

@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection;
 
+use Closure;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\Exception\InvalidParameter;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
+use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorException;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionException;
-use ReflectionMethod;
+use ReflectionFunction;
+use ReflectionFunctionAbstract;
 use ReflectionNamedType;
 
 use function is_string;
@@ -18,11 +21,11 @@ use function is_string;
 class ReflectionResolver implements ResolverInterface
 {
     /**
-     * An associative array which holds the classes.
+     * An associative array which holds the definitions.
      *
      * @var mixed[]
      */
-    private array $classes = [];
+    private array $definitions = [];
 
     /**
      * @inheritDoc
@@ -30,12 +33,12 @@ class ReflectionResolver implements ResolverInterface
     public static function factory(array $services): ResolverInterface
     {
         $resolver = new ReflectionResolver();
-        foreach ($services as $key => $class) {
-            if (!is_string($key)) {
-                $key = $class;
+        foreach ($services as $key => $definition) {
+            if (!is_string($key) && is_string($definition)) {
+                $key = $definition;
             }
 
-            $resolver->addReflection($key, $class);
+            $resolver->addReflection($key, $definition);
         }
 
         return $resolver;
@@ -46,7 +49,7 @@ class ReflectionResolver implements ResolverInterface
      */
     public function hasService(string $key): bool
     {
-        return isset($this->classes[$key]);
+        return isset($this->definitions[$key]);
     }
 
     /**
@@ -55,43 +58,72 @@ class ReflectionResolver implements ResolverInterface
      */
     public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
-        $class = $this->classes[$key];
-        $constructor = (new ReflectionClass($class))->getConstructor();
+        $definition = $this->definitions[$key];
 
-        $values = [];
-        if ($constructor instanceof ReflectionMethod) {
-            foreach ($constructor->getParameters() as $parameter) {
-                $type = $parameter->getType();
-                if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
-                    throw new InvalidParameter($parameter);
-                }
+        if ($definition instanceof Closure) {
+            $reflection = new ReflectionFunction($definition);
+            $arguments = $this->resolveParameters($reflection, $serviceLocator);
 
-                $name = $type->getName();
-                if ($name === ServiceLocatorInterface::class) {
-                    $values[] = $serviceLocator;
-                } elseif ($name === ContainerInterface::class) {
-                    $values[] = $serviceLocator->getContainer();
-                } else {
-                    $values[] = $serviceLocator->getService($name);
-                }
+            return $reflection->invokeArgs($arguments);
+        } else {
+            $reflectionClass = new ReflectionClass($definition);
+            $constructor = $reflectionClass->getConstructor();
+            $arguments = [];
+
+            if ($constructor !== null) {
+                $arguments = $this->resolveParameters($constructor, $serviceLocator);
             }
-        }
 
-        return new $class(...$values);
+            return $reflectionClass->newInstanceArgs($arguments);
+        }
     }
 
     /**
-     * Register class for key.
+     * Register definition for key.
      *
-     * @param string $key
-     * @param string $class
+     * @param string         $key
+     * @param string|Closure $definition
      *
      * @return ReflectionResolver
      */
-    public function addReflection(string $key, string $class): ReflectionResolver
+    public function addReflection(string $key, string|Closure $definition): ReflectionResolver
     {
-        $this->classes[$key] = $class;
+        $this->definitions[$key] = $definition;
 
         return $this;
+    }
+
+    /**
+     * Resolve parameters for function.
+     *
+     * @param ReflectionFunctionAbstract $function
+     * @param ServiceLocatorInterface    $serviceLocator
+     *
+     * @return array<object>
+     * @throws InvalidParameter
+     * @throws ServiceLocatorException
+     */
+    private function resolveParameters(
+        ReflectionFunctionAbstract $function,
+        ServiceLocatorInterface $serviceLocator,
+    ): array {
+        $arguments = [];
+        foreach ($function->getParameters() as $parameter) {
+            $type = $parameter->getType();
+            if (!$type instanceof ReflectionNamedType || $type->isBuiltin()) {
+                throw new InvalidParameter($parameter);
+            }
+
+            $name = $type->getName();
+            if ($name === ServiceLocatorInterface::class) {
+                $arguments[] = $serviceLocator;
+            } elseif ($name === ContainerInterface::class) {
+                $arguments[] = $serviceLocator->getContainer();
+            } else {
+                $arguments[] = $serviceLocator->getService($name);
+            }
+        }
+
+        return $arguments;
     }
 }
