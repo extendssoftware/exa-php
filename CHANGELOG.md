@@ -31,6 +31,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 - Added default value to nullable Uri properties.
+- Resolved an issue where query parameters were checked before request method, potentially leading to incorrect route
+  matching.
 
 ### Security
 

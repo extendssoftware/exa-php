@@ -415,6 +415,11 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
+            ->method('getMethod')
+            ->willReturn(Method::GET);
+
+        $route
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn([]);
 
@@ -440,6 +445,11 @@ class RouterTest extends TestCase
             ->expects($this->once())
             ->method('getUri')
             ->willReturn($uri);
+
+        $request
+            ->expects($this->once())
+            ->method('getMethod')
+            ->willReturn(Method::GET);
 
         try {
             /**

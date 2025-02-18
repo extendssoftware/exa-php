@@ -109,15 +109,15 @@ class Router implements RouterInterface
 //                }
             }
 
-            $notAllowed = array_diff_key($requestUrl['query'], $routeUrl['query']);
-            if ($notAllowed) {
-                throw new QueryParametersNotAllowed(array_keys($notAllowed));
-            }
-
             if ($request->getMethod() !== $route->getMethod()) {
                 $allowedMethods[] = $route->getMethod();
 
                 continue;
+            }
+
+            $notAllowed = array_diff_key($requestUrl['query'], $routeUrl['query']);
+            if ($notAllowed) {
+                throw new QueryParametersNotAllowed(array_keys($notAllowed));
             }
 
             if (isset($validators['body'])) {
