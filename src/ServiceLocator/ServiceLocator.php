@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ResolverNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
@@ -63,6 +64,18 @@ class ServiceLocator implements ServiceLocatorInterface
         }
 
         return $service;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getResolver(string $key): ResolverInterface
+    {
+        if (!isset($this->resolvers[$key])) {
+            throw new ResolverNotFound($key);
+        }
+
+        return $this->resolvers[$key];
     }
 
     /**

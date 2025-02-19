@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ResolverNotFound;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ServiceNotFound;
+use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Alias\AliasResolver;
 use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
@@ -38,7 +41,7 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface $resolver
+         * @var ResolverInterface  $resolver
          * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
@@ -61,7 +64,7 @@ class ServiceLocatorTest extends TestCase
     public function testSharedService(): void
     {
         /**
-         * @var ResolverInterface $resolver
+         * @var ResolverInterface  $resolver
          * @var ContainerInterface $container
          */
         $container = $this->createMock(ContainerInterface::class);
@@ -137,7 +140,7 @@ class ServiceLocatorTest extends TestCase
         $container = $this->createMock(ContainerInterface::class);
 
         /**
-         * @var ResolverInterface $resolver
+         * @var ResolverInterface  $resolver
          * @var ContainerInterface $container
          */
         $serviceLocator = new ServiceLocator($container);
@@ -150,6 +153,31 @@ class ServiceLocatorTest extends TestCase
             ->getService('A', ['foo' => 'bar']);
 
         $this->assertNotSame($service1, $service2);
+    }
+
+    /**
+     * Get resolver.
+     *
+     * Test that a resolver will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::addResolver()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::getResolver()
+     */
+    public function testGetResolver(): void
+    {
+        $resolver = $this->createMock(ResolverInterface::class);
+
+        $container = $this->createMock(ContainerInterface::class);
+
+        /**
+         * @var ResolverInterface  $resolver
+         * @var ContainerInterface $container
+         */
+        $serviceLocator = new ServiceLocator($container);
+        $serviceLocator->addResolver($resolver, AliasResolver::class);
+
+        $this->assertSame($resolver, $serviceLocator->getResolver(AliasResolver::class));
     }
 
     /**
@@ -213,6 +241,29 @@ class ServiceLocatorTest extends TestCase
          */
         $serviceLocator = new ServiceLocator($container);
         $serviceLocator->getService('foo');
+    }
+
+    /**
+     * Resolver not found.
+     *
+     * Test that a resolver can not be found and an exception will be thrown.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocator::getResolver()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Exception\ResolverNotFound::__construct()
+     */
+    public function testResolverNotFound(): void
+    {
+        $this->expectException(ResolverNotFound::class);
+        $this->expectExceptionMessage('No resolver found for key "foo".');
+
+        $container = $this->createMock(ContainerInterface::class);
+
+        /**
+         * @var ContainerInterface $container
+         */
+        $serviceLocator = new ServiceLocator($container);
+        $serviceLocator->getResolver('foo');
     }
 
     /**

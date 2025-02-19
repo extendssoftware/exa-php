@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ServiceLocator;
 
+use ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\ResolverInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 
 interface ServiceLocatorInterface
@@ -21,6 +22,16 @@ interface ServiceLocatorInterface
      * @throws ServiceLocatorException
      */
     public function getService(string $key, array $extra = null): object;
+
+    /**
+     * Get resolver for key.
+     *
+     * @param string $key
+     *
+     * @return ResolverInterface
+     * @throws ServiceLocatorException
+     */
+    public function getResolver(string $key): ResolverInterface;
 
     /**
      * Get global config.

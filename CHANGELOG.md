@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added LoggerInterface proxy methods for each priority.
 - Added RouterInterface::assemble() parameter $keepUnresolved to indicate that a missing path parameter must be ignored.
 - Added ReflectionResolver::getServiceFromClosure() method to use a closure as a class wrapper.
+- Added ServiceLocatorInterface::getResolver() method to get a resolver.
 
 ### Changed
 
