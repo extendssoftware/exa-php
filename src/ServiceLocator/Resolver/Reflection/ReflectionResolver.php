@@ -61,6 +61,22 @@ class ReflectionResolver implements ResolverInterface
     {
         $class = $this->classes[$key];
 
+        return $this->instantiateClass($class, $serviceLocator);
+    }
+
+    /**
+     * Instantiate new class instance from class string.
+     *
+     * @param class-string            $class
+     * @param ServiceLocatorInterface $serviceLocator
+     *
+     * @return object
+     * @throws InvalidParameter
+     * @throws ReflectionException
+     * @throws ServiceLocatorException
+     */
+    public function instantiateClass(string $class, ServiceLocatorInterface $serviceLocator): object
+    {
         $reflectionClass = new ReflectionClass($class);
         $arguments = [];
 

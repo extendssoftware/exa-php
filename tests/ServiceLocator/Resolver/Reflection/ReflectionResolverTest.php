@@ -18,6 +18,7 @@ class ReflectionResolverTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::addReflection()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::getService()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::instantiateClass()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::resolveParameters()
      * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::hasService()
      */
@@ -87,6 +88,39 @@ class ReflectionResolverTest extends TestCase
                 },
                 $serviceLocator,
             );
+
+        $this->assertInstanceOf(ReflectionA::class, $service);
+    }
+
+    /**
+     * Instantiate class.
+     *
+     * Test that class string instance will be returned for a class string.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::instantiateClass()
+     * @covers \ExtendsSoftware\ExaPHP\ServiceLocator\Resolver\Reflection\ReflectionResolver::resolveParameters()
+     */
+    public function testInstantiateClass(): void
+    {
+        $container = $this->createMock(ContainerInterface::class);
+
+        $serviceLocator = $this->createMock(ServiceLocatorInterface::class);
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getService')
+            ->with(ReflectionB::class)
+            ->willReturn(new ReflectionB());
+
+        $serviceLocator
+            ->expects($this->once())
+            ->method('getContainer')
+            ->willReturn($container);
+
+        /**
+         * @var ServiceLocatorInterface $serviceLocator
+         */
+        $resolver = new ReflectionResolver();
+        $service = $resolver->instantiateClass(ReflectionA::class, $serviceLocator);
 
         $this->assertInstanceOf(ReflectionA::class, $service);
     }
