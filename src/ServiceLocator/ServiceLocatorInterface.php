@@ -26,12 +26,13 @@ interface ServiceLocatorInterface
     /**
      * Get resolver for key.
      *
-     * @param string $key
+     * @template T of ResolverInterface
+     * @param class-string<T> $key
      *
-     * @return ResolverInterface
+     * @return T
      * @throws ServiceLocatorException
      */
-    public function getResolver(string $key): ResolverInterface;
+    public function getResolver(string $key);
 
     /**
      * Get global config.
