@@ -8,9 +8,6 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
 
-use function implode;
-use function sprintf;
-
 class QueryParameterNotAllowedProblemDetails extends ProblemDetails
 {
     /**

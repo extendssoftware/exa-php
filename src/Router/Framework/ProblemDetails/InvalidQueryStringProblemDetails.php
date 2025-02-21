@@ -8,8 +8,6 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 
-use function sprintf;
-
 class InvalidQueryStringProblemDetails extends ProblemDetails
 {
     /**

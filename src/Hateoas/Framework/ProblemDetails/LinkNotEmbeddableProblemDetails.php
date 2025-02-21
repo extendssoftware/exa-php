@@ -8,8 +8,6 @@ use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotEmbeddable;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 
-use function sprintf;
-
 class LinkNotEmbeddableProblemDetails extends ProblemDetails
 {
     /**

@@ -10,7 +10,6 @@ use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
 
 use function array_map;
-use function sprintf;
 
 class MethodNotAllowedProblemDetails extends ProblemDetails
 {
