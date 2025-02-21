@@ -33,10 +33,10 @@ class InvalidResultTest extends TestCase
             'type' => 'array',
         ], $result->getParameters());
         $this->assertFalse($result->isValid());
-        $this->assertSame([
+        $this->assertEquals([
             'code' => 'notString',
             'message' => 'Value is not a string, got "{{type}}".',
-            'parameters' => [
+            'parameters' => (object)[
                 'type' => 'array',
             ],
         ], $result->jsonSerialize());

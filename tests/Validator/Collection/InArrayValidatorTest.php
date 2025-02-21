@@ -74,7 +74,7 @@ class InArrayValidatorTest extends TestCase
         $this->assertEquals([
             'code' => 'notInArray',
             'message' => 'Value {{value}} is not allowed in array, only {{values}} are allowed.',
-            'parameters' => [
+            'parameters' => (object)[
                 'value' => 'qux',
                 'array' => [
                     'foo',

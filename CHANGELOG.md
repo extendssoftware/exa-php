@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Changed LogInterface::getDateTime() return type from DateTime to DateTimeImmutable.
 - Bumped PHP version from 8.2 to 8.3.
 - Removed parameter name from Problem Details detail string.
+- Changed InvalidResult::jsonSerialize() return value array property parameters to be an (empty) object.
 
 ### Deprecated
 

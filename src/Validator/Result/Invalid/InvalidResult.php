@@ -38,7 +38,7 @@ readonly class InvalidResult implements ResultInterface
         return [
             'code' => $this->getCode(),
             'message' => $this->getMessage(),
-            'parameters' => $this->getParameters(),
+            'parameters' => (object)$this->getParameters(),
         ];
     }
 

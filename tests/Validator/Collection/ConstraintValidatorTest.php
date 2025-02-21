@@ -48,7 +48,7 @@ class ConstraintValidatorTest extends TestCase
         $this->assertEquals([
             'code' => 'notAllowedValues',
             'message' => 'Values {{not_allowed}} are not allowed in the array.',
-            'parameters' => [
+            'parameters' => (object)[
                 'not_allowed' => [
                     3,
                     8,
