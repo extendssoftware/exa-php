@@ -23,10 +23,7 @@ class InvalidQueryStringProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/router/invalid-query-string',
             'Invalid query string',
-            sprintf(
-                'Value for query string parameter "%s" is invalid.',
-                $exception->getParameter()
-            ),
+            'Value for query string parameter is invalid.',
             400,
             $request->getUri()->toRelative(),
             [

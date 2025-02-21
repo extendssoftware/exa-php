@@ -23,10 +23,7 @@ class LinkNotEmbeddableProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/hateoas/link-not-embeddable',
             'Link not embeddable',
-            sprintf(
-                'Link with rel "%s" is not embeddable.',
-                $exception->getRel()
-            ),
+            'Link with rel is not embeddable.',
             400,
             $request->getUri()->toRelative(),
             [

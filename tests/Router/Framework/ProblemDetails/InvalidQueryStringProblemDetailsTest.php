@@ -34,12 +34,12 @@ class InvalidQueryStringProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(InvalidQueryString::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getParameter')
             ->willReturn('limit');
 
         $exception
-            ->expects($this->exactly(1))
+            ->expects($this->once())
             ->method('getResult')
             ->willReturn($result);
 
@@ -51,7 +51,7 @@ class InvalidQueryStringProblemDetailsTest extends TestCase
 
         $this->assertSame('/problems/router/invalid-query-string', $problemDetails->getType());
         $this->assertSame('Invalid query string', $problemDetails->getTitle());
-        $this->assertSame('Value for query string parameter "limit" is invalid.', $problemDetails->getDetail());
+        $this->assertSame('Value for query string parameter is invalid.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['parameter' => 'limit', 'reason' => $result], $problemDetails->getAdditional());

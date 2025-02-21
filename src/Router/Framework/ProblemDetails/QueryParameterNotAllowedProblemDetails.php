@@ -24,10 +24,7 @@ class QueryParameterNotAllowedProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/router/query-parameter-not-allowed',
             'Query parameter not allowed',
-            sprintf(
-                'Query string parameters "%s" are not allowed.',
-                implode(', ', $exception->getParameters())
-            ),
+            'Query string parameters are not allowed.',
             400,
             $request->getUri()->toRelative(),
             [

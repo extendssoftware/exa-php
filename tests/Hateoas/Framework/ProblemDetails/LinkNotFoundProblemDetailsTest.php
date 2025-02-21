@@ -31,7 +31,7 @@ class LinkNotFoundProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(LinkNotFound::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getRel')
             ->willReturn('author');
 
@@ -43,7 +43,7 @@ class LinkNotFoundProblemDetailsTest extends TestCase
 
         $this->assertSame('/problems/hateoas/link-not-found', $problemDetails->getType());
         $this->assertSame('Link not found', $problemDetails->getTitle());
-        $this->assertSame('Link with rel "author" can not be found.', $problemDetails->getDetail());
+        $this->assertSame('Link with rel can not be found.', $problemDetails->getDetail());
         $this->assertSame(404, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['rel' => 'author'], $problemDetails->getAdditional());

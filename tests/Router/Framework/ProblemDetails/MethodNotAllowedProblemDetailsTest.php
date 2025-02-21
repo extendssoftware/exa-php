@@ -32,12 +32,12 @@ class MethodNotAllowedProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(MethodNotAllowed::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getMethod')
             ->willReturn(Method::GET);
 
         $exception
-            ->expects($this->exactly(1))
+            ->expects($this->once())
             ->method('getAllowedMethods')
             ->willReturn([Method::PUT, Method::POST]);
 
@@ -49,7 +49,7 @@ class MethodNotAllowedProblemDetailsTest extends TestCase
 
         $this->assertSame('/problems/router/method-not-allowed', $problemDetails->getType());
         $this->assertSame('Method not allowed', $problemDetails->getTitle());
-        $this->assertSame('Method "GET" is not allowed.', $problemDetails->getDetail());
+        $this->assertSame('Method is not allowed.', $problemDetails->getDetail());
         $this->assertSame(405, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['method' => 'GET', 'allowed_methods' => ['PUT', 'POST']], $problemDetails->getAdditional());

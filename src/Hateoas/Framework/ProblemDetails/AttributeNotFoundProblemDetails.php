@@ -23,10 +23,7 @@ class AttributeNotFoundProblemDetails extends ProblemDetails
         parent::__construct(
             '/problems/hateoas/attribute-not-found',
             'Attribute not found',
-            sprintf(
-                'Attribute with property "%s" can not be found.',
-                $exception->getProperty()
-            ),
+            'Attribute with property can not be found.',
             404,
             $request->getUri()->toRelative(),
             [

@@ -127,7 +127,7 @@ class RouterMiddlewareTest extends TestCase
 
         $exception = $this->createMock(MethodNotAllowed::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getMethod')
             ->willReturn(Method::GET);
 

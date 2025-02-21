@@ -32,7 +32,7 @@ class LinkNotEmbeddableProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(LinkNotEmbeddable::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getRel')
             ->willReturn('comments');
 
@@ -45,7 +45,7 @@ class LinkNotEmbeddableProblemDetailsTest extends TestCase
         $this->assertInstanceOf(ProblemDetailsInterface::class, $problemDetails);
         $this->assertSame('/problems/hateoas/link-not-embeddable', $problemDetails->getType());
         $this->assertSame('Link not embeddable', $problemDetails->getTitle());
-        $this->assertSame('Link with rel "comments" is not embeddable.', $problemDetails->getDetail());
+        $this->assertSame('Link with rel is not embeddable.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['rel' => 'comments'], $problemDetails->getAdditional());

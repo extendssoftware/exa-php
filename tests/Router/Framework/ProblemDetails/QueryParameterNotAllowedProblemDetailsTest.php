@@ -31,7 +31,7 @@ class QueryParameterNotAllowedProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(QueryParametersNotAllowed::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getParameters')
             ->willReturn(['author']);
 
@@ -43,7 +43,7 @@ class QueryParameterNotAllowedProblemDetailsTest extends TestCase
 
         $this->assertSame('/problems/router/query-parameter-not-allowed', $problemDetails->getType());
         $this->assertSame('Query parameter not allowed', $problemDetails->getTitle());
-        $this->assertSame('Query string parameters "author" are not allowed.', $problemDetails->getDetail());
+        $this->assertSame('Query string parameters are not allowed.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['parameters' => ['author']], $problemDetails->getAdditional());

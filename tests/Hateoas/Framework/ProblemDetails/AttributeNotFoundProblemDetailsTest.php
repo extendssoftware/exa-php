@@ -31,7 +31,7 @@ class AttributeNotFoundProblemDetailsTest extends TestCase
 
         $exception = $this->createMock(AttributeNotFound::class);
         $exception
-            ->expects($this->exactly(2))
+            ->expects($this->once())
             ->method('getProperty')
             ->willReturn('author');
 
@@ -43,7 +43,7 @@ class AttributeNotFoundProblemDetailsTest extends TestCase
 
         $this->assertSame('/problems/hateoas/attribute-not-found', $problemDetails->getType());
         $this->assertSame('Attribute not found', $problemDetails->getTitle());
-        $this->assertSame('Attribute with property "author" can not be found.', $problemDetails->getDetail());
+        $this->assertSame('Attribute with property can not be found.', $problemDetails->getDetail());
         $this->assertSame(404, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
         $this->assertSame(['property' => 'author'], $problemDetails->getAdditional());
