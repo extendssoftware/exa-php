@@ -38,5 +38,6 @@ class UnauthorizedProblemDetailsTest extends TestCase
         $this->assertSame('Failed to authenticate request.', $problemDetails->getDetail());
         $this->assertSame(401, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
+        $this->assertNull($problemDetails->getAdditional());
     }
 }

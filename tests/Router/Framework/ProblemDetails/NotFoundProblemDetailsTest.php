@@ -38,5 +38,6 @@ class NotFoundProblemDetailsTest extends TestCase
         $this->assertSame('Request could not be matched by a route.', $problemDetails->getDetail());
         $this->assertSame(404, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
+        $this->assertNull($problemDetails->getAdditional());
     }
 }

@@ -38,5 +38,6 @@ class ForbiddenProblemDetailsTest extends TestCase
         $this->assertSame('Failed to authorize request.', $problemDetails->getDetail());
         $this->assertSame(403, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
+        $this->assertNull($problemDetails->getAdditional());
     }
 }

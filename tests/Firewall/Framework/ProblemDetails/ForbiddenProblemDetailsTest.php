@@ -38,5 +38,6 @@ class ForbiddenProblemDetailsTest extends TestCase
         $this->assertSame('Request not allowed by firewall.', $problemDetails->getDetail());
         $this->assertSame(403, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
+        $this->assertNull($problemDetails->getAdditional());
     }
 }
