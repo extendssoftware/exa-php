@@ -29,7 +29,7 @@ class ClosureResolverTest extends TestCase
         $service = $resolver
             ->addClosure(
                 'foo',
-                static function (string $key, ServiceLocatorInterface $serviceLocator, array $extra = null) {
+                static function (string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null) {
                     $service = new stdClass();
                     $service->key = $key;
                     $service->serviceLocator = $serviceLocator;

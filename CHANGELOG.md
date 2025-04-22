@@ -9,6 +9,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+- Added default value to nullable Uri properties.
+- Resolved an issue where query parameters were checked before request method, potentially leading to incorrect route
+  matching.
+
+### Security
+
+## [0.3.0] - 2025-04-22
+
+### Added
+
 - Added static method Uri::fromString() to get UriInterface from string.
 - Added LoggerInterface proxy methods for each priority.
 - Added RouterInterface::assemble() parameter $keepUnresolved to indicate that a missing path parameter must be ignored.
@@ -27,18 +45,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Bumped PHP version from 8.2 to 8.3.
 - Removed parameter name from Problem Details detail string.
 - Changed InvalidResult::jsonSerialize() return value array property parameters to be an (empty) object.
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-- Added default value to nullable Uri properties.
-- Resolved an issue where query parameters were checked before request method, potentially leading to incorrect route
-  matching.
-
-### Security
 
 ## [0.2.1] - 2024-03-05
 
