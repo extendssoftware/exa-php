@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application;
 
+use ExtendsSoftware\ExaPHP\Application\Module\ModuleInterface;
+
 interface ApplicationInterface
 {
     /**
@@ -12,4 +14,11 @@ interface ApplicationInterface
      * @throws ApplicationException
      */
     public function bootstrap(): void;
+
+    /**
+     * Get initialized modules.
+     *
+     * @return ModuleInterface[]
+     */
+    public function getModules(): array;
 }

@@ -56,7 +56,7 @@ class Builder implements BuilderInterface
     /**
      * Attributes.
      *
-     * @var AttributeInterface[]|AttributeInterface[][]
+     * @var AttributeInterface[]
      */
     private array $attributes = [];
 
@@ -130,22 +130,19 @@ class Builder implements BuilderInterface
      */
     public function build(RequestInterface $request): ResourceInterface
     {
-        $links = $this->getAuthorizedLinks($this->links);
-
         $resource = new Resource(
-            $links,
+            $this->getAuthorizedLinks($this->links),
             $this->getProjectedAttributes(
-            /** @phpstan-ignore-next-line */
-                $this->getAuthorizedAttributes($this->attributes),
-                array_filter($this->toProject, 'is_string'),
+                $this->attributes,
+                array_filter($this->toProject, 'is_string'), // Only pass first-level properties.
             ),
             $this->getBuiltResources(
                 $request,
                 array_merge(
                     $this->resources,
                     $this->getExpandedResources(
-                        $links,
-                        array_filter($this->toExpand, 'is_string'),
+                        $this->links,
+                        array_filter($this->toExpand, 'is_string'), // Only pass first-level relations.
                         $request,
                     ),
                 ),
@@ -271,24 +268,13 @@ class Builder implements BuilderInterface
                 throw new AttributeNotFound($property);
             }
 
-            $projected[$property] = $attributes[$property];
+            $attribute = $attributes[$property];
+            if ($this->isAuthorized($attribute->getPermission(), $attribute->getPolicy())) {
+                $projected[$property] = $attributes[$property];
+            }
         }
 
         return $projected ?: $attributes;
-    }
-
-    /**
-     * Get permitted attributes.
-     *
-     * @param AttributeInterface[] $attributes
-     *
-     * @return mixed[]
-     */
-    private function getAuthorizedAttributes(array $attributes): array
-    {
-        return array_filter($attributes, function ($attribute) {
-            return $this->isAuthorized($attribute->getPermission(), $attribute->getPolicy());
-        });
     }
 
     /**
@@ -351,7 +337,10 @@ class Builder implements BuilderInterface
                         throw new LinkNotEmbeddable($relation);
                     }
 
-                    $expanded[$relation] = $this->expander->expand($link, $request);
+                    // Only expand the link if permitted by permission and/or policy.
+                    if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
+                        $expanded[$relation] = $this->expander->expand($link, $request);
+                    }
                 }
 
                 if (is_array($links[$relation])) {
@@ -364,7 +353,10 @@ class Builder implements BuilderInterface
                             $expanded[$relation] = [];
                         }
 
-                        $expanded[$relation][] = $this->expander->expand($link, $request);
+                        // Only expand the link if permitted by permission and/or policy.
+                        if ($this->isAuthorized($link->getPermission(), $link->getPolicy())) {
+                            $expanded[$relation][] = $this->expander->expand($link, $request);
+                        }
                     }
                 }
             }

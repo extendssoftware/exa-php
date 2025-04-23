@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Builder;
@@ -276,5 +277,148 @@ class BuilderTest extends TestCase
         } catch (Throwable $throwable) {
             $this->assertInstanceOf(LinkNotEmbeddable::class, $throwable);
         }
+    }
+
+    /**
+     * Test that an existing and embeddable link will not be embedded when the request is not authorized.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setAuthorizer()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setExpander()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setIdentity()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::addLink()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setToExpand()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::build()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedLinks()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getProjectedAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getBuiltResources()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getExpandedResources()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::reset()
+     * @return void
+     */
+    public function testLinkSoftFail(): void
+    {
+        $request = $this->createMock(RequestInterface::class);
+
+        $permission = $this->createMock(PermissionInterface::class);
+
+        $identity = $this->createMock(IdentityInterface::class);
+
+        $authorizer = $this->createMock(AuthorizerInterface::class);
+        $authorizer
+            ->expects($this->exactly(4))
+            ->method('isPermitted')
+            ->with($permission, $identity)
+            ->willReturnOnConsecutiveCalls(true, false, true, false);
+
+        $builder = $this->createMock(BuilderInterface::class);
+
+        $expander = $this->createMock(ExpanderInterface::class);
+        $expander
+            ->expects($this->any())
+            ->method('expand')
+            ->willReturn($builder);
+
+        $link = $this->createMock(LinkInterface::class);
+        $link
+            ->expects($this->exactly(4))
+            ->method('getPermission')
+            ->willReturn($permission);
+
+        $link
+            ->expects($this->exactly(2))
+            ->method('isEmbeddable')
+            ->willReturn(true);
+
+        /**
+         * @var RequestInterface    $request
+         * @var AuthorizerInterface $authorizer
+         * @var ExpanderInterface   $expander
+         * @var IdentityInterface   $identity
+         * @var LinkInterface       $link
+         * @var ResourceInterface   $resource
+         */
+        $resource = (new Builder())
+            ->setAuthorizer($authorizer)
+            ->setExpander($expander)
+            ->setIdentity($identity)
+            ->addLink('allowed', $link)
+            ->addLink('not_allowed', $link)
+            ->setToExpand([
+                'allowed',
+                'not_allowed',
+            ])
+            ->build($request);
+
+        $this->assertSame([
+            'allowed' => $link,
+        ], $resource->getLinks());
+    }
+
+    /**
+     * Test that an existing attribute will not be projected when the request is not authorized.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setAuthorizer()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setExpander()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setIdentity()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::addAttribute()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setToProject()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::build()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedLinks()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getProjectedAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedAttributes()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getBuiltResources()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getExpandedResources()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
+     * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::reset()
+     */
+    public function testAttributeSoftFail()
+    {
+        $request = $this->createMock(RequestInterface::class);
+
+        $permission = $this->createMock(PermissionInterface::class);
+
+        $identity = $this->createMock(IdentityInterface::class);
+
+        $authorizer = $this->createMock(AuthorizerInterface::class);
+        $authorizer
+            ->expects($this->exactly(2))
+            ->method('isPermitted')
+            ->with($permission, $identity)
+            ->willReturnOnConsecutiveCalls(true, false);
+
+        $expander = $this->createMock(ExpanderInterface::class);
+
+        $attribute = $this->createMock(AttributeInterface::class);
+        $attribute
+            ->expects($this->exactly(2))
+            ->method('getPermission')
+            ->willReturn($permission);
+
+        /**
+         * @var RequestInterface    $request
+         * @var AuthorizerInterface $authorizer
+         * @var ExpanderInterface   $expander
+         * @var IdentityInterface   $identity
+         * @var LinkInterface       $link
+         * @var AttributeInterface  $attribute
+         * @var ResourceInterface   $resource
+         */
+        $resource = (new Builder())
+            ->setAuthorizer($authorizer)
+            ->setExpander($expander)
+            ->setIdentity($identity)
+            ->addAttribute('allowed', $attribute)
+            ->addAttribute('not_allowed', $attribute)
+            ->setToProject([
+                'allowed',
+                'not_allowed',
+            ])
+            ->build($request);
+
+        $this->assertSame([
+            'allowed' => $attribute,
+        ], $resource->getAttributes());
     }
 }

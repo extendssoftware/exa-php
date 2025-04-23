@@ -46,6 +46,14 @@ abstract class AbstractApplication implements ApplicationInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function getModules(): array
+    {
+        return $this->modules;
+    }
+
+    /**
      * Get service locator.
      *
      * @return ServiceLocatorInterface
