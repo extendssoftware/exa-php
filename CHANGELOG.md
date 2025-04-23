@@ -9,8 +9,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added soft-fail support for unauthorized resource expansions and attribute projections.
-
 ### Changed
 
 ### Deprecated
@@ -20,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.4.0] - 2025-04-23
+
+### Added
+
+- Added soft-fail support for unauthorized resource expansions and attribute projections.
 
 ## [0.3.0] - 2025-04-22
 
@@ -147,7 +151,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.3.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.4.0...HEAD
+
+[0.4.0]: https://github.com/extendssoftware/exa-php/commits/0.4.0
 
 [0.3.0]: https://github.com/extendssoftware/exa-php/commits/0.3.0
 
