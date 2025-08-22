@@ -9,6 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+- Added support for HATEOAS resource expanding on non-GET requests.
+
 ### Changed
 
 ### Deprecated
