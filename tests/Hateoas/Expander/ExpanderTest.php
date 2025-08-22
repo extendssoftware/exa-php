@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Hateoas\Expander;
 
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\BuilderInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Link\LinkInterface;
+use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
@@ -34,6 +36,18 @@ class ExpanderTest extends TestCase
             ->expects($this->once())
             ->method('withUri')
             ->with($uri)
+            ->willReturnSelf();
+
+        $request
+            ->expects($this->once())
+            ->method('withBody')
+            ->with(null)
+            ->willReturnSelf();
+
+        $request
+            ->expects($this->once())
+            ->method('withMethod')
+            ->with(Method::GET)
             ->willReturnSelf();
 
         $response = $this->createMock(ResponseInterface::class);
