@@ -18,7 +18,7 @@ class ProblemTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails::getDetail()
      * @covers \ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails::getStatus()
      * @covers \ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails::getInstance()
-     * @covers \ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails::getAdditional()
+     * @covers \ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetails::getMetadata()
      */
     public function testGetters(): void
     {
@@ -38,6 +38,6 @@ class ProblemTest extends TestCase
         $this->assertSame('Problem detail', $problem->getDetail());
         $this->assertSame(400, $problem->getStatus());
         $this->assertSame('/foo/instance', $problem->getInstance());
-        $this->assertSame(['foo' => 'bar'], $problem->getAdditional());
+        $this->assertSame(['foo' => 'bar'], $problem->getMetadata());
     }
 }

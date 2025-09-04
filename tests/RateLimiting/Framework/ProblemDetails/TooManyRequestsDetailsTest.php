@@ -60,6 +60,6 @@ class TooManyRequestsDetailsTest extends TestCase
             'X-RateLimit-Limit' => 10,
             'X-RateLimit-Remaining' => 5,
             'X-RateLimit-Reset' => 1666697250,
-        ], $problemDetails->getAdditional());
+        ], $problemDetails->getMetadata());
     }
 }

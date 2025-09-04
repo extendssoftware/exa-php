@@ -6,9 +6,8 @@ namespace ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\Json;
 
 use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetailsInterface;
 use ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\SerializerInterface;
+use stdClass;
 
-use function array_filter;
-use function array_merge;
 use function json_encode;
 
 use const JSON_UNESCAPED_SLASHES;
@@ -20,20 +19,18 @@ class JsonSerializer implements SerializerInterface
      */
     public function serialize(ProblemDetailsInterface $problem): string
     {
-        return json_encode(
-            array_filter(
-                array_merge(
-                    [
-                        'type' => $problem->getType(),
-                        'title' => $problem->getTitle(),
-                        'detail' => $problem->getDetail(),
-                        'status' => $problem->getStatus(),
-                        'instance' => $problem->getInstance(),
-                    ],
-                    $problem->getAdditional() ?: []
-                )
-            ),
-            JSON_UNESCAPED_SLASHES
-        ) ?: '';
+        return strval(
+            json_encode(
+                [
+                    'type' => $problem->getType(),
+                    'title' => $problem->getTitle(),
+                    'detail' => $problem->getDetail(),
+                    'status' => $problem->getStatus(),
+                    'instance' => $problem->getInstance(),
+                    'metadata' => $problem->getMetadata() ?: new stdClass()
+                ],
+                JSON_UNESCAPED_SLASHES
+            )
+        );
     }
 }

@@ -46,6 +46,6 @@ class AttributeNotFoundProblemDetailsTest extends TestCase
         $this->assertSame('Attribute with property can not be found.', $problemDetails->getDetail());
         $this->assertSame(404, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['property' => 'author'], $problemDetails->getAdditional());
+        $this->assertSame(['property' => 'author'], $problemDetails->getMetadata());
     }
 }

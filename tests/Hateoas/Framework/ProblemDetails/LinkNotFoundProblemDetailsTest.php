@@ -46,6 +46,6 @@ class LinkNotFoundProblemDetailsTest extends TestCase
         $this->assertSame('Link with rel can not be found.', $problemDetails->getDetail());
         $this->assertSame(404, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['rel' => 'author'], $problemDetails->getAdditional());
+        $this->assertSame(['rel' => 'author'], $problemDetails->getMetadata());
     }
 }

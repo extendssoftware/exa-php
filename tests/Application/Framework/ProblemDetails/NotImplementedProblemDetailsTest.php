@@ -40,6 +40,6 @@ class NotImplementedProblemDetailsTest extends TestCase
         $this->assertSame('Request cannot be fulfilled.', $problemDetails->getDetail());
         $this->assertSame(501, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertNull($problemDetails->getAdditional());
+        $this->assertNull($problemDetails->getMetadata());
     }
 }

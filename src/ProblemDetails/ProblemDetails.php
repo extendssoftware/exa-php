@@ -14,7 +14,7 @@ class ProblemDetails implements ProblemDetailsInterface
      * @param string       $detail
      * @param int          $status
      * @param string|null  $instance
-     * @param mixed[]|null $additional
+     * @param mixed[]|null $meta
      */
     public function __construct(
         private readonly string $type,
@@ -22,7 +22,7 @@ class ProblemDetails implements ProblemDetailsInterface
         private readonly string $detail,
         private readonly int $status,
         private readonly ?string $instance = null,
-        private readonly ?array $additional = null
+        private readonly ?array $meta = null
     ) {
     }
 
@@ -69,8 +69,8 @@ class ProblemDetails implements ProblemDetailsInterface
     /**
      * @inheritDoc
      */
-    public function getAdditional(): ?array
+    public function getMetadata(): ?array
     {
-        return $this->additional;
+        return $this->meta;
     }
 }

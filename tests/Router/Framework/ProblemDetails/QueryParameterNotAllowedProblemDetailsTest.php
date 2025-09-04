@@ -46,6 +46,6 @@ class QueryParameterNotAllowedProblemDetailsTest extends TestCase
         $this->assertSame('Query string parameters are not allowed.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['parameters' => ['author']], $problemDetails->getAdditional());
+        $this->assertSame(['parameters' => ['author']], $problemDetails->getMetadata());
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\ProblemDetails\Serializer\Json;
@@ -45,7 +46,7 @@ class JsonSerializerTest extends TestCase
 
         $problem
             ->expects($this->once())
-            ->method('getAdditional')
+            ->method('getMetadata')
             ->willReturn([
                 'foo' => 'bar',
             ]);
@@ -62,7 +63,9 @@ class JsonSerializerTest extends TestCase
                 'detail' => 'Problem detail',
                 'status' => 400,
                 'instance' => '/foo/instance',
-                'foo' => 'bar',
+                'metadata' => [
+                    'foo' => 'bar'
+                ],
             ], JSON_UNESCAPED_SLASHES),
             $serializer->serialize($problem)
         );

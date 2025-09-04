@@ -68,6 +68,6 @@ class InternalServerErrorMiddlewareTest extends TestCase
 
         $problemDetails = $response->getBody();
         $this->assertInstanceOf(InternalServerErrorProblemDetails::class, $problemDetails);
-        $this->assertNull($problemDetails->getAdditional());
+        $this->assertNull($problemDetails->getMetadata());
     }
 }

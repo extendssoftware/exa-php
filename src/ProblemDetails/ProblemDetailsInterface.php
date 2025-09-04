@@ -46,5 +46,5 @@ interface ProblemDetailsInterface
      *
      * @return mixed[]|null
      */
-    public function getAdditional(): ?array;
+    public function getMetadata(): ?array;
 }

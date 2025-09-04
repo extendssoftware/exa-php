@@ -48,6 +48,6 @@ class LinkNotEmbeddableProblemDetailsTest extends TestCase
         $this->assertSame('Link with rel is not embeddable.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['rel' => 'comments'], $problemDetails->getAdditional());
+        $this->assertSame(['rel' => 'comments'], $problemDetails->getMetadata());
     }
 }

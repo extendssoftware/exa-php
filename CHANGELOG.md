@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Changed
 
+- Changed Problem Details, extra fields are now returned inside a "metadata" object instead of top-level properties.
+
 ### Deprecated
 
 ### Removed

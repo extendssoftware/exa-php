@@ -54,6 +54,6 @@ class InvalidQueryStringProblemDetailsTest extends TestCase
         $this->assertSame('Value for query string parameter is invalid.', $problemDetails->getDetail());
         $this->assertSame(400, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['parameter' => 'limit', 'reason' => $result], $problemDetails->getAdditional());
+        $this->assertSame(['parameter' => 'limit', 'reason' => $result], $problemDetails->getMetadata());
     }
 }

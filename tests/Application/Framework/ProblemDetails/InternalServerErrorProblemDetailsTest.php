@@ -40,7 +40,7 @@ class InternalServerErrorProblemDetailsTest extends TestCase
         $this->assertSame('An unknown error occurred.', $problemDetails->getDetail());
         $this->assertSame(500, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertNull($problemDetails->getAdditional());
+        $this->assertNull($problemDetails->getMetadata());
     }
 
     /**
@@ -59,6 +59,6 @@ class InternalServerErrorProblemDetailsTest extends TestCase
          */
         $problemDetails = new InternalServerErrorProblemDetails($request);
 
-        $this->assertSame(null, $problemDetails->getAdditional());
+        $this->assertSame(null, $problemDetails->getMetadata());
     }
 }

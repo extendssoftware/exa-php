@@ -52,6 +52,6 @@ class MethodNotAllowedProblemDetailsTest extends TestCase
         $this->assertSame('Method is not allowed.', $problemDetails->getDetail());
         $this->assertSame(405, $problemDetails->getStatus());
         $this->assertSame('/foo/bar', $problemDetails->getInstance());
-        $this->assertSame(['method' => 'GET', 'allowed_methods' => ['PUT', 'POST']], $problemDetails->getAdditional());
+        $this->assertSame(['method' => 'GET', 'allowed_methods' => ['PUT', 'POST']], $problemDetails->getMetadata());
     }
 }
