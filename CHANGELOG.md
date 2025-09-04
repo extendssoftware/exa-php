@@ -9,11 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added support for HATEOAS resource expanding on non-GET requests.
-
 ### Changed
-
-- Changed Problem Details, extra fields are now returned inside a "metadata" object instead of top-level properties.
 
 ### Deprecated
 
@@ -22,6 +18,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.5.0] - 2025-09-04
+
+### Added
+
+- Added support for HATEOAS resource expanding on non-GET requests.
+
+### Changed
+
+- Changed Problem Details, extra fields are now returned inside a "metadata" object instead of top-level properties.
 
 ## [0.4.0] - 2025-04-23
 
@@ -155,7 +161,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.4.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.5.0...HEAD
+
+[0.5.0]: https://github.com/extendssoftware/exa-php/commits/0.5.0
 
 [0.4.0]: https://github.com/extendssoftware/exa-php/commits/0.4.0
 
