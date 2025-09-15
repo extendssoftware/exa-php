@@ -20,15 +20,18 @@ class MiddlewareChainFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        array $extra = null,
     ): MiddlewareChainInterface {
-        $config = $serviceLocator->getContainer()->find(MiddlewareChainInterface::class, []);
+        $config = $serviceLocator
+            ->getContainer()
+            ->find(MiddlewareChainInterface::class, []);
         $chain = new MiddlewareChain();
         foreach ($config as $middlewareKey => $priority) {
-            $middleware = $serviceLocator->getService($middlewareKey);
-            if ($middleware instanceof MiddlewareInterface) {
-                $chain->addMiddleware($middleware, $priority);
-            }
+            /** @var class-string<MiddlewareInterface> $name */
+            $name = $middlewareKey;
+
+            $middleware = $serviceLocator->getService($name);
+            $chain->addMiddleware($middleware, $priority);
         }
 
         return $chain;

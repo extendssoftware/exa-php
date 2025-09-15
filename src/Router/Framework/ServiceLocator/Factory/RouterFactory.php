@@ -16,7 +16,7 @@ use ReflectionException;
 class RouterFactory implements ServiceFactoryInterface
 {
     /**
-     * Create router.
+     * Create a router.
      *
      * @param string                  $class
      * @param ServiceLocatorInterface $serviceLocator
@@ -27,15 +27,18 @@ class RouterFactory implements ServiceFactoryInterface
      */
     public function createService(string $class, ServiceLocatorInterface $serviceLocator, array $extra = null): object
     {
-        $classes = $serviceLocator->getContainer()->find(RouterInterface::class, []);
+        $classes = $serviceLocator
+            ->getContainer()
+            ->find(RouterInterface::class, []);
         $router = new Router();
         foreach ($classes as $class) {
             $reflectionClass = new ReflectionClass($class);
             foreach ($reflectionClass->getMethods() as $reflectionMethod) {
                 foreach ($reflectionMethod->getAttributes(Route::class) as $attribute) {
-                    $router->addDefinition(
-                        new RouteDefinition($attribute->newInstance(), $reflectionClass, $reflectionMethod)
-                    );
+                    /** @var Route $instance */
+                    $instance = $attribute->newInstance();
+
+                    $router->addDefinition(new RouteDefinition($instance, $reflectionClass, $reflectionMethod));
                 }
             }
         }

@@ -39,6 +39,12 @@ class ServiceLocator implements ServiceLocatorInterface
 
     /**
      * @inheritDoc
+     * @template T of object
+     *
+     * @param class-string<T>           $key
+     * @param array<string, mixed>|null $extra
+     *
+     * @return T
      */
     public function getService(string $key, array $extra = null): object
     {
@@ -63,6 +69,7 @@ class ServiceLocator implements ServiceLocatorInterface
             throw new ServiceNotFound($key);
         }
 
+        /** @var T $service */
         return $service;
     }
 
@@ -95,9 +102,9 @@ class ServiceLocator implements ServiceLocatorInterface
     }
 
     /**
-     * Register a new resolver for key.
+     * Register a new resolver for a key.
      *
-     * When a resolver is already registered for key, it will be overwritten.
+     * When a resolver is already registered for a key, it will be overwritten.
      *
      * @param ResolverInterface $resolver
      * @param string            $key

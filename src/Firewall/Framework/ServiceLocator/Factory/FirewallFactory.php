@@ -20,15 +20,18 @@ class FirewallFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        array $extra = null,
     ): FirewallInterface {
-        $config = $serviceLocator->getContainer()->find(FirewallInterface::class, []);
+        $config = $serviceLocator
+            ->getContainer()
+            ->find(FirewallInterface::class, []);
         $firewall = new Firewall();
         foreach ($config['realms'] ?? [] as $config) {
-            $realm = $serviceLocator->getService($config['name'], $config['options'] ?? []);
-            if ($realm instanceof RealmInterface) {
-                $firewall->addRealm($realm);
-            }
+            /** @var class-string<RealmInterface> $name */
+            $name = $config['name'];
+
+            $realm = $serviceLocator->getService($name, $config['options'] ?? []);
+            $firewall->addRealm($realm);
         }
 
         return $firewall;

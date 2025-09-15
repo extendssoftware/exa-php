@@ -21,24 +21,28 @@ class LoggerFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        array $extra = null,
     ): LoggerInterface {
-        $config = $serviceLocator->getContainer()->find(LoggerInterface::class, []);
+        $config = $serviceLocator
+            ->getContainer()
+            ->find(LoggerInterface::class, []);
         $logger = new Logger();
 
         foreach ($config['writers'] ?? [] as $writer) {
+            /** @var class-string<WriterInterface> $name */
+            $name = $writer['name'];
             $interrupt = $writer['options']['interrupt'] ?? null;
-            $writer = $serviceLocator->getService($writer['name'], $writer['options'] ?? []);
-            if ($writer instanceof WriterInterface) {
-                $logger->addWriter($writer, $interrupt);
-            }
+
+            $writer = $serviceLocator->getService($name, $writer['options'] ?? []);
+            $logger->addWriter($writer, $interrupt);
         }
 
         foreach ($config['decorators'] ?? [] as $decorator) {
-            $decorator = $serviceLocator->getService($decorator['name'], $decorator['options'] ?? []);
-            if ($decorator instanceof DecoratorInterface) {
-                $logger->addDecorator($decorator);
-            }
+            /** @var class-string<DecoratorInterface> $name */
+            $name = $decorator['name'];
+
+            $decorator = $serviceLocator->getService($name, $decorator['options'] ?? []);
+            $logger->addDecorator($decorator);
         }
 
         return $logger;

@@ -1,4 +1,6 @@
 parameters:
+    parallel:
+        minimumNumberOfJobsPerProcess: 1
     level: 8
     phpVersion: 80300
     paths:

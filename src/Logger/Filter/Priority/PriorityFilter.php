@@ -18,16 +18,15 @@ use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
 {
     /**
-     * Create new priority filter.
+     * Create a new priority filter.
      *
      * @param PriorityInterface|null  $priority
      * @param ValidatorInterface|null $validator
      */
     public function __construct(
         private ?PriorityInterface $priority = null,
-        private ?ValidatorInterface $validator = null
-    ) {
-    }
+        private ?ValidatorInterface $validator = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -37,20 +36,18 @@ readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
     {
         $priority = null;
         if (isset($extra['priority'])) {
-            /** @var PriorityInterface $priority */
-            $priority = $serviceLocator->getService(
-                $extra['priority']['name'],
-                $extra['priority']['options'] ?? []
-            );
+            /** @var class-string<PriorityInterface> $name */
+            $name = $extra['priority']['name'];
+
+            $priority = $serviceLocator->getService($name, $extra['priority']['options'] ?? []);
         }
 
         $validator = null;
         if (isset($extra['validator'])) {
-            /** @var ValidatorInterface $validator */
-            $validator = $serviceLocator->getService(
-                $extra['validator']['name'],
-                $extra['validator']['options'] ?? []
-            );
+            /** @var class-string<ValidatorInterface> $name */
+            $name = $extra['validator']['name'];
+
+            $validator = $serviceLocator->getService($name, $extra['validator']['options'] ?? []);
         }
 
         return new PriorityFilter($priority, $validator);
@@ -69,7 +66,7 @@ readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
             ->validate(
                 $log
                     ->getPriority()
-                    ->getValue()
+                    ->getValue(),
             )
             ->isValid();
     }
