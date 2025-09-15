@@ -44,7 +44,7 @@ class ContainerValidator implements ValidatorInterface
      *
      * @return ContainerValidator
      */
-    public function addValidator(ValidatorInterface $validator, bool $interrupt = null): ContainerValidator
+    public function addValidator(ValidatorInterface $validator, ?bool $interrupt = null): ContainerValidator
     {
         $this->validators[] = new InterruptValidator($validator, $interrupt);
 

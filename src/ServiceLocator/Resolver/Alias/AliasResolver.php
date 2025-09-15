@@ -43,7 +43,7 @@ class AliasResolver implements ResolverInterface
      *
      * @inheritDoc
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         return $serviceLocator->getService($this->aliases[$key], $extra);
     }

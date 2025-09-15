@@ -23,7 +23,7 @@ interface ServiceLocatorInterface
      * @return T
      * @throws ServiceLocatorException
      */
-    public function getService(string $key, array $extra = null): object;
+    public function getService(string $key, ?array $extra = null): object;
 
     /**
      * Get resolver for a key.

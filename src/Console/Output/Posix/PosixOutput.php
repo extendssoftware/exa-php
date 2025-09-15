@@ -47,7 +47,7 @@ class PosixOutput implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function text(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface
+    public function text(string $text, ?FormatterInterface $formatter = null, ?int $verbosity = null): OutputInterface
     {
         if (($verbosity ?? 0) <= $this->verbosity) {
             if ($formatter) {
@@ -63,7 +63,7 @@ class PosixOutput implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function line(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface
+    public function line(string $text, ?FormatterInterface $formatter = null, ?int $verbosity = null): OutputInterface
     {
         return $this
             ->text($text, $formatter, $verbosity)
@@ -73,7 +73,7 @@ class PosixOutput implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function newLine(int $verbosity = null): OutputInterface
+    public function newLine(?int $verbosity = null): OutputInterface
     {
         return $this->text("\n\r", verbosity: $verbosity);
     }
@@ -81,7 +81,7 @@ class PosixOutput implements OutputInterface
     /**
      * @inheritDoc
      */
-    public function clearLine(int $verbosity = null): OutputInterface
+    public function clearLine(?int $verbosity = null): OutputInterface
     {
         return $this->text("\r", verbosity: $verbosity);
     }

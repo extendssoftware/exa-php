@@ -50,7 +50,7 @@ class FactoryResolver implements ResolverInterface
      *
      * @inheritDoc
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $factory = $this->factories[$key];
         if (is_string($factory)) {

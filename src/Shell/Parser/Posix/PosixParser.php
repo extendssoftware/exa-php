@@ -31,7 +31,7 @@ class PosixParser implements ParserInterface
     /**
      * @inheritDoc
      */
-    public function parse(DefinitionInterface $definition, array $arguments, bool $strict = null): ParseResultInterface
+    public function parse(DefinitionInterface $definition, array $arguments, ?bool $strict = null): ParseResultInterface
     {
         $strict = $strict ?? true;
         $result = $this->parseArguments($definition, $arguments, $strict);

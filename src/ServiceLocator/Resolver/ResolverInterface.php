@@ -29,7 +29,7 @@ interface ResolverInterface
      * @throws ResolverException
      * @throws ServiceLocatorException
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object;
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object;
 
     /**
      * Create new resolver from config.

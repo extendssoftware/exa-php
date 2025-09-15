@@ -46,7 +46,7 @@ class ServiceLocator implements ServiceLocatorInterface
      *
      * @return T
      */
-    public function getService(string $key, array $extra = null): object
+    public function getService(string $key, ?array $extra = null): object
     {
         if (isset($this->shared[$key]) && $extra === null) {
             return $this->shared[$key];

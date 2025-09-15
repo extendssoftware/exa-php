@@ -66,7 +66,7 @@ interface FormatterInterface
      *
      * @return FormatterInterface
      */
-    public function setFixedWidth(int $length = null): FormatterInterface;
+    public function setFixedWidth(?int $length = null): FormatterInterface;
 
     /**
      * Set text indent to length.
@@ -75,7 +75,7 @@ interface FormatterInterface
      *
      * @return FormatterInterface
      */
-    public function setTextIndent(int $length = null): FormatterInterface;
+    public function setTextIndent(?int $length = null): FormatterInterface;
 
     /**
      * Add format to text.

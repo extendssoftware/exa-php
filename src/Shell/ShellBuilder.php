@@ -110,9 +110,9 @@ class ShellBuilder implements ShellBuilderInterface
     public function addCommand(
         string $name,
         string $description,
-        array $operands = null,
-        array $options = null,
-        array $parameters = null
+        ?array $operands = null,
+        ?array $options = null,
+        ?array $parameters = null
     ): ShellBuilder {
         $definition = new Definition();
         foreach ($operands ?: [] as $operand) {
@@ -146,7 +146,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setName(string $name = null): ShellBuilder
+    public function setName(?string $name = null): ShellBuilder
     {
         $this->name = $name;
 
@@ -160,7 +160,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setProgram(string $program = null): ShellBuilder
+    public function setProgram(?string $program = null): ShellBuilder
     {
         $this->program = $program;
 
@@ -174,7 +174,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setVersion(string $version = null): ShellBuilder
+    public function setVersion(?string $version = null): ShellBuilder
     {
         $this->version = $version;
 
@@ -188,7 +188,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setDescriptor(DescriptorInterface $descriptor = null): ShellBuilder
+    public function setDescriptor(?DescriptorInterface $descriptor = null): ShellBuilder
     {
         $this->descriptor = $descriptor;
 
@@ -202,7 +202,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setSuggester(SuggesterInterface $suggester = null): ShellBuilder
+    public function setSuggester(?SuggesterInterface $suggester = null): ShellBuilder
     {
         $this->suggester = $suggester;
 
@@ -216,7 +216,7 @@ class ShellBuilder implements ShellBuilderInterface
      *
      * @return ShellBuilder
      */
-    public function setParser(ParserInterface $parser = null): ShellBuilder
+    public function setParser(?ParserInterface $parser = null): ShellBuilder
     {
         $this->parser = $parser;
 

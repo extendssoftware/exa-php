@@ -21,7 +21,7 @@ abstract class AbstractLogicalValidator extends AbstractValidator
      *
      * @param mixed[]|null $validators
      */
-    public function __construct(array $validators = null)
+    public function __construct(?array $validators = null)
     {
         foreach ($validators ?? [] as $validator) {
             $this->addValidator($validator);

@@ -57,7 +57,7 @@ class ReflectionResolver implements ResolverInterface
      * @inheritDoc
      * @throws ReflectionException
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $class = $this->classes[$key];
 

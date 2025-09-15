@@ -21,7 +21,7 @@ class LoggerFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): LoggerInterface {
         $config = $serviceLocator
             ->getContainer()

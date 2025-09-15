@@ -15,7 +15,7 @@ interface InputInterface
      *
      * @return null|string
      */
-    public function line(int $length = null): ?string;
+    public function line(?int $length = null): ?string;
 
     /**
      * Read a character from the input.
@@ -26,5 +26,5 @@ interface InputInterface
      *
      * @return null|string
      */
-    public function character(string $allowed = null): ?string;
+    public function character(?string $allowed = null): ?string;
 }

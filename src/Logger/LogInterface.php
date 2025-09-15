@@ -80,5 +80,5 @@ interface LogInterface
      *
      * @return LogInterface
      */
-    public function withThrowable(Throwable $throwable = null): LogInterface;
+    public function withThrowable(?Throwable $throwable = null): LogInterface;
 }

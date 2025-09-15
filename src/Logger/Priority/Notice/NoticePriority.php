@@ -40,7 +40,7 @@ class NoticePriority implements PriorityInterface, StaticFactoryInterface
     public static function factory(
         string $key,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null
     ): PriorityInterface {
         return new NoticePriority();
     }

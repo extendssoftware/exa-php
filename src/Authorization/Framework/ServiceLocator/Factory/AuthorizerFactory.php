@@ -20,7 +20,7 @@ class AuthorizerFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): AuthorizerInterface {
         $config = $serviceLocator
             ->getContainer()

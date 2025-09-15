@@ -21,7 +21,7 @@ class RateLimiterFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): RateLimiterInterface {
         $config = $serviceLocator
             ->getContainer()

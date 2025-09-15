@@ -23,5 +23,9 @@ interface ParserInterface
      * @throws ParserException
      * @throws DefinitionException
      */
-    public function parse(DefinitionInterface $definition, array $arguments, bool $strict = null): ParseResultInterface;
+    public function parse(
+        DefinitionInterface $definition,
+        array $arguments,
+        ?bool $strict = null,
+    ): ParseResultInterface;
 }

@@ -20,7 +20,7 @@ class FirewallFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): FirewallInterface {
         $config = $serviceLocator
             ->getContainer()

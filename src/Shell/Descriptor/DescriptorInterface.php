@@ -25,7 +25,7 @@ interface DescriptorInterface
         AboutInterface $about,
         DefinitionInterface $definition,
         array $commands,
-        bool $short = null
+        ?bool $short = null
     ): DescriptorInterface;
 
     /**
@@ -37,7 +37,7 @@ interface DescriptorInterface
      *
      * @return DescriptorInterface
      */
-    public function command(AboutInterface $about, CommandInterface $command, bool $short = null): DescriptorInterface;
+    public function command(AboutInterface $about, CommandInterface $command, ?bool $short = null): DescriptorInterface;
 
     /**
      * Suggest given command.
@@ -46,7 +46,7 @@ interface DescriptorInterface
      *
      * @return DescriptorInterface
      */
-    public function suggest(CommandInterface $command = null): DescriptorInterface;
+    public function suggest(?CommandInterface $command = null): DescriptorInterface;
 
     /**
      * Describe exception.

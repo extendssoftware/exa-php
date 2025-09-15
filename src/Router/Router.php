@@ -140,7 +140,7 @@ class Router implements RouterInterface
     /**
      * @inheritDoc
      */
-    public function assemble(string $name, array $parameters = null, bool $keepUnresolved = null): RequestInterface
+    public function assemble(string $name, ?array $parameters = null, ?bool $keepUnresolved = null): RequestInterface
     {
         foreach ($this->definitions as $definition) {
             $route = $definition->getRoute();

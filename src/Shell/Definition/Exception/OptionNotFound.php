@@ -17,7 +17,7 @@ class OptionNotFound extends Exception implements DefinitionException
      * @param string    $name
      * @param bool|null $long
      */
-    public function __construct(string $name, bool $long = null)
+    public function __construct(string $name, ?bool $long = null)
     {
         parent::__construct(
             sprintf(

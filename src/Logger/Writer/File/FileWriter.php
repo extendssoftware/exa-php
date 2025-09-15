@@ -53,7 +53,7 @@ class FileWriter extends AbstractWriter
     public static function factory(
         string $key,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): WriterInterface {
         $writer = new FileWriter(
         /** @phpstan-ignore-next-line */

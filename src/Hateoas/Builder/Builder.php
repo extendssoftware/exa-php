@@ -84,7 +84,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function addLink(string $relation, LinkInterface $link, bool $singular = null): BuilderInterface
+    public function addLink(string $relation, LinkInterface $link, ?bool $singular = null): BuilderInterface
     {
         if ($singular ?? true) {
             $this->links[$relation] = $link;
@@ -109,7 +109,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function addResource(string $relation, BuilderInterface $resource, bool $singular = null): BuilderInterface
+    public function addResource(string $relation, BuilderInterface $resource, ?bool $singular = null): BuilderInterface
     {
         if ($singular ?? true) {
             $this->resources[$relation] = $resource;
@@ -157,7 +157,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setToProject(array $properties = null): BuilderInterface
+    public function setToProject(?array $properties = null): BuilderInterface
     {
         $this->toProject = $properties ?? [];
 
@@ -167,7 +167,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setToExpand(array $relations = null): BuilderInterface
+    public function setToExpand(?array $relations = null): BuilderInterface
     {
         $this->toExpand = $relations ?? [];
 
@@ -177,7 +177,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setExpander(ExpanderInterface $expander = null): BuilderInterface
+    public function setExpander(?ExpanderInterface $expander = null): BuilderInterface
     {
         $this->expander = $expander;
 
@@ -187,7 +187,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setAuthorizer(AuthorizerInterface $authorizer = null): BuilderInterface
+    public function setAuthorizer(?AuthorizerInterface $authorizer = null): BuilderInterface
     {
         $this->authorizer = $authorizer;
 
@@ -197,7 +197,7 @@ class Builder implements BuilderInterface
     /**
      * @inheritDoc
      */
-    public function setIdentity(IdentityInterface $identity = null): BuilderInterface
+    public function setIdentity(?IdentityInterface $identity = null): BuilderInterface
     {
         $this->identity = $identity;
 
@@ -233,7 +233,7 @@ class Builder implements BuilderInterface
      *
      * @return bool
      */
-    private function isAuthorized(PermissionInterface $permission = null, PolicyInterface $policy = null): bool
+    private function isAuthorized(?PermissionInterface $permission = null, ?PolicyInterface $policy = null): bool
     {
         $authorized = true;
         if ($permission || $policy) {
@@ -289,7 +289,7 @@ class Builder implements BuilderInterface
      * @throws LinkNotEmbeddable
      * @throws LinkNotFound
      */
-    private function getBuiltResources(RequestInterface $request, array $resources, string $outerRel = null): array
+    private function getBuiltResources(RequestInterface $request, array $resources, ?string $outerRel = null): array
     {
         $build = [];
         foreach ($resources as $rel => $resource) {

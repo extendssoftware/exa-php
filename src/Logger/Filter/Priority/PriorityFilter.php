@@ -32,7 +32,7 @@ readonly class PriorityFilter implements FilterInterface, StaticFactoryInterface
      * @inheritDoc
      * @throws ServiceLocatorException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $priority = null;
         if (isset($extra['priority'])) {

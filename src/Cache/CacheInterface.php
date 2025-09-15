@@ -25,7 +25,7 @@ interface CacheInterface
      *
      * @return static
      */
-    public function set(string $key, mixed $value, int $ttl = null): static;
+    public function set(string $key, mixed $value, ?int $ttl = null): static;
 
     /**
      * Is cache has key.

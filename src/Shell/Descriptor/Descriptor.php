@@ -38,7 +38,7 @@ readonly class Descriptor implements DescriptorInterface
         AboutInterface $about,
         DefinitionInterface $definition,
         array $commands,
-        bool $short = null
+        ?bool $short = null
     ): DescriptorInterface {
         if ($short) {
             $this->output
@@ -144,7 +144,7 @@ readonly class Descriptor implements DescriptorInterface
      * @inheritDoc
      * @throws FormatterException When foreground color is not supported.
      */
-    public function command(AboutInterface $about, CommandInterface $command, bool $short = null): DescriptorInterface
+    public function command(AboutInterface $about, CommandInterface $command, ?bool $short = null): DescriptorInterface
     {
         $short = $short ?? false;
         $definition = $command->getDefinition();
@@ -245,7 +245,7 @@ readonly class Descriptor implements DescriptorInterface
      * @inheritDoc
      * @throws FormatterException When foreground color is not supported.
      */
-    public function suggest(CommandInterface $command = null): DescriptorInterface
+    public function suggest(?CommandInterface $command = null): DescriptorInterface
     {
         if ($command instanceof CommandInterface) {
             $this->output

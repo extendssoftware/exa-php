@@ -108,9 +108,9 @@ interface UriInterface
      */
     public function withAuthority(
         string $host,
-        string $user = null,
-        string $pass = null,
-        int $port = null
+        ?string $user = null,
+        ?string $pass = null,
+        ?int $port = null
     ): UriInterface;
 
     /**

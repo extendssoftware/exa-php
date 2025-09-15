@@ -25,7 +25,7 @@ class RouterFactory implements ServiceFactoryInterface
      * @return RouterInterface
      * @throws ReflectionException
      */
-    public function createService(string $class, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function createService(string $class, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $classes = $serviceLocator
             ->getContainer()

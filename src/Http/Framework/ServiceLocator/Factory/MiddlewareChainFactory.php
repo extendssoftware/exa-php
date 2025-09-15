@@ -20,7 +20,7 @@ class MiddlewareChainFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null,
+        ?array $extra = null,
     ): MiddlewareChainInterface {
         $config = $serviceLocator
             ->getContainer()

@@ -61,7 +61,7 @@ class BetweenValidator extends AbstractValidator
         private readonly string|float|int|bool|null $min = null,
         private readonly string|float|int|bool|null $max = null,
         private readonly ?bool $inclusive = null,
-        ValidatorInterface $validator = null,
+        ?ValidatorInterface $validator = null,
     ) {
         $this->validator = $validator ?? new IntegerValidator();
     }
