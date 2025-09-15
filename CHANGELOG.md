@@ -9,8 +9,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added a generic return type to the \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface::getService method.
-
 ### Changed
 
 ### Deprecated
@@ -20,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.5.1] - 2025-09-15
+
+### Added
+
+- Added a generic return type to the \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface::getService method.
 
 ## [0.5.0] - 2025-09-04
 
@@ -163,7 +167,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.5.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.5.1...HEAD
+
+[0.5.1]: https://github.com/extendssoftware/exa-php/commits/0.5.1
 
 [0.5.0]: https://github.com/extendssoftware/exa-php/commits/0.5.0
 

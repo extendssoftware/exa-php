@@ -82,7 +82,7 @@ class ShellBuilder implements ShellBuilderInterface
             new About(
                 $this->name ?: 'ExaPHP Console',
                 $this->program ?: 'exa',
-                $this->version ?: '0.5.0'
+                $this->version ?: '0.5.1'
             )
         );
 
