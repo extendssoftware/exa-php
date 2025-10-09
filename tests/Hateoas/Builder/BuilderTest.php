@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Builder;
 
 use ExtendsSoftware\ExaPHP\Authorization\AuthorizerInterface;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
+use ExtendsSoftware\ExaPHP\Authorization\Policy\PolicyInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Attribute\AttributeInterface;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\AttributeNotFound;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotEmbeddable;
@@ -18,8 +19,30 @@ use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
+use function is_bool;
+
 class BuilderTest extends TestCase
 {
+    /**
+     * Valid inclusive values.
+     *
+     * @return array<array<float>>
+     */
+    public static function isAuthorizedDataProvider(): array
+    {
+        return [
+            [true, true, true],
+            [true, false, false],
+            [false, true, false],
+            [false, false, false],
+            [true, null, true],
+            [false, null, false],
+            [null, true, true],
+            [null, false, false],
+            [null, null, true],
+        ];
+    }
+
     /**
      * Test that builder will build resource.
      *
@@ -373,7 +396,7 @@ class BuilderTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
      * @covers \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::reset()
      */
-    public function testAttributeSoftFail()
+    public function testAttributeSoftFail(): void
     {
         $request = $this->createMock(RequestInterface::class);
 
@@ -420,5 +443,127 @@ class BuilderTest extends TestCase
         $this->assertSame([
             'allowed' => $attribute,
         ], $resource->getAttributes());
+    }
+
+    /**
+     * Test that a link or attribute is authorized when the permission is null or permitted and the policy is null or
+     * allowed.
+     *
+     * @param bool|null $permissionReturnValue
+     * @param bool|null $policyReturnValue
+     * @param bool      $hasLinkAndAttribute
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setAuthorizer()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setExpander()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setIdentity()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::addAttribute()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::setToProject()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::build()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedLinks()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getProjectedAttributes()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getAuthorizedAttributes()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getBuiltResources()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::getExpandedResources()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::isAuthorized()
+     * @covers       \ExtendsSoftware\ExaPHP\Hateoas\Builder\Builder::reset()
+     * @dataProvider isAuthorizedDataProvider
+     */
+    public function testIsAuthorized(
+        ?bool $permissionReturnValue,
+        ?bool $policyReturnValue,
+        bool $hasLinkAndAttribute
+    ): void {
+        $request = $this->createMock(RequestInterface::class);
+
+        $identity = $this->createMock(IdentityInterface::class);
+
+        $authorizer = $this->createMock(AuthorizerInterface::class);
+
+        $expander = $this->createMock(ExpanderInterface::class);
+
+        if (is_bool($permissionReturnValue)) {
+            $permission = $this->createMock(PermissionInterface::class);
+            $authorizer
+                ->expects($this->exactly(2))
+                ->method('isPermitted')
+                ->with($permission, $identity)
+                ->willReturn($permissionReturnValue);
+        } else {
+            $permission = null;
+            $authorizer
+                ->expects($this->never())
+                ->method('isPermitted');
+        }
+
+        if (is_bool($policyReturnValue)) {
+            $policy = $this->createMock(PolicyInterface::class);
+
+            // Method is only called when permission is set or isPermitted returns true.
+            if ($permissionReturnValue !== false) {
+                $authorizer
+                    ->expects($this->exactly(2))
+                    ->method('isAllowed')
+                    ->with($policy, $identity)
+                    ->willReturn($policyReturnValue);
+            }
+        } else {
+            $policy = null;
+
+            // Method is only called when permission is set or isPermitted returns true.
+            if ($permissionReturnValue !== false) {
+                $authorizer
+                    ->expects($this->never())
+                    ->method('isAllowed');
+            }
+        }
+
+        $link = $this->createMock(LinkInterface::class);
+        $link
+            ->expects($this->once())
+            ->method('getPermission')
+            ->willReturn($permission);
+
+        $link
+            ->expects($this->once())
+            ->method('getPolicy')
+            ->willReturn($policy);
+
+        $attribute = $this->createMock(AttributeInterface::class);
+        $attribute
+            ->expects($this->once())
+            ->method('getPermission')
+            ->willReturn($permission);
+
+        $attribute
+            ->expects($this->once())
+            ->method('getPolicy')
+            ->willReturn($policy);
+
+        /**
+         * @var RequestInterface    $request
+         * @var AuthorizerInterface $authorizer
+         * @var ExpanderInterface   $expander
+         * @var IdentityInterface   $identity
+         * @var LinkInterface       $link
+         * @var AttributeInterface  $attribute
+         * @var ResourceInterface   $resource
+         */
+        $resource = (new Builder())
+            ->setAuthorizer($authorizer)
+            ->setExpander($expander)
+            ->setIdentity($identity)
+            ->addLink('link', $link)
+            ->addAttribute('attribute', $attribute)
+            ->build($request);
+
+        $links = $resource->getLinks();
+        $attributes = $resource->getAttributes();
+        if ($hasLinkAndAttribute) {
+            $this->assertArrayHasKey('link', $links);
+            $this->assertArrayHasKey('attribute', $attributes);
+        } else {
+            $this->assertEmpty($links);
+            $this->assertEmpty($attributes);
+        }
     }
 }

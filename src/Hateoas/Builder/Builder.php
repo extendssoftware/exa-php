@@ -20,6 +20,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 
 use function array_filter;
+use function array_keys;
 use function array_merge;
 use function is_array;
 
@@ -134,7 +135,7 @@ class Builder implements BuilderInterface
             $this->getAuthorizedLinks($this->links),
             $this->getProjectedAttributes(
                 $this->attributes,
-                array_filter($this->toProject, 'is_string'), // Only pass first-level properties.
+                array_filter($this->toProject ?: array_keys($this->attributes), 'is_string'), // Only pass first-level properties.
             ),
             $this->getBuiltResources(
                 $request,
@@ -236,15 +237,14 @@ class Builder implements BuilderInterface
     private function isAuthorized(PermissionInterface $permission = null, PolicyInterface $policy = null): bool
     {
         $authorized = true;
-        if ($permission || $policy) {
+        if ($this->authorizer && $this->identity) {
             $authorized = false;
 
-            if ($this->authorizer && $this->identity) {
-                if (($permission && $this->authorizer->isPermitted($permission, $this->identity)) ||
-                    ($policy && $this->authorizer->isAllowed($policy, $this->identity))
-                ) {
-                    $authorized = true;
-                }
+            if (
+                ($permission === null || $this->authorizer->isPermitted($permission, $this->identity)) &&
+                ($policy === null || $this->authorizer->isAllowed($policy, $this->identity))
+            ) {
+                $authorized = true;
             }
         }
 
@@ -274,7 +274,7 @@ class Builder implements BuilderInterface
             }
         }
 
-        return $projected ?: $attributes;
+        return $projected;
     }
 
     /**
