@@ -44,7 +44,7 @@ class Definition implements DefinitionInterface
     /**
      * @inheritDoc
      */
-    public function getOption(string $name, bool $long = null): OptionInterface
+    public function getOption(string $name, ?bool $long = null): OptionInterface
     {
         foreach ($this->options as $option) {
             if ($long) {

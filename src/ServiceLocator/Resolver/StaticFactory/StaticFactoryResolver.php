@@ -50,7 +50,7 @@ class StaticFactoryResolver implements ResolverInterface
     /**
      * @inheritDoc
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $factory = $this->factories[$key];
         if (!is_subclass_of($factory, StaticFactoryInterface::class)) {

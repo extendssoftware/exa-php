@@ -57,7 +57,7 @@ class ReflectionResolver implements ResolverInterface
      * @inheritDoc
      * @throws ReflectionException
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $class = $this->classes[$key];
 
@@ -108,7 +108,7 @@ class ReflectionResolver implements ResolverInterface
     }
 
     /**
-     * Register class for key.
+     * Register class for a key.
      *
      * @param string       $key
      * @param class-string $class
@@ -123,7 +123,7 @@ class ReflectionResolver implements ResolverInterface
     }
 
     /**
-     * Resolve parameters for function.
+     * Resolve parameters for a function.
      *
      * @param ReflectionFunctionAbstract $function
      * @param ServiceLocatorInterface    $serviceLocator
@@ -143,6 +143,7 @@ class ReflectionResolver implements ResolverInterface
                 throw new InvalidParameter($parameter);
             }
 
+            /** @var class-string $name */
             $name = $type->getName();
             if ($name === ServiceLocatorInterface::class) {
                 $arguments[] = $serviceLocator;

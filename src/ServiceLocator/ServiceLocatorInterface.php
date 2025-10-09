@@ -13,18 +13,20 @@ interface ServiceLocatorInterface
      * Get a service with the name key.
      *
      * A shared service will be created when extra is null. If not, a managed service will be created. An exception
-     * will be thrown when no service is found for key or service is not an object.
+     * will be thrown when no service is found for a key or service is not an object.
      *
-     * @param string       $key
-     * @param mixed[]|null $extra
+     * @template T of object
      *
-     * @return object
+     * @param class-string<T>           $key
+     * @param array<string, mixed>|null $extra
+     *
+     * @return T
      * @throws ServiceLocatorException
      */
-    public function getService(string $key, array $extra = null): object;
+    public function getService(string $key, ?array $extra = null): object;
 
     /**
-     * Get resolver for key.
+     * Get resolver for a key.
      *
      * @param string $key
      *
@@ -41,7 +43,7 @@ interface ServiceLocatorInterface
     public function getContainer(): ContainerInterface;
 
     /**
-     * If console is the current environment.
+     * If the console is the current environment.
      *
      * @return bool
      */

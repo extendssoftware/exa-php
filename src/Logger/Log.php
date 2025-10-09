@@ -105,7 +105,7 @@ class Log implements LogInterface
     /**
      * @inheritDoc
      */
-    public function withThrowable(Throwable $throwable = null): LogInterface
+    public function withThrowable(?Throwable $throwable = null): LogInterface
     {
         $log = clone $this;
         $log->throwable = $throwable;

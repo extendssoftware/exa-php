@@ -28,7 +28,7 @@ class InMemoryCache implements CacheInterface
     /**
      * @inheritDoc
      */
-    public function set(string $key, mixed $value, int $ttl = null): static
+    public function set(string $key, mixed $value, ?int $ttl = null): static
     {
         $this->cache[$key] = $value;
 

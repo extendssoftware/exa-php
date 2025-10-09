@@ -11,7 +11,7 @@ class Factory implements ServiceFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createService(string $class, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function createService(string $class, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $service = new stdClass();
         $service->key = $class;

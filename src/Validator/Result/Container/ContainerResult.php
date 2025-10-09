@@ -59,7 +59,7 @@ class ContainerResult implements ResultInterface
      *
      * @return ContainerResult
      */
-    public function addResult(ResultInterface $result, string $name = null): ContainerResult
+    public function addResult(ResultInterface $result, ?string $name = null): ContainerResult
     {
         $this->valid = $this->isValid() && $result->isValid();
 

@@ -40,9 +40,9 @@ class Logger implements LoggerInterface
      */
     public function log(
         string $message,
-        PriorityInterface $priority = null,
-        array $metaData = null,
-        Throwable $throwable = null,
+        ?PriorityInterface $priority = null,
+        ?array $metaData = null,
+        ?Throwable $throwable = null,
     ): LoggerInterface {
         $log = new Log($message, $priority, null, $metaData, $throwable);
         $log = $this->decorate($log);
@@ -64,7 +64,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function emerg(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function emerg(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new EmergencyPriority(), $metaData, $throwable);
     }
@@ -73,7 +73,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function alert(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function alert(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new AlertPriority(), $metaData, $throwable);
     }
@@ -82,7 +82,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function crit(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function crit(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new CriticalPriority(), $metaData, $throwable);
     }
@@ -91,7 +91,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function error(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function error(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new ErrorPriority(), $metaData, $throwable);
     }
@@ -100,7 +100,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function warning(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function warning(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new WarningPriority(), $metaData, $throwable);
     }
@@ -109,7 +109,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function notice(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function notice(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new NoticePriority(), $metaData, $throwable);
     }
@@ -118,7 +118,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function info(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function info(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new InformationalPriority(), $metaData, $throwable);
     }
@@ -127,7 +127,7 @@ class Logger implements LoggerInterface
      * @inheritDoc
      * @throws WriterException
      */
-    public function debug(string $message, array $metaData = null, Throwable $throwable = null): LoggerInterface
+    public function debug(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
         return $this->log($message, new DebugPriority(), $metaData, $throwable);
     }
@@ -143,7 +143,7 @@ class Logger implements LoggerInterface
      *
      * @return Logger
      */
-    public function addWriter(WriterInterface $writer, bool $interrupt = null): Logger
+    public function addWriter(WriterInterface $writer, ?bool $interrupt = null): Logger
     {
         $this->writers[] = new LoggerWriter($writer, $interrupt ?: false);
 

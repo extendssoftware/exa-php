@@ -51,6 +51,7 @@ class ConsoleApplication extends AbstractApplication
             }
 
             try {
+                /** @var class-string $task */
                 $instance = $this
                     ->getServiceLocator()
                     ->getService($task, $result->getData());

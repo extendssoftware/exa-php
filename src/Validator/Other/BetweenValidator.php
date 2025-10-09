@@ -15,14 +15,14 @@ use function is_null;
 class BetweenValidator extends AbstractValidator
 {
     /**
-     * When value is too low.
+     * When a value is too low.
      *
      * @var string
      */
     public const string TOO_LOW = 'tooLow';
 
     /**
-     * When value is too low or same as min.
+     * When a value is too low or same as min.
      *
      * @var string
      */
@@ -36,7 +36,7 @@ class BetweenValidator extends AbstractValidator
     public const string TOO_HIGH = 'tooHigh';
 
     /**
-     * When value is too high or same as max.
+     * When a value is too high or same as max.
      *
      * @var string
      */
@@ -61,7 +61,7 @@ class BetweenValidator extends AbstractValidator
         private readonly string|float|int|bool|null $min = null,
         private readonly string|float|int|bool|null $max = null,
         private readonly ?bool $inclusive = null,
-        ValidatorInterface $validator = null,
+        ?ValidatorInterface $validator = null,
     ) {
         $this->validator = $validator ?? new IntegerValidator();
     }

@@ -22,9 +22,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ## [0.6.0] - 2025-10-09
 
 ### Changed
- 
+
 - Changed HATEOAS attribute and link authorization: both permission and policy must now be valid (previously either
   condition was sufficient).
+
+## [0.5.1] - 2025-09-15
+
+### Added
+
+- Added a generic return type to the \ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface::getService method.
 
 ## [0.5.0] - 2025-09-04
 
@@ -168,9 +174,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.6.0...HEAD
-
-[0.6.0]: https://github.com/extendssoftware/exa-php/commits/0.6.0
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.5.0...HEAD
 
 [0.5.0]: https://github.com/extendssoftware/exa-php/commits/0.5.0
 

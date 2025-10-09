@@ -17,7 +17,7 @@ interface OutputInterface
      *
      * @return OutputInterface
      */
-    public function text(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface;
+    public function text(string $text, ?FormatterInterface $formatter = null, ?int $verbosity = null): OutputInterface;
 
     /**
      * Send lines to output.
@@ -30,7 +30,7 @@ interface OutputInterface
      *
      * @return OutputInterface
      */
-    public function line(string $text, FormatterInterface $formatter = null, int $verbosity = null): OutputInterface;
+    public function line(string $text, ?FormatterInterface $formatter = null, ?int $verbosity = null): OutputInterface;
 
     /**
      * Send new line to output.
@@ -39,7 +39,7 @@ interface OutputInterface
      *
      * @return OutputInterface
      */
-    public function newLine(int $verbosity = null): OutputInterface;
+    public function newLine(?int $verbosity = null): OutputInterface;
 
     /**
      * Clear current line.
@@ -48,7 +48,7 @@ interface OutputInterface
      *
      * @return OutputInterface
      */
-    public function clearLine(int $verbosity = null): OutputInterface;
+    public function clearLine(?int $verbosity = null): OutputInterface;
 
     /**
      * Get new builder to format text.

@@ -59,7 +59,7 @@ class MiddlewareChain implements MiddlewareChainInterface
      *
      * @return MiddlewareChain
      */
-    public function addMiddleware(MiddlewareInterface $middleware, int $priority = null): MiddlewareChain
+    public function addMiddleware(MiddlewareInterface $middleware, ?int $priority = null): MiddlewareChain
     {
         $this->queue->insert($middleware, $priority ?: 1);
 

@@ -24,7 +24,7 @@ class ShellFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null
     ): ShellInterface {
         /** @var DescriptorInterface $descriptor */
         $descriptor = $serviceLocator->getService(DescriptorInterface::class);

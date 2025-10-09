@@ -20,15 +20,18 @@ class AuthenticatorFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null,
     ): AuthenticatorInterface {
-        $config = $serviceLocator->getContainer()->find(AuthenticatorInterface::class, []);
+        $config = $serviceLocator
+            ->getContainer()
+            ->find(AuthenticatorInterface::class, []);
         $authenticator = new Authenticator();
         foreach ($config['realms'] ?? [] as $config) {
-            $realm = $serviceLocator->getService($config['name'], $config['options'] ?? []);
-            if ($realm instanceof RealmInterface) {
-                $authenticator->addRealm($realm);
-            }
+            /** @var class-string<RealmInterface> $name */
+            $name = $config['name'];
+
+            $realm = $serviceLocator->getService($name, $config['options'] ?? []);
+            $authenticator->addRealm($realm);
         }
 
         return $authenticator;

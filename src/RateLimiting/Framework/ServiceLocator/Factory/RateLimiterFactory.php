@@ -21,22 +21,27 @@ class RateLimiterFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null,
     ): RateLimiterInterface {
-        $config = $serviceLocator->getContainer()->find(RateLimiterInterface::class, []);
+        $config = $serviceLocator
+            ->getContainer()
+            ->find(RateLimiterInterface::class, []);
 
         $algorithmConfig = $config['algorithm'] ?? [];
         if ($algorithmConfig) {
-            /** @var AlgorithmInterface $algorithm */
-            $algorithm = $serviceLocator->getService($algorithmConfig['name'], $algorithmConfig['options']);
+            /** @var class-string<AlgorithmInterface> $name */
+            $name = $algorithmConfig['name'];
+
+            $algorithm = $serviceLocator->getService($name, $algorithmConfig['options']);
         }
 
         $rateLimiter = new RateLimiter($algorithm ?? null);
         foreach ($config['realms'] ?? [] as $realmConfig) {
-            $realm = $serviceLocator->getService($realmConfig['name'], $realmConfig['options'] ?? []);
-            if ($realm instanceof RealmInterface) {
-                $rateLimiter->addRealm($realm);
-            }
+            /** @var class-string<RealmInterface> $name */
+            $name = $realmConfig['name'];
+
+            $realm = $serviceLocator->getService($name, $realmConfig['options'] ?? []);
+            $rateLimiter->addRealm($realm);
         }
 
         return $rateLimiter;

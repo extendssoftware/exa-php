@@ -26,7 +26,7 @@ interface BuilderInterface
      *
      * @return Builder
      */
-    public function addLink(string $relation, LinkInterface $link, bool $singular = null): BuilderInterface;
+    public function addLink(string $relation, LinkInterface $link, ?bool $singular = null): BuilderInterface;
 
     /**
      * Add attribute.
@@ -47,7 +47,7 @@ interface BuilderInterface
      *
      * @return Builder
      */
-    public function addResource(string $relation, BuilderInterface $resource, bool $singular = null): BuilderInterface;
+    public function addResource(string $relation, BuilderInterface $resource, ?bool $singular = null): BuilderInterface;
 
     /**
      * Set links relations to embed.
@@ -56,7 +56,7 @@ interface BuilderInterface
      *
      * @return BuilderInterface
      */
-    public function setToExpand(array $relations = null): BuilderInterface;
+    public function setToExpand(?array $relations = null): BuilderInterface;
 
     /**
      * Set properties to project.
@@ -65,7 +65,7 @@ interface BuilderInterface
      *
      * @return BuilderInterface
      */
-    public function setToProject(array $properties = null): BuilderInterface;
+    public function setToProject(?array $properties = null): BuilderInterface;
 
     /**
      * Set identity to use for authorization.
@@ -74,7 +74,7 @@ interface BuilderInterface
      *
      * @return BuilderInterface
      */
-    public function setIdentity(IdentityInterface $identity = null): BuilderInterface;
+    public function setIdentity(?IdentityInterface $identity = null): BuilderInterface;
 
     /**
      * Set authorizer.
@@ -83,7 +83,7 @@ interface BuilderInterface
      *
      * @return BuilderInterface
      */
-    public function setAuthorizer(AuthorizerInterface $authorizer = null): BuilderInterface;
+    public function setAuthorizer(?AuthorizerInterface $authorizer = null): BuilderInterface;
 
     /**
      * Set resource expander.
@@ -92,7 +92,7 @@ interface BuilderInterface
      *
      * @return BuilderInterface
      */
-    public function setExpander(ExpanderInterface $expander = null): BuilderInterface;
+    public function setExpander(?ExpanderInterface $expander = null): BuilderInterface;
 
     /**
      * Build resource.

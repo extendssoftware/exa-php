@@ -11,7 +11,7 @@ class StaticFactory implements StaticFactoryInterface
     /**
      * @inheritDoc
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $service = new stdClass();
         $service->key = $key;

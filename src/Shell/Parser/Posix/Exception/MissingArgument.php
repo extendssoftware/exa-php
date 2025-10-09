@@ -18,7 +18,7 @@ class MissingArgument extends Exception implements ParserException
      * @param OptionInterface $option
      * @param bool|null       $long
      */
-    public function __construct(OptionInterface $option, bool $long = null)
+    public function __construct(OptionInterface $option, ?bool $long = null)
     {
         parent::__construct(
             sprintf(

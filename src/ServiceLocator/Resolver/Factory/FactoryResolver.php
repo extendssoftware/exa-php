@@ -46,11 +46,11 @@ class FactoryResolver implements ResolverInterface
     /**
      * When the factory is a string, a new instance will be created and replaces the string.
      *
-     * An exception will be thrown when factory is a string and not a subclass of ServiceFactoryInterface.
+     * An exception will be thrown when a factory is a string and not a subclass of ServiceFactoryInterface.
      *
      * @inheritDoc
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         $factory = $this->factories[$key];
         if (is_string($factory)) {
@@ -70,7 +70,7 @@ class FactoryResolver implements ResolverInterface
     }
 
     /**
-     * Register factory for key.
+     * Register a factory for a key.
      *
      * @param string $key
      * @param string $factory

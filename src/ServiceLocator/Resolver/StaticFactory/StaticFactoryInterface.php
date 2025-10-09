@@ -18,5 +18,5 @@ interface StaticFactoryInterface
      * @return object
      * @throws StaticFactoryResolverException
      */
-    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object;
+    public static function factory(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object;
 }

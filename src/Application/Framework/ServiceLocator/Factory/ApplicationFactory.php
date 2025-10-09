@@ -24,7 +24,7 @@ class ApplicationFactory implements ServiceFactoryInterface
     public function createService(
         string $class,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null
     ): ApplicationInterface {
         $modules = $extra['modules'] ?? [];
 

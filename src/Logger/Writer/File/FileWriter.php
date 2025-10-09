@@ -43,9 +43,8 @@ class FileWriter extends AbstractWriter
         private readonly string $location,
         private readonly string $fileFormat = 'Y-m-d',
         private readonly string $logFormat = '{datetime} {keyword} ({value}): {message} {metaData}',
-        private readonly string $newLine = PHP_EOL
-    ) {
-    }
+        private readonly string $newLine = PHP_EOL,
+    ) {}
 
     /**
      * @inheritDoc
@@ -54,22 +53,22 @@ class FileWriter extends AbstractWriter
     public static function factory(
         string $key,
         ServiceLocatorInterface $serviceLocator,
-        array $extra = null
+        ?array $extra = null,
     ): WriterInterface {
         $writer = new FileWriter(
         /** @phpstan-ignore-next-line */
             $extra['location'],
             $extra['file_format'] ?? 'Y-m-d',
             $extra['log_format'] ?? '{datetime} {keyword} ({value}): {message} {metaData}',
-            $extra['new_line'] ?? PHP_EOL
+            $extra['new_line'] ?? PHP_EOL,
         );
 
         foreach ($extra['filters'] ?? [] as $config) {
-            $filter = $serviceLocator->getService($config['name'], $config['options'] ?? []);
+            /** @var class-string<FilterInterface> $name */
+            $name = $config['name'];
 
-            if ($filter instanceof FilterInterface) {
-                $writer->addFilter($filter);
-            }
+            $filter = $serviceLocator->getService($name, $config['options'] ?? []);
+            $writer->addFilter($filter);
         }
 
         return $writer;
@@ -101,7 +100,7 @@ class FileWriter extends AbstractWriter
             $filename = sprintf(
                 '%s/%s.log',
                 rtrim($this->location, '/'),
-                date($this->fileFormat)
+                date($this->fileFormat),
             );
 
             $handle = @fopen($filename, 'ab');

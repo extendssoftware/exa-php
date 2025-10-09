@@ -143,7 +143,7 @@ class AnsiFormatter implements FormatterInterface
     /**
      * @inheritDoc
      */
-    public function addFormat(FormatInterface $format, bool $remove = null): FormatterInterface
+    public function addFormat(FormatInterface $format, ?bool $remove = null): FormatterInterface
     {
         return $this->setFormat($format);
     }
@@ -159,7 +159,7 @@ class AnsiFormatter implements FormatterInterface
     /**
      * @inheritDoc
      */
-    public function setFixedWidth(int $length = null): FormatterInterface
+    public function setFixedWidth(?int $length = null): FormatterInterface
     {
         $this->width = $length;
 
@@ -169,7 +169,7 @@ class AnsiFormatter implements FormatterInterface
     /**
      * @inheritDoc
      */
-    public function setTextIndent(int $length = null): FormatterInterface
+    public function setTextIndent(?int $length = null): FormatterInterface
     {
         $this->indent = $length;
 
@@ -231,7 +231,7 @@ class AnsiFormatter implements FormatterInterface
      * @return FormatterInterface
      * @throws FormatNotSupported
      */
-    private function setFormat(FormatInterface $format, bool $remove = null): FormatterInterface
+    private function setFormat(FormatInterface $format, ?bool $remove = null): FormatterInterface
     {
         $name = $format->getName();
         if (!isset($this->formats[$name])) {
@@ -259,7 +259,7 @@ class AnsiFormatter implements FormatterInterface
      * @return FormatterInterface
      * @throws ColorNotSupported
      */
-    private function setColor(ColorInterface $color, bool $background = null): FormatterInterface
+    private function setColor(ColorInterface $color, ?bool $background = null): FormatterInterface
     {
         $name = $color->getName();
         if (!isset($this->colors[$name])) {

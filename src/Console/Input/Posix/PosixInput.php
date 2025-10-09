@@ -54,7 +54,7 @@ class PosixInput implements InputInterface
     /**
      * @inheritDoc
      */
-    public function line(int $length = null): ?string
+    public function line(?int $length = null): ?string
     {
         if (is_int($length)) {
             // Add 1 to length because PHP reads length - 1 bytes.
@@ -75,7 +75,7 @@ class PosixInput implements InputInterface
     /**
      * @inheritDoc
      */
-    public function character(string $allowed = null): ?string
+    public function character(?string $allowed = null): ?string
     {
         $character = $this->line();
         if (is_string($character)) {

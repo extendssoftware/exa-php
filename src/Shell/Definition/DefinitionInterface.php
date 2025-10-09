@@ -32,7 +32,7 @@ interface DefinitionInterface
      * @return OptionInterface
      * @throws DefinitionException When option with short $name is not found.
      */
-    public function getOption(string $name, bool $long = null): OptionInterface;
+    public function getOption(string $name, ?bool $long = null): OptionInterface;
 
     /**
      * Get operand for position.

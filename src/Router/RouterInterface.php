@@ -29,5 +29,5 @@ interface RouterInterface
      * @return RequestInterface
      * @throws RouterException
      */
-    public function assemble(string $name, array $parameters = null, bool $keepUnresolved = null): RequestInterface;
+    public function assemble(string $name, ?array $parameters = null, ?bool $keepUnresolved = null): RequestInterface;
 }

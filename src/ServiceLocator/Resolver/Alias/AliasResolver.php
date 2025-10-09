@@ -12,7 +12,7 @@ class AliasResolver implements ResolverInterface
     /**
      * An associative array which holds the aliases.
      *
-     * @var mixed[]
+     * @var array<string, class-string>
      */
     private array $aliases = [];
 
@@ -38,21 +38,21 @@ class AliasResolver implements ResolverInterface
     }
 
     /**
-     * If resolver has an alias for key, the alias will be used to get the service from the service locator. An
+     * If the resolver has an alias for a key, the alias will be used to get the service from the service locator. An
      * infinite loop between aliases and services will not be detected.
      *
      * @inheritDoc
      */
-    public function getService(string $key, ServiceLocatorInterface $serviceLocator, array $extra = null): object
+    public function getService(string $key, ServiceLocatorInterface $serviceLocator, ?array $extra = null): object
     {
         return $serviceLocator->getService($this->aliases[$key], $extra);
     }
 
     /**
-     * Register alias for key.
+     * Register alias for a key.
      *
-     * @param string $key
-     * @param string $alias
+     * @param string       $key
+     * @param class-string $alias
      *
      * @return AliasResolver
      */
