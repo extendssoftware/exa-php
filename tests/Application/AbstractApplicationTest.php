@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application;
@@ -103,5 +104,20 @@ class AbstractApplicationTest extends TestCase
 
         $this->assertTrue($this->module->isStartup());
         $this->assertTrue($this->module->isShutdown());
+    }
+
+    /**
+     * Get modules.
+     *
+     * Test that the method returns the defined modules.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Application\AbstractApplication::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Application\AbstractApplication::getModules()
+     */
+    public function testGetModules(): void
+    {
+        $modules = $this->application->getModules();
+
+        $this->assertContains($this->module, $modules);
     }
 }
