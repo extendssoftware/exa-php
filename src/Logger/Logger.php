@@ -14,7 +14,6 @@ use ExtendsSoftware\ExaPHP\Logger\Priority\Informational\InformationalPriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Notice\NoticePriority;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\Warning\WarningPriority;
-use ExtendsSoftware\ExaPHP\Logger\Writer\WriterException;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use Throwable;
 
@@ -36,7 +35,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException When writer failed to write.
      */
     public function log(
         string $message,
@@ -48,11 +46,17 @@ class Logger implements LoggerInterface
         $log = $this->decorate($log);
 
         foreach ($this->writers as $writer) {
-            $writer
-                ->getWriter()
-                ->write($log);
+            try {
+                $writer
+                    ->getWriter()
+                    ->write($log);
 
-            if ($writer->mustInterrupt()) {
+                $written = true;
+            } catch (Throwable) {
+                $written = false;
+            }
+
+            if ($written && $writer->mustInterrupt()) {
                 break;
             }
         }
@@ -62,7 +66,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function emerg(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -71,7 +74,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function alert(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -80,7 +82,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function crit(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -89,7 +90,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function error(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -98,7 +98,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function warning(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -107,7 +106,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function notice(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -116,7 +114,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function info(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {
@@ -125,7 +122,6 @@ class Logger implements LoggerInterface
 
     /**
      * @inheritDoc
-     * @throws WriterException
      */
     public function debug(string $message, ?array $metaData = null, ?Throwable $throwable = null): LoggerInterface
     {

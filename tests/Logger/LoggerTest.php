@@ -177,4 +177,52 @@ class LoggerTest extends TestCase
             ->addWriter($writer)
             ->log('Error!', $priority, ['foo' => 'bar'], $throwable);
     }
+
+    /**
+     * Failed writer.
+     *
+     * Test that the exception from a failed writer will be caught and the next available writer will be called.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Logger\Logger::addWriter()
+     * @covers \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::getWriter()
+     * @covers \ExtendsSoftware\ExaPHP\Logger\LoggerWriter::mustInterrupt()
+     * @covers \ExtendsSoftware\ExaPHP\Logger\Logger::log()
+     */
+    public function testFailedWriter()
+    {
+        $throwable = $this->createMock(Throwable::class);
+
+        $writer1 = $this->createMock(WriterInterface::class);
+        $writer1
+            ->expects($this->once())
+            ->method('write')
+            ->willThrowException($throwable);
+
+        $writer2 = $this->createMock(WriterInterface::class);
+        $writer2
+            ->expects($this->once())
+            ->method('write')
+            ->willReturnSelf();
+
+        $writer3 = $this->createMock(WriterInterface::class);
+        $writer3
+            ->expects($this->never())
+            ->method('write');
+
+        /**
+         * Writer one throws and exception and fails. Writer two writes successful and interrupts the chain. Writer
+         * three will never be called.
+         *
+         * @var WriterInterface $writer1
+         * @var WriterInterface $writer2
+         * @var WriterInterface $writer3
+         */
+        $logger = new Logger();
+        $logger
+            ->addWriter($writer1, true)
+            ->addWriter($writer2, true)
+            ->addWriter($writer3)
+            ->log('Ping!');
+    }
 }
