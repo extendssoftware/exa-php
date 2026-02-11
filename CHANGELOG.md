@@ -11,8 +11,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Changed
 
-- Changed logger to catch an exception from a writer, not to interrupt and call the next writer if available.
-
 ### Deprecated
 
 ### Removed
@@ -20,6 +18,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.7.0] - 2026-02-11
+
+### Changed
+
+- Changed logger to catch an exception from a writer, not to interrupt and call the next writer if available.
 
 ## [0.6.0] - 2025-10-09
 
@@ -176,7 +180,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.5.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.0...HEAD
+
+[0.7.0]: https://github.com/extendssoftware/exa-php/commits/0.7.0
+
+[0.6.0]: https://github.com/extendssoftware/exa-php/commits/0.6.0
 
 [0.5.0]: https://github.com/extendssoftware/exa-php/commits/0.5.0
 
