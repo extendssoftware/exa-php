@@ -48,7 +48,7 @@ class GreaterOrEqualValidator extends AbstractValidator
     protected function getTemplates(): array
     {
         return [
-            self::NOT_GREATER_OR_EQUAL => 'Value {{value}} {{value}} is not greater than or equal to {{other}}.',
+            self::NOT_GREATER_OR_EQUAL => 'Value {{value}} is not greater than or equal to {{other}}.',
         ];
     }
 }
