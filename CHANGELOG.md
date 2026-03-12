@@ -9,11 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added UniqueValidator to check if a collection only contains unique values.
-
 ### Changed
-
-- Removed duplicate {{value}} placeholder from GreaterOrEqualValidator::NOT_GREATER_OR_EQUAL template.
 
 ### Deprecated
 
@@ -22,6 +18,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.7.1] - 2026-03-12
+
+### Added
+
+- Added UniqueValidator to check if a collection only contains unique values.
+
+### Changed
+
+- Removed duplicate {{value}} placeholder from GreaterOrEqualValidator::NOT_GREATER_OR_EQUAL template.
 
 ## [0.7.0] - 2026-02-11
 
@@ -184,7 +190,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.1...HEAD
+
+[0.7.1]: https://github.com/extendssoftware/exa-php/commits/0.7.1
 
 [0.7.0]: https://github.com/extendssoftware/exa-php/commits/0.7.0
 
