@@ -37,7 +37,7 @@ class UniqueValidator extends AbstractValidator
             $values[] = $inner;
         }
 
-        $duplicates = array_diff_assoc($values, array_unique($values));
+        $duplicates = array_values(array_diff_assoc($values, array_unique($values)));
         if ($duplicates) {
             return $this->getInvalidResult(self::NOT_UNIQUE, [
                 'duplicates' => $duplicates,
