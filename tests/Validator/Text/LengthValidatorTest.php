@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 use function base64_decode;
@@ -23,7 +25,8 @@ class LengthValidatorTest extends TestCase
         $validator = new LengthValidator(5, 15);
         $result = $validator->validate('foo bár báz qux');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo bár báz qux', $result->getValue());
     }
 
     /**
@@ -40,7 +43,7 @@ class LengthValidatorTest extends TestCase
         $validator = new LengthValidator(5);
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -57,13 +60,13 @@ class LengthValidatorTest extends TestCase
         $validator = new LengthValidator(null, 10);
         $result = $validator->validate('foo bar baz');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Binary.
      *
-     * Test that binary string will be validated without multibyte if flag is set to false.
+     * Test that binary string will be validated without multibyte if a flag is set to false.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\LengthValidator::validate()
@@ -73,15 +76,15 @@ class LengthValidatorTest extends TestCase
     {
         $randomBytes = base64_decode('+QYgucK5ozyJoGuXI05TKg=='); // random_bytes(16);
 
-        $validator = new LengthValidator(16, 16);
-        $result = $validator->validate($randomBytes);
+        $validator1 = new LengthValidator(16, 16);
+        $validator2 = new LengthValidator(1, 16, multibyte: false);
 
-        $this->assertFalse($result->isValid());
+        $result1 = $validator1->validate($randomBytes);
+        $result2 = $validator2->validate($randomBytes);
 
-        $validator = new LengthValidator(1, 16, multibyte: false);
-        $result = $validator->validate($randomBytes);
-
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame($randomBytes, $result2->getValue());
     }
 
     /**
@@ -96,6 +99,6 @@ class LengthValidatorTest extends TestCase
         $validator = new LengthValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

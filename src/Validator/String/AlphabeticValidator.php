@@ -32,7 +32,7 @@ class AlphabeticValidator extends AbstractValidator
         }
 
         if (ctype_alpha($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_ALPHABETIC);

@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
 use ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +16,7 @@ class PropertiesValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that object is valid.
+     * Test that an object is valid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::addProperty()
@@ -28,29 +31,26 @@ class PropertiesValidatorTest extends TestCase
             'baz' => 'qux',
         ];
 
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $object],
-                ['baz', $object],
-                ['qux', $object] => $result
-            });
+            ->willReturn($innerResult);
 
-        $properties = new PropertiesValidator([
-            'foo' => $validator,
-            'bar' => $validator,
-            'baz' => $validator,
-            'qux' => new ProxyValidator($validator),
+        $validator = new PropertiesValidator([
+            'foo' => $innerValidator,
+            'bar' => $innerValidator,
+            'baz' => $innerValidator,
+            'qux' => new ProxyValidator($innerValidator),
         ]);
-        $result = $properties->validate($object, 'context');
+        $result = $validator->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
@@ -72,23 +72,24 @@ class PropertiesValidatorTest extends TestCase
             'bar' => 'baz',
         ];
 
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->once())
             ->method('validate')
             ->with('bar', $object)
-            ->willReturn($result);
+            ->willReturn($innerResult);
 
-        $properties = new PropertiesValidator([
-            'foo' => $validator,
+        $validator = new PropertiesValidator([
+            'foo' => $innerValidator,
         ]);
-        $result = $properties->validate($object, 'context');
+        $result = $validator->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -102,19 +103,22 @@ class PropertiesValidatorTest extends TestCase
      */
     public function testNotStrict(): void
     {
-        $properties = new PropertiesValidator(null, false);
-        $result = $properties->validate((object)[
+        $object = (object)[
             'foo' => 'bar',
             'bar' => 'baz',
-        ], 'context');
+        ];
 
+        $validator = new PropertiesValidator(null, false);
+        $result = $validator->validate($object, 'context');
+
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
     /**
      * Property missing.
      *
-     * Test that missing property will give invalid result.
+     * Test that a missing property will give an invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::addProperty()
@@ -123,23 +127,24 @@ class PropertiesValidatorTest extends TestCase
      */
     public function testPropertyMissing(): void
     {
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->never())
             ->method('validate');
 
-        $properties = new PropertiesValidator([
-            'foo' => $validator,
+        $validator = new PropertiesValidator([
+            'foo' => $innerValidator,
         ]);
-        $result = $properties->validate((object)[], 'context');
+        $result = $validator->validate((object)[], 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
     /**
      * Not object.
      *
-     * Test that a non object can not be validated.
+     * Test that a non-object cannot be validated.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertiesValidator::validate()
@@ -147,10 +152,10 @@ class PropertiesValidatorTest extends TestCase
      */
     public function testNotObject(): void
     {
-        $properties = new PropertiesValidator();
-        $result = $properties->validate([]);
+        $validator = new PropertiesValidator();
+        $result = $validator->validate([]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -167,24 +172,28 @@ class PropertiesValidatorTest extends TestCase
             'foo' => 'bar',
         ];
 
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $object] => $result,
-            });
+            ->willReturn($innerResult);
 
-        $properties = new PropertiesValidator([
-            'foo' => $validator,
+        $validator = new PropertiesValidator([
+            'foo' => $innerValidator,
         ]);
 
-        $this->assertTrue($properties->validate($object)->isValid());
-        $this->assertTrue($properties->validate($object, 'foo')->isValid());
+        $result1 = $validator->validate($object);
+        $result2 = $validator->validate($object, 'foo');
+
+        $this->assertInstanceOf(ContainerResult::class, $result1);
+        $this->assertTrue($result1->isValid());
+
+        $this->assertInstanceOf(ContainerResult::class, $result2);
+        $this->assertTrue($result2->isValid());
     }
 }

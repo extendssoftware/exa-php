@@ -32,7 +32,7 @@ class UppercaseValidator extends AbstractValidator
         }
 
         if (ctype_upper($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_LOWERCASE);

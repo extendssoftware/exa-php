@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NoNewlineValidatorTest extends TestCase
@@ -10,21 +13,23 @@ class NoNewlineValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that value not contain newlines.
+     * Test that value not contains newlines.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new NoNewlineValidator();
+        $result = $validator->validate('foo');
 
-        $this->assertTrue($validator->validate('foo')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that value contains newline.
+     * Test that value contains a newline.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NoNewlineValidator::getTemplates()
@@ -32,8 +37,9 @@ class NoNewlineValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new NoNewlineValidator();
+        $result = $validator->validate("foo\nbar");
 
-        $this->assertFalse($validator->validate("foo\nbar")->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -48,6 +54,6 @@ class NoNewlineValidatorTest extends TestCase
         $validator = new NoNewlineValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

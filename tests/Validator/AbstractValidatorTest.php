@@ -1,10 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
 
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class AbstractValidatorTest extends TestCase
@@ -19,7 +22,7 @@ class AbstractValidatorTest extends TestCase
     /**
      * @inheritDoc
      */
-    protected function setUp(): void
+    public function setUp(): void
     {
         $this->validator = new class extends AbstractValidator {
             /**
@@ -38,7 +41,7 @@ class AbstractValidatorTest extends TestCase
             public function validate($value, $context = null): ResultInterface
             {
                 if ($context === true) {
-                    return $this->getValidResult();
+                    return $this->getValidResult($value);
                 }
                 if ($context === false) {
                     return $this->getInvalidResult('bar', []);
@@ -61,7 +64,8 @@ class AbstractValidatorTest extends TestCase
     {
         $result = $this->validator->validate('foo', true);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
@@ -76,13 +80,13 @@ class AbstractValidatorTest extends TestCase
     {
         $result = $this->validator->validate('foo', false);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Template not found.
      *
-     * Test that exception TemplateNotFound will be thrown when template for key 'foo' can not be found.
+     * Test that exception TemplateNotFound will be thrown when a template for key 'foo' cannot be found.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\AbstractValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\AbstractValidator::getInvalidResult()

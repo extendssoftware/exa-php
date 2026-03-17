@@ -28,7 +28,7 @@ class OrValidator extends AbstractLogicalValidator
         foreach ($validators as $validator) {
             $result = $validator->validate($value, $context);
             if ($result->isValid()) {
-                return $this->getValidResult();
+                return $this->getValidResult($value);
             }
         }
 

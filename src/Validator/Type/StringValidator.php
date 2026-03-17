@@ -27,7 +27,7 @@ class StringValidator extends AbstractValidator
     public function validate($value, mixed $context = null): ResultInterface
     {
         if (is_string($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_STRING, [

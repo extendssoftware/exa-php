@@ -42,7 +42,7 @@ class InArrayValidator extends AbstractValidator
             ]);
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

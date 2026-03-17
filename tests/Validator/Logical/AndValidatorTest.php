@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Logical;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -34,16 +36,15 @@ class AndValidatorTest extends TestCase
             ->with('foo', ['bar' => 'baz'])
             ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new AndValidator([
             $innerValidator,
             $innerValidator,
             $innerValidator,
         ]);
+        $result = $validator->validate('foo', ['bar' => 'baz']);
 
-        $this->assertTrue($validator->validate('foo', ['bar' => 'baz'])->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
@@ -57,13 +58,13 @@ class AndValidatorTest extends TestCase
      */
     public function testInvalid(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $expectedResult = $this->createMock(ResultInterface::class);
+        $expectedResult
             ->expects($this->exactly(2))
             ->method('isValid')
             ->willReturnOnConsecutiveCalls(
                 true,
-                false
+                false,
             );
 
         $inner = $this->createMock(ValidatorInterface::class);
@@ -71,18 +72,14 @@ class AndValidatorTest extends TestCase
             ->expects($this->exactly(2))
             ->method('validate')
             ->with('foo', ['bar' => 'baz'])
-            ->willReturn($result);
+            ->willReturn($expectedResult);
 
-        /**
-         * @var ValidatorInterface $inner
-         */
-        $this->assertSame(
-            $result,
-            (new AndValidator())
-                ->addValidator($inner)
-                ->addValidator($inner)
-                ->addValidator($inner)
-                ->validate('foo', ['bar' => 'baz'])
-        );
+        $validator = (new AndValidator())
+            ->addValidator($inner)
+            ->addValidator($inner)
+            ->addValidator($inner);
+        $actualResult = $validator->validate('foo', ['bar' => 'baz']);
+
+        $this->assertSame($expectedResult, $actualResult);
     }
 }

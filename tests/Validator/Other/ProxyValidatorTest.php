@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other;
@@ -19,20 +20,18 @@ class ProxyValidatorTest extends TestCase
      */
     public function testValidate(): void
     {
-        $result = $this->createMock(ResultInterface::class);
+        $expectedResult = $this->createMock(ResultInterface::class);
 
         $validator = $this->createMock(ValidatorInterface::class);
         $validator
             ->expects($this->once())
             ->method('validate')
             ->with('foo', ['bar'])
-            ->willReturn($result);
+            ->willReturn($expectedResult);
 
-        /**
-         * @var ValidatorInterface $validator
-         */
         $optionalValidator = new ProxyValidator($validator);
+        $actualResult = $optionalValidator->validate('foo', ['bar']);
 
-        $this->assertSame($result, $optionalValidator->validate('foo', ['bar']));
+        $this->assertSame($expectedResult, $actualResult);
     }
 }

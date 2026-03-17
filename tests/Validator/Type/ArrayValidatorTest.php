@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class ArrayValidatorTest extends TestCase
@@ -19,7 +22,8 @@ class ArrayValidatorTest extends TestCase
         $validator = new ArrayValidator();
         $result = $validator->validate([]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame([], $result->getValue());
     }
 
     /**
@@ -35,6 +39,6 @@ class ArrayValidatorTest extends TestCase
         $validator = new ArrayValidator();
         $result = $validator->validate(1);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

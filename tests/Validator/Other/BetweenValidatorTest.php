@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\Text\DateTimeValidator;
 use PHPUnit\Framework\TestCase;
 
@@ -65,8 +67,10 @@ class BetweenValidatorTest extends TestCase
     public function testValid(int $integer): void
     {
         $validator = new BetweenValidator(1, 10);
+        $result = $validator->validate($integer);
 
-        $this->assertTrue($validator->validate($integer)->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame($integer, $result->getValue());
     }
 
     /**
@@ -85,8 +89,9 @@ class BetweenValidatorTest extends TestCase
     public function testInvalid(int $integer): void
     {
         $validator = new BetweenValidator(1, 10);
+        $result = $validator->validate($integer);
 
-        $this->assertFalse($validator->validate($integer)->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -104,14 +109,15 @@ class BetweenValidatorTest extends TestCase
     public function testExclusive(int $integer): void
     {
         $validator = new BetweenValidator(1, 10, false);
+        $result = $validator->validate($integer);
 
-        $this->assertFalse($validator->validate($integer)->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Not numeric.
      *
-     * Test that value is not numeric and validate will not validate.
+     * Test that the value is not numeric and validate will not validate.
      *
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
@@ -122,13 +128,13 @@ class BetweenValidatorTest extends TestCase
         $validator = new BetweenValidator(2);
         $result = $validator->validate('a');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Internal validator.
      *
-     * Test that internal validator will validate values and allow for different type of values.
+     * Test that internal validator will validate values and allow for a different type of values.
      *
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::__construct()
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\BetweenValidator::validate()
@@ -138,8 +144,14 @@ class BetweenValidatorTest extends TestCase
     {
         $validator = new BetweenValidator('2023-01-01', '2023-12-31', validator: new DateTimeValidator('Y-m-d'));
 
-        $this->assertTrue($validator->validate('2023-10-10')->isValid());
-        $this->assertFalse($validator->validate('2022-10-10')->isValid());
-        $this->assertFalse($validator->validate('2024-10-10')->isValid());
+        $result1 = $validator->validate('2023-10-10');
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame('2023-10-10', $result1->getValue());
+
+        $result2 = $validator->validate('2022-10-10');
+        $this->assertInstanceOf(InvalidResult::class, $result2);
+
+        $result3 = $validator->validate('2024-10-10');
+        $this->assertInstanceOf(InvalidResult::class, $result3);
     }
 }

@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Logical;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -28,7 +31,7 @@ class XorValidatorTest extends TestCase
                 false,
                 true,
                 false,
-                false
+                false,
             );
 
         $innerValidator = $this->createMock(ValidatorInterface::class);
@@ -38,9 +41,6 @@ class XorValidatorTest extends TestCase
             ->with('foo', ['bar' => 'baz'])
             ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new XorValidator();
         $result = $validator
             ->addValidator($innerValidator)
@@ -49,7 +49,8 @@ class XorValidatorTest extends TestCase
             ->addValidator($innerValidator)
             ->validate('foo', ['bar' => 'baz']);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
@@ -72,7 +73,7 @@ class XorValidatorTest extends TestCase
                 false,
                 false,
                 false,
-                false
+                false,
             );
 
         $innerValidator = $this->createMock(ValidatorInterface::class);
@@ -82,9 +83,6 @@ class XorValidatorTest extends TestCase
             ->with('foo', ['bar' => 'baz'])
             ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new XorValidator();
         $result = $validator
             ->addValidator($innerValidator)
@@ -93,7 +91,7 @@ class XorValidatorTest extends TestCase
             ->addValidator($innerValidator)
             ->validate('foo', ['bar' => 'baz']);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -116,7 +114,7 @@ class XorValidatorTest extends TestCase
                 false,
                 true,
                 true,
-                false
+                false,
             );
 
         $innerValidator = $this->createMock(ValidatorInterface::class);
@@ -126,9 +124,6 @@ class XorValidatorTest extends TestCase
             ->with('foo', ['bar' => 'baz'])
             ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new XorValidator();
         $result = $validator
             ->addValidator($innerValidator)
@@ -137,6 +132,6 @@ class XorValidatorTest extends TestCase
             ->addValidator($innerValidator)
             ->validate('foo', ['bar' => 'baz']);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

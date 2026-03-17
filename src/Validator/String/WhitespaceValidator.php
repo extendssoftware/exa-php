@@ -32,7 +32,7 @@ class WhitespaceValidator extends AbstractValidator
         }
 
         if (ctype_space($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_WHITESPACE);

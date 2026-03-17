@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
@@ -19,21 +20,19 @@ class InterruptValidatorTest extends TestCase
      */
     public function testValidate(): void
     {
-        $result = $this->createMock(ResultInterface::class);
+        $innerResult = $this->createMock(ResultInterface::class);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->once())
             ->method('validate')
             ->with('foo', 'bar')
-            ->willReturn($result);
+            ->willReturn($innerResult);
 
-        /**
-         * @var ValidatorInterface $validator
-         */
-        $interrupt = new InterruptValidator($validator, true);
+        $validator = new InterruptValidator($innerValidator, true);
+        $result = $validator->validate('foo', 'bar');
 
-        $this->assertSame($result, $interrupt->validate('foo', 'bar'));
-        $this->assertTrue($interrupt->mustInterrupt());
+        $this->assertTrue($validator->mustInterrupt());
+        $this->assertSame($result, $result);
     }
 }

@@ -11,7 +11,7 @@ use function is_string;
 class ContainerResult implements ResultInterface
 {
     /**
-     * If container is valid.
+     * If the container is valid.
      *
      * @var bool
      */
@@ -52,7 +52,7 @@ class ContainerResult implements ResultInterface
     }
 
     /**
-     * Add result to container.
+     * Add a result to the container.
      *
      * @param ResultInterface $result
      * @param string|null     $name

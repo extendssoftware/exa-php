@@ -35,9 +35,9 @@ class ContainerValidator implements ValidatorInterface
     }
 
     /**
-     * Add validator to container.
+     * Add a validator to the container.
      *
-     * When interrupt is true, validation will stop if validator result is invalid. Default value is false.
+     * When interrupt is true, validation will stop if a validator result is invalid. The default value is false.
      *
      * @param ValidatorInterface $validator
      * @param bool|null          $interrupt

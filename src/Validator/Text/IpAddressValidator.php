@@ -34,7 +34,7 @@ class IpAddressValidator extends AbstractValidator
         }
 
         if (filter_var($value, FILTER_VALIDATE_IP) !== false) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_IP_ADDRESS, [

@@ -17,14 +17,14 @@ use function is_int;
 class SchemaValidator extends AbstractValidator
 {
     /**
-     * When object property is invalid.
+     * When the object property is invalid.
      *
      * @var string
      */
     public const string INVALID_OBJECT_PROPERTY = 'invalidObjectProperty';
 
     /**
-     * When property value is invalid.
+     * When the property value is invalid.
      *
      * @var string
      */
@@ -47,9 +47,8 @@ class SchemaValidator extends AbstractValidator
     public function __construct(
         private readonly ?ValidatorInterface $property = null,
         private readonly ?ValidatorInterface $value = null,
-        private readonly ?int $count = null
-    ) {
-    }
+        private readonly ?int $count = null,
+    ) {}
 
     /**
      * @inheritDoc
@@ -72,25 +71,21 @@ class SchemaValidator extends AbstractValidator
 
             if (is_int($this->count) && $index >= $this->count) {
                 // Too many properties, property not allowed.
-                $container->addResult(
-                    $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
-                        'property' => $propertyName,
-                        'count' => $this->count,
-                    ]),
-                    $propertyName
-                );
+                $result = $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
+                    'property' => $propertyName,
+                    'count' => $this->count,
+                ]);
+                $container->addResult($result, $propertyName);
             } else {
                 $valid = true;
                 if ($this->property) {
                     $result = $this->property->validate($propertyName);
                     if (!$result->isValid()) {
                         $valid = false;
-                        $container->addResult(
-                            $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
-                                'property' => $propertyName,
-                            ]),
-                            $propertyName
-                        );
+                        $result = $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
+                            'property' => $propertyName,
+                        ]);
+                        $container->addResult($result, $propertyName);
                     }
                 }
 
@@ -98,20 +93,16 @@ class SchemaValidator extends AbstractValidator
                     $result = $this->value->validate($propertyValue);
                     if (!$result->isValid()) {
                         $valid = false;
-                        $container->addResult(
-                            $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
-                                'value' => $propertyValue,
-                            ]),
-                            $propertyName
-                        );
+                        $result = $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
+                            'value' => $propertyValue,
+                        ]);
+                        $container->addResult($result, $propertyName);
                     }
                 }
 
                 if ($valid) {
-                    $container->addResult(
-                        $this->getValidResult(),
-                        $propertyName
-                    );
+                    $result = $this->getValidResult($value);
+                    $container->addResult($result, $propertyName);
                 }
             }
         }

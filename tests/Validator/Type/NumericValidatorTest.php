@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NumericValidatorTest extends TestCase
@@ -10,7 +12,7 @@ class NumericValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that integer value '9' is a valid integer.
+     * Test that the integer value '9' is a valid integer.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\NumericValidator::validate()
      */
@@ -19,7 +21,8 @@ class NumericValidatorTest extends TestCase
         $validator = new NumericValidator();
         $result = $validator->validate('9.9');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('9.9', $result->getValue());
     }
 
     /**
@@ -35,6 +38,6 @@ class NumericValidatorTest extends TestCase
         $validator = new NumericValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

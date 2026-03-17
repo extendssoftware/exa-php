@@ -32,7 +32,7 @@ class DigitValidator extends AbstractValidator
         }
 
         if (ctype_digit($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_DIGIT);

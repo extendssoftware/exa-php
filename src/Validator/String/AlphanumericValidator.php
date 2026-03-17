@@ -32,7 +32,7 @@ class AlphanumericValidator extends AbstractValidator
         }
 
         if (ctype_alnum($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_ALPHANUMERIC);

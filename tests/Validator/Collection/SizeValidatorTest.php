@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class SizeValidatorTest extends TestCase
@@ -10,7 +12,7 @@ class SizeValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that collection size is in expected range and a valid result will be returned.
+     * Test that collection size is in the expected range and a valid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::validate()
@@ -28,13 +30,22 @@ class SizeValidatorTest extends TestCase
             7,
         ]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame([
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+        ], $result->getValue());
     }
 
     /**
      * Too few.
      *
-     * Test that collection has too few items and an invalid result will be returned.
+     * Test that a collection has too few items and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::validate()
@@ -49,13 +60,13 @@ class SizeValidatorTest extends TestCase
             3,
         ]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Too many.
      *
-     * Test that collection has too many items and an invalid result will be returned.
+     * Test that a collection has too many items and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\SizeValidator::validate()
@@ -74,7 +85,7 @@ class SizeValidatorTest extends TestCase
             7,
         ]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -89,6 +100,6 @@ class SizeValidatorTest extends TestCase
         $validator = new SizeValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

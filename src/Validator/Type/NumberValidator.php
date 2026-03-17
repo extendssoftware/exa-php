@@ -28,7 +28,7 @@ class NumberValidator extends AbstractValidator
     public function validate($value, mixed $context = null): ResultInterface
     {
         if (is_int($value) || is_float($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_NUMBER, [

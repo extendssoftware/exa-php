@@ -34,7 +34,7 @@ class NotEqualValidator extends AbstractValidator
     {
         /** @noinspection TypeUnsafeComparisonInspection */
         if ($value != $this->subject) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::IS_EQUAL, [

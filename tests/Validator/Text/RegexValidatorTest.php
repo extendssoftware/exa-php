@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class RegexValidatorTest extends TestCase
@@ -20,7 +22,8 @@ class RegexValidatorTest extends TestCase
         $validator = new RegexValidator('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i');
         $result = $validator->validate('db6eb6f2-1dda-4f06-a995-1fd1aca99e1f');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('db6eb6f2-1dda-4f06-a995-1fd1aca99e1f', $result->getValue());
     }
 
     /**
@@ -37,7 +40,7 @@ class RegexValidatorTest extends TestCase
         $validator = new RegexValidator('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i');
         $result = $validator->validate('foo-bar-baz');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -53,6 +56,6 @@ class RegexValidatorTest extends TestCase
         $validator = new RegexValidator('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i');
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

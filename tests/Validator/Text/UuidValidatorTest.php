@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class UuidValidatorTest extends TestCase
@@ -18,17 +21,32 @@ class UuidValidatorTest extends TestCase
     {
         $validator = new UuidValidator();
 
-        $this->assertTrue($validator->validate('db6eb6f2-1dda-1f06-a995-1fd1aca99e1f')->isValid()); // Version 1
-        $this->assertTrue($validator->validate('db6eb6f2-1dda-2f06-a995-1fd1aca99e1f')->isValid()); // Version 2
-        $this->assertTrue($validator->validate('db6eb6f2-1dda-3f06-a995-1fd1aca99e1f')->isValid()); // Version 3
-        $this->assertTrue($validator->validate('db6eb6f2-1dda-4f06-a995-1fd1aca99e1f')->isValid()); // Version 4
-        $this->assertTrue($validator->validate('db6eb6f2-1dda-5f06-a995-1fd1aca99e1f')->isValid()); // Version 5
+        $result1 = $validator->validate('db6eb6f2-1dda-1f06-a995-1fd1aca99e1f'); // Version 1
+        $result2 = $validator->validate('db6eb6f2-1dda-2f06-a995-1fd1aca99e1f'); // Version 2
+        $result3 = $validator->validate('db6eb6f2-1dda-3f06-a995-1fd1aca99e1f'); // Version 3
+        $result4 = $validator->validate('db6eb6f2-1dda-4f06-a995-1fd1aca99e1f'); // Version 4
+        $result5 = $validator->validate('db6eb6f2-1dda-5f06-a995-1fd1aca99e1f'); // Version 5
+
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame('db6eb6f2-1dda-1f06-a995-1fd1aca99e1f', $result1->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame('db6eb6f2-1dda-2f06-a995-1fd1aca99e1f', $result2->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result3);
+        $this->assertSame('db6eb6f2-1dda-3f06-a995-1fd1aca99e1f', $result3->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result4);
+        $this->assertSame('db6eb6f2-1dda-4f06-a995-1fd1aca99e1f', $result4->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result5);
+        $this->assertSame('db6eb6f2-1dda-5f06-a995-1fd1aca99e1f', $result5->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that string value ''foo-bar-baz'' is a valid string.
+     * Test that the string value '' foo-bar-baz '' is a valid string.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UuidValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UuidValidator::getTemplates()
@@ -36,9 +54,11 @@ class UuidValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new UuidValidator();
+        $result1 = $validator->validate('foo-bar-baz');
+        $result2 = $validator->validate('db6eb6f2-1dda-6f06-a995-1fd1aca99e1f'); // Version unknown
 
-        $this->assertFalse($validator->validate('foo-bar-baz')->isValid());
-        $this->assertFalse($validator->validate('db6eb6f2-1dda-6f06-a995-1fd1aca99e1f')->isValid()); // Version unknown
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
@@ -53,6 +73,6 @@ class UuidValidatorTest extends TestCase
         $validator = new UuidValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

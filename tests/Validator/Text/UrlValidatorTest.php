@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class UrlValidatorTest extends TestCase
@@ -21,7 +23,8 @@ class UrlValidatorTest extends TestCase
         $validator = new UrlValidator();
         $result = $validator->validate('https://extends.nl/');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('https://extends.nl/', $result->getValue());
     }
 
     /**
@@ -38,24 +41,25 @@ class UrlValidatorTest extends TestCase
         $validator = new UrlValidator();
         $result = $validator->validate('foo-bar-baz');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
-     * Scheme not allowed.
+     * Scheme isn't allowed.
      *
      * Test that a not allowed scheme value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UrlValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UrlValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\UrlValidator::getTemplates()
+     * @noinspection HttpUrlsUsage
      */
     public function testSchemeNotAllowed(): void
     {
         $validator = new UrlValidator(['https']);
         $result = $validator->validate('http://extends.nl');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -70,6 +74,6 @@ class UrlValidatorTest extends TestCase
         $validator = new UrlValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

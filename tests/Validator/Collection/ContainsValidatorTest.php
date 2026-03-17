@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -12,42 +15,40 @@ class ContainsValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that collection will be valid.
+     * Test that a collection will be valid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::validate()
      */
     public function testValid(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->exactly(3))
             ->method('validate')
             ->with('foo', 'bar')
-            ->willReturn($result);
+            ->willReturn($innerResult);
 
-        /**
-         * @var ValidatorInterface $validator
-         */
-        $collection = new ContainsValidator($validator);
+        $collection = new ContainsValidator($innerValidator);
         $result = $collection->validate([
             'foo',
             'foo',
             'foo',
         ], 'bar');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
     /**
      * Invalid.
      *
-     * Test that collection will be invalid.
+     * Test that a collection will be invalid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::validate()
@@ -66,9 +67,6 @@ class ContainsValidatorTest extends TestCase
             ->with('foo', 'bar')
             ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $validator
-         */
         $collection = new ContainsValidator($validator);
         $result = $collection->validate([
             'foo',
@@ -76,13 +74,14 @@ class ContainsValidatorTest extends TestCase
             'foo',
         ], 'bar');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
     /**
      * Not iterable.
      *
-     * Test that collection will be invalid when value is not iterable.
+     * Test that a collection will be invalid when the value is not iterable.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ContainsValidator::validate()
@@ -91,12 +90,9 @@ class ContainsValidatorTest extends TestCase
     {
         $validator = $this->createMock(ValidatorInterface::class);
 
-        /**
-         * @var ValidatorInterface $validator
-         */
         $collection = new ContainsValidator($validator);
         $result = $collection->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

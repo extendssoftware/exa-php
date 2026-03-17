@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class LatitudeValidatorTest extends TestCase
@@ -21,23 +24,6 @@ class LatitudeValidatorTest extends TestCase
             [52.0767034],
             [180],
         ];
-    }
-
-    /**
-     * Valid.
-     *
-     * Test that latitude values are valid.
-     *
-     * @param mixed $latitude
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator::validate()
-     * @dataProvider validLatitudeValuesProvider
-     */
-    public function testValid(mixed $latitude): void
-    {
-        $validator = new LatitudeValidator();
-        $result = $validator->validate($latitude);
-
-        $this->assertTrue($result->isValid());
     }
 
     /**
@@ -61,6 +47,26 @@ class LatitudeValidatorTest extends TestCase
      * Test that latitude values are valid.
      *
      * @param mixed $latitude
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator::validate()
+     * @dataProvider validLatitudeValuesProvider
+     */
+    public function testValid(mixed $latitude): void
+    {
+        $validator = new LatitudeValidator();
+        $result = $validator->validate($latitude);
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame($latitude, $result->getValue());
+    }
+
+    /**
+     * Valid.
+     *
+     * Test that latitude values are valid.
+     *
+     * @param mixed $latitude
+     *
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator::validate()
      * @covers       \ExtendsSoftware\ExaPHP\Validator\Other\Coordinates\Coordinate\LatitudeValidator::getTemplates()
      * @dataProvider invalidLatitudeValuesProvider
@@ -70,7 +76,7 @@ class LatitudeValidatorTest extends TestCase
         $validator = new LatitudeValidator();
         $result = $validator->validate($latitude);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -85,6 +91,6 @@ class LatitudeValidatorTest extends TestCase
         $validator = new LatitudeValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

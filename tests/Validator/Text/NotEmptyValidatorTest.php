@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NotEmptyValidatorTest extends TestCase
@@ -10,21 +13,23 @@ class NotEmptyValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that value is not an empty string.
+     * Test that the value is not an empty string.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new NotEmptyValidator();
+        $result = $validator->validate('foo');
 
-        $this->assertTrue($validator->validate('foo')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that value is an empty string.
+     * Test that the value is an empty string.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\NotEmptyValidator::getTemplates()
@@ -32,8 +37,9 @@ class NotEmptyValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new NotEmptyValidator();
+        $result = $validator->validate('');
 
-        $this->assertFalse($validator->validate('')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -48,6 +54,6 @@ class NotEmptyValidatorTest extends TestCase
         $validator = new NotEmptyValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

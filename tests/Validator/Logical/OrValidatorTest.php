@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Logical;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -26,20 +29,16 @@ class OrValidatorTest extends TestCase
             ->method('isValid')
             ->willReturnOnConsecutiveCalls(
                 false,
-                true
+                true,
             );
 
         $innerValidator = $this->createMock(ValidatorInterface::class);
         $innerValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', ['bar' => 'baz']] => $result,
-            });
+            ->with('foo', ['bar' => 'baz'])
+            ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new OrValidator();
         $result = $validator
             ->addValidator($innerValidator)
@@ -47,7 +46,8 @@ class OrValidatorTest extends TestCase
             ->addValidator($innerValidator)
             ->validate('foo', ['bar' => 'baz']);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
@@ -68,26 +68,22 @@ class OrValidatorTest extends TestCase
             ->method('isValid')
             ->willReturnOnConsecutiveCalls(
                 false,
-                false
+                false,
             );
 
         $innerValidator = $this->createMock(ValidatorInterface::class);
         $innerValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', ['bar' => 'baz']] => $result,
-            });
+            ->with('foo', ['bar' => 'baz'])
+            ->willReturn($result);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new OrValidator();
         $result = $validator
             ->addValidator($innerValidator)
             ->addValidator($innerValidator)
             ->validate('foo', ['bar' => 'baz']);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

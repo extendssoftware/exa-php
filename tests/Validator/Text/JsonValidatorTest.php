@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class JsonValidatorTest extends TestCase
@@ -11,21 +13,23 @@ class JsonValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that JSON string is valid.
+     * Test that a JSON string is valid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\JsonValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new JsonValidator();
+        $result = $validator->validate('{"foo":"bar"}');
 
-        $this->assertTrue($validator->validate('{"foo":"bar"}')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('{"foo":"bar"}', $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that string value is invalid.
+     * Test that a string value is invalid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\JsonValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\JsonValidator::getTemplates()
@@ -33,14 +37,15 @@ class JsonValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new JsonValidator();
+        $result = $validator->validate('{"foo":"bar}');
 
-        $this->assertFalse($validator->validate('{"foo":"bar}')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\JsonValidator::validate()
      */
@@ -49,6 +54,6 @@ class JsonValidatorTest extends TestCase
         $validator = new JsonValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

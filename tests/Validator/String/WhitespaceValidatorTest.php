@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class WhitespaceValidatorTest extends TestCase
@@ -10,15 +13,17 @@ class WhitespaceValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of whitespace characters.
+     * Test that string consists of whitespace characters.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\WhitespaceValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new WhitespaceValidator();
+        $result = $validator->validate("\n\r\t");
 
-        $this->assertTrue($validator->validate("\n\r\t")->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame("\n\r\t", $result->getValue());
     }
 
     /**
@@ -32,15 +37,17 @@ class WhitespaceValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new WhitespaceValidator();
+        $result1 = $validator->validate("\narf12");
+        $result2 = $validator->validate('\n\r\t');
 
-        $this->assertFalse($validator->validate("\narf12")->isValid());
-        $this->assertFalse($validator->validate('\n\r\t')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\WhitespaceValidator::validate()
      */
@@ -49,6 +56,6 @@ class WhitespaceValidatorTest extends TestCase
         $validator = new WhitespaceValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

@@ -35,7 +35,7 @@ class NoPaddingValidator extends AbstractValidator
             return $this->getInvalidResult(self::PADDING_NOT_ALLOWED);
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

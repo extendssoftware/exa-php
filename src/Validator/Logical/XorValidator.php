@@ -41,7 +41,7 @@ class XorValidator extends AbstractLogicalValidator
         }
 
         if ($valid === 1) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult($valid === 0 ? self::NONE_VALID : self::MULTIPLE_VALID, [

@@ -1,9 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -12,7 +15,7 @@ class PropertyDependentValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that object is valid.
+     * Test that an object is valid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -20,38 +23,41 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testIsValid(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator1 = $this->createMock(ValidatorInterface::class);
-        $validator1
+        $innerValidator1 = $this->createMock(ValidatorInterface::class);
+        $innerValidator1
             ->expects($this->once())
             ->method('validate')
             ->with('qux')
-            ->willReturn($result);
+            ->willReturn($innerResult);
 
-        $validator2 = $this->createMock(ValidatorInterface::class);
-        $validator2
+        $innerValidator2 = $this->createMock(ValidatorInterface::class);
+        $innerValidator2
             ->expects($this->never())
             ->method('validate');
 
-        $properties = new PropertyDependentValidator('foo', [
-            'bar' => $validator1,
-            'baz' => $validator2,
+        $validator = new PropertyDependentValidator('foo', [
+            'bar' => $innerValidator1,
+            'baz' => $innerValidator2,
         ]);
-        $result = $properties->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertTrue($result->isValid());
+        $this->assertSame($innerResult, $result);
     }
 
     /**
      * Strict and context property missing.
      *
-     * Test that missing context property will give invalid result.
+     * Test that a missing context property will give an invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -60,11 +66,6 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testStrictAndContextPropertyMissing(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
-            ->method('isValid')
-            ->willReturn(true);
-
         $validator1 = $this->createMock(ValidatorInterface::class);
         $validator1
             ->expects($this->never())
@@ -79,17 +80,20 @@ class PropertyDependentValidatorTest extends TestCase
             'bar' => $validator1,
             'baz' => $validator2,
         ]);
-        $result = $validator->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Strict and validator missing.
      *
-     * Test that missing validator will give invalid result.
+     * Test that missing validator will give an invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -98,36 +102,34 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testStrictAndValidatorMissing(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
-            ->method('isValid')
-            ->willReturn(true);
-
-        $validator1 = $this->createMock(ValidatorInterface::class);
-        $validator1
+        $innerValidator1 = $this->createMock(ValidatorInterface::class);
+        $innerValidator1
             ->expects($this->never())
             ->method('validate');
 
-        $validator2 = $this->createMock(ValidatorInterface::class);
-        $validator2
+        $innerValidator2 = $this->createMock(ValidatorInterface::class);
+        $innerValidator2
             ->expects($this->never())
             ->method('validate');
 
         $validator = new PropertyDependentValidator('foo', [
-            'qux' => $validator1,
-            'baz' => $validator2,
+            'qux' => $innerValidator1,
+            'baz' => $innerValidator2,
         ]);
-        $result = $validator->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Non-strict and context property missing.
      *
-     * Test that missing context property will give valid result.
+     * Test that a missing context property will give a valid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -135,36 +137,35 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testNonStrictAndContextPropertyMissing(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
-            ->method('isValid')
-            ->willReturn(true);
-
-        $validator1 = $this->createMock(ValidatorInterface::class);
-        $validator1
+        $innerValidator1 = $this->createMock(ValidatorInterface::class);
+        $innerValidator1
             ->expects($this->never())
             ->method('validate');
 
-        $validator2 = $this->createMock(ValidatorInterface::class);
-        $validator2
+        $innerValidator2 = $this->createMock(ValidatorInterface::class);
+        $innerValidator2
             ->expects($this->never())
             ->method('validate');
 
         $validator = new PropertyDependentValidator('qux', [
-            'bar' => $validator1,
-            'baz' => $validator2,
+            'bar' => $innerValidator1,
+            'baz' => $innerValidator2,
         ], false);
-        $result = $validator->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('qux', $result->getValue());
     }
 
     /**
      * Non-strict and validator missing.
      *
-     * Test that missing validator will give invalid result.
+     * Test that missing validator will give an invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -172,36 +173,35 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testNonStrictAndValidatorMissing(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
-            ->method('isValid')
-            ->willReturn(true);
-
-        $validator1 = $this->createMock(ValidatorInterface::class);
-        $validator1
+        $innerValidator1 = $this->createMock(ValidatorInterface::class);
+        $innerValidator1
             ->expects($this->never())
             ->method('validate');
 
-        $validator2 = $this->createMock(ValidatorInterface::class);
-        $validator2
+        $innerValidator2 = $this->createMock(ValidatorInterface::class);
+        $innerValidator2
             ->expects($this->never())
             ->method('validate');
 
         $validator = new PropertyDependentValidator('foo', [
-            'qux' => $validator1,
-            'baz' => $validator2,
+            'qux' => $innerValidator1,
+            'baz' => $innerValidator2,
         ], false);
-        $result = $validator->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('qux', $result->getValue());
     }
 
     /**
      * Missing property and wildcard validator.
      *
-     * Test that missing property will be validated by wildcard validator.
+     * Test that a missing property will be validated by a wildcard validator.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::addProperty()
@@ -209,32 +209,35 @@ class PropertyDependentValidatorTest extends TestCase
      */
     public function testMissingPropertyAndWildcardValidator(): void
     {
-        $result = $this->createMock(ResultInterface::class);
-        $result
+        $innerResult = $this->createMock(ResultInterface::class);
+        $innerResult
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $innerValidator = $this->createMock(ValidatorInterface::class);
+        $innerValidator
             ->expects($this->once())
             ->method('validate')
             ->with('qux')
-            ->willReturn($result);
+            ->willReturn($innerResult);
 
         $validator = new PropertyDependentValidator('foo', [
-            '*' => $validator,
+            '*' => $innerValidator,
         ], false);
-        $result = $validator->validate('qux', (object)[
-            'foo' => 'bar',
-        ]);
+        $result = $validator->validate(
+            'qux',
+            (object)[
+                'foo' => 'bar',
+            ],
+        );
 
-        $this->assertTrue($result->isValid());
+        $this->assertSame($innerResult, $result);
     }
 
     /**
      * Not object.
      *
-     * Test that non object context can not be validated.
+     * Test that non-object context cannot be validated.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\PropertyDependentValidator::validate()
@@ -245,6 +248,6 @@ class PropertyDependentValidatorTest extends TestCase
         $validator = new PropertyDependentValidator('foo');
         $result = $validator->validate('test', []);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

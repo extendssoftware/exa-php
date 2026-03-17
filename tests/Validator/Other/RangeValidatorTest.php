@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +15,7 @@ class RangeValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that left value is not greater than right value and a valid result will be returned.
+     * Test that the left value is not greater than the right value and a valid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::validate()
@@ -46,20 +48,22 @@ class RangeValidatorTest extends TestCase
             ->with(20)
             ->willReturn($rightResult);
 
-        /**
-         * @var ValidatorInterface $leftValidator
-         * @var ValidatorInterface $rightValidator
-         */
         $validator = new RangeValidator($leftValidator, $rightValidator, 'min', 'max');
-
         $result = $validator->validate(
             (object)[
                 'min' => 10,
                 'max' => 20,
-            ]
+            ],
         );
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertEquals(
+            (object)[
+                'min' => 10,
+                'max' => 20,
+            ],
+            $result->getValue(),
+        );
     }
 
     /**
@@ -76,30 +80,25 @@ class RangeValidatorTest extends TestCase
 
         $rightValidator = $this->createMock(ValidatorInterface::class);
 
-        /**
-         * @var ValidatorInterface $leftValidator
-         * @var ValidatorInterface $rightValidator
-         */
         $validator = new RangeValidator($leftValidator, $rightValidator, 'min', 'max');
-
         $result = $validator->validate(
             [
                 'min' => 10,
                 'max' => 20,
-            ]
+            ],
         );
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid range inclusive.
      *
-     * Test that left value is greater than right value or the same and an invalid result will be returned.
+     * Test that the left value is greater than the right value or the same, and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::getTemplates
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::getTemplates()
      */
     public function testInvalidRangeInclusive(): void
     {
@@ -129,30 +128,25 @@ class RangeValidatorTest extends TestCase
             ->with(10)
             ->willReturn($rightResult);
 
-        /**
-         * @var ValidatorInterface $leftValidator
-         * @var ValidatorInterface $rightValidator
-         */
         $validator = new RangeValidator($leftValidator, $rightValidator, 'min', 'max', true);
-
         $result = $validator->validate(
             (object)[
                 'min' => 20,
                 'max' => 10,
-            ]
+            ],
         );
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid range non-inclusive.
      *
-     * Test that left value is greater than right value and an invalid result will be returned.
+     * Test that the left value is greater than the right value and an invalid result will be returned.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::getTemplates
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Other\RangeValidator::getTemplates()
      */
     public function testInvalidRangeNonInclusive(): void
     {
@@ -182,19 +176,14 @@ class RangeValidatorTest extends TestCase
             ->with(10)
             ->willReturn($rightResult);
 
-        /**
-         * @var ValidatorInterface $leftValidator
-         * @var ValidatorInterface $rightValidator
-         */
         $validator = new RangeValidator($leftValidator, $rightValidator, inclusive: false);
-
         $result = $validator->validate(
             (object)[
                 'left' => 10,
                 'right' => 10,
-            ]
+            ],
         );
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

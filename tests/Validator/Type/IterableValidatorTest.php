@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class IterableValidatorTest extends TestCase
@@ -10,7 +12,7 @@ class IterableValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that array value is iterable.
+     * Test that the array value is iterable.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IterableValidator::validate()
      */
@@ -19,13 +21,14 @@ class IterableValidatorTest extends TestCase
         $validator = new IterableValidator();
         $result = $validator->validate([]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame([], $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that string value is not iterable.
+     * Test that a string value is not iterable.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IterableValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IterableValidator::getTemplates()
@@ -35,6 +38,6 @@ class IterableValidatorTest extends TestCase
         $validator = new IterableValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

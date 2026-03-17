@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class BooleanValidatorTest extends TestCase
@@ -19,7 +21,8 @@ class BooleanValidatorTest extends TestCase
         $validator = new BooleanValidator();
         $result = $validator->validate(true);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(true, $result->getValue());
     }
 
     /**
@@ -35,6 +38,6 @@ class BooleanValidatorTest extends TestCase
         $validator = new BooleanValidator();
         $result = $validator->validate(1);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

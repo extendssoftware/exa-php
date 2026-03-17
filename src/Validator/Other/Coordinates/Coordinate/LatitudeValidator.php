@@ -51,7 +51,7 @@ class LatitudeValidator extends AbstractValidator
             ]);
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

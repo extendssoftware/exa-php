@@ -34,7 +34,7 @@ class EmailAddressValidator extends AbstractValidator
         }
 
         if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NO_EMAIL_ADDRESS, [

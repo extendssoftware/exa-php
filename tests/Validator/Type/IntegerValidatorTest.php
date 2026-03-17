@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class IntegerValidatorTest extends TestCase
@@ -11,7 +13,7 @@ class IntegerValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that integer value '-9' is a valid integer.
+     * Test that the integer value '-9' is a valid integer.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Type\IntegerValidator::validate()
@@ -21,7 +23,8 @@ class IntegerValidatorTest extends TestCase
         $validator = new IntegerValidator();
         $result = $validator->validate(-9);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(-9, $result->getValue());
     }
 
     /**
@@ -37,7 +40,7 @@ class IntegerValidatorTest extends TestCase
         $validator = new IntegerValidator(true);
         $result = $validator->validate(-9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -54,7 +57,7 @@ class IntegerValidatorTest extends TestCase
         $validator = new IntegerValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -68,7 +71,9 @@ class IntegerValidatorTest extends TestCase
     public function testString(): void
     {
         $validator = new IntegerValidator(allowString: true);
+        $result = $validator->validate('5');
 
-        $this->assertTrue($validator->validate('5')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('5', $result->getValue());
     }
 }

@@ -32,7 +32,7 @@ class PrintableValidator extends AbstractValidator
         }
 
         if (ctype_graph($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_PRINTABLE);

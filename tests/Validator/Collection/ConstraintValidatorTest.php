@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class ConstraintValidatorTest extends TestCase
@@ -23,7 +26,11 @@ class ConstraintValidatorTest extends TestCase
             3,
         ]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame([
+            1,
+            3,
+        ], $result->getValue());
     }
 
     /**
@@ -33,7 +40,7 @@ class ConstraintValidatorTest extends TestCase
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::validate()
-     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::getTemplates
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::getTemplates()
      */
     public function testInvalid(): void
     {
@@ -44,7 +51,7 @@ class ConstraintValidatorTest extends TestCase
             8,
         ]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
         $this->assertEquals([
             'code' => 'notAllowedValues',
             'message' => 'Values {{not_allowed}} are not allowed in the array.',
@@ -60,7 +67,7 @@ class ConstraintValidatorTest extends TestCase
     /**
      * Not iterable.
      *
-     * Test that validator will be invalid when value is not iterable.
+     * Test that validator will be invalid when the value is not iterable.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\ConstraintValidator::validate()
@@ -70,6 +77,6 @@ class ConstraintValidatorTest extends TestCase
         $validator = new ConstraintValidator([1, 2, 3]);
         $result = $validator->validate(3);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

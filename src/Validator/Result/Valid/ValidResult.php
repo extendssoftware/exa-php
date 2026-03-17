@@ -6,8 +6,15 @@ namespace ExtendsSoftware\ExaPHP\Validator\Result\Valid;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
-class ValidResult implements ResultInterface
+readonly class ValidResult implements ResultInterface
 {
+    /**
+     * ValidResult constructor.
+     *
+     * @param mixed $value
+     */
+    public function __construct(private mixed $value = null) {}
+
     /**
      * @inheritDoc
      */
@@ -19,8 +26,18 @@ class ValidResult implements ResultInterface
     /**
      * @inheritDoc
      */
-    public function jsonSerialize(): null
+    public function jsonSerialize(): mixed
     {
-        return null;
+        return $this->value;
+    }
+
+    /**
+     * Get the validated value.
+     *
+     * @return mixed
+     */
+    public function getValue(): mixed
+    {
+        return $this->value;
     }
 }

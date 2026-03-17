@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Validator\Other;
 
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -28,12 +29,9 @@ class NullableValidatorTest extends TestCase
             ->with('foo')
             ->willReturn($innerResult);
 
-        /**
-         * @var ValidatorInterface $innerValidator
-         */
         $validator = new NullableValidator($innerValidator);
-
         $result = $validator->validate('foo');
+
         $this->assertSame($innerResult, $result);
     }
 
@@ -52,12 +50,10 @@ class NullableValidatorTest extends TestCase
             ->expects($this->never())
             ->method('validate');
 
-        /**
-         * @var ValidatorInterface $inner
-         */
         $validator = new NullableValidator($inner);
-
         $result = $validator->validate(null);
-        $this->assertTrue($result->isValid());
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(null, $result->getValue());
     }
 }

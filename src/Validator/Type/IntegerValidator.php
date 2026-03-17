@@ -14,14 +14,14 @@ use function is_int;
 class IntegerValidator extends AbstractValidator
 {
     /**
-     * When value is not an integer.
+     * When a value is not an integer.
      *
      * @const string
      */
     public const string NOT_INTEGER = 'notInteger';
 
     /**
-     * When value is not an unsigned integer.
+     * When a value is not an unsigned integer.
      *
      * @const string
      */
@@ -44,17 +44,17 @@ class IntegerValidator extends AbstractValidator
     public function validate($value, mixed $context = null): ResultInterface
     {
         // This will check if the string-int-string value is the same as the original value, thus '5' -> 5 -> '5' can
-        // be seen as a string representation of an integer. If so, and if allowed, convert string to an integer.
+        // be seen as a string representation of an integer. If so, and if allowed, convert a string to an integer.
         if ($this->allowString && $value === (string)(int)$value) {
-            $value = (int)$value;
+            $stringValue = (int)$value;
         }
 
-        if (is_int($value)) {
-            if ($this->unsigned === true && $value < 0) {
+        if (is_int($stringValue ?? $value)) {
+            if ($this->unsigned === true && ($stringValue ?? $value) < 0) {
                 return $this->getInvalidResult(self::NOT_UNSIGNED);
             }
 
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_INTEGER, [

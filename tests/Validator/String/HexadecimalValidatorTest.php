@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class HexadecimalValidatorTest extends TestCase
@@ -10,16 +13,21 @@ class HexadecimalValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of hexadecimal digits.
+     * Test that a string consists of hexadecimal digits.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\HexadecimalValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new HexadecimalValidator();
+        $result1 = $validator->validate('AB10BC99');
+        $result2 = $validator->validate('ab12bc99');
 
-        $this->assertTrue($validator->validate('AB10BC99')->isValid());
-        $this->assertTrue($validator->validate('ab12bc99')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame('AB10BC99', $result1->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame('ab12bc99', $result2->getValue());
     }
 
     /**
@@ -33,14 +41,15 @@ class HexadecimalValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new HexadecimalValidator();
+        $result = $validator->validate('AR1012');
 
-        $this->assertFalse($validator->validate('AR1012')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\HexadecimalValidator::validate()
      */
@@ -49,6 +58,6 @@ class HexadecimalValidatorTest extends TestCase
         $validator = new HexadecimalValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

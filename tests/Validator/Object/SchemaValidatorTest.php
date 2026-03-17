@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
@@ -35,36 +38,25 @@ class SchemaValidatorTest extends TestCase
         $propertyValidator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', $context],
-                ['bar', $context],
-                ['baz', $context] => $result
-            });
+            ->willReturn($result);
 
         $valueValidator = $this->createMock(ValidatorInterface::class);
         $valueValidator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $context],
-                ['baz', $context],
-                ['qux', $context] => $result
-            });
+            ->willReturn($result);
 
-        /**
-         * @param ValidatorInterface $propertyValidator
-         * @param ValidatorInterface $valueValidator
-         */
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
     /**
      * Not object.
      *
-     * Test that a non object can not be validated.
+     * Test that a non-object cannot be validated.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::validate()
@@ -74,13 +66,13 @@ class SchemaValidatorTest extends TestCase
         $properties = new SchemaValidator();
         $result = $properties->validate([]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid object property.
      *
-     * Test that object property is invalid.
+     * Test that an object property is invalid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::validate()
@@ -111,35 +103,27 @@ class SchemaValidatorTest extends TestCase
             ->expects($this->exactly(3))
             ->method('validate')
             ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', $context],
-                ['bar', $context] => $validResult,
-                ['propertyNameTooLong', $context] => $invalidResult
+                ['propertyNameTooLong', $context] => $invalidResult,
+                default => $validResult,
             });
 
         $valueValidator = $this->createMock(ValidatorInterface::class);
         $valueValidator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $context],
-                ['baz', $context],
-                ['qux', $context] => $validResult
-            });
+            ->willReturn($validResult);
 
-        /**
-         * @param ValidatorInterface $propertyValidator
-         * @param ValidatorInterface $valueValidator
-         */
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
     /**
      * Invalid property value.
      *
-     * Test that property value is invalid.
+     * Test that a property value is invalid.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Object\SchemaValidator::validate()
@@ -169,29 +153,21 @@ class SchemaValidatorTest extends TestCase
         $propertyValidator
             ->expects($this->exactly(3))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', $context],
-                ['bar', $context],
-                ['baz', $context] => $validResult,
-            });
+            ->willReturn($validResult);
 
         $valueValidator = $this->createMock(ValidatorInterface::class);
         $valueValidator
             ->expects($this->exactly(3))
             ->method('validate')
             ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $context],
-                ['baz', $context] => $validResult,
                 ['propertyValueTooLong', $context] => $invalidResult,
+                default => $validResult,
             });
 
-        /**
-         * @param ValidatorInterface $propertyValidator
-         * @param ValidatorInterface $valueValidator
-         */
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -221,28 +197,18 @@ class SchemaValidatorTest extends TestCase
         $propertyValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['foo', $context],
-                ['bar', $context] => $result
-            });
+            ->willReturn($result);
 
         $valueValidator = $this->createMock(ValidatorInterface::class);
         $valueValidator
             ->expects($this->exactly(2))
             ->method('validate')
-            ->willReturnCallback(fn($value, $context) => match ([$value, $context]) {
-                ['bar', $context],
-                ['baz', $context] => $result
-            });
+            ->willReturn($result);
 
-        /**
-         * @param ValidatorInterface $propertyValidator
-         * @param ValidatorInterface $valueValidator
-         */
         $schema = new SchemaValidator($propertyValidator, $valueValidator, 2);
         $result = $schema->validate($object, 'context');
 
+        $this->assertInstanceOf(ContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
-
 }

@@ -16,17 +16,19 @@ abstract class AbstractValidator implements ValidatorInterface
     /**
      * Create valid result.
      *
+     * @param mixed $value The validated value.
+     *
      * @return ResultInterface
      */
-    protected function getValidResult(): ResultInterface
+    protected function getValidResult(mixed $value): ResultInterface
     {
-        return new ValidResult();
+        return new ValidResult($value);
     }
 
     /**
-     * Create invalid result.
+     * Create an invalid result.
      *
-     * When template can not be found, an exception will be thrown.
+     * When a template cannot be found, an exception will be thrown.
      *
      * @param string       $code
      * @param mixed[]|null $parameters
@@ -45,7 +47,7 @@ abstract class AbstractValidator implements ValidatorInterface
     }
 
     /**
-     * Get an associative array with templates to use for invalid result.
+     * Get an associative array with templates to use for an invalid result.
      *
      * @return mixed[]
      */

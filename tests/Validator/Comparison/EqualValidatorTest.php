@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Comparison;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class EqualValidatorTest extends TestCase
@@ -10,7 +13,7 @@ class EqualValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string '1' is equal to int '1'.
+     * Test that the string '1' is equal to int '1'.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Comparison\EqualValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Comparison\EqualValidator::validate()
@@ -20,7 +23,8 @@ class EqualValidatorTest extends TestCase
         $validator = new EqualValidator(1);
         $result = $validator->validate('1');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('1', $result->getValue());
     }
 
     /**
@@ -37,6 +41,6 @@ class EqualValidatorTest extends TestCase
         $validator = new EqualValidator(2);
         $result = $validator->validate('1');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other\Callback;
@@ -19,22 +20,20 @@ class CallbackValidatorTest extends TestCase
      */
     public function testValidate(): void
     {
-        $result = $this->createMock(ResultInterface::class);
+        $expectedResult = $this->createMock(ResultInterface::class);
 
         $inner = $this->createMock(ValidatorInterface::class);
         $inner
             ->expects($this->once())
             ->method('validate')
             ->with('foo', 'bar')
-            ->willReturn($result);
+            ->willReturn($expectedResult);
 
-        /**
-         * @var ValidatorInterface $inner
-         */
         $validator = new CallbackValidator(static function ($value, $context = null) use ($inner) {
             return $inner->validate($value, $context);
         });
+        $actualResult = $validator->validate('foo', 'bar');
 
-        $this->assertSame($result, $validator->validate('foo', 'bar'));
+        $this->assertSame($expectedResult, $actualResult);
     }
 }

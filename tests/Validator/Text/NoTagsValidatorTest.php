@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NoTagsValidatorTest extends TestCase
@@ -17,8 +19,10 @@ class NoTagsValidatorTest extends TestCase
     public function testValid(): void
     {
         $validator = new NoTagsValidator();
+        $result = $validator->validate('foo');
 
-        $this->assertTrue($validator->validate('foo', [])->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
     }
 
     /**
@@ -32,8 +36,9 @@ class NoTagsValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new NoTagsValidator();
+        $result = $validator->validate('<strong>bold</strong>');
 
-        $this->assertFalse($validator->validate('<strong>bold</strong>')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -48,6 +53,6 @@ class NoTagsValidatorTest extends TestCase
         $validator = new NoTagsValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

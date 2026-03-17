@@ -32,7 +32,7 @@ class NoTagsValidator extends AbstractValidator
         }
 
         if ($value === strip_tags($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::TAGS_NOT_ALLOWED);

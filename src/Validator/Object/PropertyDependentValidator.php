@@ -62,7 +62,7 @@ class PropertyDependentValidator extends AbstractValidator
                 ]);
             }
 
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         $dependent = $context->{$this->property};
@@ -76,7 +76,7 @@ class PropertyDependentValidator extends AbstractValidator
                     ]);
                 }
 
-                return $this->getValidResult();
+                return $this->getValidResult($value);
             }
         }
 

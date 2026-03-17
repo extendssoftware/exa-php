@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class LowercaseValidatorTest extends TestCase
@@ -10,15 +12,17 @@ class LowercaseValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of lowercase characters.
+     * Test that a string consists of lowercase characters.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\LowercaseValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new LowercaseValidator();
+        $result = $validator->validate('xyz');
 
-        $this->assertTrue($validator->validate('xyz')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('xyz', $result->getValue());
     }
 
     /**
@@ -32,15 +36,17 @@ class LowercaseValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new LowercaseValidator();
+        $result1 = $validator->validate('aac123');
+        $result2 = $validator->validate('XyZ');
 
-        $this->assertFalse($validator->validate('aac123')->isValid());
-        $this->assertFalse($validator->validate('XyZ')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\LowercaseValidator::validate()
      */
@@ -49,6 +55,6 @@ class LowercaseValidatorTest extends TestCase
         $validator = new LowercaseValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

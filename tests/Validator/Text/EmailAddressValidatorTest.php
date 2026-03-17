@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class EmailAddressValidatorTest extends TestCase
@@ -19,7 +22,8 @@ class EmailAddressValidatorTest extends TestCase
         $validator = new EmailAddressValidator();
         $result = $validator->validate('vincent@extends.nl');
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('vincent@extends.nl', $result->getValue());
     }
 
     /**
@@ -35,7 +39,7 @@ class EmailAddressValidatorTest extends TestCase
         $validator = new EmailAddressValidator();
         $result = $validator->validate('foo-bar-baz');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -50,6 +54,6 @@ class EmailAddressValidatorTest extends TestCase
         $validator = new EmailAddressValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

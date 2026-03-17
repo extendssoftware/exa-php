@@ -30,7 +30,7 @@ class NotEmptyValidator extends AbstractValidator
         }
 
         if (!empty($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::EMPTY);

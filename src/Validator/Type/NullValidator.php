@@ -26,7 +26,7 @@ class NullValidator extends AbstractValidator
     public function validate($value, mixed $context = null): ResultInterface
     {
         if ($value === null) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_NULL, [

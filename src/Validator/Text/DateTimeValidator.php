@@ -44,7 +44,7 @@ class DateTimeValidator extends AbstractValidator
         $format = $this->format ?? DATE_ATOM;
         $dateTime = DateTime::createFromFormat($format, $value);
         if ($dateTime && $dateTime->format($format) === $value) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_DATE_TIME, [

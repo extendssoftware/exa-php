@@ -79,7 +79,7 @@ class RangeValidator extends AbstractValidator
             }
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

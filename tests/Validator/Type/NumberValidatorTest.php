@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NumberValidatorTest extends TestCase
@@ -23,23 +25,6 @@ class NumberValidatorTest extends TestCase
     }
 
     /**
-     * Valid.
-     *
-     * Test that value is a number.
-     *
-     * @param mixed $number
-     * @covers       \ExtendsSoftware\ExaPHP\Validator\Type\NumberValidator::validate()
-     * @dataProvider validNumberValues
-     */
-    public function testValid(mixed $number): void
-    {
-        $validator = new NumberValidator();
-        $result = $validator->validate($number);
-
-        $this->assertTrue($result->isValid());
-    }
-
-    /**
      * Invalid number values.
      *
      * @return array<array<string|array<void>>>
@@ -53,6 +38,24 @@ class NumberValidatorTest extends TestCase
             ['-10.1'],
             [[]],
         ];
+    }
+
+    /**
+     * Valid.
+     *
+     * Test that the value is a number.
+     *
+     * @param mixed $number
+     * @covers       \ExtendsSoftware\ExaPHP\Validator\Type\NumberValidator::validate()
+     * @dataProvider validNumberValues
+     */
+    public function testValid(mixed $number): void
+    {
+        $validator = new NumberValidator();
+        $result = $validator->validate($number);
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame($number, $result->getValue());
     }
 
     /**
@@ -70,6 +73,6 @@ class NumberValidatorTest extends TestCase
         $validator = new NumberValidator();
         $result = $validator->validate($number);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

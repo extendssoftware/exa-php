@@ -27,7 +27,7 @@ class UrlValidator extends AbstractValidator
     public const string NO_URL = 'noUrl';
 
     /**
-     * When scheme is not allowed.
+     * When a scheme is not allowed.
      *
      * @const string
      */
@@ -70,7 +70,7 @@ class UrlValidator extends AbstractValidator
             }
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

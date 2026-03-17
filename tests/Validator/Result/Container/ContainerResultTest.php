@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Container;
@@ -24,9 +25,6 @@ class ContainerResultTest extends TestCase
             ->method('isValid')
             ->willReturn(true);
 
-        /**
-         * @var ResultInterface $result
-         */
         $container = new ContainerResult();
         $valid = $container
             ->addResult($result, 'foo')
@@ -53,12 +51,9 @@ class ContainerResultTest extends TestCase
             ->method('isValid')
             ->willReturnOnConsecutiveCalls(
                 true,
-                false
+                false,
             );
 
-        /**
-         * @var ResultInterface $result
-         */
         $container = new ContainerResult();
         $valid = $container
             ->addResult($result)
@@ -82,9 +77,6 @@ class ContainerResultTest extends TestCase
     {
         $result = $this->createMock(ResultInterface::class);
 
-        /**
-         * @var ResultInterface $result
-         */
         $container = new ContainerResult();
         $json = $container
             ->addResult($result)
@@ -115,9 +107,6 @@ class ContainerResultTest extends TestCase
             ->method('isValid')
             ->willReturnOnConsecutiveCalls(true, false);
 
-        /**
-         * @var ResultInterface $result
-         */
         $container = new ContainerResult();
         $container
             ->addResult($result, 'foo')

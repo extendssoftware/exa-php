@@ -39,7 +39,7 @@ class UuidValidator extends AbstractValidator
         }
 
         if (preg_match($this->pattern, $value) === 1) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_UUID, [

@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Text;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class Base64ValidatorTest extends TestCase
@@ -10,22 +13,24 @@ class Base64ValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that valid base64 value will validate.
+     * Test that a valid base64 value will validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::validate()
      */
     public function testValid(): void
     {
-        $validator = new Base64Validator();
+        $validator1 = new Base64Validator();
+        $validator2 = new Base64Validator(true, true);
 
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // random_bytes(32)
-        $this->assertTrue($result->isValid());
+        $result1 = $validator1->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // random_bytes(32)
+        $result2 = $validator2->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs'); // random_bytes(32)
 
-        $validator = new Base64Validator(true, true);
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs=', $result1->getValue());
 
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs'); // random_bytes(32)
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs', $result2->getValue());
     }
 
     /**
@@ -41,7 +46,7 @@ class Base64ValidatorTest extends TestCase
         $validator = new Base64Validator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -55,21 +60,20 @@ class Base64ValidatorTest extends TestCase
      */
     public function testInvalid(): void
     {
-        $validator = new Base64Validator();
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V+Vs='); // Replaced / with -.
+        $validator1 = new Base64Validator();
+        $validator2 = new Base64Validator(true);
 
-        $this->assertFalse($result->isValid());
+        $result1 = $validator1->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V+Vs='); // Replaced / with -.
+        $result2 = $validator2->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V_Vs='); // Replaced - with /.
 
-        $validator = new Base64Validator(true);
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V_Vs='); // Replaced - with /.
-
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
      * Decode failed.
      *
-     * Test that failed decode will return an invalid result.
+     * Test that failed to decode will return an invalid result.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Text\Base64Validator::validate()
@@ -77,15 +81,14 @@ class Base64ValidatorTest extends TestCase
      */
     public function testDecodeFailed(): void
     {
-        $validator = new Base64Validator();
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs=='); // Extra padding added.
+        $validator1 = new Base64Validator();
+        $validator2 = new Base64Validator(true);
 
-        $this->assertFalse($result->isValid());
+        $result1 = $validator1->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs=='); // Extra padding added.
+        $result2 = $validator2->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs=='); // Extra padding added.
 
-        $validator = new Base64Validator(true);
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH-V_Vs=='); // Extra padding added.
-
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
@@ -99,14 +102,13 @@ class Base64ValidatorTest extends TestCase
      */
     public function testDecodeEncode(): void
     {
-        $validator = new Base64Validator();
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs'); // Removed padding.
+        $validator1 = new Base64Validator();
+        $validator2 = new Base64Validator(false, true);
 
-        $this->assertFalse($result->isValid());
+        $result1 = $validator1->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs'); // Removed padding.
+        $result2 = $validator2->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // Added padding.
 
-        $validator = new Base64Validator(false, true);
-        $result = $validator->validate('FfYkHoSJ5By549qTrEkl3ZDcJkHfJTMmrdcUPH/V+Vs='); // Added padding.
-
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 }

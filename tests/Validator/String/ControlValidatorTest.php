@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class ControlValidatorTest extends TestCase
@@ -10,15 +13,17 @@ class ControlValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of control characters.
+     * Test that a string consists of control characters.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\ControlValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new ControlValidator();
+        $result = $validator->validate("\n\r\t");
 
-        $this->assertTrue($validator->validate("\n\r\t")->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame("\n\r\t", $result->getValue());
     }
 
     /**
@@ -32,14 +37,15 @@ class ControlValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new ControlValidator();
+        $result = $validator->validate('arf12');
 
-        $this->assertFalse($validator->validate('arf12')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\ControlValidator::validate()
      */
@@ -48,6 +54,6 @@ class ControlValidatorTest extends TestCase
         $validator = new ControlValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

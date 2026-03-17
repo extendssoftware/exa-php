@@ -33,7 +33,7 @@ class FalseValidator extends AbstractValidator
             return $this->getInvalidResult(self::NOT_FALSE);
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult(false);
     }
 
     /**

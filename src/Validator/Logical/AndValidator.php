@@ -20,7 +20,7 @@ class AndValidator extends AbstractLogicalValidator
             }
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

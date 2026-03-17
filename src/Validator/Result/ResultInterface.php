@@ -9,7 +9,7 @@ use JsonSerializable;
 interface ResultInterface extends JsonSerializable
 {
     /**
-     * If result is valid.
+     * If the result is valid.
      *
      * @return bool
      */

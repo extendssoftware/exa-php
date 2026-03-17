@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class FloatValidatorTest extends TestCase
@@ -19,7 +21,8 @@ class FloatValidatorTest extends TestCase
         $validator = new FloatValidator();
         $result = $validator->validate(9.1);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(9.1, $result->getValue());
     }
 
     /**
@@ -35,6 +38,6 @@ class FloatValidatorTest extends TestCase
         $validator = new FloatValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Collection;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class UniqueValidatorTest extends TestCase
@@ -20,13 +22,14 @@ class UniqueValidatorTest extends TestCase
         $collection = new UniqueValidator();
         $result = $collection->validate([1, 2, 3]);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame([1, 2, 3], $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that the array not contains unique values.
+     * Test that the array does not contain unique values.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\UniqueValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Collection\UniqueValidator::getTemplates()
@@ -36,7 +39,7 @@ class UniqueValidatorTest extends TestCase
         $collection = new UniqueValidator();
         $result = $collection->validate([1, 1, 2]);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -51,6 +54,6 @@ class UniqueValidatorTest extends TestCase
         $collection = new UniqueValidator();
         $result = $collection->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

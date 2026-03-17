@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class NullValidatorTest extends TestCase
@@ -19,7 +21,8 @@ class NullValidatorTest extends TestCase
         $validator = new NullValidator();
         $result = $validator->validate(null);
 
-        $this->assertTrue($result->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(null, $result->getValue());
     }
 
     /**
@@ -35,6 +38,6 @@ class NullValidatorTest extends TestCase
         $validator = new NullValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

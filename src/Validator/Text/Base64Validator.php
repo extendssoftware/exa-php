@@ -82,10 +82,10 @@ class Base64Validator extends AbstractValidator
         }
 
         if ($this->urlSafe) {
-            $value = str_replace(['-', '_'], ['/', '+'], $value); // Convert URL safe base64 to normal base64.
+            $nonUrlSafeValue = str_replace(['-', '_'], ['/', '+'], $value); // Convert URL safe base64 to normal base64.
         }
 
-        $decoded = base64_decode($value, true);
+        $decoded = base64_decode($nonUrlSafeValue ?? $value, true);
         if ($decoded === false) {
             return $this->getInvalidResult(self::DECODE_FAILED);
         }
@@ -95,11 +95,11 @@ class Base64Validator extends AbstractValidator
             $encoded = rtrim($encoded, '=');
         }
 
-        if ($encoded !== $value) {
+        if ($encoded !== ($nonUrlSafeValue ?? $value)) {
             return $this->getInvalidResult(self::DECODE_FAILED);
         }
 
-        return $this->getValidResult();
+        return $this->getValidResult($value);
     }
 
     /**

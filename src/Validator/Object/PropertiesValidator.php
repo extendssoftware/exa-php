@@ -70,23 +70,20 @@ class PropertiesValidator extends AbstractValidator
             $name = $property->getName();
             if (!property_exists($value, $name)) {
                 if (!$property->getValidator() instanceof ProxyValidator) {
-                    $container->addResult(
-                        $this->getInvalidResult(self::PROPERTY_MISSING, [
-                            'property' => $name,
-                        ]),
-                        $name
-                    );
+                    $result = $this->getInvalidResult(self::PROPERTY_MISSING, [
+                        'property' => $name,
+                    ]);
+
+                    $container->addResult($result, $name);
                 }
 
                 continue;
             }
 
-            $container->addResult(
-                $property
-                    ->getValidator()
-                    ->validate($value->{$name}, $value),
-                $name
-            );
+            $result = $property
+                ->getValidator()
+                ->validate($value->{$name}, $value);
+            $container->addResult($result, $name);
         }
 
         if ($this->strict) {
@@ -143,7 +140,7 @@ class PropertiesValidator extends AbstractValidator
                     $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
                         'property' => $property,
                     ]),
-                    $property
+                    $property,
                 );
             }
         }

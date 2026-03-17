@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Type;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -17,10 +19,13 @@ class ObjectValidatorTest extends TestCase
      */
     public function testValid(): void
     {
-        $validator = new ObjectValidator();
-        $result = $validator->validate(new stdClass());
+        $class = new stdClass();
 
-        $this->assertTrue($result->isValid());
+        $validator = new ObjectValidator();
+        $result = $validator->validate($class);
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame($class, $result->getValue());
     }
 
     /**
@@ -36,6 +41,6 @@ class ObjectValidatorTest extends TestCase
         $validator = new ObjectValidator();
         $result = $validator->validate('foo');
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

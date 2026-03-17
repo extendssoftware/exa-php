@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class UppercaseValidatorTest extends TestCase
@@ -10,15 +13,17 @@ class UppercaseValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of uppercase characters.
+     * Test that a string consists of uppercase characters.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\UppercaseValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new UppercaseValidator();
+        $result = $validator->validate('XYZ');
 
-        $this->assertTrue($validator->validate('XYZ')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('XYZ', $result->getValue());
     }
 
     /**
@@ -32,15 +37,17 @@ class UppercaseValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new UppercaseValidator();
+        $result1 = $validator->validate('XYZ139');
+        $result2 = $validator->validate('akwSKWsm');
 
-        $this->assertFalse($validator->validate('XYZ139')->isValid());
-        $this->assertFalse($validator->validate('akwSKWsm')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result1);
+        $this->assertInstanceOf(InvalidResult::class, $result2);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\UppercaseValidator::validate()
      */
@@ -49,6 +56,6 @@ class UppercaseValidatorTest extends TestCase
         $validator = new UppercaseValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

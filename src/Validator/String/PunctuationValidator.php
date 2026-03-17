@@ -32,7 +32,7 @@ class PunctuationValidator extends AbstractValidator
         }
 
         if (ctype_punct($value)) {
-            return $this->getValidResult();
+            return $this->getValidResult($value);
         }
 
         return $this->getInvalidResult(self::NOT_PUNCTUATION);

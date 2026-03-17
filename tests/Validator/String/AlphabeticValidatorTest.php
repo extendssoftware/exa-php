@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\String;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class AlphabeticValidatorTest extends TestCase
@@ -10,15 +13,17 @@ class AlphabeticValidatorTest extends TestCase
     /**
      * Valid.
      *
-     * Test that string consist of alphabetic characters.
+     * Test that a string consists of alphabetic characters.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\AlphabeticValidator::validate()
      */
     public function testValid(): void
     {
         $validator = new AlphabeticValidator();
+        $result = $validator->validate('KjgWZC');
 
-        $this->assertTrue($validator->validate('KjgWZC')->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('KjgWZC', $result->getValue());
     }
 
     /**
@@ -32,14 +37,15 @@ class AlphabeticValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new AlphabeticValidator();
+        $result = $validator->validate('arf12');
 
-        $this->assertFalse($validator->validate('arf12')->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
      * Invalid.
      *
-     * Test that none-string value will not validate.
+     * Test that a none-string value will not validate.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\String\AlphabeticValidator::validate()
      */
@@ -48,6 +54,6 @@ class AlphabeticValidatorTest extends TestCase
         $validator = new AlphabeticValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

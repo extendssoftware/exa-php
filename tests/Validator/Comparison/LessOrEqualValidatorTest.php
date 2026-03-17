@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Comparison;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class LessOrEqualValidatorTest extends TestCase
@@ -21,8 +24,11 @@ class LessOrEqualValidatorTest extends TestCase
         $result1 = $validator->validate(1);
         $result2 = $validator->validate(2);
 
-        $this->assertTrue($result1->isValid());
-        $this->assertTrue($result2->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame(1, $result1->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame(2, $result2->getValue());
     }
 
     /**
@@ -39,6 +45,6 @@ class LessOrEqualValidatorTest extends TestCase
         $validator = new LessOrEqualValidator(1);
         $result = $validator->validate(2);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }

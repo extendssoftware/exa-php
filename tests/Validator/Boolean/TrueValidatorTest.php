@@ -1,8 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Boolean;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class TrueValidatorTest extends TestCase
@@ -17,14 +20,16 @@ class TrueValidatorTest extends TestCase
     public function testValid(): void
     {
         $validator = new TrueValidator();
+        $result = $validator->validate(true);
 
-        $this->assertTrue($validator->validate(true)->isValid());
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame(true, $result->getValue());
     }
 
     /**
      * Invalid.
      *
-     * Test that value not equals true.
+     * Test that value does not equal true.
      *
      * @covers \ExtendsSoftware\ExaPHP\Validator\Boolean\TrueValidator::validate()
      * @covers \ExtendsSoftware\ExaPHP\Validator\Boolean\TrueValidator::getTemplates()
@@ -32,8 +37,9 @@ class TrueValidatorTest extends TestCase
     public function testInvalid(): void
     {
         $validator = new TrueValidator();
+        $result = $validator->validate(false);
 
-        $this->assertFalse($validator->validate(false)->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 
     /**
@@ -48,6 +54,6 @@ class TrueValidatorTest extends TestCase
         $validator = new TrueValidator();
         $result = $validator->validate(9);
 
-        $this->assertFalse($result->isValid());
+        $this->assertInstanceOf(InvalidResult::class, $result);
     }
 }
