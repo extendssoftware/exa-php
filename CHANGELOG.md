@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added TransformerPipeline to sequentially transform a value with a pipeline of transformers.
 - Added TransformingValidator to transform a value before validation, a valid result will return the transformed value.
 - Added AlphanumericOnlyTransformer to transform a string to alphanumeric characters with Unicode support.
+- Added AsciiAlphanumericOnlyTransformer to transform a string to alphanumeric characters without Unicode support.
 
 ### Changed
 
