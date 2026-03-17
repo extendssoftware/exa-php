@@ -4,18 +4,15 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Transformer\String\AlphanumericOnly;
 
+use PHPUnit\Framework\Attributes\CoversMethod;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
+#[CoversMethod(AlphanumericOnlyTransformer::class, 'transform')]
 class AlphanumericOnlyTransformerTest extends TestCase
 {
-    /**
-     * Asserts that the transformer will only return alphanumeric characters.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Transformer\String\AlphanumericOnly\AlphanumericOnlyTransformer::transform()
-     *
-     * @return void
-     */
-    public function testTransform(): void
+    #[Test]
+    public function removesNonAlphanumericCharacters(): void
     {
         $transformer = new AlphanumericOnlyTransformer();
         $value = $transformer->transform(' @ÁbC-12 3_');
@@ -23,14 +20,8 @@ class AlphanumericOnlyTransformerTest extends TestCase
         $this->assertSame('ÁbC123', $value);
     }
 
-    /**
-     * Asserts that the transformer will return the value when it is not a string.
-     *
-     * @covers \ExtendsSoftware\ExaPHP\Transformer\String\AlphanumericOnly\AlphanumericOnlyTransformer::transform()
-     *
-     * @return void
-     */
-    public function testTransformWithNonString(): void
+    #[Test]
+    public function returnsValueWhenInputIsNotString(): void
     {
         $transformer = new AlphanumericOnlyTransformer();
         $value = $transformer->transform(123);
