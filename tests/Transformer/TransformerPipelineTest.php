@@ -57,6 +57,9 @@ class TransformerPipelineTest extends TestCase
      *
      * Asserts that the value is returned when no transformers are given.
      *
+     * @covers \ExtendsSoftware\ExaPHP\Transformer\TransformerPipeline::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Transformer\TransformerPipeline::transform()
+     *
      * @return void
      */
     public function testTransformWithNoTransformers(): void
@@ -69,6 +72,9 @@ class TransformerPipelineTest extends TestCase
 
     /**
      * Transform with non-string.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Transformer\TransformerPipeline::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Transformer\TransformerPipeline::transform()
      *
      * @return void
      */
