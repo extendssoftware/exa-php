@@ -15,9 +15,9 @@ class AsciiAlphanumericOnlyTransformerTest extends TestCase
     public function removesNonAsciiAlphanumericCharacters(): void
     {
         $transformer = new AsciiAlphanumericOnlyTransformer();
-        $value = $transformer->transform(' @ÁbC-12 3_Ⅱ'); // Container Unicode letter and number.
+        $value = $transformer->transform("  A1Áβ٣\t\n\r\x00\x1F\x7F !@#-_ 　𐍈९");
 
-        $this->assertSame('bC123', $value);
+        $this->assertSame('A1', $value);
     }
 
     #[Test]
