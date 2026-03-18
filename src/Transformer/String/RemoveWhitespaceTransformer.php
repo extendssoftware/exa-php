@@ -20,6 +20,6 @@ class RemoveWhitespaceTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/\s+/u', '', $value);
+        return preg_replace('/\s+/', '', $value);
     }
 }

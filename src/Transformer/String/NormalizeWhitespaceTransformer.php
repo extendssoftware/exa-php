@@ -21,7 +21,7 @@ class NormalizeWhitespaceTransformer implements TransformerInterface
             return $value;
         }
 
-        $value = preg_replace('/\s+/u', ' ', $value);
+        $value = preg_replace('/\s+/', ' ', $value);
         // @codeCoverageIgnoreStart
         if ($value === null) {
             return null;
