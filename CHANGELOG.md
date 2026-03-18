@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added RemoveWhitespaceTransformer to remove whitespace characters from a string.
 - Added StripHtmlTags to strip HTML and PHP tags from a string.
 - Added TrimTransformer to trim whitespace characters from a string.
+- Added NormalizeWhitespace to normalize whitespace characters in a string.
 
 ### Changed
 
