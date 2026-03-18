@@ -9,6 +9,20 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+### Changed
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.7.2] - 2026-03-18
+
+### Added
+
 - Added ValidResult::getValue() to get the validated valid value.
 - Added TransformerInterface to transform a value.
 - Added TransformerPipeline to sequentially transform a value with a pipeline of transformers.
@@ -22,16 +36,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added StripHtmlTags to strip HTML and PHP tags from a string.
 - Added TrimWhitespaceTransformer to trim whitespace characters from a string.
 - Added NormalizeWhitespace to normalize whitespace characters in a string.
-
-### Changed
-
-### Deprecated
-
-### Removed
-
-### Fixed
-
-### Security
 
 ## [0.7.1] - 2026-03-12
 
@@ -204,7 +208,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.1...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.2...HEAD
+
+[0.7.2]: https://github.com/extendssoftware/exa-php/commits/0.7.2
 
 [0.7.1]: https://github.com/extendssoftware/exa-php/commits/0.7.1
 
