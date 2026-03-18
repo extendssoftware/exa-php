@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added LowercaseTransformer to transform a string to lowercase.
 - Added UppercaseTransformer to transform a string to uppercase.
 - Added RemoveWhitespaceTransformer to remove whitespace characters from a string.
+- Added StripHtmlTags to strip HTML and PHP tags from a string.
 
 ### Changed
 
