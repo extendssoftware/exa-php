@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Invalid;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Exception\ResultNotValid;
 use PHPUnit\Framework\TestCase;
 
 class InvalidResultTest extends TestCase
@@ -41,5 +42,24 @@ class InvalidResultTest extends TestCase
             ],
         ], $result->jsonSerialize());
         $this->assertSame('Value is not a string, got "array".', (string)$result);
+    }
+
+    /**
+     * Get value.
+     *
+     * Test that method throws an exception.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult::getValue()
+     */
+    public function testGetValue(): void
+    {
+        $this->expectException(ResultNotValid::class);
+        $this->expectExceptionMessage('Can not get value from an invalid result.');
+
+        $result = new InvalidResult('notString', 'Value is not a string, got "{{type}}".', [
+            'type' => 'array',
+        ]);
+        $result->getValue();
     }
 }

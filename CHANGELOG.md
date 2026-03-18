@@ -9,6 +9,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
+- Added ResultInterface::getValue() to get the value from a valid (container) result.
+- Added ArrayContainerResult and ObjectContainerResult to replace ContainerResult for specific types.
+
 ### Changed
 
 ### Deprecated

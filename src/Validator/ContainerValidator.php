@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
 
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Array\ArrayContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
 class ContainerValidator implements ValidatorInterface
@@ -21,10 +21,11 @@ class ContainerValidator implements ValidatorInterface
      */
     public function validate($value, mixed $context = null): ResultInterface
     {
-        $container = new ContainerResult();
+        $container = new ArrayContainerResult();
         foreach ($this->validators as $validator) {
             $result = $validator->validate($value, $context);
-            $container->addResult($result);
+
+            $container->addItem($result);
 
             if (!$result->isValid() && $validator->mustInterrupt()) {
                 break;

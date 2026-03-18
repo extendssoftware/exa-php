@@ -8,7 +8,7 @@ use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
 use ExtendsSoftware\ExaPHP\Validator\Object\Properties\Property;
 use ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator;
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Object\ObjectContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
@@ -65,7 +65,7 @@ class PropertiesValidator extends AbstractValidator
             return $result;
         }
 
-        $container = new ContainerResult();
+        $container = new ObjectContainerResult();
         foreach ($this->properties as $property) {
             $name = $property->getName();
             if (!property_exists($value, $name)) {
@@ -74,7 +74,7 @@ class PropertiesValidator extends AbstractValidator
                         'property' => $name,
                     ]);
 
-                    $container->addResult($result, $name);
+                    $container->addProperty($name, $result);
                 }
 
                 continue;
@@ -83,7 +83,7 @@ class PropertiesValidator extends AbstractValidator
             $result = $property
                 ->getValidator()
                 ->validate($value->{$name}, $value);
-            $container->addResult($result, $name);
+            $container->addProperty($name, $result);
         }
 
         if ($this->strict) {
@@ -126,21 +126,21 @@ class PropertiesValidator extends AbstractValidator
      *
      * If in strict mode, check if there are more than the allowed properties.
      *
-     * @param ContainerResult $container
-     * @param mixed           $object
+     * @param ObjectContainerResult $container
+     * @param mixed                 $object
      *
      * @return void
      * @throws TemplateNotFound
      */
-    private function checkStrictness(ContainerResult $container, mixed $object): void
+    private function checkStrictness(ObjectContainerResult $container, mixed $object): void
     {
         foreach ($object as $property => $value) {
             if (!array_key_exists($property, $this->properties)) {
-                $container->addResult(
+                $container->addProperty(
+                    $property,
                     $this->getInvalidResult(self::PROPERTY_NOT_ALLOWED, [
                         'property' => $property,
                     ]),
-                    $property,
                 );
             }
         }

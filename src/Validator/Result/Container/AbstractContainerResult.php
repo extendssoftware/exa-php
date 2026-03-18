@@ -4,25 +4,24 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Container;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Exception\ResultNotValid;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
-use function is_string;
-
-class ContainerResult implements ResultInterface
+abstract class AbstractContainerResult implements ResultInterface
 {
     /**
      * If the container is valid.
      *
      * @var bool
      */
-    private bool $valid = true;
+    protected bool $valid = true;
 
     /**
      * Validation results.
      *
      * @var ResultInterface[]
      */
-    private array $results = [];
+    protected array $results = [];
 
     /**
      * @inheritDoc
@@ -42,33 +41,27 @@ class ContainerResult implements ResultInterface
     }
 
     /**
-     * Get results.
+     * Check if container is valid.
      *
-     * @return ResultInterface[]
+     * @return void
+     * @throws ResultNotValid
      */
-    public function getResults(): array
+    protected function assertValid(): void
     {
-        return $this->results;
+        if (!$this->isValid()) {
+            throw new ResultNotValid();
+        }
     }
 
     /**
-     * Add a result to the container.
+     * Update container status based on current valid flag and result valid flag.
      *
      * @param ResultInterface $result
-     * @param string|null     $name
      *
-     * @return ContainerResult
+     * @return void
      */
-    public function addResult(ResultInterface $result, ?string $name = null): ContainerResult
+    protected function updateValidFlag(ResultInterface $result): void
     {
         $this->valid = $this->isValid() && $result->isValid();
-
-        if (is_string($name)) {
-            $this->results[$name] = $result;
-        } else {
-            $this->results[] = $result;
-        }
-
-        return $this;
     }
 }

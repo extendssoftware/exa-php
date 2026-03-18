@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator;
 
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Array\ArrayContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -41,7 +41,7 @@ class ContainerValidatorTest extends TestCase
             ->addValidator($validator)
             ->validate('foo', 'bar');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ArrayContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
@@ -82,7 +82,7 @@ class ContainerValidatorTest extends TestCase
             ->addValidator($validator)
             ->validate('foo', 'bar');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ArrayContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 }

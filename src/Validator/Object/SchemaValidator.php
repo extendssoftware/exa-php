@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
 use ExtendsSoftware\ExaPHP\Validator\AbstractValidator;
 use ExtendsSoftware\ExaPHP\Validator\Exception\TemplateNotFound;
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Object\ObjectContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\Type\ObjectValidator;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
@@ -48,7 +48,8 @@ class SchemaValidator extends AbstractValidator
         private readonly ?ValidatorInterface $property = null,
         private readonly ?ValidatorInterface $value = null,
         private readonly ?int $count = null,
-    ) {}
+    ) {
+    }
 
     /**
      * @inheritDoc
@@ -61,7 +62,7 @@ class SchemaValidator extends AbstractValidator
             return $result;
         }
 
-        $container = new ContainerResult();
+        $container = new ObjectContainerResult();
         $reflection = new ReflectionObject($value);
 
         $properties = $reflection->getProperties();
@@ -75,7 +76,7 @@ class SchemaValidator extends AbstractValidator
                     'property' => $propertyName,
                     'count' => $this->count,
                 ]);
-                $container->addResult($result, $propertyName);
+                $container->addProperty($propertyName, $result);
             } else {
                 $valid = true;
                 if ($this->property) {
@@ -85,7 +86,7 @@ class SchemaValidator extends AbstractValidator
                         $result = $this->getInvalidResult(self::INVALID_OBJECT_PROPERTY, [
                             'property' => $propertyName,
                         ]);
-                        $container->addResult($result, $propertyName);
+                        $container->addProperty($propertyName, $result);
                     }
                 }
 
@@ -96,13 +97,13 @@ class SchemaValidator extends AbstractValidator
                         $result = $this->getInvalidResult(self::INVALID_PROPERTY_VALUE, [
                             'value' => $propertyValue,
                         ]);
-                        $container->addResult($result, $propertyName);
+                        $container->addProperty($propertyName, $result);
                     }
                 }
 
                 if ($valid) {
                     $result = $this->getValidResult($value);
-                    $container->addResult($result, $propertyName);
+                    $container->addProperty($propertyName, $result);
                 }
             }
         }

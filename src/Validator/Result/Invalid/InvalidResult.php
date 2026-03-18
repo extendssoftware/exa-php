@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Result\Invalid;
 
+use ExtendsSoftware\ExaPHP\Validator\Result\Exception\ResultNotValid;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 
 use function sprintf;
@@ -40,6 +41,14 @@ readonly class InvalidResult implements ResultInterface
             'message' => $this->getMessage(),
             'parameters' => (object)$this->getParameters(),
         ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): never
+    {
+        throw new ResultNotValid();
     }
 
     /**

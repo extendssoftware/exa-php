@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
 use ExtendsSoftware\ExaPHP\Validator\Other\ProxyValidator;
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Object\ObjectContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
@@ -50,7 +50,7 @@ class PropertiesValidatorTest extends TestCase
         ]);
         $result = $validator->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
@@ -89,7 +89,7 @@ class PropertiesValidatorTest extends TestCase
         ]);
         $result = $validator->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -111,7 +111,7 @@ class PropertiesValidatorTest extends TestCase
         $validator = new PropertiesValidator(null, false);
         $result = $validator->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
@@ -137,7 +137,7 @@ class PropertiesValidatorTest extends TestCase
         ]);
         $result = $validator->validate((object)[], 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -190,10 +190,10 @@ class PropertiesValidatorTest extends TestCase
         $result1 = $validator->validate($object);
         $result2 = $validator->validate($object, 'foo');
 
-        $this->assertInstanceOf(ContainerResult::class, $result1);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result1);
         $this->assertTrue($result1->isValid());
 
-        $this->assertInstanceOf(ContainerResult::class, $result2);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result2);
         $this->assertTrue($result2->isValid());
     }
 }

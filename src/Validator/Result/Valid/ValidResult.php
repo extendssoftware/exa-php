@@ -32,9 +32,7 @@ readonly class ValidResult implements ResultInterface
     }
 
     /**
-     * Get the validated value.
-     *
-     * @return mixed
+     * @inheritDoc
      */
     public function getValue(): mixed
     {

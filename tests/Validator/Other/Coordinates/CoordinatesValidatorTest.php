@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Other\Coordinates;
 
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
-use ExtendsSoftware\ExaPHP\Validator\Result\Valid\ValidResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Object\ObjectContainerResult;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -58,18 +57,17 @@ class CoordinatesValidatorTest extends TestCase
             ],
         );
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertTrue($result->isValid());
 
-        $results = $result->getResults();
-        $latitude = $results['latitude'];
-        $longitude = $results['longitude'];
-
-        $this->assertInstanceOf(ValidResult::class, $latitude);
-        $this->assertSame(52.0767034, $latitude->getValue());
-
-        $this->assertInstanceOf(ValidResult::class, $longitude);
-        $this->assertSame(5.4777887, $longitude->getValue());
+        $value = $result->getValue();
+        $this->assertEquals(
+            (object)[
+                'latitude' => 52.0767034,
+                'longitude' => 5.4777887,
+            ],
+            $value
+        );
     }
 
     /**
@@ -90,18 +88,17 @@ class CoordinatesValidatorTest extends TestCase
             ],
         );
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertTrue($result->isValid());
 
-        $results = $result->getResults();
-        $latitude = $results['lat'];
-        $longitude = $results['lng'];
-
-        $this->assertInstanceOf(ValidResult::class, $latitude);
-        $this->assertSame(52.0767034, $latitude->getValue());
-
-        $this->assertInstanceOf(ValidResult::class, $longitude);
-        $this->assertSame(5.4777887, $longitude->getValue());
+        $value = $result->getValue();
+        $this->assertEquals(
+            (object)[
+                'lat' => 52.0767034,
+                'lng' => 5.4777887,
+            ],
+            $value
+        );
     }
 
     /**
@@ -119,7 +116,7 @@ class CoordinatesValidatorTest extends TestCase
         $validator = new CoordinatesValidator();
         $result = $validator->validate($coordinates);
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 }

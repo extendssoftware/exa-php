@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Validator\Object;
 
-use ExtendsSoftware\ExaPHP\Validator\Result\Container\ContainerResult;
+use ExtendsSoftware\ExaPHP\Validator\Result\Container\Object\ObjectContainerResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\Invalid\InvalidResult;
 use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
@@ -49,7 +49,7 @@ class SchemaValidatorTest extends TestCase
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
@@ -116,7 +116,7 @@ class SchemaValidatorTest extends TestCase
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -167,7 +167,7 @@ class SchemaValidatorTest extends TestCase
         $schema = new SchemaValidator($propertyValidator, $valueValidator);
         $result = $schema->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
@@ -208,7 +208,7 @@ class SchemaValidatorTest extends TestCase
         $schema = new SchemaValidator($propertyValidator, $valueValidator, 2);
         $result = $schema->validate($object, 'context');
 
-        $this->assertInstanceOf(ContainerResult::class, $result);
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 }
