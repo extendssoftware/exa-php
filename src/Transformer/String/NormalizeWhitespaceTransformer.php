@@ -15,7 +15,7 @@ class NormalizeWhitespaceTransformer implements TransformerInterface
     /**
      * @inheritDoc
      */
-    function transform(mixed $value): mixed
+    public function transform(mixed $value): mixed
     {
         if (!is_string($value)) {
             return $value;
