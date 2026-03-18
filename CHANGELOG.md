@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added LettersOnlyTransformer to transform a string to Unicode letters.
 - Added LowercaseTransformer to transform a string to lowercase.
 - Added UppercaseTransformer to transform a string to uppercase.
+- Added RemoveWhitespaceTransformer to remove whitespace characters from a string.
 
 ### Changed
 
