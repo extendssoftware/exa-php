@@ -9,9 +9,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Added
 
-- Added ResultInterface::getValue() to get the value from a valid (container) result.
-- Added ArrayContainerResult and ObjectContainerResult to replace ContainerResult for specific types.
-
 ### Changed
 
 ### Deprecated
@@ -21,6 +18,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Fixed
 
 ### Security
+
+## [0.8.0] - 2026-03-18
+
+### Added
+
+- Added ResultInterface::getValue() to get the value from a valid (container) result.
+- Added ArrayContainerResult and ObjectContainerResult to replace ContainerResult for specific types.
 
 ## [0.7.2] - 2026-03-18
 
@@ -211,7 +215,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.7.2...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.8.0...HEAD
+
+[0.8.0]: https://github.com/extendssoftware/exa-php/commits/0.8.0
 
 [0.7.2]: https://github.com/extendssoftware/exa-php/commits/0.7.2
 
