@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\Uppercase;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
-use function mb_strtoupper;
+use function preg_replace;
 
-class UppercaseTransformer implements TransformerInterface
+class AlphanumericOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class UppercaseTransformer implements TransformerInterface
             return $value;
         }
 
-        return mb_strtoupper($value);
+        return preg_replace('/[^\p{L}\p{N}]+/u', '', $value);
     }
 }

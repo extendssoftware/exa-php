@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\Trim;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
-use function trim;
+use function preg_replace;
 
-class TrimTransformer implements TransformerInterface
+class AsciiAlphanumericOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class TrimTransformer implements TransformerInterface
             return $value;
         }
 
-        return trim($value);
+        return preg_replace('/[^a-z0-9]+/i', '', $value);
     }
 }

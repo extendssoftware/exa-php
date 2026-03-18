@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\NormalizeWhitespace;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 

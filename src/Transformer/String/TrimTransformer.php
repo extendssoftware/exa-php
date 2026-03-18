@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\DigitsOnly;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
-use function preg_replace;
+use function trim;
 
-class DigitsOnlyTransformer implements TransformerInterface
+class TrimTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class DigitsOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/\D+/', '', $value);
+        return trim($value);
     }
 }

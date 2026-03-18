@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\AlphanumericOnly;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
 use function preg_replace;
 
-class AlphanumericOnlyTransformer implements TransformerInterface
+class DigitsOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class AlphanumericOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/[^\p{L}\p{N}]+/u', '', $value);
+        return preg_replace('/\D+/', '', $value);
     }
 }

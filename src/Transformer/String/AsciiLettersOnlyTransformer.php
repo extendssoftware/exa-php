@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\StripHtmlTags;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
-use function is_string;
-use function strip_tags;
+use function preg_replace;
 
-class StripHtmlTagsTransformer implements TransformerInterface
+class AsciiLettersOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +19,6 @@ class StripHtmlTagsTransformer implements TransformerInterface
             return $value;
         }
 
-        return strip_tags($value);
+        return preg_replace('/[^a-z]+/i', '', $value);
     }
 }

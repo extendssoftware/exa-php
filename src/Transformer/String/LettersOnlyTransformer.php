@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\AsciiLettersOnly;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
+use function is_string;
 use function preg_replace;
 
-class AsciiLettersOnlyTransformer implements TransformerInterface
+class LettersOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -19,6 +20,6 @@ class AsciiLettersOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/[^a-z]+/i', '', $value);
+        return preg_replace('/[^\p{L}]+/u', '', $value);
     }
 }

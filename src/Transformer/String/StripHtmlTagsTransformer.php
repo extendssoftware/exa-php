@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace ExtendsSoftware\ExaPHP\Transformer\String\RemoveWhitespace;
+namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
-use function preg_replace;
+use function strip_tags;
 
-class RemoveWhitespaceTransformer implements TransformerInterface
+class StripHtmlTagsTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class RemoveWhitespaceTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/\s+/u', '', $value);
+        return strip_tags($value);
     }
 }
