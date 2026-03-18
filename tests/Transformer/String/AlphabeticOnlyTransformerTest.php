@@ -8,22 +8,22 @@ use PHPUnit\Framework\Attributes\CoversMethod;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-#[CoversMethod(TrimTransformer::class, 'transform')]
-class TrimTransformerTest extends TestCase
+#[CoversMethod(AlphabeticOnlyTransformer::class, 'transform')]
+class AlphabeticOnlyTransformerTest extends TestCase
 {
     #[Test]
     public function removesNonAsciiAlphanumericCharacters(): void
     {
-        $transformer = new TrimTransformer();
-        $value = $transformer->transform("  A1Áβ٣\t\n\r\x00\x1F\x7F !@#-_ 　𐍈९");
+        $transformer = new AlphabeticOnlyTransformer();
+        $value = $transformer->transform('a1-B+2@/ ');
 
-        $this->assertSame("A1Áβ٣\t\n\r\x00\x1F\x7F !@#-_ 　𐍈९", $value);
+        $this->assertSame('aB', $value);
     }
 
     #[Test]
     public function returnsValueWhenInputIsNotString(): void
     {
-        $transformer = new TrimTransformer();
+        $transformer = new AlphabeticOnlyTransformer();
         $value = $transformer->transform(123);
 
         $this->assertSame(123, $value);

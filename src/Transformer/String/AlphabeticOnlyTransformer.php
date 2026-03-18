@@ -6,10 +6,9 @@ namespace ExtendsSoftware\ExaPHP\Transformer\String;
 
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
-use function is_string;
 use function preg_replace;
 
-class LettersOnlyTransformer implements TransformerInterface
+class AlphabeticOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +19,6 @@ class LettersOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/[^\p{L}]+/u', '', $value);
+        return preg_replace('/[^a-z]+/i', '', $value);
     }
 }

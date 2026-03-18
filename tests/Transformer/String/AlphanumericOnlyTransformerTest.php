@@ -15,9 +15,9 @@ class AlphanumericOnlyTransformerTest extends TestCase
     public function removesNonAlphanumericCharacters(): void
     {
         $transformer = new AlphanumericOnlyTransformer();
-        $value = $transformer->transform("  A1Áβ٣\t\n\r\x00\x1F\x7F !@#-_ 　𐍈९");
+        $value = $transformer->transform('a1-B+2@/ ');
 
-        $this->assertSame('A1Áβ٣𐍈९', $value);
+        $this->assertSame('a1B2', $value);
     }
 
     #[Test]

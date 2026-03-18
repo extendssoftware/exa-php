@@ -13,16 +13,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added TransformerInterface to transform a value.
 - Added TransformerPipeline to sequentially transform a value with a pipeline of transformers.
 - Added TransformingValidator to transform a value before validation, a valid result will return the transformed value.
-- Added AlphanumericOnlyTransformer to transform a string to alphanumeric characters with Unicode support.
-- Added AsciiAlphanumericOnlyTransformer to transform a string to alphanumeric characters without Unicode support.
-- Added AsciiLettersOnlyTransformer to transform a string to ASCII letters.
-- Added DigitsOnlyTransformer to transform a string to digits.
-- Added LettersOnlyTransformer to transform a string to Unicode letters.
+- Added AlphanumericOnlyTransformer to transform a string to alphanumeric characters.
+- Added AlphabeticOnlyTransformer to transform a string letters.
+- Added NumericOnlyTransformer to transform a string to numbers.
 - Added LowercaseTransformer to transform a string to lowercase.
 - Added UppercaseTransformer to transform a string to uppercase.
 - Added RemoveWhitespaceTransformer to remove whitespace characters from a string.
 - Added StripHtmlTags to strip HTML and PHP tags from a string.
-- Added TrimTransformer to trim whitespace characters from a string.
+- Added TrimWhitespaceTransformer to trim whitespace characters from a string.
 - Added NormalizeWhitespace to normalize whitespace characters in a string.
 
 ### Changed

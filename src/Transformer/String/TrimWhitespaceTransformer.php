@@ -7,9 +7,9 @@ namespace ExtendsSoftware\ExaPHP\Transformer\String;
 use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 
 use function is_string;
-use function preg_replace;
+use function trim;
 
-class AsciiAlphanumericOnlyTransformer implements TransformerInterface
+class TrimWhitespaceTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class AsciiAlphanumericOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/[^a-z0-9]+/i', '', $value);
+        return trim($value);
     }
 }

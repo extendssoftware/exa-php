@@ -9,7 +9,7 @@ use ExtendsSoftware\ExaPHP\Transformer\TransformerInterface;
 use function is_string;
 use function preg_replace;
 
-class DigitsOnlyTransformer implements TransformerInterface
+class NumericOnlyTransformer implements TransformerInterface
 {
     /**
      * @inheritDoc
@@ -20,6 +20,6 @@ class DigitsOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/\D+/', '', $value);
+        return preg_replace('/[^0-9]+/', '', $value);
     }
 }

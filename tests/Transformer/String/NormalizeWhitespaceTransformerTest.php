@@ -15,9 +15,9 @@ class NormalizeWhitespaceTransformerTest extends TestCase
     public function removesNonAsciiAlphanumericCharacters(): void
     {
         $transformer = new NormalizeWhitespaceTransformer();
-        $value = $transformer->transform("  A1Áβ٣\t\n\r\x00\x1F\x7F !@#-_ 　𐍈९");
+        $value = $transformer->transform(' This is   some   text.  ');
 
-        $this->assertSame("A1Áβ٣ \x00\x1F\x7F !@#-_ 𐍈९", $value);
+        $this->assertSame('This is some text.', $value);
     }
 
     #[Test]

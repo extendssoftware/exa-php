@@ -20,6 +20,6 @@ class AlphanumericOnlyTransformer implements TransformerInterface
             return $value;
         }
 
-        return preg_replace('/[^\p{L}\p{N}]+/u', '', $value);
+        return preg_replace('/[^a-z0-9]+/i', '', $value);
     }
 }

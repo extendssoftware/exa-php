@@ -15,9 +15,9 @@ class LowercaseTransformerTest extends TestCase
     public function removesNonAlphanumericCharacters(): void
     {
         $transformer = new LowercaseTransformer();
-        $value = $transformer->transform('aBc');
+        $value = $transformer->transform('This Is Some Dummy Text.');
 
-        $this->assertSame('abc', $value);
+        $this->assertSame('this is some dummy text.', $value);
     }
 
     #[Test]

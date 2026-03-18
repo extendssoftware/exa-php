@@ -15,9 +15,9 @@ class StripHtmlTagsTransformerTest extends TestCase
     public function removesNonAsciiAlphanumericCharacters(): void
     {
         $transformer = new StripHtmlTagsTransformer();
-        $value = $transformer->transform('<script>foo</script>');
+        $value = $transformer->transform('This is <strong>some</strong> text.');
 
-        $this->assertSame('foo', $value);
+        $this->assertSame('This is some text.', $value);
     }
 
     #[Test]
