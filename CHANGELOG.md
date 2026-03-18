@@ -17,6 +17,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added AsciiAlphanumericOnlyTransformer to transform a string to alphanumeric characters without Unicode support.
 - Added AsciiLettersOnlyTransformer to transform a string to ASCII letters.
 - Added DigitsOnlyTransformer to transform a string to digits.
+- Added LettersOnlyTransformer to transform a string to Unicode letters.
 
 ### Changed
 
