@@ -19,6 +19,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 - Added DigitsOnlyTransformer to transform a string to digits.
 - Added LettersOnlyTransformer to transform a string to Unicode letters.
 - Added LowercaseTransformer to transform a string to lowercase.
+- Added UppercaseTransformer to transform a string to uppercase.
 
 ### Changed
 
