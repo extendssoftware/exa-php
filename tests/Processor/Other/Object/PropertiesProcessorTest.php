@@ -42,11 +42,12 @@ class PropertiesProcessorTest extends TestCase
             ->method('process')
             ->willReturn($innerResult);
 
-        $processor = new PropertiesProcessor();
-        $processor->addProperty('foo', $innerProcessor)
-            ->addProperty('bar', $innerProcessor)
-            ->addProperty('baz', $innerProcessor)
-            ->addProperty('qux', new ProxyProcessor($innerProcessor));
+        $processor = new PropertiesProcessor([
+            'foo' => $innerProcessor,
+            'bar' => $innerProcessor,
+            'baz' => $innerProcessor,
+            'qux' => new ProxyProcessor($innerProcessor),
+        ]);
         $result = $processor->process($object, 'context');
 
         $this->assertInstanceOf(ObjectContainerResult::class, $result);
@@ -83,8 +84,9 @@ class PropertiesProcessorTest extends TestCase
             ->with('bar', $object)
             ->willReturn($innerResult);
 
-        $processor = new PropertiesProcessor();
-        $processor->addProperty('foo', $innerProcessor);
+        $processor = new PropertiesProcessor([
+            'foo' => $innerProcessor,
+        ]);
         $result = $processor->process($object, 'context');
 
         $this->assertInstanceOf(ObjectContainerResult::class, $result);
@@ -130,9 +132,9 @@ class PropertiesProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = new PropertiesProcessor();
-        $processor->addProperty('foo', $innerProcessor);
-
+        $processor = new PropertiesProcessor([
+            'foo' => $innerProcessor,
+        ]);
         $result = $processor->process((object)[], 'context');
 
         $this->assertInstanceOf(ObjectContainerResult::class, $result);
@@ -181,8 +183,9 @@ class PropertiesProcessorTest extends TestCase
             ->method('process')
             ->willReturn($innerResult);
 
-        $processor = new PropertiesProcessor();
-        $processor->addProperty('foo', $innerProcessor);
+        $processor = new PropertiesProcessor([
+            'foo' => $innerProcessor,
+        ]);
 
         $result1 = $processor->process($object);
         $result2 = $processor->process($object, 'foo');
