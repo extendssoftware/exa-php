@@ -11,19 +11,25 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Changed
 
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+## [0.9.0] - 2026-03-25
+
+### Changed
+
 - Refactored TransformerInterface and ValidatorInterface to a generic ProcessorInterface.
 - Changed PropertyDependentProcessor::addProcessor() to allow string and int for name and made class strict.
-
-### Deprecated
 
 ### Removed
 
 - Removed TransformingValidator in favor of ProcessorPipeline where the previous result value will be used for the next
   processor.
-
-### Fixed
-
-### Security
 
 ## [0.8.0] - 2026-03-18
 
@@ -221,7 +227,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.8.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.9.0...HEAD
+
+[0.9.0]: https://github.com/extendssoftware/exa-php/commits/0.9.0
 
 [0.8.0]: https://github.com/extendssoftware/exa-php/commits/0.8.0
 
