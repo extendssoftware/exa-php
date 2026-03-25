@@ -1,12 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Authentication\Framework\ServiceLocator\Factory;
 
+use ExtendsSoftware\ExaPHP\Authentication\Authenticator;
 use ExtendsSoftware\ExaPHP\Authentication\AuthenticatorInterface;
 use ExtendsSoftware\ExaPHP\Authentication\Realm\RealmInterface;
-use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
+use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 
 class AuthenticatorFactoryTest extends TestCase
@@ -58,6 +60,7 @@ class AuthenticatorFactoryTest extends TestCase
         $factory = new AuthenticatorFactory();
         $authenticator = $factory->createService(AuthenticatorInterface::class, $serviceLocator);
 
-        $this->assertInstanceOf(AuthenticatorInterface::class, $authenticator);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(Authenticator::class, $authenticator);
     }
 }

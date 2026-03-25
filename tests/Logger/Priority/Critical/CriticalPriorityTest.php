@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Priority\Critical;
 
-use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +43,6 @@ class CriticalPriorityTest extends TestCase
          */
         $priority = CriticalPriority::factory('AbstractPriority', $serviceLocator, []);
 
-        $this->assertInstanceOf(PriorityInterface::class, $priority);
+        $this->assertInstanceOf(CriticalPriority::class, $priority);
     }
 }

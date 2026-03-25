@@ -5,6 +5,7 @@ namespace ExtendsSoftware\ExaPHP\Shell\Framework\ServiceLocator\Factory;
 
 use ExtendsSoftware\ExaPHP\Shell\Descriptor\DescriptorInterface;
 use ExtendsSoftware\ExaPHP\Shell\Parser\ParserInterface;
+use ExtendsSoftware\ExaPHP\Shell\Shell;
 use ExtendsSoftware\ExaPHP\Shell\Suggester\SuggesterInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
 use ExtendsSoftware\ExaPHP\Shell\ShellInterface;
@@ -89,6 +90,7 @@ class ShellFactoryTest extends TestCase
         $factory = new ShellFactory();
         $shell = $factory->createService(ShellInterface::class, $serviceLocator, []);
 
-        $this->assertInstanceOf(ShellInterface::class, $shell);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(Shell::class, $shell);
     }
 }

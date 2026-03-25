@@ -6,7 +6,6 @@ namespace ExtendsSoftware\ExaPHP\Hateoas\Framework\ProblemDetails;
 use ExtendsSoftware\ExaPHP\Hateoas\Builder\Exception\LinkNotEmbeddable;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
-use ExtendsSoftware\ExaPHP\ProblemDetails\ProblemDetailsInterface;
 use PHPUnit\Framework\TestCase;
 
 class LinkNotEmbeddableProblemDetailsTest extends TestCase
@@ -42,7 +41,6 @@ class LinkNotEmbeddableProblemDetailsTest extends TestCase
          */
         $problemDetails = new LinkNotEmbeddableProblemDetails($request, $exception);
 
-        $this->assertInstanceOf(ProblemDetailsInterface::class, $problemDetails);
         $this->assertSame('/problems/hateoas/link-not-embeddable', $problemDetails->getType());
         $this->assertSame('Link not embeddable', $problemDetails->getTitle());
         $this->assertSame('Link with rel is not embeddable.', $problemDetails->getDetail());

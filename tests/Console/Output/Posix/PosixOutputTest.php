@@ -140,6 +140,7 @@ class PosixOutputTest extends TestCase
         $output = new PosixOutput($formatter, stream: fopen($root->url() . '/posix', 'w'));
         $clonedFormatter = $output->getFormatter();
 
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
         $this->assertInstanceOf(FormatterInterface::class, $clonedFormatter);
         $this->assertNotSame($formatter, $clonedFormatter);
     }

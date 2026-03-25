@@ -9,7 +9,6 @@ use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\File\Exception\FileWriterFailed;
-use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
@@ -319,6 +318,7 @@ class FileWriterTest extends TestCase
             ],
         ]);
 
-        $this->assertInstanceOf(WriterInterface::class, $writer);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(FileWriter::class, $writer);
     }
 }

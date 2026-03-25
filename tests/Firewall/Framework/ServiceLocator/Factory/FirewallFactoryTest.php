@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Firewall\Framework\ServiceLocator\Factory;
 
+use ExtendsSoftware\ExaPHP\Firewall\Firewall;
 use ExtendsSoftware\ExaPHP\Firewall\FirewallInterface;
 use ExtendsSoftware\ExaPHP\Firewall\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
@@ -58,6 +59,7 @@ class FirewallFactoryTest extends TestCase
         $factory = new FirewallFactory();
         $firewall = $factory->createService(FirewallInterface::class, $serviceLocator);
 
-        $this->assertInstanceOf(FirewallInterface::class, $firewall);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(Firewall::class, $firewall);
     }
 }

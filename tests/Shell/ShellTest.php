@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Shell;
@@ -391,12 +392,10 @@ class ShellTest extends TestCase
             ]);
 
         $this->assertInstanceOf(ShellResultInterface::class, $result);
-        if ($result instanceof ShellResultInterface) {
-            $this->assertSame($command, $result->getCommand());
-            $this->assertSame([
-                'name' => 'John Doe',
-            ], $result->getData());
-        }
+        $this->assertSame($command, $result->getCommand());
+        $this->assertSame([
+            'name' => 'John Doe',
+        ], $result->getData());
     }
 
     /**

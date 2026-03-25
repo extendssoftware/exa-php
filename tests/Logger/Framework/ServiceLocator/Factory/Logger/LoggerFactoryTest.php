@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Logger\Framework\ServiceLocator\Factory\Logger;
 
 use ExtendsSoftware\ExaPHP\Logger\Decorator\DecoratorInterface;
+use ExtendsSoftware\ExaPHP\Logger\Logger;
 use ExtendsSoftware\ExaPHP\Logger\LoggerInterface;
 use ExtendsSoftware\ExaPHP\Logger\Writer\WriterInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -65,6 +66,7 @@ class LoggerFactoryTest extends TestCase
         $factory = new LoggerFactory();
         $logger = $factory->createService(LoggerInterface::class, $serviceLocator);
 
-        $this->assertInstanceOf(LoggerInterface::class, $logger);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(Logger::class, $logger);
     }
 }

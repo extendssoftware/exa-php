@@ -6,6 +6,7 @@ namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http;
 use ExtendsSoftware\ExaPHP\Authorization\Permission\PermissionInterface;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
+use ExtendsSoftware\ExaPHP\Http\Response\Response;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
 use ExtendsSoftware\ExaPHP\Identity\IdentityInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Framework\Http\Middleware\RateLimitingMiddleware;
@@ -188,7 +189,8 @@ class RateLimitingMiddlewareTest extends TestCase
         $middleware = new RateLimitingMiddleware($rateLimiter);
         $response = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(Response::class, $response);
         $this->assertInstanceOf(TooManyRequestsProblemDetails::class, $response->getBody());
     }
 }

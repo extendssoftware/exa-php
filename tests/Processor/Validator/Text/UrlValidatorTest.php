@@ -52,7 +52,6 @@ class UrlValidatorTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Text\UrlValidator::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Text\UrlValidator::process()
      * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Text\UrlValidator::getTemplates()
-     * @noinspection HttpUrlsUsage
      */
     public function testSchemeNotAllowed(): void
     {

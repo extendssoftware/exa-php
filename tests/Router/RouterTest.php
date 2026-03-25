@@ -17,7 +17,6 @@ use ExtendsSoftware\ExaPHP\Router\Exception\PathParameterMissing;
 use ExtendsSoftware\ExaPHP\Router\Exception\QueryParametersNotAllowed;
 use ExtendsSoftware\ExaPHP\Router\Exception\RouteNotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\Definition\RouteDefinitionInterface;
-use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -106,7 +105,6 @@ class RouterTest extends TestCase
             ->addDefinition($definition)
             ->route($request);
 
-        $this->assertInstanceOf(RouteMatchInterface::class, $routeMatch);
         $this->assertSame([
             'permission' => 'route/blogs/blog/comments',
             'blogId' => 1234,
@@ -714,7 +712,6 @@ class RouterTest extends TestCase
                 'page' => 2,
             ]);
 
-        $this->assertInstanceOf(RequestInterface::class, $request);
         $this->assertSame(Method::GET, $request->getMethod());
         $this->assertSame('/blogs/1234/comments?page=2&limit=20', $request->getUri()->toRelative());
     }
@@ -765,7 +762,6 @@ class RouterTest extends TestCase
                 'page' => 2,
             ], true);
 
-        $this->assertInstanceOf(RequestInterface::class, $request);
         $this->assertSame(Method::GET, $request->getMethod());
         $this->assertSame('/blogs/:blogId/comments?page=2&limit=20', $request->getUri()->toRelative());
     }

@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Http\Framework\ServiceLocator\Factory;
 
+use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChain;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Middleware\MiddlewareInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
@@ -49,6 +50,7 @@ class MiddlewareChainFactoryTest extends TestCase
         $factory = new MiddlewareChainFactory();
         $router = $factory->createService(MiddlewareChainInterface::class, $serviceLocator, []);
 
-        $this->assertInstanceOf(MiddlewareChainInterface::class, $router);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(MiddlewareChain::class, $router);
     }
 }

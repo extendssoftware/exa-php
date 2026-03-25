@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\RateLimiting\Framework\ServiceLocator\Factory;
 
 use ExtendsSoftware\ExaPHP\RateLimiting\Algorithm\AlgorithmInterface;
+use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiter;
 use ExtendsSoftware\ExaPHP\RateLimiting\RateLimiterInterface;
 use ExtendsSoftware\ExaPHP\RateLimiting\Realm\RealmInterface;
 use ExtendsSoftware\ExaPHP\Utility\Container\ContainerInterface;
@@ -69,6 +70,7 @@ class RateLimiterFactoryTest extends TestCase
         $factory = new RateLimiterFactory();
         $rateLimiter = $factory->createService(RateLimiterInterface::class, $serviceLocator);
 
-        $this->assertInstanceOf(RateLimiterInterface::class, $rateLimiter);
+        /** @noinspection PhpConditionAlreadyCheckedInspection */
+        $this->assertInstanceOf(RateLimiter::class, $rateLimiter);
     }
 }

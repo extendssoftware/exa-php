@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Application\Framework\Http\Middleware;
@@ -44,8 +45,8 @@ class RendererMiddlewareTest extends TestCase
          * @var RendererInterface        $renderer
          */
         $middleware = new RendererMiddleware($renderer);
-        $response = $middleware->process($request, $chain);
+        $processes = $middleware->process($request, $chain);
 
-        $this->assertInstanceOf(ResponseInterface::class, $response);
+        $this->assertSame($response, $processes);
     }
 }

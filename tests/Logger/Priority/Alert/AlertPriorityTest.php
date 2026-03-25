@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Logger\Priority\Alert;
 
-use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -43,6 +42,6 @@ class AlertPriorityTest extends TestCase
          */
         $priority = AlertPriority::factory('AlertPriority', $serviceLocator, []);
 
-        $this->assertInstanceOf(PriorityInterface::class, $priority);
+        $this->assertInstanceOf(AlertPriority::class, $priority);
     }
 }

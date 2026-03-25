@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Application\Framework\ServiceLocator\Factory;
 
 use ExtendsSoftware\ExaPHP\Application\ApplicationInterface;
+use ExtendsSoftware\ExaPHP\Application\Console\ConsoleApplication;
+use ExtendsSoftware\ExaPHP\Application\Http\HttpApplication;
 use ExtendsSoftware\ExaPHP\Http\Middleware\Chain\MiddlewareChainInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
@@ -41,7 +43,7 @@ class ApplicationFactoryTest extends TestCase
             'console' => false,
         ]);
 
-        $this->assertInstanceOf(ApplicationInterface::class, $application);
+        $this->assertInstanceOf(HttpApplication::class, $application);
     }
 
     /**
@@ -70,6 +72,6 @@ class ApplicationFactoryTest extends TestCase
             'console' => true,
         ]);
 
-        $this->assertInstanceOf(ApplicationInterface::class, $application);
+        $this->assertInstanceOf(ConsoleApplication::class, $application);
     }
 }
