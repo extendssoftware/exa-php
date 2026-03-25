@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Processor\Other\Object;
 
@@ -31,16 +31,16 @@ class PropertyDependentProcessor extends AbstractProcessor
     /**
      * Properties.
      *
-     * @var array<string, Property>
+     * @var array<int|string, Property>
      */
     private array $properties = [];
 
     /**
      * PropertyDependentProcessor constructor.
      *
-     * @param string                                 $property
-     * @param array<string, ProcessorInterface>|null $processors
-     * @param bool|null                              $strict
+     * @param string                                     $property
+     * @param array<int|string, ProcessorInterface>|null $processors
+     * @param bool|null                                  $strict
      */
     public function __construct(
         private readonly string $property,
@@ -92,12 +92,12 @@ class PropertyDependentProcessor extends AbstractProcessor
      *
      * An existing processor for property value will be overwritten.
      *
-     * @param string             $name
+     * @param int|string         $name
      * @param ProcessorInterface $processor
      *
      * @return PropertyDependentProcessor
      */
-    public function addProperty(string $name, ProcessorInterface $processor): PropertyDependentProcessor
+    public function addProperty(int|string $name, ProcessorInterface $processor): PropertyDependentProcessor
     {
         $this->properties[$name] = new Property($name, $processor);
 

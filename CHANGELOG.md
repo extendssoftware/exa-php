@@ -12,6 +12,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 ### Changed
 
 - Refactored TransformerInterface and ValidatorInterface to a generic ProcessorInterface.
+- Changed PropertyDependentProcessor::addProcessor() to allow string and int for name and made class strict.
 
 ### Deprecated
 
