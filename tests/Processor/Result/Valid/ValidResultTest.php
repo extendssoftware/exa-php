@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Processor\Result\Valid;
 
-use ExtendsSoftware\ExaPHP\Processor\Result\Valid\ValidResult;
 use PHPUnit\Framework\TestCase;
 
 class ValidResultTest extends TestCase

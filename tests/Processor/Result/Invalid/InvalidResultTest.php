@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Processor\Result\Invalid;
 
 use ExtendsSoftware\ExaPHP\Processor\Result\Exception\ResultNotValid;
-use ExtendsSoftware\ExaPHP\Processor\Result\Invalid\InvalidResult;
 use PHPUnit\Framework\TestCase;
 
 class InvalidResultTest extends TestCase

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Processor\Result\Container\Object;
 
-use ExtendsSoftware\ExaPHP\Processor\Result\Container\Object\ObjectContainerResult;
 use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
