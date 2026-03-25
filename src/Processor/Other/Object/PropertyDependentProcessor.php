@@ -36,11 +36,18 @@ class PropertyDependentProcessor extends AbstractProcessor
     /**
      * PropertyDependentProcessor constructor.
      *
-     * @param string    $property
-     * @param bool|null $strict
+     * @param string                                $property
+     * @param array{mixed, ProcessorInterface}|null $processors
+     * @param bool|null                             $strict
      */
-    public function __construct(private readonly string $property, private readonly ?bool $strict = true)
-    {
+    public function __construct(
+        private readonly string $property,
+        ?array $processors = null,
+        private readonly ?bool $strict = true
+    ) {
+        foreach ($processors ?? [] as $processor) {
+            $this->addProperty(...$processor);
+        }
     }
 
     /**

@@ -57,9 +57,10 @@ class PropertyDependentProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = (new PropertyDependentProcessor('foo'))
-            ->addProperty($value, $innerProcessor1)
-            ->addProperty('baz', $innerProcessor2);
+        $processor = new PropertyDependentProcessor('foo', [
+            [$value, $innerProcessor1],
+            ['baz', $innerProcessor2],
+        ]);
         $result = $processor->process(
             'qux',
             (object)[
@@ -93,9 +94,10 @@ class PropertyDependentProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = (new PropertyDependentProcessor('qux'))
-            ->addProperty('bar', $processor1)
-            ->addProperty('baz', $processor2);
+        $processor = new PropertyDependentProcessor('qux', [
+            ['bar', $processor1],
+            ['baz', $processor2],
+        ]);
         $result = $processor->process(
             'qux',
             (object)[
@@ -129,9 +131,10 @@ class PropertyDependentProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = (new PropertyDependentProcessor('foo'))
-            ->addProperty('qux', $innerProcessor1)
-            ->addProperty('baz', $innerProcessor2);
+        $processor = new PropertyDependentProcessor('foo', [
+            ['qux', $innerProcessor1],
+            ['baz', $innerProcessor2],
+        ]);
         $result = $processor->process(
             'qux',
             (object)[
@@ -163,9 +166,10 @@ class PropertyDependentProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = (new PropertyDependentProcessor('qux', false))
-            ->addProperty('bar', $innerProcessor1)
-            ->addProperty('baz', $innerProcessor2);
+        $processor = new PropertyDependentProcessor('qux', [
+            ['bar', $innerProcessor1],
+            ['baz', $innerProcessor2],
+        ], false);
         $result = $processor->process(
             'qux',
             (object)[
@@ -199,9 +203,10 @@ class PropertyDependentProcessorTest extends TestCase
             ->expects($this->never())
             ->method('process');
 
-        $processor = (new PropertyDependentProcessor('foo', false))
-            ->addProperty('qux', $innerProcessor1)
-            ->addProperty('baz', $innerProcessor2);
+        $processor = new PropertyDependentProcessor('foo', [
+            ['qux', $innerProcessor1],
+            ['baz', $innerProcessor2],
+        ], false);
         $result = $processor->process(
             'qux',
             (object)[
@@ -237,8 +242,9 @@ class PropertyDependentProcessorTest extends TestCase
             ->with('qux')
             ->willReturn($innerResult);
 
-        $processor = (new PropertyDependentProcessor('foo', false))
-            ->addProperty('*', $innerProcessor);
+        $processor = new PropertyDependentProcessor('foo', [
+            ['*', $innerProcessor],
+        ], false);
         $result = $processor->process(
             'qux',
             (object)[
