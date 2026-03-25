@@ -7,6 +7,7 @@ namespace ExtendsSoftware\ExaPHP\Router;
 use ExtendsSoftware\ExaPHP\Http\Request\Request;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\Uri;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorException;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
@@ -49,6 +50,7 @@ class Router implements RouterInterface
 
     /**
      * @inheritDoc
+     * @throws ProcessorException
      */
     public function route(RequestInterface $request): RouteMatchInterface
     {
@@ -63,14 +65,14 @@ class Router implements RouterInterface
             }
 
             $parameters = $route->getParameters();
-            $validators = $route->getValidators();
+            $processors = $route->getProcessors();
             foreach ($routeUrl['path'] as $index => $part) {
                 if (str_starts_with($part, ':')) {
                     $parameter = substr($part, 1);
                     $value = $this->sanitizeValue($requestUrl['path'][$index]);
 
-                    if (isset($validators[$parameter])) {
-                        $result = $validators[$parameter]->validate($value);
+                    if (isset($processors[$parameter])) {
+                        $result = $processors[$parameter]->process($value);
                         if (!$result->isValid()) {
                             continue 2;
                         }
@@ -86,8 +88,8 @@ class Router implements RouterInterface
                 if (isset($requestUrl['query'][$parameter])) {
                     $value = $this->sanitizeValue($requestUrl['query'][$parameter]);
 
-                    if (isset($validators[$parameter])) {
-                        $result = $validators[$parameter]->validate($value);
+                    if (isset($processors[$parameter])) {
+                        $result = $processors[$parameter]->process($value);
                         if (!$result->isValid()) {
                             throw new InvalidQueryString($parameter, $result);
                         }
@@ -104,9 +106,10 @@ class Router implements RouterInterface
                     $data = array_slice($data, 1);
                 }
 
-//                if ((is_array($data) && count($data)) || (is_string($data) && strlen($data)) || is_int($data)) {
                 $parameters[$parameter] = $data;
-//                }
+                /*if ((is_array($data) && count($data)) || (is_string($data) && strlen($data)) || is_int($data)) {
+                    $parameters[$parameter] = $data;
+                }*/
             }
 
             if ($request->getMethod() !== $route->getMethod()) {
@@ -120,8 +123,8 @@ class Router implements RouterInterface
                 throw new QueryParametersNotAllowed(array_keys($notAllowed));
             }
 
-            if (isset($validators['body'])) {
-                $result = $validators['body']->validate($request->getBody());
+            if (isset($processors['body'])) {
+                $result = $processors['body']->process($request->getBody());
                 if (!$result->isValid()) {
                     throw new InvalidRequestBody($result);
                 }

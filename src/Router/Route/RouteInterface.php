@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Router\Route;
 
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorInterface;
 
 interface RouteInterface
 {
@@ -17,11 +17,11 @@ interface RouteInterface
     public function getPath(): string;
 
     /**
-     * Get validators.
+     * Get processors.
      *
-     * @return array<string, ValidatorInterface>
+     * @return array<string, ProcessorInterface>
      */
-    public function getValidators(): array;
+    public function getProcessors(): array;
 
     /**
      * Get parameters.

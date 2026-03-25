@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace ExtendsSoftware\ExaPHP\Router\Route;
 
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorInterface;
 use PHPUnit\Framework\TestCase;
 
 class RouteTest extends TestCase
@@ -17,21 +17,21 @@ class RouteTest extends TestCase
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::__construct()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getPath()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getMethod()
-     * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getValidators()
+     * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getProcessors()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getParameters()
      * @covers \ExtendsSoftware\ExaPHP\Router\Route\Route::getName()
      */
     public function testGetMethods(): void
     {
-        $validator = $this->createMock(ValidatorInterface::class);
+        $processor = $this->createMock(ProcessorInterface::class);
 
         /**
-         * @var ValidatorInterface $validator
+         * @var ProcessorInterface $processor
          */
         $route = new Route(
             '/',
             [
-                'parameter' => $validator,
+                'parameter' => $processor,
             ],
             [
                 'foo' => 'bar',
@@ -42,7 +42,7 @@ class RouteTest extends TestCase
 
         $this->assertSame('/', $route->getPath());
         $this->assertSame(Method::POST, $route->getMethod());
-        $this->assertSame(['parameter' => $validator], $route->getValidators());
+        $this->assertSame(['parameter' => $processor], $route->getProcessors());
         $this->assertSame(['foo' => 'bar'], $route->getParameters());
         $this->assertSame('index', $route->getName());
     }

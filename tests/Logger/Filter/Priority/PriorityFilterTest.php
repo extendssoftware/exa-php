@@ -6,9 +6,9 @@ namespace ExtendsSoftware\ExaPHP\Logger\Filter\Priority;
 use ExtendsSoftware\ExaPHP\Logger\Filter\FilterInterface;
 use ExtendsSoftware\ExaPHP\Logger\LogInterface;
 use ExtendsSoftware\ExaPHP\Logger\Priority\PriorityInterface;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorInterface;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 
 class PriorityFilterTest extends TestCase
@@ -63,9 +63,9 @@ class PriorityFilterTest extends TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $validator = $this->createMock(ValidatorInterface::class);
+        $validator = $this->createMock(ProcessorInterface::class);
         $validator
-            ->method('validate')
+            ->method('process')
             ->with(3)
             ->willReturn($result);
 
@@ -77,7 +77,7 @@ class PriorityFilterTest extends TestCase
         /**
          * @var LogInterface       $log
          * @var PriorityInterface  $priority
-         * @var ValidatorInterface $validator
+         * @var ProcessorInterface $validator
          */
         $filter = new PriorityFilter($priority, $validator);
 
@@ -100,7 +100,7 @@ class PriorityFilterTest extends TestCase
             ->method('getService')
             ->willReturnCallback(fn($key) => match ([$key]) {
                 [PriorityInterface::class] => $this->createMock(PriorityInterface::class),
-                [ValidatorInterface::class] => $this->createMock(ValidatorInterface::class),
+                [ProcessorInterface::class] => $this->createMock(ProcessorInterface::class),
             });
 
         /**
@@ -110,8 +110,8 @@ class PriorityFilterTest extends TestCase
             'priority' => [
                 'name' => PriorityInterface::class,
             ],
-            'validator' => [
-                'name' => ValidatorInterface::class,
+            'processor' => [
+                'name' => ProcessorInterface::class,
             ],
         ]);
 

@@ -1,0 +1,41 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Logical;
+
+use ExtendsSoftware\ExaPHP\Processor\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
+
+class NotValidator extends AbstractLogicalValidator
+{
+    /**
+     * When value is not false.
+     *
+     * @const string
+     */
+    public const string NOT_FALSE = 'notFalse';
+
+    /**
+     * @inheritDoc
+     * @throws TemplateNotFound
+     */
+    public function process($value, mixed $context = null): ResultInterface
+    {
+        if (!$value) {
+            return $this->getValidResult($value);
+        }
+
+        return $this->getInvalidResult(self::NOT_FALSE);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTemplates(): array
+    {
+        return [
+            self::NOT_FALSE => 'Value is not equal to false.',
+        ];
+    }
+}

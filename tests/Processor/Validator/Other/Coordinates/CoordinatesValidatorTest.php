@@ -1,0 +1,122 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates;
+
+use ExtendsSoftware\ExaPHP\Processor\Result\Container\Object\ObjectContainerResult;
+use PHPUnit\Framework\TestCase;
+use stdClass;
+
+class CoordinatesValidatorTest extends TestCase
+{
+    /**
+     * Invalid coordinates object provider.
+     *
+     * @return array<array<object>>
+     */
+    public static function invalidCoordinatesObjectProvider(): array
+    {
+        return [
+            [
+                (object)[
+                    'latitude' => 52.0767034,
+                ],
+            ],
+            [
+                (object)[
+                    'longitude' => 5.4777887,
+                ],
+            ],
+            [
+                new stdClass(),
+            ],
+            [
+                (object)[
+                    'latitude' => 'foo',
+                    'longitude' => 'bar',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Valid.
+     *
+     * Test that latitude and longitude are valid.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\CoordinatesValidator::process()
+     */
+    public function testValid(): void
+    {
+        $validator = new CoordinatesValidator();
+        $result = $validator->process(
+            (object)[
+                'latitude' => 52.0767034,
+                'longitude' => 5.4777887,
+            ],
+        );
+
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
+        $this->assertTrue($result->isValid());
+
+        $value = $result->getValue();
+        $this->assertEquals(
+            (object)[
+                'latitude' => 52.0767034,
+                'longitude' => 5.4777887,
+            ],
+            $value
+        );
+    }
+
+    /**
+     * Custom keys.
+     *
+     * Test that latitude and longitude custom keys are valid.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\CoordinatesValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\CoordinatesValidator::process()
+     */
+    public function testCustomKeys(): void
+    {
+        $validator = new CoordinatesValidator('lat', 'lng');
+        $result = $validator->process(
+            (object)[
+                'lat' => 52.0767034,
+                'lng' => 5.4777887,
+            ],
+        );
+
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
+        $this->assertTrue($result->isValid());
+
+        $value = $result->getValue();
+        $this->assertEquals(
+            (object)[
+                'lat' => 52.0767034,
+                'lng' => 5.4777887,
+            ],
+            $value
+        );
+    }
+
+    /**
+     * Invalid coordinates object.
+     *
+     * Test that the coordinates object is invalid and an invalid result will be returned.
+     *
+     * @param mixed $coordinates
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\CoordinatesValidator::process()
+     * @dataProvider invalidCoordinatesObjectProvider
+     */
+    public function testInvalidCoordinatesObject(mixed $coordinates): void
+    {
+        $validator = new CoordinatesValidator();
+        $result = $validator->process($coordinates);
+
+        $this->assertInstanceOf(ObjectContainerResult::class, $result);
+        $this->assertFalse($result->isValid());
+    }
+}

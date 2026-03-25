@@ -7,6 +7,8 @@ namespace ExtendsSoftware\ExaPHP\Router;
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorInterface;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
@@ -17,8 +19,6 @@ use ExtendsSoftware\ExaPHP\Router\Exception\RouteNotFound;
 use ExtendsSoftware\ExaPHP\Router\Route\Definition\RouteDefinitionInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\Route\RouteInterface;
-use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -42,10 +42,10 @@ class RouterTest extends TestCase
             ->method('isValid')
             ->willReturn(true);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $processor = $this->createMock(ProcessorInterface::class);
+        $processor
             ->expects($this->exactly(2))
-            ->method('validate')
+            ->method('process')
             ->willReturn($result);
 
         $route = $this->createMock(RouteInterface::class);
@@ -66,12 +66,12 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([
-                'blogId' => $validator,
-                'limit' => $validator,
-                'page' => $validator,
-                'multiple' => $validator,
+                'blogId' => $processor,
+                'limit' => $processor,
+                'page' => $processor,
+                'multiple' => $processor,
             ]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -194,10 +194,10 @@ class RouterTest extends TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $processor = $this->createMock(ProcessorInterface::class);
+        $processor
             ->expects($this->once())
-            ->method('validate')
+            ->method('process')
             ->willReturn($result);
 
         $route = $this->createMock(RouteInterface::class);
@@ -213,9 +213,9 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([
-                'blogId' => $validator,
+                'blogId' => $processor,
             ]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -278,7 +278,7 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -335,10 +335,10 @@ class RouterTest extends TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $processor = $this->createMock(ProcessorInterface::class);
+        $processor
             ->expects($this->once())
-            ->method('validate')
+            ->method('process')
             ->willReturn($result);
 
         $route = $this->createMock(RouteInterface::class);
@@ -354,9 +354,9 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([
-                'limit' => $validator,
+                'limit' => $processor,
             ]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -425,7 +425,7 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -488,10 +488,10 @@ class RouterTest extends TestCase
             ->method('isValid')
             ->willReturn(false);
 
-        $validator = $this->createMock(ValidatorInterface::class);
-        $validator
+        $processor = $this->createMock(ProcessorInterface::class);
+        $processor
             ->expects($this->once())
-            ->method('validate')
+            ->method('process')
             ->with($body)
             ->willReturn($result);
 
@@ -513,9 +513,9 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->once())
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([
-                'body' => $validator,
+                'body' => $processor,
             ]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);
@@ -599,7 +599,7 @@ class RouterTest extends TestCase
 
         $route
             ->expects($this->exactly(2))
-            ->method('getValidators')
+            ->method('getProcessors')
             ->willReturn([]);
 
         $definition = $this->createMock(RouteDefinitionInterface::class);

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace ExtendsSoftware\ExaPHP\Router\Exception;
 
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterException;
-use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use RuntimeException;
 
 class InvalidRequestBody extends RuntimeException implements RouterException
@@ -21,7 +21,7 @@ class InvalidRequestBody extends RuntimeException implements RouterException
     }
 
     /**
-     * Get validation result.
+     * Get processing result.
      *
      * @return ResultInterface
      */

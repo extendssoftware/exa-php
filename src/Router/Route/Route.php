@@ -6,7 +6,7 @@ namespace ExtendsSoftware\ExaPHP\Router\Route;
 
 use Attribute;
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
-use ExtendsSoftware\ExaPHP\Validator\ValidatorInterface;
+use ExtendsSoftware\ExaPHP\Processor\ProcessorInterface;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 readonly class Route implements RouteInterface
@@ -15,14 +15,14 @@ readonly class Route implements RouteInterface
      * Route constructor.
      *
      * @param string                            $path
-     * @param array<string, ValidatorInterface> $validators
+     * @param array<string, ProcessorInterface> $processors
      * @param array<string, mixed>              $parameters
      * @param string|null                       $name
      * @param Method                            $method
      */
     public function __construct(
         private string $path,
-        private array $validators = [],
+        private array $processors = [],
         private array $parameters = [],
         private ?string $name = null,
         private Method $method = Method::GET,
@@ -40,9 +40,9 @@ readonly class Route implements RouteInterface
     /**
      * @inheritDoc
      */
-    public function getValidators(): array
+    public function getProcessors(): array
     {
-        return $this->validators;
+        return $this->processors;
     }
 
     /**

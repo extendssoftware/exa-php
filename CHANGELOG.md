@@ -11,9 +11,14 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Changed
 
+- Refactored TransformerInterface and ValidatorInterface to a generic ProcessorInterface.
+
 ### Deprecated
 
 ### Removed
+
+- Removed TransformingValidator in favor of ProcessorPipeline where the previous result value will be used for the next
+  processor.
 
 ### Fixed
 

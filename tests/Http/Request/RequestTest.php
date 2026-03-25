@@ -6,8 +6,8 @@ namespace ExtendsSoftware\ExaPHP\Http\Request;
 
 use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
+use ExtendsSoftware\ExaPHP\Processor\Validator\Text\UuidValidator;
 use ExtendsSoftware\ExaPHP\ServiceLocator\ServiceLocatorInterface;
-use ExtendsSoftware\ExaPHP\Validator\Text\UuidValidator;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 use TypeError;
@@ -75,7 +75,7 @@ class RequestTest extends TestCase
         $request = Request::fromEnvironment($environment, fopen($root->url() . '/input', 'r'));
 
         $this->assertSame([], $request->getAttributes());
-        $this->assertTrue((new UuidValidator())->validate($request->getId())->isValid());
+        $this->assertTrue((new UuidValidator())->process($request->getId())->isValid());
         $this->assertEquals((object)$body, $request->getBody());
         $this->assertSame([
             'Host' => 'www.example.com',

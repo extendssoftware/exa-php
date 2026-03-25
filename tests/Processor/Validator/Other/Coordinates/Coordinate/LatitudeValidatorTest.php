@@ -1,0 +1,96 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\Coordinate;
+
+use ExtendsSoftware\ExaPHP\Processor\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Processor\Result\Valid\ValidResult;
+use PHPUnit\Framework\TestCase;
+
+class LatitudeValidatorTest extends TestCase
+{
+    /**
+     * Valid latitude coordinate values.
+     *
+     * @return array<array<float>>
+     */
+    public static function validLatitudeValuesProvider(): array
+    {
+        return [
+            [-180],
+            [-52.0767034],
+            [0],
+            [52.0767034],
+            [180],
+        ];
+    }
+
+    /**
+     * Valid latitude coordinate values.
+     *
+     * @return array<array<float>>
+     */
+    public static function invalidLatitudeValuesProvider(): array
+    {
+        return [
+            [-190],
+            [-180.1],
+            [180.1],
+            [190],
+        ];
+    }
+
+    /**
+     * Valid.
+     *
+     * Test that latitude values are valid.
+     *
+     * @param mixed $latitude
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\Coordinate\LatitudeValidator::process()
+     * @dataProvider validLatitudeValuesProvider
+     */
+    public function testValid(mixed $latitude): void
+    {
+        $validator = new LatitudeValidator();
+        $result = $validator->process($latitude);
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame($latitude, $result->getValue());
+    }
+
+    /**
+     * Valid.
+     *
+     * Test that latitude values are valid.
+     *
+     * @param mixed $latitude
+     *
+     * @covers       \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\Coordinate\LatitudeValidator::process()
+     * @covers       \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\Coordinate\LatitudeValidator::getTemplates()
+     * @dataProvider invalidLatitudeValuesProvider
+     */
+    public function testInvalid(mixed $latitude): void
+    {
+        $validator = new LatitudeValidator();
+        $result = $validator->process($latitude);
+
+        $this->assertInstanceOf(InvalidResult::class, $result);
+    }
+
+    /**
+     * Not number.
+     *
+     * Test that latitude must be a number.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Other\Coordinates\Coordinate\LatitudeValidator::process()
+     */
+    public function testNotNumber(): void
+    {
+        $validator = new LatitudeValidator();
+        $result = $validator->process('foo');
+
+        $this->assertInstanceOf(InvalidResult::class, $result);
+    }
+}

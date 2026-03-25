@@ -1,0 +1,80 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Collection;
+
+use ExtendsSoftware\ExaPHP\Processor\AbstractProcessor;
+use ExtendsSoftware\ExaPHP\Processor\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
+use ExtendsSoftware\ExaPHP\Processor\Validator\Type\ArrayValidator;
+
+use function count;
+use function is_int;
+
+class SizeValidator extends AbstractProcessor
+{
+    /**
+     * When there are too few items.
+     *
+     * @var string
+     */
+    public const string TOO_FEW = 'tooFew';
+
+    /**
+     * When there are too many items.
+     *
+     * @var string
+     */
+    public const string TOO_MANY = 'tooMany';
+
+    /**
+     * SizeValidator constructor.
+     *
+     * @param int|null $min
+     * @param int|null $max
+     */
+    public function __construct(private readonly ?int $min = null, private readonly ?int $max = null)
+    {
+    }
+
+    /**
+     * @inheritDoc
+     * @throws TemplateNotFound
+     */
+    public function process($value, mixed $context = null): ResultInterface
+    {
+        $result = (new ArrayValidator())->process($value);
+        if (!$result->isValid()) {
+            return $result;
+        }
+
+        $count = count($value);
+        if (is_int($this->min) && $count < $this->min) {
+            return $this->getInvalidResult(self::TOO_FEW, [
+                'min' => $this->min,
+                'count' => $count,
+            ]);
+        }
+
+        if (is_int($this->max) && $count > $this->max) {
+            return $this->getInvalidResult(self::TOO_MANY, [
+                'max' => $this->max,
+                'count' => $count,
+            ]);
+        }
+
+        return $this->getValidResult($value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTemplates(): array
+    {
+        return [
+            self::TOO_FEW => 'Collection size must be at least {{min}} items, got {{count}}.',
+            self::TOO_MANY => 'Collection size can be up to {{max}} items, got {{count}}.',
+        ];
+    }
+}

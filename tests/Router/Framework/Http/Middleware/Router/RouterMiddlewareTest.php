@@ -8,6 +8,7 @@ use ExtendsSoftware\ExaPHP\Http\Request\Method\Method;
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
 use ExtendsSoftware\ExaPHP\Http\Response\ResponseInterface;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidQueryString;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
 use ExtendsSoftware\ExaPHP\Router\Exception\MethodNotAllowed;
@@ -20,7 +21,6 @@ use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\NotFoundProblemDetail
 use ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails\QueryParameterNotAllowedProblemDetails;
 use ExtendsSoftware\ExaPHP\Router\Route\Match\RouteMatchInterface;
 use ExtendsSoftware\ExaPHP\Router\RouterInterface;
-use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
 class RouterMiddlewareTest extends TestCase

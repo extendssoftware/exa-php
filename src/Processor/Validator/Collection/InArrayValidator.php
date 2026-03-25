@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Collection;
+
+use ExtendsSoftware\ExaPHP\Processor\AbstractProcessor;
+use ExtendsSoftware\ExaPHP\Processor\Exception\TemplateNotFound;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
+
+use function in_array;
+
+class InArrayValidator extends AbstractProcessor
+{
+    /**
+     * When value not in array.
+     *
+     * @var string
+     */
+    public const string NOT_IN_ARRAY = 'notInArray';
+
+    /**
+     * InArrayValidator constructor.
+     *
+     * @param array<mixed> $array
+     * @param bool|null    $strict
+     */
+    public function __construct(private readonly array $array, private readonly ?bool $strict = null)
+    {
+    }
+
+    /**
+     * @inheritDoc
+     * @throws TemplateNotFound
+     */
+    public function process($value, mixed $context = null): ResultInterface
+    {
+        if (!in_array($value, $this->array, $this->strict ?? false)) {
+            return $this->getInvalidResult(self::NOT_IN_ARRAY, [
+                'value' => $value,
+                'array' => $this->array,
+            ]);
+        }
+
+        return $this->getValidResult($value);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getTemplates(): array
+    {
+        return [
+            self::NOT_IN_ARRAY => 'Value {{value}} is not allowed in array, only {{values}} are allowed.',
+        ];
+    }
+}

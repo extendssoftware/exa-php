@@ -5,8 +5,8 @@ namespace ExtendsSoftware\ExaPHP\Router\Framework\ProblemDetails;
 
 use ExtendsSoftware\ExaPHP\Http\Request\RequestInterface;
 use ExtendsSoftware\ExaPHP\Http\Request\Uri\UriInterface;
+use ExtendsSoftware\ExaPHP\Processor\Result\ResultInterface;
 use ExtendsSoftware\ExaPHP\Router\Exception\InvalidRequestBody;
-use ExtendsSoftware\ExaPHP\Validator\Result\ResultInterface;
 use PHPUnit\Framework\TestCase;
 
 class InvalidRequestBodyProblemDetailsTest extends TestCase

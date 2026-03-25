@@ -1,0 +1,103 @@
+<?php
+
+declare(strict_types=1);
+
+namespace ExtendsSoftware\ExaPHP\Processor\Validator\Collection;
+
+use ExtendsSoftware\ExaPHP\Processor\Result\Invalid\InvalidResult;
+use ExtendsSoftware\ExaPHP\Processor\Result\Valid\ValidResult;
+use PHPUnit\Framework\TestCase;
+
+class InArrayValidatorTest extends TestCase
+{
+    /**
+     * Valid.
+     *
+     * Test that value exists in an array and a valid result will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::process()
+     */
+    public function testValid(): void
+    {
+        $validator = new InArrayValidator([
+            'foo',
+            'bar',
+            'baz',
+        ]);
+        $result = $validator->process('foo');
+
+        $this->assertInstanceOf(ValidResult::class, $result);
+        $this->assertSame('foo', $result->getValue());
+    }
+
+    /**
+     * Strictness.
+     *
+     * Test that value will be validated with type strictness.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::process()
+     */
+    public function testStrictness(): void
+    {
+        $validator = new InArrayValidator([
+            '1',
+            2,
+            3.0,
+        ], true);
+
+        $result1 = $validator->process('1');
+        $result2 = $validator->process(2);
+        $result3 = $validator->process(3.0);
+        $result4 = $validator->process(1);
+        $result5 = $validator->process('2');
+        $result6 = $validator->process(3);
+
+        $this->assertInstanceOf(ValidResult::class, $result1);
+        $this->assertSame('1', $result1->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result2);
+        $this->assertSame(2, $result2->getValue());
+
+        $this->assertInstanceOf(ValidResult::class, $result3);
+        $this->assertSame(3.0, $result3->getValue());
+
+        $this->assertInstanceOf(InvalidResult::class, $result4);
+        $this->assertInstanceOf(InvalidResult::class, $result5);
+        $this->assertInstanceOf(InvalidResult::class, $result6);
+    }
+
+    /**
+     * Not in array.
+     *
+     * Test that value does not exist in an array and an invalid result will be returned.
+     *
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::__construct()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::process()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Validator\Collection\InArrayValidator::getTemplates()
+     */
+    public function testInvalid(): void
+    {
+        $validator = new InArrayValidator([
+            'foo',
+            'bar',
+            'baz',
+        ]);
+        $result = $validator->process('qux');
+
+        $this->assertInstanceOf(InvalidResult::class, $result);
+        $this->assertEquals([
+            'code' => 'notInArray',
+            'message' => 'Value {{value}} is not allowed in array, only {{values}} are allowed.',
+            'parameters' => (object)[
+                'value' => 'qux',
+                'array' => [
+                    'foo',
+                    'bar',
+                    'baz',
+                ],
+            ],
+        ], $result->jsonSerialize());
+    }
+}
