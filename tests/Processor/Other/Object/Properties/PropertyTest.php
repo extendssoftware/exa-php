@@ -15,7 +15,7 @@ class PropertyTest extends TestCase
      * Test that get methods will return correct values.
      *
      * @covers \ExtendsSoftware\ExaPHP\Processor\Other\Object\Properties\Property::__construct()
-     * @covers \ExtendsSoftware\ExaPHP\Processor\Other\Object\Properties\Property::getName()
+     * @covers \ExtendsSoftware\ExaPHP\Processor\Other\Object\Properties\Property::getValue()
      * @covers \ExtendsSoftware\ExaPHP\Processor\Other\Object\Properties\Property::getProcessor()
      */
     public function testGetMethods(): void
@@ -24,7 +24,7 @@ class PropertyTest extends TestCase
 
         $property = new Property('foo', $processor);
 
-        $this->assertSame('foo', $property->getName());
+        $this->assertSame('foo', $property->getValue());
         $this->assertSame($processor, $property->getProcessor());
     }
 }

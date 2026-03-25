@@ -53,10 +53,10 @@ class RangeValidator extends AbstractProcessor
      */
     public function process($value, mixed $context = null): ResultInterface
     {
-        $result = (new PropertiesProcessor([
-            $this->leftKey => $this->leftProcessor,
-            $this->rightKey => $this->rightProcessor,
-        ]))->process($value);
+        $result = (new PropertiesProcessor())
+            ->addProperty($this->leftKey, $this->leftProcessor)
+            ->addProperty($this->rightKey, $this->rightProcessor)
+            ->process($value);
         if (!$result->isValid()) {
             return $result;
         }

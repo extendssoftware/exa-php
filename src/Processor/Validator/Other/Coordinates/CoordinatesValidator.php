@@ -45,10 +45,9 @@ class CoordinatesValidator extends AbstractProcessor
      */
     public function process($value, mixed $context = null): ResultInterface
     {
-        $validator = new PropertiesProcessor([
-            $this->latitude => new LatitudeValidator(),
-            $this->longitude => new LongitudeValidator(),
-        ]);
+        $validator = (new PropertiesProcessor())
+            ->addProperty($this->latitude, new LatitudeValidator())
+            ->addProperty($this->longitude, new LongitudeValidator());
 
         return $validator->process($value);
     }

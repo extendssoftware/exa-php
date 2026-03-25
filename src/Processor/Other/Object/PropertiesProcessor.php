@@ -42,16 +42,10 @@ class PropertiesProcessor extends AbstractProcessor
     /**
      * PropertiesProcessor constructor.
      *
-     * @param array<string, ProcessorInterface>|null $properties
-     * @param bool|null                              $strict
+     * @param bool|null $strict
      */
-    public function __construct(?array $properties = null, private ?bool $strict = null)
+    public function __construct(private readonly ?bool $strict = true)
     {
-        $this->strict ??= true;
-
-        foreach ($properties ?? [] as $property => $processor) {
-            $this->addProperty($property, $processor);
-        }
     }
 
     /**
@@ -67,7 +61,7 @@ class PropertiesProcessor extends AbstractProcessor
 
         $container = new ObjectContainerResult();
         foreach ($this->properties as $property) {
-            $name = $property->getName();
+            $name = $property->getValue();
             if (!property_exists($value, $name)) {
                 if (!$property->getProcessor() instanceof ProxyProcessor) {
                     $result = $this->getInvalidResult(self::PROPERTY_MISSING, [
@@ -132,7 +126,7 @@ class PropertiesProcessor extends AbstractProcessor
      * @return void
      * @throws TemplateNotFound
      */
-    private function checkStrictness(ObjectContainerResult $container, mixed $object): void
+    protected function checkStrictness(ObjectContainerResult $container, mixed $object): void
     {
         foreach ($object as $property => $value) {
             if (!array_key_exists($property, $this->properties)) {

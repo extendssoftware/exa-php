@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Removed TransformingValidator in favor of ProcessorPipeline where the previous result value will be used for the next
   processor.
+- Removed processors parameters from PropertyDependentProcessor::__construct() and PropertiesProcessor::__construct().
 
 ### Fixed
 

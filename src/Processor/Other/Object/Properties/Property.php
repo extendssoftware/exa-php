@@ -11,21 +11,21 @@ readonly class Property
     /**
      * Property constructor.
      *
-     * @param int|string         $name
+     * @param mixed              $value
      * @param ProcessorInterface $processor
      */
-    public function __construct(private int|string $name, private ProcessorInterface $processor)
+    public function __construct(private mixed $value, private ProcessorInterface $processor)
     {
     }
 
     /**
-     * Get property name.
+     * Get property value.
      *
-     * @return int|string
+     * @return mixed
      */
-    public function getName(): int|string
+    public function getValue(): mixed
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
