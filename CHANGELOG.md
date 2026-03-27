@@ -229,7 +229,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 - Initial version.
 
-[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.9.0...HEAD
+[unreleased]: https://github.com/extendssoftware/exa-php/compare/0.9.1...HEAD
+
+[0.9.1]: https://github.com/extendssoftware/exa-php/commits/0.9.1
 
 [0.9.0]: https://github.com/extendssoftware/exa-php/commits/0.9.0
 
